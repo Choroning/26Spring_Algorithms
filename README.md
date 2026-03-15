@@ -47,7 +47,7 @@ This repository contains code examples developed for a university-level Algorith
 | Type | Contents |
 |:----:|:---------|
 |Textbook|"Introduction to Algorithms, 3rd Edition" by Cormen, Leiserson, Rivest, and Stein (CLRS)|
-|Other|Lecture Slides by instructor|
+|Lecture Notes|[Instructor's Markdown notes and slides (GitHub)](https://github.com/codingchild2424/2026-lecture-algorithm)|
 
 <br><a name="prerequisites"></a>
 ## ✅ Prerequisites
