@@ -172,7 +172,7 @@ gemini --version    # 또는: claude --version
 
 Geoffrey Huntley가 만든 **bash 스크립트 루프**로, *The Simpsons*의 **Ralph Wiggum**에서 이름을 따왔다. AI 코딩 에이전트를 작업이 완료될 때까지 **반복적으로** 실행하여 자동화한다.
 
-![Ralph Wiggum](./images/ralph-wiggum.jpg)
+![Ralph Wiggum](../images/ralph-wiggum.jpg)
 
 **작동 방식:**
 
@@ -196,7 +196,7 @@ Geoffrey Huntley가 만든 **bash 스크립트 루프**로, *The Simpsons*의 **
 
 한국 최초의 **Ralphton** 해커톤에서, 13개 엘리트 팀이 AI 에이전트에게 **밤새 자율적으로 코딩**을 시키고 다음 날 아침 결과를 검토했다.
 
-![OpenClaw Lobster](./images/openclaw-lobster.png)
+![OpenClaw Lobster](../images/openclaw-lobster.png)
 
 | 지표 | 값 | 설명 |
 |:-----|:---|:-----|
