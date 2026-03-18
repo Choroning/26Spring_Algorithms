@@ -1,6 +1,6 @@
 # W03 이론 — 배열, 스택, 큐, 그리고 기본 정렬 알고리즘
 
-> **최종 수정일:** 2026-03-17
+> **최종 수정일:** 2026-03-18
 
 ---
 
@@ -109,13 +109,13 @@ typedef struct ListNode {
 - `pop()`: 맨 위에서 원소 제거
 
 ```
-        ┌─────┐
- top →  │  C  │
-        ├─────┤
-        │  B  │
-        ├─────┤
-bottom →│  A  │
-        └─────┘
+         ┌─────┐
+   top → │  C  │
+         ├─────┤
+         │  B  │
+         ├─────┤
+bottom → │  A  │
+         └─────┘
 ```
 
 - 활용: 함수 호출 스택, 수식 평가, 백트래킹
@@ -211,9 +211,9 @@ bottom →│  A  │
 ```
 selectionSort(A[], n)          ▷ A[1...n]을 정렬
 {
-    for last ← n downto 2 {                          ── ①
+    for last ← n downto 2 {                           ── ①
         Find the largest element A[k] in A[1...last]; ── ②
-        A[k] ↔ A[last];   ▷ A[k]와 A[last]를 교환   ── ③
+        A[k] ↔ A[last];   ▷ A[k]와 A[last]를 교환       ── ③
     }
 }
 ```
@@ -271,9 +271,9 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 ```
 bubbleSort(A[], n)             ▷ A[1...n]을 정렬
 {
-    for last ← n downto 2                                  ── ①
-        for i ← 1 to last-1                                ── ②
-            if (A[i] > A[i+1]) then A[i] ↔ A[i+1];        ── ③
+    for last ← n downto 2                            ── ①
+        for i ← 1 to last-1                          ── ②
+            if (A[i] > A[i+1]) then A[i] ↔ A[i+1];   ── ③
 }
 ```
 
@@ -327,8 +327,8 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 ```
 insertionSort(A[], n)          ▷ A[1...n]을 정렬
 {
-    for i ← 2 to n                                         ── ①
-        Insert A[i] into its proper place in A[1...i];      ── ②
+    for i ← 2 to n                                      ── ①
+        Insert A[i] into its proper place in A[1...i];  ── ②
 }
 ```
 
@@ -381,8 +381,8 @@ T(n) = T(n-1) + Θ(n)
 insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
   if (n == 1) return;         if (n == 1) return;         if (n == 1) return;
   insertionSort(A, n-1);      maxSwap(A, n);              bubble(A, n);
-  insert(A, n);                selectionSort(A, n-1);      bubbleSort(A, n-1);
-}                            }                           }
+  insert(A, n);               selectionSort(A, n-1);      bubbleSort(A, n-1);
+}                           }                           }
 ```
 
 > 핵심 차이: 삽입 정렬은 재귀 호출 **후에** 작업하고, 선택/버블 정렬은 재귀 호출 **전에** 작업한다.
@@ -403,7 +403,7 @@ insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
 3. **결합(Combine)**: 두 정렬된 반쪽을 합병한다
 
 ```text
-[31, 3, 65, 73, 8, 11, 20, 29, 48, 15]    원본
+[31, 3, 65, 73, 8, 11, 20, 29, 48, 15]     원본
 
 [31, 3, 65, 73, 8] | [11, 20, 29, 48, 15]  ① 분할
 
@@ -419,8 +419,8 @@ mergeSort(A[], p, r)           ▷ A[p...r]을 정렬
 {
     if (p < r) then {
         q ← floor((p + r) / 2);       ▷ 중간점
-        mergeSort(A, p, q);            ▷ 왼쪽 반 정렬
-        mergeSort(A, q+1, r);          ▷ 오른쪽 반 정렬
+        mergeSort(A, p, q);           ▷ 왼쪽 반 정렬
+        mergeSort(A, q+1, r);         ▷ 오른쪽 반 정렬
         merge(A, p, q, r);            ▷ 두 정렬된 반쪽을 합병
     }
 }
@@ -448,8 +448,8 @@ merge(A[], p, q, r)            ▷ A[p...q]와 A[q+1...r]을 합병
 `[3, 8, 31, 65, 73]`과 `[11, 15, 20, 29, 48]`을 합병한다:
 
 ```
- i                       j
-[3, 8, 31, 65, 73]     [11, 15, 20, 29, 48]     tmp = []
+ i                      j                       tmp
+[3, 8, 31, 65, 73]     [11, 15, 20, 29, 48]     []
 
 단계 1: 3 < 11  → tmp = [3],        i 오른쪽으로
 단계 2: 8 < 11  → tmp = [3, 8],     i 오른쪽으로
@@ -473,7 +473,7 @@ $$T(n) = 2T\left(\frac{n}{2}\right) + \Theta(n)$$
 **재귀 트리**: 각 레벨의 총 작업량이 Θ(n)이고, log₂(n)개의 레벨이 존재한다.
 
 ```
-레벨 0:         n                    → n 작업
+레벨 0:         n                   → n 작업
 레벨 1:     n/2   n/2               → n 작업
 레벨 2:   n/4 n/4 n/4 n/4           → n 작업
   ...
@@ -526,7 +526,7 @@ quickSort(A[], p, r)           ▷ A[p...r]을 정렬
 ```
 partition(A[], p, r)
 {
-    pivot ← A[r];                  ▷ 마지막 원소를 피벗으로 선택
+    pivot ← A[r];                 ▷ 마지막 원소를 피벗으로 선택
     i ← p - 1;
     for j ← p to r-1 {
         if (A[j] ≤ pivot) {
@@ -618,12 +618,12 @@ T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
 **힙(Heap)**: 힙 속성을 가진 완전 이진 트리로, 배열에 저장한다.
 
 ```
-   최소 힙 예시             최대 힙 예시
-       3                         9
-      / \                       / \
-     6   4                     7   8
-    / \   \                   / \   \
-   8   9   7                 3   6   4
+   최소 힙 예시         최대 힙 예시
+       3                 9
+      / \               / \
+     6   4             7   8
+    / \   \           / \   \
+   8   9   7         3   6   4
 ```
 
 **배열 표현** (1-인덱스):
@@ -693,19 +693,19 @@ heapify(A[], k, n)                     ▷ A[k]를 루트로 하는 힙 수정
 `A = [7, 9, 4, 8, 6, 3]`으로부터 최소 힙을 구축한다:
 
 ```
-(a) 시작         (b) heapify(3)  (c) heapify(2)
-     7               7               7
-    / \              / \             / \
-   9   4            9   3           6   3
-  / \   \          / \   \         / \   \
- 8   6   3        8   6   4       8   9   4
+(a) 시작         (b) heapify(3)   (c) heapify(2)
+     7                 7                7
+    / \               / \              / \
+   9   4             9   3            6   3
+  / \   \           / \   \          / \   \
+ 8   6   3         8   6   4        8   9   4
 
-(d) heapify(1)  (e) 최종 힙
-     3               3
-    / \              / \
-   6   4            6   4
-  / \   \          / \   \
- 8   9   7        8   9   7
+(d) heapify(1)   (e) 최종 힙
+     3                 3
+    / \               / \
+   6   4             6   4
+  / \   \           / \   \
+ 8   9   7         8   9   7
 ```
 
 > buildHeap은 노드를 **아래에서 위로** (floor(n/2)에서 1까지) 처리한다.
@@ -796,7 +796,7 @@ radixSort(A[], n, k)           ▷ 원소가 최대 k자리
 {
     for i ← 1 to k
         Stable-sort A[1...n] on the i-th digit;
-                                ▷ i번째 자릿수에 대해 안정 정렬
+                               ▷ i번째 자릿수에 대해 안정 정렬
 }
 ```
 
@@ -861,13 +861,13 @@ countingSort(A[], B[], n)      ▷ A[1...n]: 입력, B[1...n]: 출력
 `A = [3, 1, 2, 1, 1, 4, 2, 3, 1, 2]`를 k = 4로 정렬한다:
 
 ```
-1단계: 발생 횟수 세기              2단계: 누적 합
+1단계: 발생 횟수 세기                 2단계: 누적 합
 C = [4, 3, 2, 1]                  C = [4, 7, 9, 10]
      1  2  3  4                        1  2  3  4
 
      ↑                                 ↑
-     1이 4번, 2가 3번,                  1 이하 원소: 4개
-     3이 2번, 4가 1번                   2 이하 원소: 7개
+     1이 4번, 2가 3번,                   1 이하 원소: 4개
+     3이 2번, 4가 1번                    2 이하 원소: 7개
                                        3 이하 원소: 9개
                                        4 이하 원소: 10개
 
@@ -950,6 +950,6 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(}k = O(n)\text{일 때)}$$
 
 - **다음 주**: 더 고급 알고리즘 패러다임
 
-**문의:** codingchild@korea.ac.kr
+**문의:** *[블라인드 처리됨]*
 
 ---
