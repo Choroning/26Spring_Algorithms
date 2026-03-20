@@ -1,6 +1,6 @@
 # Week 3 Lecture — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-> **Last Updated:** 2026-03-18
+> **Last Updated:** 2026-03-21
 
 ---
 

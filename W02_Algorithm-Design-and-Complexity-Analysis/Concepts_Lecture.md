@@ -1,6 +1,6 @@
 # Week 2 Lecture — Algorithm Design and Complexity Analysis
 
-> **Last Updated:** 2026-03-18
+> **Last Updated:** 2026-03-21
 
 ---
 

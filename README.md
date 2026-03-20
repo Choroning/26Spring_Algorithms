@@ -22,11 +22,11 @@ This repository organizes and stores sample Python code written for university l
 <br><a name="about-this-repository"></a>
 ## 📝 About This Repository
 
-This repository contains code examples developed for a university-level Algorithms course in Python, including:
+This repository contains bilingual study materials and code developed for a university-level Algorithms course, including:
 
-- Lecture demonstration codes
-- Assignment solutions
-- Additional practice exercises
+- Bilingual Concepts notes (Korean `.ko.md` + English `.md`) for every lecture and lab session
+- Assignment solutions with detailed explanation documents
+- Weekly directory structure covering the full CLRS-based curriculum
 
 > **🤖 AI-Assisted Development**
 > This course encourages the use of AI agents.
@@ -67,11 +67,45 @@ This repository contains code examples developed for a university-level Algorith
 
 ```plaintext
 26Spring_Algorithms
+├── W01_Introduction-to-Algorithms
+│   ├── Concepts-Lab.ko.md
+│   ├── Concepts-Lab.md
+│   ├── Concepts-Lecture.ko.md
+│   └── Concepts-Lecture.md
+├── W02_Algorithm-Design-and-Complexity-Analysis
+│   ├── Assignment
+│   │   ├── app.py
+│   │   ├── locustfile.py
+│   │   ├── requirements.txt
+│   │   └── static
+│   │       ├── app.js
+│   │       ├── index.html
+│   │       └── style.css
+│   ├── Assignment-Report.pdf
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
+├── W03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
+├── W04_Divide-and-Conquer-Algorithms
+├── W05_Greedy-Algorithms
+├── W06_Dynamic-Programming
+├── W07_Midterm-Review
+├── W09_Search-Trees
+├── W10_Hash-Tables-and-Set-Data-Structures
+├── W11_Graph-Algorithms-I
+├── W12_Graph-Algorithms-II
+├── W13_NP-Completeness-and-Approximation-Algorithms
+├── W14_Approximation-Algorithms
+├── images
+│   └── (lecture figure images)
 ├── LICENSE
 ├── README.ko.md
 └── README.md
-
-0 directories, 3 files
 ```
 
 <br><a name="license"></a>

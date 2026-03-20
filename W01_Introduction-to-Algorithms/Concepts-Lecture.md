@@ -1,6 +1,6 @@
 # Week 1 Lecture — Introduction to Algorithms
 
-> **Last Updated:** 2026-03-18
+> **Last Updated:** 2026-03-21
 
 ---
 

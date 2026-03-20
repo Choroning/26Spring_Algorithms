@@ -1,6 +1,6 @@
 # Week 2 Lab — Complexity Analysis Practice
 
-> **Last Updated:** 2026-03-17
+> **Last Updated:** 2026-03-21
 
 ---
 

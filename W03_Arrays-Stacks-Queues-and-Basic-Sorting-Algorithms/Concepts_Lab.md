@@ -1,6 +1,6 @@
 # Week 3 Lab — Sorting Algorithm Implementation & Benchmarks
 
-> **Last Updated:** 2026-03-19
+> **Last Updated:** 2026-03-21
 
 ---
 
