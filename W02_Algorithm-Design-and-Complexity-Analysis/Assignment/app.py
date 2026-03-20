@@ -1,3 +1,10 @@
+"""
+@file    app.py
+@brief   FastAPI product search server for complexity analysis lab
+@author  Cheolwon Park
+@date    2026-03-XX
+"""
+
 import time
 import random
 import os

@@ -1,3 +1,10 @@
+"""
+@file    locustfile.py
+@brief   Locust load testing script for product search API
+@author  Cheolwon Park
+@date    2026-03-XX
+"""
+
 from locust import HttpUser, task
 class ShopUser(HttpUser):
     @task

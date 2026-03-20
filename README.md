@@ -30,7 +30,7 @@ This repository contains bilingual study materials and code developed for a univ
 
 > **🤖 AI-Assisted Development**
 > This course encourages the use of AI agents.
-> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://geminicli.com) were used as coding assistants throughout the course.
+> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://github.com/google-gemini/gemini-cli) were used as coding assistants throughout the course.
 
 <br><a name="course-information"></a>
 ## 📚 Course Information
