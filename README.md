@@ -111,6 +111,6 @@ This repository contains bilingual study materials and code developed for a univ
 <br><a name="license"></a>
 ## 🤝 License
 
-This repository is released under the [Apache License 2.0](LICENSE).
+This repository is released under the [MIT License](LICENSE).
 
 ---
