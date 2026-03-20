@@ -22,11 +22,11 @@
 <br><a name="about-this-repository"></a>
 ## 📝 레포지토리 소개
 
-이 레포지토리에는 대학 수준의 Python 알고리즘 과목을 위해 작성된 코드가 포함되어 있습니다:
+이 레포지토리에는 대학 수준의 알고리즘 과목을 위해 작성된 이중 언어 학습 자료와 코드가 포함되어 있습니다:
 
-- 강의에서 소개한 코드
-- 각 과제의 솔루션
-- 추가적인 연습 문제
+- 매 강의 및 실습 세션별 이중 언어 개념 정리 노트 (한국어 `.ko.md` + 영어 `.md`)
+- 상세한 설명 문서를 포함한 과제 솔루션
+- CLRS 기반 전체 커리큘럼을 다루는 주차별 디렉토리 구조
 
 > **🤖 AI 에이전트 활용**
 > 본 과목은 AI 에이전트 사용을 권장합니다.
@@ -67,11 +67,45 @@
 
 ```plaintext
 26Spring_Algorithms
+├── W01_Introduction-to-Algorithms
+│   ├── Concepts-Lab.ko.md
+│   ├── Concepts-Lab.md
+│   ├── Concepts-Lecture.ko.md
+│   └── Concepts-Lecture.md
+├── W02_Algorithm-Design-and-Complexity-Analysis
+│   ├── Assignment
+│   │   ├── app.py
+│   │   ├── locustfile.py
+│   │   ├── requirements.txt
+│   │   └── static
+│   │       ├── app.js
+│   │       ├── index.html
+│   │       └── style.css
+│   ├── Assignment-Report.pdf
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
+├── W03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
+├── W04_Divide-and-Conquer-Algorithms
+├── W05_Greedy-Algorithms
+├── W06_Dynamic-Programming
+├── W07_Midterm-Review
+├── W09_Search-Trees
+├── W10_Hash-Tables-and-Set-Data-Structures
+├── W11_Graph-Algorithms-I
+├── W12_Graph-Algorithms-II
+├── W13_NP-Completeness-and-Approximation-Algorithms
+├── W14_Approximation-Algorithms
+├── images
+│   └── (강의 도표 이미지)
 ├── LICENSE
 ├── README.ko.md
 └── README.md
-
-0개의 디렉토리, 3개의 파일
 ```
 
 <br><a name="license"></a>

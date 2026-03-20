@@ -1,82 +1,82 @@
-# 2주차 실습 — 복잡도 분석 실습
+# Week 2 Lab — Complexity Analysis Practice
 
-> **최종 수정일:** 2026-03-17
-
----
-
-## 목차
-
-- [1. 개요](#1-개요)
-  - [1.1 오늘의 목표](#11-오늘의-목표)
-- [2. Type A — 알고리즘 구현](#2-type-a--알고리즘-구현)
-  - [2.1 A-1: 타이밍 유틸리티 작성](#21-a-1-타이밍-유틸리티-작성)
-  - [2.2 A-2: 중복 찾기 — O(n²) → O(n)](#22-a-2-중복-찾기--on²--on)
-  - [2.3 A-3: 실행 시간 그래프](#23-a-3-실행-시간-그래프)
-- [3. Type B — 웹 코드 분석](#3-type-b--웹-코드-분석)
-  - [3.1 B-1: 상품 검색 API 비교](#31-b-1-상품-검색-api-비교)
-- [요약](#요약)
-- [부록](#부록)
+> **Last Updated:** 2026-03-21
 
 ---
 
-<br>
+## Table of Contents
 
-## 1. 개요
-
-### 1.1 오늘의 목표
-
-- **타이머 유틸리티**를 만들어 실행 시간을 측정한다
-- **O(n²) vs O(n)** 접근법으로 중복 찾기를 비교한다
-- **matplotlib**으로 복잡도 곡선을 시각화한다
-- **선형 탐색 vs 이진 탐색**을 웹 API 맥락에서 비교한다
-
-**실습 구성:**
-
-| 섹션 | 주제 | 시간 |
-|:-----|:-----|:-----|
-| **A-1** | 타이머 유틸리티 | 10분 |
-| **A-2** | 중복 찾기: O(n²) → O(n) | 15분 |
-| **A-3** | 실행 시간 그래프 | 10분 |
-| **B-1** | 웹 검색 API 비교 | 15분 |
+- [1. Overview](#1-overview)
+  - [1.1 Today's Goals](#11-todays-goals)
+- [2. Type A — Algorithm Implementation](#2-type-a--algorithm-implementation)
+  - [2.1 A-1: Timer Utility](#21-a-1-timer-utility)
+  - [2.2 A-2: Finding Duplicates — O(n^2) -> O(n)](#22-a-2-finding-duplicates--on²--on)
+  - [2.3 A-3: Execution Time Graph](#23-a-3-execution-time-graph)
+- [3. Type B — Web Code Analysis](#3-type-b--web-code-analysis)
+  - [3.1 B-1: Product Search API Comparison](#31-b-1-product-search-api-comparison)
+- [Summary](#summary)
+- [Appendix](#appendix)
 
 ---
 
 <br>
 
-## 2. Type A — 알고리즘 구현
+## 1. Overview
 
-### 2.1 A-1: 타이밍 유틸리티 작성
+### 1.1 Today's Goals
 
-**문제**
+- Build a **timer utility** to measure execution time
+- Compare **O(n^2) vs O(n)** approaches for finding duplicates
+- Visualize complexity curves with **matplotlib**
+- Compare **linear search vs binary search** in a web API context
 
-**목표**: 다른 함수의 실행 시간을 측정하는 재사용 가능한 함수를 작성한다.
+**Lab Structure:**
 
-**요구사항:**
+| Section | Topic | Time |
+|:--------|:------|:-----|
+| **A-1** | Timer Utility | 10 min |
+| **A-2** | Finding Duplicates: O(n^2) -> O(n) | 15 min |
+| **A-3** | Execution Time Graph | 10 min |
+| **B-1** | Web Search API Comparison | 15 min |
 
-- 어떤 함수와 그 인자든 받을 수 있어야 한다
-- 함수를 여러 번 실행하여(기본: 3회) 평균을 낸다
-- 평균 경과 시간과 함수의 결과를 모두 반환한다
-- `time.perf_counter()`를 사용하여 고해상도 타이밍을 수행한다
+---
+
+<br>
+
+## 2. Type A — Algorithm Implementation
+
+### 2.1 A-1: Timer Utility
+
+**Problem**
+
+**Goal**: Write a reusable function that measures the execution time of other functions.
+
+**Requirements:**
+
+- Must accept any function and its arguments
+- Run the function multiple times (default: 3) and compute the average
+- Return both the average elapsed time and the function's result
+- Use `time.perf_counter()` for high-resolution timing
 
 ```
  measure_time(func, *args, repeat=3)
        |
        v
-  func(*args)를 3번 실행
+  Execute func(*args) 3 times
        |
        v
-  (평균_시간, 결과) 반환
+  Return (average_time, result)
 ```
 
-> **참고:** `time.perf_counter()`는 Python에서 가장 정밀한 시간 측정 함수이다. `time.time()`보다 해상도가 높아서 매우 짧은 실행 시간도 정확하게 측정할 수 있다. 여러 번 반복 실행하는 이유는 운영체제의 스케줄링, 캐시 효과 등으로 인한 **측정 노이즈**를 줄이기 위해서이다.
+> **Note:** `time.perf_counter()` is the most precise time measurement function in Python. It has higher resolution than `time.time()`, enabling accurate measurement of even very short execution times. The reason for running multiple times is to reduce **measurement noise** caused by OS scheduling, cache effects, etc.
 
-**풀이**
+**Solution**
 
 ```python
 import time
 
 def measure_time(func, *args, repeat=3):
-    """func(*args)를 여러 번 실행하고 평균 시간(초)을 반환."""
+    """Execute func(*args) multiple times and return average time (seconds)."""
     times = []
     for _ in range(repeat):
         start = time.perf_counter()
@@ -87,9 +87,9 @@ def measure_time(func, *args, repeat=3):
     return avg, result
 ```
 
-> **참고:** 주의: 만약 func가 배열을 **제자리에서 수정(in-place)**하는 함수라면, 첫 실행 후 두 번째 실행에서는 이미 정렬된 배열을 받게 되어 측정이 왜곡될 수 있다. 이 경우 매 반복마다 데이터를 복사(`data[:]`)하여 새 복사본을 전달해야 정확한 벤치마크가 된다.
+> **Note:** Caution: if func modifies the array **in-place**, the second run receives an already-sorted array, which can distort the measurement. In such cases, you should copy the data (`data[:]`) at each iteration and pass the fresh copy for accurate benchmarking.
 
-**사용법:**
+**Usage:**
 
 ```python
 for n in [1_000, 10_000, 100_000, 1_000_000]:
@@ -98,20 +98,20 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
 
-파일: `examples/a1_timer_util.py`
+File: `examples/a1_timer_util.py`
 
-> **참고:** `*args`는 Python의 가변 인자(variable arguments)이다. 이 기법을 사용하면 `measure_time(my_func, arg1, arg2)`처럼 어떤 함수든 인자와 함께 전달할 수 있다. `_`는 관례적으로 "사용하지 않는 변수"를 나타낸다.
+> **Note:** `*args` is Python's variable arguments. This technique allows calling `measure_time(my_func, arg1, arg2)` to pass any function along with its arguments. `_` is a convention for "unused variable."
 
-### 2.2 A-2: 중복 찾기 — O(n²) → O(n)
+### 2.2 A-2: Finding Duplicates — O(n^2) -> O(n)
 
-**문제**
+**Problem**
 
-**문제**: 정수 배열에 중복이 있는지 판별하라.
+**Problem**: Determine whether an integer array contains duplicates.
 
-**두 가지 접근법:**
+**Two Approaches:**
 
 ```
-접근법 1: 완전 탐색 O(n²)                   접근법 2: 해시 집합 O(n)
+Approach 1: Brute Force O(n^2)            Approach 2: Hash Set O(n)
 +----------------------------+          +----------------------------+
 | for i in range(n):         |          | seen = set()               |
 |   for j in range(i+1, n):  |          | for x in arr:              |
@@ -119,20 +119,20 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
 |       return True          |          |     return True            |
 |                            |          |   seen.add(x)              |
 +----------------------------+          +----------------------------+
-  모든 쌍을 비교                             한 번 순회, O(1) 조회
+  Compare all pairs                       Single pass, O(1) lookup
 ```
 
-**과제:**
+**Tasks:**
 
-- 두 접근법 모두 구현한다
-- N = 100, 1000, 10000, 50000에서 실행 시간을 비교한다
-- 속도 향상 비율(Speedup)을 계산한다
+- Implement both approaches
+- Compare execution times at N = 100, 1000, 10000, 50000
+- Calculate the speedup ratio
 
-**완전 탐색 O(n²)**
+**Brute Force O(n^2)**
 
 ```python
 def has_duplicate_bruteforce(arr):
-    """O(n²): 모든 쌍을 비교."""
+    """O(n^2): Compare all pairs."""
     n = len(arr)
     for i in range(n):
         for j in range(i + 1, n):
@@ -141,25 +141,25 @@ def has_duplicate_bruteforce(arr):
     return False
 ```
 
-**비교 횟수:**
+**Number of Comparisons:**
 
 ```
 N = 5:   arr = [3, 1, 4, 1, 5]
 
-  i=0: 비교 (0,1) (0,2) (0,3) (0,4)      4번 비교
-  i=1: 비교 (1,2) (1,3) (1,4)            3번 비교
-  i=2: 비교 (2,3) (2,4)                  2번 비교
-  i=3: 비교 (3,4)                        1번 비교
-                                    합계: 10 = n(n-1)/2
+  i=0: compare (0,1) (0,2) (0,3) (0,4)    4 comparisons
+  i=1: compare (1,2) (1,3) (1,4)          3 comparisons
+  i=2: compare (2,3) (2,4)                2 comparisons
+  i=3: compare (3,4)                      1 comparison
+                                    Total: 10 = n(n-1)/2
 ```
 
-> **참고:** 이 이중 루프 패턴은 자료구조/알고리즘에서 매우 흔하다. 핵심은 $j = i+1$부터 시작한다는 것이다 — 이렇게 하면 (i, j)와 (j, i)를 중복 비교하지 않는다. 비교 횟수 $\frac{n(n-1)}{2}$는 조합론에서 $_nC_2$ (n개에서 2개를 뽑는 조합의 수)와 같다.
+> **Note:** This double-loop pattern is very common in data structures/algorithms. The key is that $j = i+1$ — this prevents redundant comparison of both (i, j) and (j, i). The comparison count $\frac{n(n-1)}{2}$ equals $_nC_2$ (the number of ways to choose 2 items from n) in combinatorics.
 
-**해시 집합 O(n)**
+**Hash Set O(n)**
 
 ```python
 def has_duplicate_hashset(arr):
-    """O(n): 집합 사용."""
+    """O(n): Using a set."""
     seen = set()
     for x in arr:
         if x in seen:
@@ -168,27 +168,27 @@ def has_duplicate_hashset(arr):
     return False
 ```
 
-**작동 방식:**
+**How It Works:**
 
 ```
 arr = [3, 1, 4, 1, 5]
 
-단계 1: x=3  seen={}        → 3 추가    seen={3}
-단계 2: x=1  seen={3}       → 1 추가    seen={3,1}
-단계 3: x=4  seen={3,1}     → 4 추가    seen={3,1,4}
-단계 4: x=1  seen={3,1,4}   → 1이 있음! True 반환
+Step 1: x=3  seen={}        → add 3    seen={3}
+Step 2: x=1  seen={3}       → add 1    seen={3,1}
+Step 3: x=4  seen={3,1}     → add 4    seen={3,1,4}
+Step 4: x=1  seen={3,1,4}   → 1 found! Return True
 ```
 
-10번 비교 대신 **4단계**만에 완료!
+Completed in just **4 steps** instead of 10 comparisons!
 
-> **[자료구조]** Python의 `set`은 내부적으로 **해시 테이블(Hash Table)** 로 구현된다. 자료구조 시간에 배웠듯이, 해시 테이블은 키를 해시 함수로 변환하여 배열의 특정 위치에 저장한다. 이 덕분에 **삽입(add)과 조회(in)가 평균 O(1)** 에 가능하다. 이것이 O(n²)을 O(n)으로 줄이는 핵심이다 — 배열에서 특정 값을 찾으려면 O(n)이지만, 해시 테이블에서는 O(1)이다. 단, 최악의 경우(해시 충돌이 많을 때)에는 O(n)이 될 수 있지만, 실무에서는 거의 항상 O(1)이다.
+> **[Data Structures]** Python's `set` is internally implemented as a **hash table**. As learned in Data Structures, a hash table converts keys via a hash function and stores them at specific positions in an array. Thanks to this, **insertion (add) and lookup (in) are O(1) on average**. This is the key to reducing O(n^2) to O(n) — finding a specific value in an array is O(n), but in a hash table it is O(1). In the worst case (many hash collisions), it can degrade to O(n), but in practice it is almost always O(1).
 
-**벤치마크 결과**
+**Benchmark Results**
 
-`examples/a2_find_duplicate.py` 실행 후 비교:
+After running `examples/a2_find_duplicate.py`:
 
 ```
-         N |        O(n²) |         O(n) |   Speedup
+         N |        O(n^2) |         O(n) |   Speedup
 ----------------------------------------------------
        100 |     0.000150 |     0.000005 |     30.0x
      1,000 |     0.015000 |     0.000050 |    300.0x
@@ -196,30 +196,30 @@ arr = [3, 1, 4, 1, 5]
     50,000 |    37.500000 |     0.002500 | 15,000.0x
 ```
 
-*(대략적인 값 — 실제 결과는 다를 수 있다)*
+*(Approximate values — actual results may vary)*
 
-**핵심 통찰**: Speedup이 N에 비례하여 증가한다!
+**Key Insight**: Speedup increases proportionally with N!
 
-N이 2배가 되면, O(n²)은 ~4배 느려지지만, O(n)은 ~2배만 느려진다.
+When N doubles, O(n^2) becomes ~4x slower, but O(n) becomes only ~2x slower.
 
-> **핵심:** 이 결과의 수학적 근거를 살펴보면, Speedup ≈ O(n²) / O(n) = n²/n = **n** 이다. 즉, N이 커질수록 Speedup도 선형적으로 증가한다! N=50,000이면 약 50,000배 빠른 것이 이론적으로 예측되고, 실제 측정값(15,000x)도 비슷한 경향을 보여준다. 이것이 "알고리즘 선택이 중요하다"는 것을 실제 데이터로 확인하는 과정이다.
+> **Key Point:** The mathematical basis for this result: Speedup ~ O(n^2) / O(n) = n^2/n = **n**. That is, as N grows, the speedup also increases linearly! For N=50,000, the theoretical prediction is approximately 50,000x faster, and the measured value (15,000x) shows a similar trend. This is the process of confirming with real data that "algorithm choice matters."
 
-> **참고:** 실제 벤치마크에서 Speedup이 이론값(≈ n)과 다를 수 있는 이유: (1) 해시 테이블의 상수 오버헤드가 작은 N에서는 무시할 수 없고, (2) CPU 캐시 효과로 배열 순회가 예상보다 빠를 수 있으며, (3) Python의 `set`은 C로 구현되어 Python 이중 루프보다 상수 인자가 훨씬 작다. 이론적 복잡도와 실측값은 "추세"는 일치하지만 정확한 배수는 달라진다.
+> **Note:** Reasons the actual benchmark speedup may differ from the theoretical value (~n): (1) Hash table constant overhead is non-negligible for small N, (2) CPU cache effects can make array traversal faster than expected, and (3) Python's `set` is implemented in C, so its constant factor is much smaller than a Python double loop. The theoretical complexity and measured values agree in "trend" but differ in exact multipliers.
 
-### 2.3 A-3: 실행 시간 그래프
+### 2.3 A-3: Execution Time Graph
 
-`examples/a3_complexity_plot.py`를 실행하여 증가율을 시각화한다:
+Run `examples/a3_complexity_plot.py` to visualize growth rates:
 
 ```bash
 python examples/a3_complexity_plot.py
 ```
 
-> **참고:** `matplotlib`은 Python의 대표적 데이터 시각화 라이브러리이다. 설치되어 있지 않다면 `pip install matplotlib`으로 설치할 수 있다.
+> **Note:** `matplotlib` is Python's representative data visualization library. If not installed, use `pip install matplotlib`.
 
 ```
-시간
+Time
  ^
- |                                        .  O(n²)
+ |                                        .  O(n^2)
  |                                    .
  |                                .
  |                           .
@@ -233,26 +233,26 @@ python examples/a3_complexity_plot.py
  +-----------------------------------------> N
 ```
 
-**관찰할 점:**
+**What to Observe:**
 
-- O(1)은 평평하다 — 입력 크기에 무관하게 일정하다
-- O(n)은 선형 증가한다 — N이 2배면 시간도 2배이다
-- O(n log n)은 선형보다 약간 빠르게 증가한다
-- O(n²)은 극적으로 증가한다 — 금방 비실용적이 된다
+- O(1) is flat — constant regardless of input size
+- O(n) grows linearly — if N doubles, time doubles
+- O(n log n) grows slightly faster than linear
+- O(n^2) grows dramatically — quickly becomes impractical
 
-> **핵심:** 이 그래프를 직접 눈으로 보면 "복잡도의 차이"가 정말 실감난다. 특히 주목할 점은 **O(n)과 O(n²) 사이의 간극**이다. 작은 N에서는 큰 차이가 없지만, N이 커질수록 격차가 가속도로 벌어진다. 이것이 점근적 분석이 중요한 이유이다 — 작은 입력에서는 느린 알고리즘도 괜찮지만, 데이터가 커지면 알고리즘의 복잡도가 결정적인 차이를 만든다.
+> **Key Point:** Seeing this graph firsthand makes "the difference in complexity" truly tangible. The particularly notable point is the **gap between O(n) and O(n^2)**. At small N, the difference is negligible, but as N grows, the gap accelerates. This is why asymptotic analysis matters — for small inputs, even a slow algorithm is fine, but as data grows, the algorithm's complexity makes a decisive difference.
 
 ---
 
 <br>
 
-## 3. Type B — 웹 코드 분석
+## 3. Type B — Web Code Analysis
 
-### 3.1 B-1: 상품 검색 API 비교
+### 3.1 B-1: Product Search API Comparison
 
-**설정**
+**Setup**
 
-Flask 앱을 실행하여 웹 맥락에서 검색 전략을 비교한다:
+Run the Flask app to compare search strategies in a web context:
 
 ```bash
 cd examples/b1_web_search_api
@@ -260,74 +260,74 @@ pip install flask
 python app.py
 ```
 
-**두 개의 엔드포인트:**
+**Two Endpoints:**
 
-| 엔드포인트 | 알고리즘 | 복잡도 |
-|:-----------|:---------|:-------|
-| `GET /search/linear?q=name` | 선형 탐색 | O(n) |
-| `GET /search/binary?q=name` | 이진 탐색 | O(log n) |
+| Endpoint | Algorithm | Complexity |
+|:---------|:----------|:-----------|
+| `GET /search/linear?q=name` | Linear Search | O(n) |
+| `GET /search/binary?q=name` | Binary Search | O(log n) |
 
 ```
- 클라이언트                        서버
+ Client                          Server
     |                            |
     |  GET /search/linear?q=abc  |
-    |--------------------------->|  N개 상품 전부 스캔...
-    |<---------------------------|  찾음! (느림)
+    |--------------------------->|  Scan all N products...
+    |<---------------------------|  Found! (slow)
     |                            |
     |  GET /search/binary?q=abc  |
-    |--------------------------->|  정렬된 리스트에서 이진 탐색...
-    |<---------------------------|  찾음! (빠름)
+    |--------------------------->|  Binary search on sorted list...
+    |<---------------------------|  Found! (fast)
 ```
 
-> **참고:** Flask는 Python의 경량 웹 프레임워크이다. 여기서는 **실제 웹 서비스에서 알고리즘 선택이 응답 시간에 미치는 영향**을 체감하기 위해 사용한다. GET 요청의 `?q=name`은 쿼리 파라미터로, 검색할 상품명을 전달한다. 선형 탐색은 모든 상품을 처음부터 끝까지 확인하고, 이진 탐색은 정렬된 데이터에서 절반씩 줄여가며 찾는다.
+> **Note:** Flask is Python's lightweight web framework. It is used here to **experience how algorithm choice affects response time in a real web service**. The `?q=name` in the GET request is a query parameter that passes the product name to search for. Linear search checks all products from beginning to end, while binary search halves the search space at each step on sorted data.
 
-**차이 측정**
+**Measuring the Difference**
 
-데이터 크기를 늘려가며 테스트한다:
+Test with increasing data sizes:
 
-| N (상품 수) | 선형 O(n) | 이진 O(log n) | 비율 |
-|:------------|:----------|:--------------|:-----|
+| N (Products) | Linear O(n) | Binary O(log n) | Ratio |
+|:-------------|:------------|:----------------|:------|
 | 100 | ~0.1 ms | ~0.01 ms | ~10x |
 | 10,000 | ~10 ms | ~0.02 ms | ~500x |
 | 1,000,000 | ~1,000 ms | ~0.03 ms | ~33,000x |
 
-**토론 질문:**
+**Discussion Question:**
 
-> 데이터가 커질수록 두 접근법의 차이는 어떻게 변하는가?
+> How does the difference between the two approaches change as the data grows?
 
-**답:** 선형 탐색 시간은 N에 비례하여 증가하지만, 이진 탐색 시간은 로그적으로 증가한다. 100만 개의 상품에서 선형 탐색은 쿼리당 ~1초가 걸린다 — 실제 웹 서비스에서는 용납할 수 없는 수준이다!
+**Answer:** Linear search time grows proportionally with N, while binary search time grows logarithmically. With 1 million products, linear search takes ~1 second per query — an unacceptable level for a real web service!
 
-> **참고:** 실제 서비스에서의 의미를 분석하면 다음과 같다. 웹 서비스는 보통 200ms 이내 응답을 목표로 한다. 100만 개 상품에서:
-> - 선형 탐색 (1,000ms): 사용자가 "느리다"고 느끼고 이탈한다
-> - 이진 탐색 (0.03ms): 사용자가 "즉시" 응답을 받는다
+> **Note:** The implications for real services: Web services typically aim for responses within 200ms. With 1 million products:
+> - Linear search (1,000ms): The user perceives it as "slow" and leaves
+> - Binary search (0.03ms): The user receives an "instant" response
 >
-> 이것이 데이터베이스에서 **인덱스(index)** 를 만드는 이유이다. 인덱스는 본질적으로 "데이터를 정렬된 상태로 유지하여 이진 탐색을 가능하게 하는 자료구조"이다 (실제로는 B-트리 등 더 정교한 구조를 사용한다).
+> This is why databases create **indexes**. An index is essentially "a data structure that keeps data in sorted order to enable binary search" (in practice, more sophisticated structures like B-trees are used).
 
-> **참고:** 이진 탐색은 **정렬된 데이터**에서만 작동한다. "그러면 정렬하는 비용(O(n log n))은?" 하는 의문이 들 수 있는데, 한 번 정렬해 놓으면 이후 모든 검색이 O(log n)이므로, 검색이 자주 발생하는 서비스에서는 정렬 비용을 충분히 상쇄한다. 이것이 데이터베이스가 인덱스를 미리 만들어두는 이유이다.
-
----
-
-<br>
-
-## 요약
-
-| 개념 | 핵심 정리 |
-|:-----|:---------|
-| 타이머 유틸리티 | `time.perf_counter()`로 고해상도 시간 측정; 여러 번 반복 실행하여 평균을 내면 측정 노이즈를 줄일 수 있다 |
-| O(n²) vs O(n) 중복 찾기 | 완전 탐색(이중 루프)은 O(n²), 해시 집합 사용 시 O(n); Speedup ≈ n으로 N이 커질수록 격차가 선형 증가한다 |
-| 해시 테이블의 역할 | `set`의 삽입/조회가 평균 O(1)이므로 O(n²) → O(n) 최적화의 핵심이다 |
-| 복잡도 시각화 | O(1), O(n), O(n log n), O(n²) 곡선을 그래프로 비교하면 점근적 차이가 직관적으로 드러난다 |
-| 선형 vs 이진 탐색 (웹 API) | 선형 탐색 O(n)은 데이터가 커지면 응답 시간이 비례 증가; 이진 탐색 O(log n)은 로그적 증가로 대규모 데이터에서 압도적 우위이다 |
-| DB 인덱스와 정렬 | 이진 탐색은 정렬된 데이터 필요; 한 번 정렬(O(n log n))하면 이후 검색마다 O(log n)이므로 검색이 빈번한 서비스에서 충분히 상쇄된다 |
-| 핵심 교훈 | 알고리즘 복잡도는 단순한 이론이 아니다 — 특히 데이터가 커질수록 사용자 경험에 직접적인 영향을 미친다 |
+> **Note:** Binary search only works on **sorted data**. You might wonder, "what about the sorting cost (O(n log n))?" Once sorted, every subsequent search is O(log n), so for services with frequent searches, the sorting cost is more than offset. This is why databases build indexes in advance.
 
 ---
 
 <br>
 
-## 부록
+## Summary
 
-- **과제 1**: 과제 상세 내용은 `../3_assignment/README.md` 참조
-- **다음 주**: **3주차** — 정렬 알고리즘 구현 & 벤치마크
+| Concept | Key Takeaway |
+|:--------|:-------------|
+| Timer Utility | High-resolution timing with `time.perf_counter()`; running multiple iterations and averaging reduces measurement noise |
+| O(n^2) vs O(n) Duplicate Finding | Brute force (double loop) is O(n^2), hash set is O(n); Speedup ~ n, so the gap grows linearly with N |
+| Role of Hash Tables | `set` insertion/lookup is O(1) on average, making it the key to O(n^2) -> O(n) optimization |
+| Complexity Visualization | Graphing O(1), O(n), O(n log n), O(n^2) curves makes asymptotic differences intuitively clear |
+| Linear vs Binary Search (Web API) | Linear search O(n) response time grows proportionally with data size; binary search O(log n) grows logarithmically, offering overwhelming advantage at scale |
+| DB Indexes and Sorting | Binary search requires sorted data; sorting once (O(n log n)) is offset by O(log n) per search in services with frequent lookups |
+| Core Lesson | Algorithm complexity is not just theory — especially as data grows, it directly impacts user experience |
+
+---
+
+<br>
+
+## Appendix
+
+- **Assignment 1**: See `../3_assignment/README.md` for assignment details
+- **Next week**: **Week 3** — Sorting Algorithm Implementation & Benchmarks
 
 ---

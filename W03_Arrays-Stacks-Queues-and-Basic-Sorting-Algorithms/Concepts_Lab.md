@@ -1,85 +1,85 @@
-# 3주차 실습 — 정렬 알고리즘 구현 & 벤치마크
+# Week 3 Lab — Sorting Algorithm Implementation & Benchmarks
 
-> **최종 수정일:** 2026-03-19
-
----
-
-## 목차
-
-- [1. 개요](#1-개요)
-- [2. Type A — 알고리즘 구현](#2-type-a--알고리즘-구현)
-  - [2.1 A-1: 기초 정렬 알고리즘](#21-a-1-기초-정렬-알고리즘)
-    - [2.1.1 선택 정렬](#211-선택-정렬)
-    - [2.1.2 버블 정렬](#212-버블-정렬)
-    - [2.1.3 삽입 정렬](#213-삽입-정렬)
-  - [2.2 A-2: 고급 정렬 알고리즘](#22-a-2-고급-정렬-알고리즘)
-    - [2.2.1 병합 정렬](#221-병합-정렬)
-    - [2.2.2 퀵 정렬](#222-퀵-정렬)
-    - [2.2.3 정렬 알고리즘 비교](#223-정렬-알고리즘-비교)
-  - [2.3 A-3: 벤치마크](#23-a-3-벤치마크)
-- [3. Type B — 웹 코드 분석](#3-type-b--웹-코드-분석)
-  - [3.1 B-1: 미니 쇼핑몰 정렬 비교](#31-b-1-미니-쇼핑몰-정렬-비교)
-- [요약](#요약)
-- [연습 문제 (백준)](#연습-문제-백준)
-- [부록](#부록)
+> **Last Updated:** 2026-03-21
 
 ---
 
-<br>
+## Table of Contents
 
-## 1. 개요
-
-### 오늘의 목표
-
-- **기초** 정렬 알고리즘 구현: 선택 정렬, 버블 정렬, 삽입 정렬
-- **고급** 정렬 알고리즘 구현: 병합 정렬, 퀵 정렬
-- 모든 알고리즘을 **벤치마크**하여 성능 비교
-- **웹 애플리케이션** 맥락에서 정렬 성능 체험
-
-### 실습 구성
-
-| 섹션 | 주제 | 시간 |
-|:-----|:-----|:-----|
-| **A-1** | 기초 정렬 구현 | 10분 |
-| **A-2** | 고급 정렬 구현 | 15분 |
-| **A-3** | 전체 알고리즘 벤치마크 | 10분 |
-| **B-1** | 미니 쇼핑몰 정렬 비교 | 15분 |
+- [1. Overview](#1-overview)
+- [2. Type A — Algorithm Implementation](#2-type-a--algorithm-implementation)
+  - [2.1 A-1: Elementary Sorting Algorithms](#21-a-1-elementary-sorting-algorithms)
+    - [2.1.1 Selection Sort](#211-selection-sort)
+    - [2.1.2 Bubble Sort](#212-bubble-sort)
+    - [2.1.3 Insertion Sort](#213-insertion-sort)
+  - [2.2 A-2: Advanced Sorting Algorithms](#22-a-2-advanced-sorting-algorithms)
+    - [2.2.1 Merge Sort](#221-merge-sort)
+    - [2.2.2 Quick Sort](#222-quick-sort)
+    - [2.2.3 Sorting Algorithm Comparison](#223-sorting-algorithm-comparison)
+  - [2.3 A-3: Benchmark](#23-a-3-benchmark)
+- [3. Type B — Web Code Analysis](#3-type-b--web-code-analysis)
+  - [3.1 B-1: Mini Shopping Mall Sort Comparison](#31-b-1-mini-shopping-mall-sort-comparison)
+- [Summary](#summary)
+- [Practice Problems (Baekjoon)](#practice-problems-baekjoon)
+- [Appendix](#appendix)
 
 ---
 
 <br>
 
-## 2. Type A — 알고리즘 구현
+## 1. Overview
 
-### 2.1 A-1: 기초 정렬 알고리즘
+### Today's Goals
 
-#### 2.1.1 선택 정렬
+- Implement **elementary** sorting algorithms: Selection Sort, Bubble Sort, Insertion Sort
+- Implement **advanced** sorting algorithms: Merge Sort, Quick Sort
+- **Benchmark** all algorithms to compare performance
+- Experience sorting performance in a **web application** context
 
-**아이디어**: 최솟값을 찾아 앞으로 교환한다. 이를 반복한다.
+### Lab Structure
+
+| Section | Topic | Time |
+|:--------|:------|:-----|
+| **A-1** | Elementary sort implementation | 10 min |
+| **A-2** | Advanced sort implementation | 15 min |
+| **A-3** | Full algorithm benchmark | 10 min |
+| **B-1** | Mini shopping mall sort comparison | 15 min |
+
+---
+
+<br>
+
+## 2. Type A — Algorithm Implementation
+
+### 2.1 A-1: Elementary Sorting Algorithms
+
+#### 2.1.1 Selection Sort
+
+**Idea**: Find the minimum value and swap it to the front. Repeat.
 
 ```
 [64, 34, 25, 12, 22, 11, 90]
 
-Pass 1: 최소=11 찾기    -> [11, 34, 25, 12, 22, 64, 90]
+Pass 1: Find min=11     -> [11, 34, 25, 12, 22, 64, 90]
                          ^^^^
-Pass 2: 최소=12 찾기    -> [11, 12, 25, 34, 22, 64, 90]
+Pass 2: Find min=12     -> [11, 12, 25, 34, 22, 64, 90]
                              ^^^^
-Pass 3: 최소=22 찾기    -> [11, 12, 22, 34, 25, 64, 90]
+Pass 3: Find min=22     -> [11, 12, 22, 34, 25, 64, 90]
                                  ^^^^
-Pass 4: 최소=25 찾기    -> [11, 12, 22, 25, 34, 64, 90]
+Pass 4: Find min=25     -> [11, 12, 22, 25, 34, 64, 90]
                                      ^^^^
-완료!                     [11, 12, 22, 25, 34, 64, 90]
+Done!                     [11, 12, 22, 25, 34, 64, 90]
 ```
 
-**복잡도**: O(n²) — 항상 나머지 원소를 스캔한다.
+**Complexity**: O(n^2) — always scans the remaining elements.
 
-> **참고:** 이론 수업에서는 "최댓값을 찾아 뒤로 보내는" 방식으로 설명했지만, 실습에서는 "최솟값을 찾아 앞으로 보내는" 방식을 사용한다. 두 방식 모두 선택 정렬이며, 복잡도는 동일하다. 방향만 다를 뿐 핵심 원리(매 라운드마다 하나의 원소를 확정)는 같다.
+> **Note:** The lecture explains selection sort as "find the maximum and send it to the back," while the lab uses "find the minimum and bring it to the front." Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
 
-**풀이:**
+**Solution:**
 
 ```python
 def selection_sort(arr):
-    """Selection Sort: 최솟값을 찾아 앞으로 교환. O(n²)"""
+    """Selection Sort: Find minimum and swap to front. O(n^2)"""
     a = arr[:]
     n = len(a)
     for i in range(n):
@@ -91,34 +91,34 @@ def selection_sort(arr):
     return a
 ```
 
-> **참고:** `arr[:]`는 배열의 **얕은 복사(shallow copy)** 이다. 원본 배열을 수정하지 않고 복사본에서 정렬하기 위한 것이다. `a[i], a[min_idx] = a[min_idx], a[i]`는 Python의 동시 할당(simultaneous assignment)으로, 별도의 임시 변수 없이 두 값을 교환한다.
+> **Note:** `arr[:]` is a **shallow copy** of the array. It sorts a copy without modifying the original array. `a[i], a[min_idx] = a[min_idx], a[i]` is Python's simultaneous assignment, swapping two values without a separate temporary variable.
 
-#### 2.1.2 버블 정렬
+#### 2.1.2 Bubble Sort
 
-**아이디어**: 인접한 원소를 반복적으로 비교하고 순서가 잘못되면 교환한다. 가장 큰 원소가 끝으로 "올라간다".
+**Idea**: Repeatedly compare adjacent elements and swap if they are in the wrong order. The largest element "bubbles up" to the end.
 
 ```
 [64, 34, 25, 12]
 
 Pass 1: [34, 64, 25, 12]  swap(64,34)
          [34, 25, 64, 12]  swap(64,25)
-         [34, 25, 12, 64]  swap(64,12)  <- 64 확정
+         [34, 25, 12, 64]  swap(64,12)  <- 64 fixed
                      ^^^^
 Pass 2: [25, 34, 12, 64]  swap(34,25)
-         [25, 12, 34, 64]  swap(34,12)  <- 34 확정
+         [25, 12, 34, 64]  swap(34,12)  <- 34 fixed
                  ^^^^
-Pass 3: [12, 25, 34, 64]  swap(25,12)  <- 25 확정
+Pass 3: [12, 25, 34, 64]  swap(25,12)  <- 25 fixed
             ^^^^
-완료!   [12, 25, 34, 64]
+Done!   [12, 25, 34, 64]
 ```
 
-**최적화**: 한 패스에서 교환이 없으면 이미 정렬된 것이다 — 조기 종료!
+**Optimization**: If no swaps occur in a pass, the array is already sorted — early termination!
 
-**풀이:**
+**Solution:**
 
 ```python
 def bubble_sort(arr):
-    """Bubble Sort: 인접 원소를 반복 교환. O(n²)"""
+    """Bubble Sort: Repeatedly swap adjacent elements. O(n^2)"""
     a = arr[:]
     n = len(a)
     for i in range(n):
@@ -132,32 +132,32 @@ def bubble_sort(arr):
     return a
 ```
 
-`swapped` 플래그로 조기 종료가 가능하다 — 이미 정렬된 입력에서 최선의 경우 O(n)이다.
+The `swapped` flag enables early termination — best case O(n) for already sorted input.
 
-> **참고:** `n - i - 1`인 이유: 매 패스가 끝날 때마다 오른쪽 끝에 하나씩 원소가 확정되므로, i번째 패스에서는 마지막 i개 원소를 비교할 필요가 없다. 이 최적화가 없어도 정확성은 같지만, 불필요한 비교를 줄여준다.
+> **Note:** The reason for `n - i - 1`: After each pass, one more element is fixed at the right end, so the last i elements need not be compared in the i-th pass. This optimization does not affect correctness but reduces unnecessary comparisons.
 
-#### 2.1.3 삽입 정렬
+#### 2.1.3 Insertion Sort
 
-**아이디어**: 각 원소를 이미 정렬된 접두사의 올바른 위치에 삽입한다.
+**Idea**: Insert each element into its correct position within the already sorted prefix.
 
 ```
 [64, 34, 25, 12, 22]
 
-Step 1: [64 | 34, 25, 12, 22]  34 삽입 -> [34, 64 | 25, 12, 22]
-Step 2: [34, 64 | 25, 12, 22]  25 삽입 -> [25, 34, 64 | 12, 22]
-Step 3: [25, 34, 64 | 12, 22]  12 삽입 -> [12, 25, 34, 64 | 22]
-Step 4: [12, 25, 34, 64 | 22]  22 삽입 -> [12, 22, 25, 34, 64]
+Step 1: [64 | 34, 25, 12, 22]  Insert 34 -> [34, 64 | 25, 12, 22]
+Step 2: [34, 64 | 25, 12, 22]  Insert 25 -> [25, 34, 64 | 12, 22]
+Step 3: [25, 34, 64 | 12, 22]  Insert 12 -> [12, 25, 34, 64 | 22]
+Step 4: [12, 25, 34, 64 | 22]  Insert 22 -> [12, 22, 25, 34, 64]
 
-        정렬된 부분 | 미정렬된 부분
+        Sorted portion | Unsorted portion
 ```
 
-**최선의 경우**: 거의 정렬된 데이터에서 O(n) — 소규모/거의 정렬된 데이터에 최적이다!
+**Best case**: O(n) for nearly sorted data — optimal for small/nearly sorted data!
 
-**풀이:**
+**Solution:**
 
 ```python
 def insertion_sort(arr):
-    """Insertion Sort: 각 원소를 정렬된 접두사에 삽입. O(n²)"""
+    """Insertion Sort: Insert each element into sorted prefix. O(n^2)"""
     a = arr[:]
     for i in range(1, len(a)):
         key = a[i]
@@ -169,25 +169,25 @@ def insertion_sort(arr):
     return a
 ```
 
-> **참고:** 코드를 한 줄씩 분석하면 다음과 같다:
-> - `key = a[i]`: 삽입할 원소를 저장한다
-> - `while j >= 0 and a[j] > key`: key보다 큰 원소를 만나는 동안 반복한다
-> - `a[j + 1] = a[j]`: 큰 원소를 오른쪽으로 한 칸 밀어낸다
-> - `a[j + 1] = key`: 빈자리에 key를 삽입한다
+> **Note:** Line-by-line analysis:
+> - `key = a[i]`: Store the element to be inserted
+> - `while j >= 0 and a[j] > key`: Loop while encountering elements larger than key
+> - `a[j + 1] = a[j]`: Shift the larger element one position to the right
+> - `a[j + 1] = key`: Insert key into the vacant position
 >
-> 이미 정렬된 배열에서는 `a[j] > key` 조건이 바로 거짓이므로 while문이 실행되지 않아 O(n)이다.
+> For an already sorted array, the condition `a[j] > key` is immediately false, so the while loop does not execute, resulting in O(n).
 
-**실행 및 테스트:**
+**Run and Test:**
 
 ```bash
 python examples/solutions/a1_basic_sorts.py
 ```
 
-### 2.2 A-2: 고급 정렬 알고리즘
+### 2.2 A-2: Advanced Sorting Algorithms
 
-#### 2.2.1 병합 정렬
+#### 2.2.1 Merge Sort
 
-**아이디어**: 배열을 반으로 나누고, 각 반을 재귀적으로 정렬한 후 합병한다.
+**Idea**: Split the array in half, recursively sort each half, then merge.
 
 ```
          [38, 27, 43, 3, 9, 82, 10]
@@ -205,18 +205,18 @@ python examples/solutions/a1_basic_sorts.py
          [3, 9, 10, 27, 38, 43, 82]
 ```
 
-**복잡도**: O(n log n) — 항상 보장되는 성능이다!
+**Complexity**: O(n log n) — always guaranteed!
 
-> **핵심:** 위 트리를 보면 분할 정복의 3단계가 명확하다:
-> - 위→아래(분할): 배열을 반씩 나눈다 (총 log n 레벨)
-> - 맨 아래(기저): 원소 1개는 자명하게 정렬되어 있다
-> - 아래→위(결합): 정렬된 부분 배열을 합병한다
+> **Key Point:** Looking at the tree above, the 3 stages of divide and conquer are clear:
+> - Top-down (Divide): Split the array in half (total log n levels)
+> - Bottom (Base): A single element is trivially sorted
+> - Bottom-up (Combine): Merge sorted subarrays
 
-**풀이:**
+**Solution:**
 
 ```python
 def merge_sort(arr):
-    """Merge Sort: 분할, 반쪽 정렬, 합병. O(n log n)"""
+    """Merge Sort: Divide, sort halves, merge. O(n log n)"""
     if len(arr) <= 1:
         return arr[:]
     mid = len(arr) // 2
@@ -239,14 +239,14 @@ def _merge(left, right):
     return result
 ```
 
-> **참고:** `_merge` 함수에서 `left[i] <= right[j]`의 `<=` (등호 포함)이 중요하다. `<`로 바꾸면 값이 같은 원소의 상대적 순서가 바뀔 수 있어 **안정성(stability)**이 깨진다. 안정 정렬이 필요할 때 반드시 `<=`을 사용해야 한다.
+> **Note:** In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
 
-#### 2.2.2 퀵 정렬
+#### 2.2.2 Quick Sort
 
-**아이디어**: 피벗을 선택하고, 피벗보다 작은/같은/큰 원소로 분할 후 재귀한다.
+**Idea**: Select a pivot, partition into smaller/equal/larger elements, then recurse.
 
 ```
-피벗 = 43
+pivot = 43
 [38, 27, 43, 3, 9, 82, 10]
 
        < 43          == 43    > 43
@@ -256,17 +256,17 @@ def _merge(left, right):
        |                        |
 [3, 9, 10, 27, 38]             [82]
 
-결과: [3, 9, 10, 27, 38] + [43] + [82]
+Result: [3, 9, 10, 27, 38] + [43] + [82]
      = [3, 9, 10, 27, 38, 43, 82]
 ```
 
-**복잡도**: 평균 O(n log n), 최악 O(n²)
+**Complexity**: Average O(n log n), Worst O(n^2)
 
-**풀이:**
+**Solution:**
 
 ```python
 def quick_sort(arr):
-    """Quick Sort: 피벗 기준 분할 후 부분 배열 정렬. 평균 O(n log n)."""
+    """Quick Sort: Partition around pivot, sort subarrays. Average O(n log n)."""
     if len(arr) <= 1:
         return arr[:]
     pivot = arr[len(arr) // 2]
@@ -276,50 +276,50 @@ def quick_sort(arr):
     return quick_sort(left) + middle + quick_sort(right)
 ```
 
-> **참고:** 이 구현은 이론 수업의 in-place partition과 다르다. 리스트 컴프리헨션(list comprehension)을 사용한 **간결하지만 추가 공간을 사용하는** 버전이다. 장단점은 다음과 같다:
-> - **장점**: 코드가 매우 짧고 이해하기 쉽다. 피벗과 같은 원소를 별도 처리한다
-> - **단점**: 매 호출마다 새 리스트를 생성하므로 O(n) 추가 공간을 사용한다
+> **Note:** This implementation differs from the in-place partition in the lecture. It uses list comprehensions for a **concise but space-consuming** version. The trade-offs:
+> - **Pros**: Very short and easy to understand code. Handles elements equal to pivot separately
+> - **Cons**: Creates new lists at each call, using O(n) extra space
 >
-> 실무에서는 이론 수업의 in-place 방식이 메모리 효율적이지만, 코딩 테스트에서는 이 간결한 방식이 빠르게 구현하기 좋다.
+> In practice, the in-place approach from the lecture is more memory-efficient, but for coding tests, this concise version is quick to implement.
 
-> **참고:** 피벗 선택의 차이 정리:
-> - **이론 수업(CLRS)**: 마지막 원소를 피벗으로 사용, in-place Lomuto partition
-> - **이 코드**: 중간 원소를 피벗으로 사용, 3-way partition (< / == / >)
+> **Note:** Summary of pivot selection differences:
+> - **Lecture (CLRS)**: Uses the last element as pivot, in-place Lomuto partition
+> - **This code**: Uses the middle element as pivot, 3-way partition (< / == / >)
 >
-> 중간 원소를 피벗으로 선택하면 이미 정렬된 입력에서도 균형 잡힌 분할이 될 확률이 높아 최악의 경우를 피할 수 있다. 시험에서는 CLRS 방식으로 출제될 가능성이 높으므로 두 방식을 모두 이해해야 한다.
+> Choosing the middle element as pivot makes balanced partitions more likely even on already-sorted input, helping avoid worst-case behavior. Since exams will likely use the CLRS approach, understanding both methods is important.
 
-**실행 및 테스트:**
+**Run and Test:**
 
 ```bash
 python examples/solutions/a2_advanced_sorts.py
 ```
 
-#### 2.2.3 정렬 알고리즘 비교
+#### 2.2.3 Sorting Algorithm Comparison
 
-| 알고리즘 | 최선 | 평균 | 최악 | 안정? | 제자리? |
-|:---------|:-----|:-----|:-----|:------|:--------|
-| 선택 | O(n²) | O(n²) | O(n²) | 아니오 | 예 |
-| 버블 | O(n) | O(n²) | O(n²) | 예 | 예 |
-| 삽입 | O(n) | O(n²) | O(n²) | 예 | 예 |
-| 병합 | O(n log n) | O(n log n) | O(n log n) | 예 | 아니오 |
-| 퀵 | O(n log n) | O(n log n) | O(n²) | 아니오 | 예* |
+| Algorithm | Best | Average | Worst | Stable? | In-Place? |
+|:----------|:-----|:--------|:------|:--------|:----------|
+| Selection | O(n^2) | O(n^2) | O(n^2) | No | Yes |
+| Bubble | O(n) | O(n^2) | O(n^2) | Yes | Yes |
+| Insertion | O(n) | O(n^2) | O(n^2) | Yes | Yes |
+| Merge | O(n log n) | O(n log n) | O(n log n) | Yes | No |
+| Quick | O(n log n) | O(n log n) | O(n^2) | No | Yes* |
 
-*\* 위의 리스트 컴프리헨션 버전은 추가 공간을 사용한다.*
+*\* The list comprehension version above uses extra space.*
 
-> **핵심:** 이 표에서 기억할 핵심 포인트:
-> - 기초 정렬 중 **삽입 정렬만** 최선 O(n)이다 — 거의 정렬된 데이터에 유리하다
-> - **병합 정렬**만 최악에서도 O(n log n)을 보장한다 — 가장 안정적이다
-> - **퀵 정렬**은 평균이 가장 빠르지만 최악 O(n²) 위험이 있다
+> **Key Point:** Key points to remember from this table:
+> - Among elementary sorts, only **insertion sort** has best-case O(n) — advantageous for nearly sorted data
+> - Only **merge sort** guarantees O(n log n) even in the worst case — most reliable
+> - **Quick sort** has the fastest average but risks worst-case O(n^2)
 
-### 2.3 A-3: 벤치마크
+### 2.3 A-3: Benchmark
 
-**실행:**
+**Run:**
 
 ```bash
 python examples/skeletons/a3_sort_benchmark.py
 ```
 
-N = 100, 1,000, 10,000, 100,000에서 실행 시간을 측정한다:
+Measure execution times at N = 100, 1,000, 10,000, 100,000:
 
 ```
 Algorithm        N=100     N=1,000    N=10,000    N=100,000
@@ -331,25 +331,25 @@ Merge Sort       0.001s    0.005s     0.05s       0.5s
 Quick Sort       0.001s    0.003s     0.03s       0.3s
 ```
 
-*(대략적인 값 — 실제 결과는 다를 수 있다)*
+*(Approximate values — actual results may vary)*
 
-**질문**: N이 몇일 때부터 O(n²) vs O(n log n) 차이가 눈에 띄는가?
+**Question**: At what N does the O(n^2) vs O(n log n) difference become noticeable?
 
-> **핵심:** N=100에서는 모든 알고리즘이 0.001초로 차이가 없지만, N=10,000만 되어도 O(n²)은 수 초, O(n log n)은 수십 밀리초로 **100배 이상** 차이가 난다. N=100,000이면 O(n²)은 수 분~수십 분, O(n log n)은 1초 미만이다. 이것이 "알고리즘 선택이 중요하다"는 것을 체감하는 순간이다.
+> **Key Point:** At N=100, all algorithms take 0.001s with no difference, but at N=10,000, O(n^2) takes several seconds while O(n log n) takes tens of milliseconds — a difference of **over 100x**. At N=100,000, O(n^2) takes minutes to tens of minutes while O(n log n) is under 1 second. This is the moment you truly feel that "algorithm choice matters."
 
-> **참고:** N=100,000에서 O(n²) 알고리즘은 수 분에서 10분 이상 소요될 수 있다. 프로그램이 멈춘 것이 아니라 실제로 그만큼 오래 걸리는 것이다. 시간이 부족하면 O(n²) 알고리즘은 N=10,000까지만 테스트하고, N=100,000은 O(n log n) 알고리즘만 실행해도 된다.
+> **Note:** At N=100,000, O(n^2) algorithms may take several minutes to over 10 minutes. The program has not frozen — it really does take that long. If time is short, you can test O(n^2) algorithms only up to N=10,000 and run only O(n log n) algorithms for N=100,000.
 
-**격차 시각화:**
+**Visualizing the Gap:**
 
 ```
-시간 (s)
+Time (s)
   ^
   |
-8 |  x                            x = 버블 정렬
-  |                               o = 선택 정렬
-6 |                               + = 삽입 정렬
-  |  o                            * = 병합 정렬
-4 |                               # = 퀵 정렬
+8 |  x                            x = Bubble Sort
+  |                               o = Selection Sort
+6 |                               + = Insertion Sort
+  |  o                            * = Merge Sort
+4 |                               # = Quick Sort
   |
 2 |  +
   |
@@ -358,19 +358,19 @@ Quick Sort       0.001s    0.003s     0.03s       0.3s
     100  1,000 10,000 100,000
 ```
 
-O(n²) 알고리즘은 극적으로 치솟는 반면, O(n log n) 알고리즘은 이 스케일에서 거의 평평하게 유지된다.
+O(n^2) algorithms shoot up dramatically, while O(n log n) algorithms remain nearly flat at this scale.
 
 ---
 
 <br>
 
-## 3. Type B — 웹 코드 분석
+## 3. Type B — Web Code Analysis
 
-### 3.1 B-1: 미니 쇼핑몰 정렬 비교
+### 3.1 B-1: Mini Shopping Mall Sort Comparison
 
-**설정:**
+**Setup:**
 
-Flask 앱을 실행한다:
+Run the Flask app:
 
 ```bash
 cd examples/solutions/b1_web_sort
@@ -378,94 +378,94 @@ pip install flask
 python app.py
 ```
 
-브라우저에서 **http://localhost:5000** 을 연다.
+Open **http://localhost:5000** in your browser.
 
 ```
 +-----------------------------------------+
-|  미니 쇼핑몰 - 상품 정렬 데모                 |
+|  Mini Shopping Mall - Sort Demo          |
 |                                         |
-|  상품 수: [1,000 v]                       |
+|  Number of products: [1,000 v]          |
 |                                         |
-|  [버블 정렬로 정렬]  [퀵 정렬로 정렬]          |
+|  [Sort with Bubble Sort]  [Sort with Quick Sort]  |
 |                                         |
-|  로딩 시간: ______ ms                     |
+|  Loading time: ______ ms                |
 |                                         |
-|  상품 목록:                               |
-|  1. 상품 A - ₩12,990                     |
-|  2. 상품 B - ₩24,500                     |
+|  Product list:                          |
+|  1. Product A - 12,990 won              |
+|  2. Product B - 24,500 won              |
 |  ...                                    |
 +-----------------------------------------+
 ```
 
-> **핵심:** 이 실습의 핵심은 "알고리즘 선택이 사용자 경험(UX)에 직접적으로 영향을 미친다"는 것을 체감하는 것이다. 이론으로 학습한 O(n²) vs O(n log n)의 차이를 웹 브라우저에서 직접 확인할 수 있다.
+> **Key Point:** The core of this lab is experiencing firsthand that "algorithm choice directly impacts user experience (UX)." You can directly verify the O(n^2) vs O(n log n) difference learned in theory through the web browser.
 
-**실험 절차:**
+**Experiment Procedure:**
 
-1. **"버블 정렬로 정렬"** 클릭 — 로딩 시간을 확인한다
-2. **"퀵 정렬로 정렬"** 클릭 — 로딩 시간을 확인한다
-3. 상품 수를 증가시킨다: **1,000 -> 10,000 -> 50,000**
-4. 차이를 체감한다
+1. Click **"Sort with Bubble Sort"** — check the loading time
+2. Click **"Sort with Quick Sort"** — check the loading time
+3. Increase the number of products: **1,000 -> 10,000 -> 50,000**
+4. Feel the difference
 
-**예상 결과:**
+**Expected Results:**
 
-| N (상품 수) | 버블 정렬 | 퀵 정렬 | 사용자 경험 |
-|:-----------|:----------|:--------|:-----------|
-| 1,000 | ~100 ms | ~5 ms | 둘 다 즉시 느낌 |
-| 10,000 | ~10초 | ~50 ms | 버블은 고통스럽게 느리다 |
-| 50,000 | ~4분 | ~300 ms | 버블은 사용 불가이다 |
+| N (Products) | Bubble Sort | Quick Sort | User Experience |
+|:-------------|:-----------|:-----------|:---------------|
+| 1,000 | ~100 ms | ~5 ms | Both feel instant |
+| 10,000 | ~10 sec | ~50 ms | Bubble is painfully slow |
+| 50,000 | ~4 min | ~300 ms | Bubble is unusable |
 
-**토론:**
+**Discussion:**
 
-> 실제 온라인 쇼핑몰이 O(n²) 정렬 알고리즘을 사용했다면 어떻게 될까?
+> What would happen if a real online shopping mall used an O(n^2) sorting algorithm?
 
-매 페이지 로딩, 매 필터 변경, 매 "가격순 정렬" 클릭마다 사용자를 기다리게 하여 이탈시킬 것이다!
+Every page load, every filter change, every "sort by price" click would make users wait and leave!
 
-> **참고:** 실제 쇼핑몰에서는 정렬을 서버가 아닌 **데이터베이스**에서 처리한다 (SQL의 `ORDER BY`). 데이터베이스는 미리 만들어둔 인덱스(B-트리)를 활용하여 정렬된 결과를 매우 빠르게 반환한다. 하지만 이 실습의 교훈은 동일하다 — 적절한 알고리즘/자료구조 선택이 서비스 품질을 결정한다.
-
----
-
-<br>
-
-## 요약
-
-| 개념 | 핵심 정리 |
-|:-----|:---------|
-| 선택 정렬 | 최솟값을 찾아 앞으로 교환; 항상 O(n²); 불안정; 제자리 |
-| 버블 정렬 | 인접 원소 비교·교환; O(n²), 조기 종료 시 최선 O(n); 안정; 제자리 |
-| 삽입 정렬 | 정렬된 접두사에 삽입; O(n²), 최선 O(n); 안정; 제자리; 거의 정렬된 데이터에 최적 |
-| 병합 정렬 | 분할 → 재귀 정렬 → 합병; **항상 O(n log n)** 보장; 안정; 추가 공간 O(n) 필요 |
-| 퀵 정렬 | 피벗 기준 분할 → 재귀; 평균 O(n log n), 최악 O(n²); 불안정; 리스트 컴프리헨션 버전은 추가 공간 사용 |
-| 벤치마크 핵심 | N=100에서는 차이 없으나, N=10,000부터 O(n²)과 O(n log n)은 **100배 이상** 차이가 난다 |
-| UX와 알고리즘 | 알고리즘 선택이 사용자 경험에 직접적으로 영향; 실제 서비스에서 O(n²)은 사용 불가 |
-| 안정성 vs 제자리 | 안정 정렬은 동일 키의 상대적 순서를 보존; 제자리 정렬은 추가 공간 없이 정렬 |
-| 핵심 교훈 | 작은 데이터에서는 어떤 정렬이든 괜찮지만, 실제 데이터 규모에서는 O(n log n) 알고리즘이 필수적이다 |
+> **Note:** In real shopping malls, sorting is handled by the **database** rather than the server (SQL's `ORDER BY`). Databases leverage pre-built indexes (B-trees) to return sorted results very quickly. But the lesson of this lab remains the same — choosing the right algorithm/data structure determines service quality.
 
 ---
 
 <br>
 
-## 연습 문제 (백준)
+## Summary
 
-| 난이도 | 번호 | 제목 | 핵심 개념 |
-|:-------|:-----|:-----|:----------|
-| 브론즈 II | [2750](https://boj.kr/2750) | 수 정렬하기 | O(n²) 기초 정렬 연습 |
-| 브론즈 I | [23881](https://boj.kr/23881) | 알고리즘 수업 - 선택 정렬 1 | 선택 정렬 시뮬레이션 |
-| 브론즈 I | [23968](https://boj.kr/23968) | 알고리즘 수업 - 버블 정렬 1 | 버블 정렬 시뮬레이션 |
-| 브론즈 I | [24051](https://boj.kr/24051) | 알고리즘 수업 - 삽입 정렬 1 | 삽입 정렬 시뮬레이션 |
-| 실버 V | [2751](https://boj.kr/2751) | 수 정렬하기 2 | O(n log n) 필요 (N=1,000,000) |
-| 실버 V | [24090](https://boj.kr/24090) | 알고리즘 수업 - 퀵 정렬 1 | 퀵 정렬 시뮬레이션 |
-| 실버 IV | [11399](https://boj.kr/11399) | ATM | 정렬 + 그리디 응용 |
-| 실버 III | [24060](https://boj.kr/24060) | 알고리즘 수업 - 병합 정렬 1 | 병합 정렬 시뮬레이션 |
-
-> **참고:** "수 정렬하기 2"(2751번)는 N이 최대 1,000,000이므로 O(n²) 알고리즘으로는 시간 초과가 발생한다. 반드시 O(n log n) 알고리즘(병합 정렬, 퀵 정렬, 또는 Python의 `sorted()`)을 사용해야 한다. "알고리즘 수업" 시리즈(23881, 23968, 24051, 24090, 24060)는 정렬 과정의 중간 상태를 추적하는 문제로, 각 알고리즘의 동작 과정을 정확히 이해하고 있는지 확인하는 데 좋다.
+| Concept | Key Takeaway |
+|:--------|:-------------|
+| Selection Sort | Find minimum and swap to front; always O(n^2); unstable; in-place |
+| Bubble Sort | Compare and swap adjacent elements; O(n^2), best O(n) with early termination; stable; in-place |
+| Insertion Sort | Insert into sorted prefix; O(n^2), best O(n); stable; in-place; optimal for nearly sorted data |
+| Merge Sort | Divide -> recursive sort -> merge; **always O(n log n)** guaranteed; stable; O(n) extra space required |
+| Quick Sort | Partition around pivot -> recurse; average O(n log n), worst O(n^2); unstable; list comprehension version uses extra space |
+| Benchmark Takeaway | No difference at N=100, but at N=10,000, O(n^2) and O(n log n) differ by **over 100x** |
+| UX and Algorithms | Algorithm choice directly impacts user experience; O(n^2) is unusable in real services |
+| Stability vs In-Place | Stable sorts preserve relative order of equal keys; in-place sorts use no extra space |
+| Core Lesson | Any sort works for small data, but at real data scales, O(n log n) algorithms are essential |
 
 ---
 
 <br>
 
-## 부록
+## Practice Problems (Baekjoon)
 
-- **과제 2** — 과제 상세 내용은 `../3_assignment/README.md`를 참조한다.
-- **다음 주 (4주차)**: 고급 분할 정복 — 병합 정렬 추적, k번째 최솟값, 최근접 점 쌍 문제
+| Difficulty | Number | Title | Key Concept |
+|:-----------|:-------|:------|:------------|
+| Bronze II | [2750](https://boj.kr/2750) | Sort Numbers | O(n^2) elementary sort practice |
+| Bronze I | [23881](https://boj.kr/23881) | Algorithm Class - Selection Sort 1 | Selection sort simulation |
+| Bronze I | [23968](https://boj.kr/23968) | Algorithm Class - Bubble Sort 1 | Bubble sort simulation |
+| Bronze I | [24051](https://boj.kr/24051) | Algorithm Class - Insertion Sort 1 | Insertion sort simulation |
+| Silver V | [2751](https://boj.kr/2751) | Sort Numbers 2 | O(n log n) required (N=1,000,000) |
+| Silver V | [24090](https://boj.kr/24090) | Algorithm Class - Quick Sort 1 | Quick sort simulation |
+| Silver IV | [11399](https://boj.kr/11399) | ATM | Sorting + greedy application |
+| Silver III | [24060](https://boj.kr/24060) | Algorithm Class - Merge Sort 1 | Merge sort simulation |
+
+> **Note:** "Sort Numbers 2" (problem 2751) has N up to 1,000,000, so O(n^2) algorithms will result in time limit exceeded. You must use an O(n log n) algorithm (merge sort, quick sort, or Python's `sorted()`). The "Algorithm Class" series (23881, 23968, 24051, 24090, 24060) are problems that track intermediate states of the sorting process, making them excellent for verifying that you accurately understand each algorithm's step-by-step behavior.
+
+---
+
+<br>
+
+## Appendix
+
+- **Assignment 2** — See `../3_assignment/README.md` for assignment details.
+- **Next week (Week 4)**: Advanced Divide and Conquer — merge sort tracing, k-th smallest element, closest pair of points
 
 ---

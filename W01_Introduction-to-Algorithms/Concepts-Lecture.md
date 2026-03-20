@@ -1,227 +1,227 @@
-# 1주차 이론 — 알고리즘 소개
+# Week 1 Lecture — Introduction to Algorithms
 
-> **최종 수정일:** 2026-03-18
+> **Last Updated:** 2026-03-21
 
 ---
 
-## 목차
+## Table of Contents
 
-- [1. OT (오리엔테이션)](#1-ot-오리엔테이션)
-  - [1.1 담당 교수](#11-담당-교수)
-  - [1.2 강의계획서](#12-강의계획서)
-  - [1.3 성적 평가](#13-성적-평가)
-  - [1.4 과제](#14-과제)
-  - [1.5 중간고사 & 기말고사](#15-중간고사--기말고사)
-  - [1.6 수업 형식](#16-수업-형식)
-  - [1.7 교재](#17-교재)
-  - [1.8 과목 로드맵](#18-과목-로드맵)
-  - [1.9 코딩 테스트 환경](#19-코딩-테스트-환경)
-- [2. 알고리즘이란?](#2-알고리즘이란)
-  - [2.1 왜 알고리즘을 배우는가?](#21-왜-알고리즘을-배우는가)
-  - [2.2 무엇을 배우는가](#22-무엇을-배우는가)
-  - [2.3 알고리즘의 정의](#23-알고리즘의-정의)
-  - [2.4 알고리즘 vs 자료구조](#24-알고리즘-vs-자료구조)
-  - [2.5 "알고리즘"이라는 단어의 유래](#25-알고리즘이라는-단어의-유래)
-  - [2.6 유클리드 GCD 알고리즘](#26-유클리드-gcd-알고리즘)
-- [3. 고전적 문제들](#3-고전적-문제들)
-  - [3.1 최댓값 찾기](#31-최댓값-찾기)
-  - [3.2 특정 숫자 찾기 (이진 탐색)](#32-특정-숫자-찾기-이진-탐색)
-  - [3.3 동전 거스름돈 문제](#33-동전-거스름돈-문제)
-  - [3.4 오일러 경로 (한붓그리기)](#34-오일러-경로-한붓그리기)
-  - [3.5 미로 찾기](#35-미로-찾기)
-  - [3.6 가짜 동전 문제](#36-가짜-동전-문제)
-  - [3.7 독이 든 와인 문제](#37-독이-든-와인-문제)
-- [요약](#요약)
-- [부록](#부록)
+- [1. OT (Orientation)](#1-ot-orientation)
+  - [1.1 Instructor](#11-instructor)
+  - [1.2 Syllabus](#12-syllabus)
+  - [1.3 Grading](#13-grading)
+  - [1.4 Assignments](#14-assignments)
+  - [1.5 Midterm & Final Exam](#15-midterm--final-exam)
+  - [1.6 Class Format](#16-class-format)
+  - [1.7 Textbook](#17-textbook)
+  - [1.8 Course Roadmap](#18-course-roadmap)
+  - [1.9 Coding Test Environment](#19-coding-test-environment)
+- [2. What Is an Algorithm?](#2-what-is-an-algorithm)
+  - [2.1 Why Study Algorithms?](#21-why-study-algorithms)
+  - [2.2 What Do We Learn?](#22-what-do-we-learn)
+  - [2.3 Definition of an Algorithm](#23-definition-of-an-algorithm)
+  - [2.4 Algorithm vs Data Structure](#24-algorithm-vs-data-structure)
+  - [2.5 Origin of the Word "Algorithm"](#25-origin-of-the-word-algorithm)
+  - [2.6 Euclidean GCD Algorithm](#26-euclidean-gcd-algorithm)
+- [3. Classical Problems](#3-classical-problems)
+  - [3.1 Finding the Maximum](#31-finding-the-maximum)
+  - [3.2 Finding a Specific Number (Binary Search)](#32-finding-a-specific-number-binary-search)
+  - [3.3 Coin Change Problem](#33-coin-change-problem)
+  - [3.4 Euler Path (One-Stroke Drawing)](#34-euler-path-one-stroke-drawing)
+  - [3.5 Maze Solving](#35-maze-solving)
+  - [3.6 Counterfeit Coin Problem](#36-counterfeit-coin-problem)
+  - [3.7 Poisoned Wine Problem](#37-poisoned-wine-problem)
+- [Summary](#summary)
+- [Appendix](#appendix)
 
 ---
 
 <br>
 
-## 1. OT (오리엔테이션)
+## 1. OT (Orientation)
 
-### 1.1 담당 교수
+### 1.1 Instructor
 
-> *개인정보 보호를 위해 블라인드 처리되었습니다.*
+> *Redacted for privacy.*
 
-### 1.2 강의계획서
+### 1.2 Syllabus
 
-- 강의계획서는 **LMS**에서 확인 가능하다.
-- 총 **15주**
-  - 8주차 — **중간고사**
-  - 15주차 — **기말고사**
+- The syllabus is available on the **LMS**.
+- Total **15 weeks**
+  - Week 8 — **Midterm Exam**
+  - Week 15 — **Final Exam**
 
-### 1.3 성적 평가
+### 1.3 Grading
 
-| 항목 | 비율 |
-|:-----|:-----|
-| 과제 | **10%** |
-| 중간고사 (필기) | **30%** |
-| 기말고사 — 프로젝트 | **30%** |
-| 기말고사 — 필기 | **30%** |
-| 출석 | 0% |
+| Item | Weight |
+|:-----|:-------|
+| Assignments | **10%** |
+| Midterm Exam (Written) | **30%** |
+| Final Exam — Project | **30%** |
+| Final Exam — Written | **30%** |
+| Attendance | 0% |
 
-> **핵심:** 전체 수업 시수의 **1/3 이상** 결석 시 성적이 부여되지 않는다.
+> **Key Point:** A grade will not be awarded if you miss more than **1/3** of the total class hours.
 
-### 1.4 과제
+### 1.4 Assignments
 
-**수업 내 퀴즈: 5%**
+**In-Class Quizzes: 5%**
 
-- **10회** 퀴즈 → 각 **0.5%**
-- 3, 4, 5, 6, 7, 9, 10, 11, 12, 13주차
-- 1교시 **시작 시** 출제 (~15분), **지난주 수업 내용** 범위
-- 퀴즈 문제가 **필기시험에 출제**될 수 있다
-- **생성형 AI 사용 금지** — 퀴즈는 내용을 내재화했는지 평가하는 것이다
+- **10** quizzes → **0.5%** each
+- Weeks 3, 4, 5, 6, 7, 9, 10, 11, 12, 13
+- Given at the **start** of the first period (~15 min), covering **the previous week's content**
+- Quiz questions **may appear on the written exams**
+- **Generative AI is prohibited** — quizzes assess whether you have internalized the material
 
-**가정 과제: 5%**
+**Homework: 5%**
 
-- **5회** 과제 → 각 **1%**
-- 2, 3, 4, 5, 6주차
+- **5** assignments → **1%** each
+- Weeks 2, 3, 4, 5, 6
 
-### 1.5 중간고사 & 기말고사
+### 1.5 Midterm & Final Exam
 
-- 중간고사: **30%** — 손글씨 필기 (디지털 기기 사용 불가), 1시간
-- 기말 — 필기: **30%** — 손글씨, 1시간
-- 기말 — 프로젝트: **30%** — 팀 프로젝트 (9~13주차), 프로젝트 가이드라인 참조
+- Midterm: **30%** — Handwritten (no digital devices), 1 hour
+- Final — Written: **30%** — Handwritten, 1 hour
+- Final — Project: **30%** — Team project (Weeks 9–13), refer to the project guidelines
 
-### 1.6 수업 형식
+### 1.6 Class Format
 
-| 교시 | 내용 |
-|:-----|:-----|
-| **1교시** | 퀴즈 (~15분) + 이론 강의 (Part 1) |
-| **2교시** | 이론 강의 (Part 2) |
-| **3교시** | 실습 |
+| Period | Content |
+|:-------|:--------|
+| **1st Period** | Quiz (~15 min) + Lecture (Part 1) |
+| **2nd Period** | Lecture (Part 2) |
+| **3rd Period** | Lab |
 
-- 교재: **Introduction to Algorithms, 3rd Edition** (CLRS)
-- 퀴즈는 **지난주** 내용이며, 1교시 **시작 시** 실시한다
+- Textbook: **Introduction to Algorithms, 3rd Edition** (CLRS)
+- Quizzes cover the **previous week's** content and are given at the **start** of the 1st period
 
-### 1.7 교재
+### 1.7 Textbook
 
-![CLRS 교재 표지](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
+![CLRS Textbook Cover](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
 
-**주 교재:**
+**Primary Textbook:**
 - *Introduction to Algorithms*, 3rd Edition (CLRS)
-  - Cormen, Leiserson, Rivest, Stein 저
+  - By Cormen, Leiserson, Rivest, Stein
 
-**본 과목 전체를 관통하는 핵심 사고:**
+**Core thinking pattern that runs through the entire course:**
 
 ```
-문제 해결 <-> 분할 정복 <-> 재귀적 사고 <-> 점화식
+Problem Solving <-> Divide and Conquer <-> Recursive Thinking <-> Recurrence Relations
 ```
 
-> **핵심:** CLRS는 알고리즘 분야에서 전 세계적으로 가장 널리 사용되는 표준 교재이다. "분할 정복 → 재귀적 사고 → 점화식"이라는 흐름은 이 과목 전체를 관통하는 사고 패턴이므로, 이 연결고리를 항상 의식하면서 수업을 들으면 좋다.
+> **Key Point:** CLRS is the most widely used standard textbook in the field of algorithms worldwide. The flow of "Divide and Conquer -> Recursive Thinking -> Recurrence Relations" is the thinking pattern that runs through this entire course, so keeping this connection in mind throughout the lectures will be very helpful.
 
-### 1.8 과목 로드맵
+### 1.8 Course Roadmap
 
-| 주차 | 주제 | 주차 | 주제 |
-|:-----|:-----|:-----|:-----|
-| **1** | 알고리즘 소개 | **9** | 그래프 알고리즘 |
-| **2** | 알고리즘 분석 (복잡도) | **10** | 최단 경로 |
-| **3** | 분할 정복 (1) | **11** | 동적 프로그래밍 (1) |
-| **4** | 분할 정복 (2) | **12** | 동적 프로그래밍 (2) |
-| **5** | 탐욕 알고리즘 (1) | **13** | 문자열 매칭 |
-| **6** | 탐욕 알고리즘 (2) | **14** | NP-완전성 |
-| **7** | 정렬 & 선택 | **15** | *기말고사* |
-| **8** | *중간고사* | | |
+| Week | Topic | Week | Topic |
+|:-----|:------|:-----|:------|
+| **1** | Introduction to Algorithms | **9** | Graph Algorithms |
+| **2** | Algorithm Analysis (Complexity) | **10** | Shortest Paths |
+| **3** | Divide and Conquer (1) | **11** | Dynamic Programming (1) |
+| **4** | Divide and Conquer (2) | **12** | Dynamic Programming (2) |
+| **5** | Greedy Algorithms (1) | **13** | String Matching |
+| **6** | Greedy Algorithms (2) | **14** | NP-Completeness |
+| **7** | Sorting & Selection | **15** | *Final Exam* |
+| **8** | *Midterm Exam* | | |
 
-### 1.9 코딩 테스트 환경
+### 1.9 Coding Test Environment
 
-알고리즘은 기술 면접과 코딩 테스트의 핵심이다.
+Algorithms are the core of technical interviews and coding tests.
 
-| 플랫폼 | URL |
-|:-------|:----|
-| **백준** (BOJ) | https://www.acmicpc.net/ |
-| **프로그래머스** | https://programmers.co.kr/ |
+| Platform | URL |
+|:---------|:----|
+| **Baekjoon** (BOJ) | https://www.acmicpc.net/ |
+| **Programmers** | https://programmers.co.kr/ |
 | **LeetCode** | https://leetcode.com/ |
 | **Codeforces** | https://codeforces.com/ |
 | **solved.ac** | https://solved.ac/ |
 
-**시각화 도구** (학습에 매우 유용):
+**Visualization Tools** (very useful for learning):
 - VisuAlgo: https://visualgo.net/
 - Data Structure Visualizations: https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 
-> **참고:** VisuAlgo는 정렬, 탐색, 그래프 등 다양한 알고리즘의 동작 과정을 애니메이션으로 보여주는 사이트이다. 알고리즘 동작이 잘 이해가 안 될 때 단계별로 시각적으로 확인해보면 큰 도움이 된다.
+> **Note:** VisuAlgo is a website that shows the execution process of various algorithms (sorting, searching, graphs, etc.) through animations. When an algorithm's behavior is hard to understand, stepping through the visualization can be tremendously helpful.
 
 ---
 
 <br>
 
-## 2. 알고리즘이란?
+## 2. What Is an Algorithm?
 
-### 2.1 왜 알고리즘을 배우는가?
+### 2.1 Why Study Algorithms?
 
-- 컴퓨터 과학에서 **가장 중요한 과목**이다
-- 알고리즘은 프로그래머로서 **어떻게 사고할 것인가**를 훈련시킨다
-- 각 알고리즘 뒤에 있는 **사고 과정** 자체가 알고리즘 그 자체보다 중요하다
+- It is the **most important subject** in computer science
+- Algorithms train you in **how to think** as a programmer
+- The **thought process** behind each algorithm is more important than the algorithm itself
 
-**응용 분야:**
-- 모든 프로그램의 설계
-- 문제와 해결 방안의 형식적 표현
-- 프로그램 효율성과 복잡도 분석
+**Application Areas:**
+- Design of all programs
+- Formal representation of problems and solutions
+- Analysis of program efficiency and complexity
 
-### 2.2 무엇을 배우는가
+### 2.2 What Do We Learn?
 
-- 다양한 문제에 대한 다양한 알고리즘
-  - 탐욕법, 동적 프로그래밍, 분할 정복, 그래프 알고리즘, ...
-- 알고리즘 문제 해결을 통한 체계적 사고
-- 해결 방안의 **형식적 표현**
-  - 순서도, 의사코드
-- **효율성과 복잡도 분석**
-  - 입력 크기에 따른 실행 시간 변화
+- Various algorithms for various problems
+  - Greedy, Dynamic Programming, Divide and Conquer, Graph Algorithms, ...
+- Systematic thinking through algorithmic problem solving
+- **Formal representation** of solutions
+  - Flowcharts, pseudocode
+- **Efficiency and complexity analysis**
+  - How execution time changes with input size
 
-### 2.3 알고리즘의 정의
+### 2.3 Definition of an Algorithm
 
-> 문제 해결 절차를 **체계적으로 기술**한 것이다.
+> A **systematic description** of a procedure for solving a problem.
 
-- **입력**(문제)이 주어지면, **유한한 단계**를 거쳐 원하는 **출력**(결과)을 생성한다.
+- Given an **input** (problem), it produces the desired **output** (result) through a **finite number of steps**.
 
 ```
 ┌───────┐      ┌─────────────┐      ┌────────┐
-│  입력  │ ───► │    알고리즘   │ ───► │  출력   │
-│ (문제) │      │  (유한한 단계) │      │ (결과)  │
+│ Input  │ ───► │  Algorithm   │ ───► │ Output │
+│(Problem)│      │(Finite Steps)│      │(Result)│
 └───────┘      └─────────────┘      └────────┘
 ```
 
-**요구사항:**
-- 입력과 출력을 명확히 지정해야 한다
-- 알고리즘은 입력을 출력으로 변환하는 과정을 기술한다
+**Requirements:**
+- Input and output must be clearly specified
+- The algorithm describes the process of transforming input into output
 
-> **참고:** 알고리즘의 각 단계는 **명확(unambiguous)** 해야 한다. 즉, 어떤 상황에서 어떤 동작을 해야 하는지가 모호하지 않아야 한다. "상황에 맞게 적절히 처리한다" 같은 표현은 알고리즘이 아니다.
+> **Note:** Each step of an algorithm must be **unambiguous**. That is, what action to take in any given situation must not be vague. An expression like "handle appropriately according to the situation" is not an algorithm.
 
-### 2.4 알고리즘 vs 자료구조
+### 2.4 Algorithm vs Data Structure
 
-| | 자료구조 | 알고리즘 |
+| | Data Structure | Algorithm |
 |:---|:---|:---|
-| **핵심 질문** | 정보를 **어떻게 저장**할 것인가? | 문제를 **어떻게 해결**할 것인가? |
-| **비유** | 자동차의 부품과 모듈 | 자동차를 만드는 방법 |
-| **선수과목** | — | 기초 프로그래밍, 자료구조 |
+| **Core Question** | How to **store** information? | How to **solve** the problem? |
+| **Analogy** | Parts and modules of a car | How to build a car |
+| **Prerequisites** | — | Basic Programming, Data Structures |
 
-> **알고리즘 + 자료구조 = 프로그램**
+> **Algorithm + Data Structure = Program**
 >
 > — Niklaus Wirth
 
-**예시: 영어 사전**
-- 정렬되지 않은 단어 → 순차 탐색 (느리다)
-- 정렬된 단어 → 이진 탐색 (빠르다)
-- **자료구조**(정렬 여부)가 어떤 **알고리즘**이 효율적인지를 결정한다
+**Example: English Dictionary**
+- Unsorted words → Sequential search (slow)
+- Sorted words → Binary search (fast)
+- The **data structure** (whether sorted or not) determines which **algorithm** is efficient
 
-> **참고:** Niklaus Wirth(니클라우스 비르트)는 프로그래밍 언어 Pascal을 만든 스위스 컴퓨터 과학자이며, 1984년 튜링상을 수상하였다. 그의 저서 제목이기도 한 "Algorithms + Data Structures = Programs"는 프로그래밍의 본질을 요약하는 명언으로, 알고리즘과 자료구조가 프로그래밍의 두 축이라는 것을 강조한다.
+> **Note:** Niklaus Wirth is a Swiss computer scientist who created the programming language Pascal and received the Turing Award in 1984. His book title "Algorithms + Data Structures = Programs" is a famous quote summarizing the essence of programming, emphasizing that algorithms and data structures are the two pillars of programming.
 
-> **[자료구조]** 자료구조(Data Structure)란 데이터를 효율적으로 저장하고 접근하기 위한 구조적 방법을 말한다. 대표적으로 배열(Array), 연결 리스트(Linked List), 스택(Stack), 큐(Queue), 트리(Tree), 해시 테이블(Hash Table), 그래프(Graph) 등이 있다. 자료구조 수업에서 배운 이 개념들이 알고리즘 수업의 기반이 된다. 예를 들어, "정렬된 배열"이라는 자료구조가 있어야 이진 탐색이라는 알고리즘을 적용할 수 있다.
+> **[Data Structures]** A data structure is a structural method for efficiently storing and accessing data. Representative examples include arrays, linked lists, stacks, queues, trees, hash tables, and graphs. The concepts learned in the Data Structures course form the foundation for the Algorithms course. For example, a "sorted array" data structure is required to apply the binary search algorithm.
 
-### 2.5 "알고리즘"이라는 단어의 유래
+### 2.5 Origin of the Word "Algorithm"
 
-![알-콰리즈미 기념비, 마드리드](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
+![al-Khwarizmi Monument, Madrid](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
 
-- **"algorithm"** 이라는 단어는 9세기 페르시아 수학자 **알-콰리즈미(al-Khwarizmi)** 에서 유래하였다
-- **최초의 알려진 알고리즘**: 유클리드의 GCD 알고리즘 (기원전 ~300년)
-- 알고리즘은 컴퓨터가 존재하기 **2,300년 이상** 전부터 있었다
+- The word **"algorithm"** derives from the 9th-century Persian mathematician **al-Khwarizmi**
+- **Earliest known algorithm**: Euclid's GCD algorithm (~300 BCE)
+- Algorithms have existed for more than **2,300 years** before computers
 
-**질문:** 두 수 48과 18이 주어졌을 때, **최대공약수(GCD)** 를 어떻게 구하는가?
+**Question:** Given two numbers 48 and 18, how do you find the **greatest common divisor (GCD)**?
 
-### 2.6 유클리드 GCD 알고리즘
+### 2.6 Euclidean GCD Algorithm
 
-**아이디어:** 두 수 (a, b)에서, a를 b로 나눈 나머지를 구해 (b, a mod b)로 반복해서 교체한다.
+**Idea:** Given two numbers (a, b), compute the remainder of a divided by b, and repeatedly replace (a, b) with (b, a mod b).
 
 ```python
 def gcd(a, b):
@@ -231,74 +231,74 @@ def gcd(a, b):
 ```
 
 ```
-예시: gcd(48, 18)
+Example: gcd(48, 18)
   48, 18 -> 18, 12 -> 12, 6 -> 6, 0 -> return 6
 ```
 
-단순하고, 유한하며, 정확하다 — 좋은 알고리즘의 특징이다.
+Simple, finite, and correct — the hallmarks of a good algorithm.
 
-> **참고:** `a % b`는 a를 b로 나눈 나머지이다. 이 알고리즘이 작동하는 이유는 GCD(a, b) = GCD(b, a mod b)라는 수학적 성질 때문이다. b가 0이 되면 그 시점의 a가 최대공약수가 된다. 이 알고리즘은 매우 빠르게 수렴하며, 최악의 경우에도 약 log(min(a,b))번의 반복이면 충분하다.
+> **Note:** `a % b` is the remainder of dividing a by b. This algorithm works because of the mathematical property GCD(a, b) = GCD(b, a mod b). When b becomes 0, the value of a at that point is the greatest common divisor. This algorithm converges very quickly — in the worst case, approximately log(min(a,b)) iterations are sufficient.
 
 ---
 
 <br>
 
-## 3. 고전적 문제들
+## 3. Classical Problems
 
-### 3.1 최댓값 찾기
+### 3.1 Finding the Maximum
 
-**문제:** 뒤집어진 숫자 카드들 중에서 가장 큰 숫자의 카드를 찾아라.
+**Problem:** Among face-down number cards, find the card with the largest number.
 
 ![Playing cards](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
 
-**접근법:**
-1. 첫 번째 카드를 보고 그 숫자를 기억한다
-2. 다음 카드를 본다 — 더 크면 기억하는 숫자를 갱신한다
-3. 모든 카드를 확인할 때까지 반복한다
-4. 기억하고 있는 숫자가 최댓값이다
+**Approach:**
+1. Look at the first card and remember its number
+2. Look at the next card — if it is larger, update the remembered number
+3. Repeat until all cards have been checked
+4. The remembered number is the maximum
 
 ```python
 def find_max(cards):
-    max_val = cards[0]          # 1단계: 첫 카드를 기억
+    max_val = cards[0]          # Step 1: Remember the first card
     for i in range(1, len(cards)):
-        if cards[i] > max_val:  # 2단계: 비교
-            max_val = cards[i]  # 더 크면 갱신
-    return max_val              # 4단계: 최댓값 반환
+        if cards[i] > max_val:  # Step 2: Compare
+            max_val = cards[i]  # Update if larger
+    return max_val              # Step 4: Return the maximum
 ```
 
-이것이 **순차 탐색(Sequential Search)** — 카드를 순서대로 하나씩 읽는 방식이다.
+This is **Sequential Search** — reading cards one by one in order.
 
-> **[자료구조]** 위 코드에서 `cards`는 배열(리스트)이고, `for`문으로 인덱스 1부터 끝까지 순회한다. 자료구조 시간에 배웠듯이, 배열은 인덱스로 O(1) 시간에 접근 가능하다. 이 알고리즘은 배열의 모든 원소를 한 번씩 방문하므로 시간 복잡도는 **O(n)** 이다. 이것이 정렬되지 않은 배열에서 최댓값을 찾는 데 필요한 최소한의 시간이다 — 모든 원소를 한 번은 확인해야 하기 때문이다.
+> **[Data Structures]** In the code above, `cards` is an array (list), and the `for` loop iterates from index 1 to the end. As learned in Data Structures, arrays allow O(1) access by index. This algorithm visits every element once, so the time complexity is **O(n)**. This is the minimum time required to find the maximum in an unsorted array — because every element must be checked at least once.
 
-### 3.2 특정 숫자 찾기 (이진 탐색)
+### 3.2 Finding a Specific Number (Binary Search)
 
-**문제:** 정렬된 카드들 중에서 숫자 **85**를 찾아라.
+**Problem:** Among sorted cards, find the number **85**.
 
-![Binary Search 시각화](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
+![Binary Search Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
 
-**순차 탐색**은 하나씩 확인한다: 15 → 20 → 25 → ... → 85. **9번**의 비교가 필요하다.
+**Sequential search** checks one by one: 15 -> 20 -> 25 -> ... -> 85. **9 comparisons** are needed.
 
-데이터가 **정렬**되어 있으므로 더 효율적인 방법이 가능하다.
+Since the data is **sorted**, a more efficient method is possible.
 
-**이진 탐색의 핵심 아이디어:** **중간** 원소와 비교한 뒤, **절반**만 탐색한다.
+**Core idea of binary search:** Compare with the **middle** element, then search only **one half**.
 
 ```
-85를 찾기: [15, 20, 25, 35, 45, 55, 60, 75, 85, 90]
+Finding 85: [15, 20, 25, 35, 45, 55, 60, 75, 85, 90]
 
-1단계: 중간 = 45  ->  85 > 45  ->  오른쪽 절반 탐색
+Step 1: middle = 45  ->  85 > 45  ->  search the right half
        [55, 60, 75, 85, 90]
 
-2단계: 중간 = 75  ->  85 > 75  ->  오른쪽 절반 탐색
+Step 2: middle = 75  ->  85 > 75  ->  search the right half
        [85, 90]
 
-3단계: 중간 = 85  ->  85 == 85 ->  찾음!
+Step 3: middle = 85  ->  85 == 85 ->  found!
 ```
 
-9번 대신 **3번**만에 비교 완료!
+Only **3 comparisons** instead of 9!
 
-> **[자료구조]** 이진 탐색은 반드시 **정렬된 배열**에서만 사용할 수 있다. 자료구조 수업에서 배웠듯이, 정렬되지 않은 데이터에서 원소를 찾으려면 순차 탐색(O(n))밖에 방법이 없다. 이진 탐색이 가능한 이유는 "중간값보다 큰지 작은지"를 비교하면 나머지 절반을 한 번에 배제할 수 있기 때문이다. 매 단계마다 탐색 범위가 절반으로 줄어드므로 **O(log₂ n)** 의 시간 복잡도를 가진다.
+> **[Data Structures]** Binary search can only be used on **sorted arrays**. As learned in Data Structures, the only way to find an element in unsorted data is sequential search (O(n)). Binary search is possible because comparing with the middle value lets you eliminate the other half at once. Since the search range halves at every step, the time complexity is **O(log_2 n)**.
 
-**코드:**
+**Code:**
 
 ```python
 def binary_search(arr, target):
@@ -307,53 +307,53 @@ def binary_search(arr, target):
     while left <= right:
         mid = (left + right) // 2
         if arr[mid] == target:
-            return mid              # 찾음!
+            return mid              # Found!
         elif arr[mid] < target:
-            left = mid + 1          # 오른쪽 절반 탐색
+            left = mid + 1          # Search the right half
         else:
-            right = mid - 1         # 왼쪽 절반 탐색
+            right = mid - 1         # Search the left half
 
-    return -1                       # 찾지 못함
+    return -1                       # Not found
 ```
 
-**비교:**
+**Comparison:**
 
-| 방법 | 정렬 필요? | 최악의 경우 (n개) |
-|:-----|:----------|:-----------------|
-| 순차 탐색 | 아니오 | n번 비교 |
-| 이진 탐색 | 예 | log₂(n)번 비교 |
+| Method | Requires Sorting? | Worst Case (n items) |
+|:-------|:-----------------|:---------------------|
+| Sequential Search | No | n comparisons |
+| Binary Search | Yes | log_2(n) comparisons |
 
-n = 1,000,000일 때: 순차 = 1,000,000 vs 이진 = ~20
+For n = 1,000,000: sequential = 1,000,000 vs binary = ~20
 
-> **참고:** `(left + right) // 2`는 정수 나눗셈으로 중간 인덱스를 구한다. `left`와 `right`는 현재 탐색 범위의 양 끝 인덱스이다. 찾으면 인덱스를 반환하고, 찾지 못하면 -1을 반환한다. 실무에서 이진 탐색은 매우 자주 사용되며, Python 표준 라이브러리의 `bisect` 모듈이 이를 제공한다.
+> **Note:** `(left + right) // 2` computes the middle index using integer division. `left` and `right` are the indices of both ends of the current search range. It returns the index if found, and -1 if not found. In practice, binary search is used very frequently, and Python's standard library provides it via the `bisect` module.
 
-> **참고:** `left <= right`에서 등호(=)가 있어야 하는 이유는, 탐색 범위가 원소 1개(`left == right`)로 줄어들었을 때도 그 원소를 확인해야 하기 때문이다. 등호를 빼면(`left < right`) 마지막 원소를 검사하지 않아 값이 있어도 찾지 못하는 버그가 발생한다. 이진 탐색의 경계 조건(boundary condition)은 코딩 테스트에서 가장 흔한 실수 원인이다.
+> **Note:** The reason `left <= right` includes the equality (=) is that when the search range has narrowed to a single element (`left == right`), that element still needs to be checked. Removing the equality (`left < right`) would cause a bug where the last element is not examined, and a present value would not be found. Boundary conditions in binary search are the most common source of mistakes in coding tests.
 
-### 3.3 동전 거스름돈 문제
+### 3.3 Coin Change Problem
 
-**문제:** **730원**을 **최소한의 동전**으로 거슬러 주어라.
+**Problem:** Give change for **730 won** using the **minimum number of coins**.
 
-![대한민국 동전](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
+![South Korean Coins](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
 
-**탐욕적 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다.
+**Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount.
 
-![탐욕적 동전 선택](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
+![Greedy Coin Selection](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
 
 ```
-남은 금액: 730
-  -> 500원 × 1  (남은 금액: 230)
-  -> 100원 × 2  (남은 금액:  30)
-  ->  10원 × 3  (남은 금액:   0)
+Remaining amount: 730
+  -> 500 won x 1  (remaining: 230)
+  -> 100 won x 2  (remaining:  30)
+  ->  10 won x 3  (remaining:   0)
 
-총 동전 수: 1 + 2 + 3 = 6개 (최소!)
+Total coins: 1 + 2 + 3 = 6 (minimum!)
 ```
 
-> **탐욕 알고리즘(Greedy Algorithm):** 매 단계에서 **지역적으로 최적인 선택**을 하여 **전역적으로 최적인 해**를 기대하는 방법이다.
+> **Greedy Algorithm:** A method that makes the **locally optimal choice** at each step, hoping to achieve a **globally optimal solution**.
 
 ```python
 def coin_change(amount, coins=[500, 100, 50, 10]):
     result = []
-    for coin in coins:                # 동전을 내림차순으로
+    for coin in coins:                # Coins in descending order
         count = amount // coin
         if count > 0:
             result.append((coin, count))
@@ -363,259 +363,259 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 # coin_change(730) -> [(500, 1), (100, 2), (10, 3)]
 ```
 
-**중요한 질문:** 이 탐욕적 접근이 항상 최솟값을 보장한다는 것을 **어떻게 증명**할 수 있는가?
-- **4장 (탐욕 알고리즘)** 에서 엄밀하게 다룰 예정이다
+**Important question:** How can we **prove** that this greedy approach always guarantees the minimum?
+- This will be rigorously covered in **Chapter 4 (Greedy Algorithms)**
 
-> **핵심:** 탐욕 알고리즘이 항상 최적해를 보장하는 것은 아니다! 한국 원화 동전 체계(500, 100, 50, 10)에서는 잘 작동하지만, 만약 동전이 [1, 3, 4]원이고 6원을 거슬러야 한다면, 탐욕법은 4+1+1 = 3개를 선택하지만 최적해는 3+3 = 2개이다. 탐욕 알고리즘이 최적해를 보장하려면 특정 조건(탐욕 선택 속성 + 최적 부분 구조)이 만족되어야 한다.
+> **Key Point:** The greedy algorithm does not always guarantee an optimal solution! It works well with the Korean won coin system (500, 100, 50, 10), but if the coins are [1, 3, 4] won and you need to make change for 6 won, the greedy approach selects 4+1+1 = 3 coins, while the optimal solution is 3+3 = 2 coins. For a greedy algorithm to guarantee optimality, specific conditions (greedy choice property + optimal substructure) must be satisfied.
 
-### 3.4 오일러 경로 (한붓그리기)
+### 3.4 Euler Path (One-Stroke Drawing)
 
-**문제:** 한 꼭짓점에서 시작하여, **모든 간선을 정확히 한 번씩** 지나고 시작점으로 돌아와라. 꼭짓점은 재방문 가능하다.
+**Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
-![Konigsberg 7개의 다리](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png)
+![Konigsberg's 7 Bridges](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png)
 
-> **[자료구조]** 그래프(Graph)는 자료구조 수업에서 배운 핵심 개념이다. **꼭짓점(vertex/node)** 들의 집합과 이들을 연결하는 **간선(edge)** 들의 집합으로 구성된다. 오일러 경로 문제는 역사적으로 유명한 "Konigsberg 다리 문제"에서 유래하였다. 오일러는 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면, **홀수 차수(degree)를 가진 꼭짓점이 0개 또는 2개**여야 한다는 것을 증명하였다. 차수란 한 꼭짓점에 연결된 간선의 수를 말한다.
+> **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous "Konigsberg bridge problem." Euler proved that for a path traversing every edge exactly once (Euler path) to exist, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
 
-**핵심 통찰:**
+**Key Insight:**
 
-여러 선택지가 있는 꼭짓점에서, 어떤 간선을 선택해야 하는가?
+At a vertex with multiple choices, which edge should be taken?
 
-**규칙:** 그 이웃을 통해 현재 꼭짓점으로 돌아오는 **사이클(순환)**이 존재하는 경우에만 이동한다. **다리(bridge)** (제거 시 그래프가 끊어지는 간선)는 피한다.
+**Rule:** Only move to a neighbor if a **cycle** exists that returns to the current vertex through that neighbor. Avoid **bridges** (edges whose removal disconnects the graph).
 
-**예시:** 꼭짓점 7에서, 6, 9, 10 중 어디로 가야 하는가?
-- 꼭짓점 6: 5, 4, 3, 9, 7을 거쳐 돌아오는 사이클 존재 → **안전**
-- 꼭짓점 9: 3, 4, 5, 6, 7을 거쳐 돌아오는 사이클 존재 → **안전**
-- 꼭짓점 10: 꼭짓점 1로만 이어지고, 돌아오는 사이클 없음 → **막다른 길**
+**Example:** At vertex 7, should you go to 6, 9, or 10?
+- Vertex 6: A cycle exists via 5, 4, 3, 9, 7 -> **Safe**
+- Vertex 9: A cycle exists via 3, 4, 5, 6, 7 -> **Safe**
+- Vertex 10: Only leads to vertex 1 with no return cycle -> **Dead end**
 
-**알고리즘:**
-1. 인접한 미방문 간선이 하나뿐이면("다리"), 그것을 택한다
-2. 그렇지 않으면, 현재 꼭짓점으로 돌아오는 **사이클**이 존재하는 이웃으로 이동한다
+**Algorithm:**
+1. If only one unvisited adjacent edge remains ("bridge"), take it
+2. Otherwise, move to a neighbor through which a **cycle** back to the current vertex exists
 
-사이클 탐지는 **깊이 우선 탐색(DFS)** 으로 수행할 수 있다.
+Cycle detection can be performed using **Depth-First Search (DFS)**.
 
-> **[자료구조]** DFS는 자료구조 시간에 배운 그래프 순회 방법이다. 한 경로를 가능한 깊이까지 탐색한 후 되돌아오는 방식이다. 스택(Stack) 또는 재귀 호출로 구현한다. 반대로 BFS(너비 우선 탐색)는 가까운 노드부터 층별로 탐색하며, 큐(Queue)로 구현한다. 여기서 DFS가 사이클 탐지에 사용되는 이유는, DFS 도중 이미 방문한 노드를 다시 만나면 사이클이 존재한다는 뜻이기 때문이다.
+> **[Data Structures]** DFS is a graph traversal method learned in Data Structures. It explores as far as possible along one path before backtracking. It is implemented using a stack or recursive calls. Conversely, BFS (Breadth-First Search) explores nodes level by level starting from the nearest, using a queue. DFS is used for cycle detection here because encountering an already-visited node during DFS means a cycle exists.
 
-> **참고:** DFS로 사이클을 탐지하는 원리: 현재 노드에서 DFS를 시작하여, 방문 도중 **이미 방문한 노드를 다시 만나면** 사이클이 존재한다. 예를 들어, 노드 7에서 출발해 6→5→4→3→9→7로 돌아오면 사이클이 확인된다. DFS는 "갈 수 있는 곳까지 깊이 파고든 후 되돌아오는" 방식이므로, 경로를 따라가다가 출발점으로 돌아오는지를 자연스럽게 확인할 수 있다.
+> **Note:** The principle of cycle detection via DFS: Starting DFS from the current node, if an **already-visited node is encountered** during traversal, a cycle exists. For example, starting from node 7 and following 6->5->4->3->9->7 confirms a cycle. Since DFS "digs as deep as possible and then backtracks," it naturally checks whether the path returns to the starting point.
 
-### 3.5 미로 찾기
+### 3.5 Maze Solving
 
-**그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래**를 가져가 돌아오는 길을 찾았다.
+**Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back.
 
-![Longleat 울타리 미로](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Longleat-maze.jpg/300px-Longleat-maze.jpg)
+![Longleat Hedge Maze](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Longleat-maze.jpg/300px-Longleat-maze.jpg)
 
-![테세우스와 미노타우로스](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg/300px-Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg)
+![Theseus and the Minotaur](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg/300px-Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg)
 
-실이나 지도 없이 **확실하게** 출구를 찾는 방법은 무엇인가?
+How do you **reliably** find the exit without thread or a map?
 
-**오른손 법칙:**
-1. 오른손을 벽에 댄다
-2. 오른손을 벽에서 떼지 않은 채 앞으로 걸어간다
-3. **항상** 출구에 도달하게 된다
+**Right-Hand Rule:**
+1. Place your right hand on the wall
+2. Walk forward without lifting your right hand off the wall
+3. You will **always** reach the exit
 
-어떤 표시나 실도 필요 없는 — 단순하고 우아한 알고리즘이다.
+No markings or thread needed — a simple and elegant algorithm.
 
-**왜 작동하는가?** 벽은 하나의 연결된 경계선이다. 벽을 따라가면, 출구를 포함한 전체 경계를 순회하게 되므로 반드시 출구에 도달한다.
+**Why does it work?** The wall forms one connected boundary. Following the wall traverses the entire boundary, including the exit, so you will inevitably reach it.
 
-> **참고:** 오른손 법칙이 항상 작동하는 것은 아니다. 미로 내부에 **벽과 연결되지 않은 독립적인 섬(island)** 이 있는 경우에는 실패할 수 있다. 이런 미로에서는 Tremaux 알고리즘과 같은 더 정교한 미로 탐색 알고리즘이 필요하다. 하지만 "벽이 모두 연결된" 단순한 미로에서는 오른손 법칙이 확실히 작동한다.
+> **Note:** The right-hand rule does not always work. It can fail when there are **independent islands (disconnected wall segments)** inside the maze. In such mazes, more sophisticated maze-solving algorithms like the Tremaux algorithm are needed. However, for simple mazes where "all walls are connected," the right-hand rule works reliably.
 
-> **참고:** 오른손 법칙은 사실 그래프 이론적으로 보면 **DFS(깊이 우선 탐색)의 변형**이다. 벽을 따라가는 것은 그래프의 간선을 한 방향으로 탐색하는 것과 같고, 막다른 길에서 돌아오는 것은 DFS의 백트래킹에 해당한다.
+> **Note:** The right-hand rule is actually a **variant of DFS (Depth-First Search)** from a graph-theoretic perspective. Following the wall corresponds to traversing edges of a graph in one direction, and turning back at dead ends corresponds to DFS backtracking.
 
-### 3.6 가짜 동전 문제
+### 3.6 Counterfeit Coin Problem
 
-**문제:** n개의 동전 중 **하나**가 위조품(약간 가벼움)이다. **양팔 저울**을 사용하여 최소한의 측정 횟수로 위조 동전을 찾아라.
+**Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale**, find the counterfeit coin with the minimum number of weighings.
 
-![양팔 저울](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Balance_%C3%A0_tabac_1850.JPG/350px-Balance_%C3%A0_tabac_1850.JPG)
+![Balance Scale](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Balance_%C3%A0_tabac_1850.JPG/350px-Balance_%C3%A0_tabac_1850.JPG)
 
-**1,024개의 동전**에 대해 측정 횟수를 최소화하는 전략은 무엇인가?
+What strategy minimizes the number of weighings for **1,024 coins**?
 
-**세 가지 접근법:**
+**Three Approaches:**
 
-| 접근법 | 방법 | 최악의 경우 (n개) |
-|:-------|:-----|:-----------------|
-| **접근법 A** | 한 동전과 나머지를 하나씩 비교 | n - 1 |
-| **접근법 B** | 동전을 쌍으로 비교 | n / 2 |
-| **접근법 C** | 더미를 반으로 나눠 양쪽을 비교 | log₂(n) |
+| Approach | Method | Worst Case (n coins) |
+|:---------|:-------|:---------------------|
+| **Approach A** | Compare one coin against each of the rest | n - 1 |
+| **Approach B** | Compare coins in pairs | n / 2 |
+| **Approach C** | Split the pile in half and compare both sides | log_2(n) |
 
-**접근법 A (하나씩):**
+**Approach A (One by One):**
 
-하나의 동전을 왼쪽에 놓고, 나머지를 하나씩 오른쪽에 놓아 비교한다.
+Place one coin on the left, and compare the rest one by one on the right.
 
 ```
-동전 1 vs 동전 2  ->  균형
-동전 1 vs 동전 3  ->  균형
-동전 1 vs 동전 4  ->  균형
+Coin 1 vs Coin 2  ->  balanced
+Coin 1 vs Coin 3  ->  balanced
+Coin 1 vs Coin 4  ->  balanced
   ...
-동전 1 vs 동전 k  ->  가벼움! (동전 k가 가짜)
+Coin 1 vs Coin k  ->  lighter! (Coin k is counterfeit)
 ```
 
-- **최선의 경우:** 1회 (운이 좋은 경우)
-- **최악의 경우:** n - 1회
-- 1,024개 동전: 최대 **1,023회** 측정
+- **Best case:** 1 weighing (if lucky)
+- **Worst case:** n - 1 weighings
+- 1,024 coins: up to **1,023 weighings**
 
-**접근법 B (쌍으로):**
+**Approach B (In Pairs):**
 
-동전을 쌍으로 묶어 각 쌍을 비교한다.
+Group coins into pairs and compare each pair.
 
 ```
-(동전 1, 동전 2)  ->  균형 (둘 다 진짜)
-(동전 3, 동전 4)  ->  균형 (둘 다 진짜)
+(Coin 1, Coin 2)  ->  balanced (both genuine)
+(Coin 3, Coin 4)  ->  balanced (both genuine)
   ...
-(동전 k, 동전 k+1) -> 불균형! (둘 중 하나가 가짜)
+(Coin k, Coin k+1) -> unbalanced! (one is counterfeit)
 ```
 
-- **최악의 경우:** n / 2회
-- 1,024개 동전: 최대 **512회** 측정
-- 더 낫지만, 여전히 선형이다
+- **Worst case:** n / 2 weighings
+- 1,024 coins: up to **512 weighings**
+- Better, but still linear
 
-**접근법 C (반으로 분할):**
+**Approach C (Split in Half):**
 
-더미를 반으로 나누고, 두 반쪽을 저울에 올린다. 가벼운 쪽에 가짜가 있다.
+Split the pile in half and place both halves on the scale. The lighter side contains the counterfeit.
 
 ```
-n = 1024개 동전
+n = 1024 coins
 
-1단계:  512 vs 512  ->  왼쪽이 가벼움
-2단계:  256 vs 256  ->  오른쪽이 가벼움
-3단계:  128 vs 128  ->  왼쪽이 가벼움
+Step 1:   512 vs 512  ->  left is lighter
+Step 2:   256 vs 256  ->  right is lighter
+Step 3:   128 vs 128  ->  left is lighter
   ...
-10단계:   1 vs   1  ->  왼쪽이 가벼움 -> 찾음!
+Step 10:    1 vs   1  ->  left is lighter -> found!
 ```
 
-- **항상** log₂(n)회 측정
-- 1,024개 동전: 정확히 **10회** 측정
+- **Always** log_2(n) weighings
+- 1,024 coins: exactly **10 weighings**
 
-이것이 **분할 정복(Divide and Conquer)** 전략 — **3장**에서 깊이 다룰 예정이다.
+This is the **Divide and Conquer** strategy — to be covered in depth in **Chapter 3**.
 
-> **참고:** 사실 더 효율적인 방법도 있다! 2분할 대신 **3분할**을 하면 log₃(n)회로 줄일 수 있다 (동전을 3등분하여, 두 그룹만 저울에 올리면 가벼운 그룹을 알 수 있으므로). 하지만 여기서 핵심은 "문제 크기를 매번 일정 비율로 줄이면 로그 수준의 성능을 얻는다"는 분할 정복의 원리이다.
+> **Note:** There is actually an even more efficient method! If you split into thirds instead of halves, it takes log_3(n) weighings (split coins into 3 groups, place only 2 groups on the scale, and the lighter group can be identified). But the key point here is the principle of divide and conquer: "reducing the problem size by a constant ratio at each step yields logarithmic performance."
 
-**비교:**
+**Comparison:**
 
-n = 1,024개 동전일 때:
+For n = 1,024 coins:
 
-| 접근법 | 최악의 경우 | 전략 |
-|:-------|:----------|:-----|
-| A (하나씩) | **1,023** | 무차별 대입 (Brute Force) |
-| B (쌍으로) | **512** | 약간 더 똑똑한 방법 |
-| C (반으로 나눔) | **10** | 분할 정복 |
+| Approach | Worst Case | Strategy |
+|:---------|:-----------|:---------|
+| A (one by one) | **1,023** | Brute Force |
+| B (in pairs) | **512** | Slightly smarter |
+| C (split in half) | **10** | Divide and Conquer |
 
-**접근법 C가 왜 이렇게 좋은가?**
-- 매 측정마다 남은 동전의 **절반을 제거**한다
-- 측정 횟수 = log₂(n)
+**Why is Approach C so good?**
+- Each weighing **eliminates half** of the remaining coins
+- Number of weighings = log_2(n)
 
-> **핵심:** **로그 함수**는 알고리즘 분석에서 매우 중요하다. 로그(log)를 직관적으로 이해하는 방법: log₂(n)은 "n을 1이 될 때까지 2로 몇 번 나눌 수 있는가"이다. 예를 들어 log₂(1024) = 10인데, 이는 1024를 2로 10번 나누면 1이 되기 때문이다. 이 개념은 이진 탐색, 분할 정복, 트리의 높이 등 알고리즘 전반에 걸쳐 반복적으로 등장한다.
+> **Key Point:** The **logarithmic function** is extremely important in algorithm analysis. An intuitive way to understand log: log_2(n) is "how many times can n be divided by 2 until it becomes 1?" For example, log_2(1024) = 10 because dividing 1024 by 2 ten times yields 1. This concept appears repeatedly throughout algorithms: binary search, divide and conquer, tree height, etc.
 
-### 3.7 독이 든 와인 문제
+### 3.7 Poisoned Wine Problem
 
-**이야기:** 왕에게 여러 와인 항아리가 있다. 스파이가 **정확히 하나**의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망한다.
+**Story:** A king has several wine jars. A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
-![와인 배럴](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Oak-wine-barrel-at-toneleria-nacional-chile.jpg/350px-Oak-wine-barrel-at-toneleria-nacional-chile.jpg)
+![Wine Barrels](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Oak-wine-barrel-at-toneleria-nacional-chile.jpg/350px-Oak-wine-barrel-at-toneleria-nacional-chile.jpg)
 
-**왕의 명령:**
-- 정확히 **일주일 안에** 독이 든 항아리를 찾아라
-- 시음하는 하인의 수를 **최소화**하라
+**The King's Command:**
+- Find the poisoned jar within exactly **one week**
+- **Minimize** the number of tasting servants
 
-**8개** 항아리라면 하인이 몇 명 필요한가? **1,000개**라면?
+How many servants are needed for **8** jars? What about **1,000**?
 
-**작은 경우 — 2개의 항아리, 1명의 하인:**
+**Small Case — 2 jars, 1 servant:**
 
-| 하인이 시음하는 항아리 | 하인이 죽으면 | 하인이 살면 |
-|:---------------------|:------------|:----------|
-| 항아리 1 | 항아리 1이 독 | 항아리 2가 독 |
+| Servant tastes | If servant dies | If servant lives |
+|:---------------|:---------------|:-----------------|
+| Jar 1 | Jar 1 is poisoned | Jar 2 is poisoned |
 
-1명의 하인으로 **2개** 항아리 중 독이 든 항아리를 식별할 수 있다.
+1 servant can identify the poisoned jar among **2** jars.
 
-**4개 항아리 — 2명으로 가능한가?**
+**4 jars — Can it be done with 2 servants?**
 
-각 항아리에 2비트 이진수를 할당한다:
+Assign a 2-bit binary number to each jar:
 
-| 항아리 | 이진수 | 하인 A 시음? | 하인 B 시음? |
-|:-------|:-------|:------------|:------------|
-| 0 | 00 | 아니오 | 아니오 |
-| 1 | 01 | 아니오 | 예 |
-| 2 | 10 | 예 | 아니오 |
-| 3 | 11 | 예 | 예 |
+| Jar | Binary | Servant A tastes? | Servant B tastes? |
+|:----|:-------|:-----------------|:-----------------|
+| 0 | 00 | No | No |
+| 1 | 01 | No | Yes |
+| 2 | 10 | Yes | No |
+| 3 | 11 | Yes | Yes |
 
-**규칙:** 하인 A는 **비트 1 = 1**인 항아리를 시음한다. 하인 B는 **비트 0 = 1**인 항아리를 시음한다.
+**Rule:** Servant A tastes all jars where **bit 1 = 1**. Servant B tastes all jars where **bit 0 = 1**.
 
-> **[이산수학]** 이진수(Binary)는 0과 1 두 자리만 사용하는 수 체계이다. 예를 들어, 10진수 5는 이진수로 101 (= 1×4 + 0×2 + 1×1)이다. 컴퓨터 내부에서 모든 데이터는 이진수로 표현된다. 이 문제에서 이진수가 핵심인 이유는, n비트 이진수로 2^n개의 서로 다른 상태를 표현할 수 있기 때문이다. 즉, n명의 하인(각각 죽음/생존의 2가지 상태)으로 2^n개의 항아리를 구분할 수 있다.
+> **[Discrete Mathematics]** Binary is a number system using only two digits, 0 and 1. For example, decimal 5 is 101 in binary (= 1x4 + 0x2 + 1x1). All data inside computers is represented in binary. The reason binary is key to this problem is that n-bit binary numbers can represent 2^n different states. That is, n servants (each with 2 states: alive/dead) can distinguish among 2^n jars.
 
-**결과 읽기:**
+**Reading the Results:**
 
-일주일 후, 누가 죽었는지 확인한다:
+After one week, check who died:
 
-| A 사망? | B 사망? | 이진수 | 독이 든 항아리 |
+| A died? | B died? | Binary | Poisoned Jar |
 |:--------|:--------|:-------|:-------------|
-| 아니오 | 아니오 | 00 | 항아리 0 |
-| 아니오 | 예 | 01 | 항아리 1 |
-| 예 | 아니오 | 10 | 항아리 2 |
-| 예 | 예 | 11 | 항아리 3 |
+| No | No | 00 | Jar 0 |
+| No | Yes | 01 | Jar 1 |
+| Yes | No | 10 | Jar 2 |
+| Yes | Yes | 11 | Jar 3 |
 
-**사망 패턴**이 독이 든 항아리의 **이진수**를 직접 인코딩한다!
+The **death pattern** directly encodes the **binary number** of the poisoned jar!
 
-**8개 항아리 (3명의 하인):**
+**8 jars (3 servants):**
 
-| 항아리 | 이진수 | A 시음? | B 시음? | C 시음? |
-|:-------|:-------|:--------|:--------|:--------|
-| 0 | 000 | 아니오 | 아니오 | 아니오 |
-| 1 | 001 | 아니오 | 아니오 | 예 |
-| 2 | 010 | 아니오 | 예 | 아니오 |
-| 3 | 011 | 아니오 | 예 | 예 |
-| 4 | 100 | 예 | 아니오 | 아니오 |
-| 5 | 101 | 예 | 아니오 | 예 |
-| 6 | 110 | 예 | 예 | 아니오 |
-| 7 | 111 | 예 | 예 | 예 |
+| Jar | Binary | A tastes? | B tastes? | C tastes? |
+|:----|:-------|:----------|:----------|:----------|
+| 0 | 000 | No | No | No |
+| 1 | 001 | No | No | Yes |
+| 2 | 010 | No | Yes | No |
+| 3 | 011 | No | Yes | Yes |
+| 4 | 100 | Yes | No | No |
+| 5 | 101 | Yes | No | Yes |
+| 6 | 110 | Yes | Yes | No |
+| 7 | 111 | Yes | Yes | Yes |
 
-각 하인이 **4개**의 항아리를 시음한다. 항아리 7이 독이면, **3명 모두 사망** (111)한다.
+Each servant tastes **4** jars. If jar 7 is poisoned, **all 3 servants die** (111).
 
-**일반 해법:**
+**General Solution:**
 
-**n개 항아리일 때:**
-- 필요한 하인 수 = **log₂(n)**
-- 각 항아리에 고유한 이진수(0~n-1)를 할당한다
-- k번째 하인은 k번째 비트가 1인 모든 항아리를 시음한다
-- 일주일 후, 사망한 하인의 이진 패턴 = 독이 든 항아리의 번호
+**For n jars:**
+- Number of servants needed = **log_2(n)**
+- Assign each jar a unique binary number (0 to n-1)
+- The k-th servant tastes all jars whose k-th bit is 1
+- After one week, the binary pattern of dead servants = the number of the poisoned jar
 
 ```
-n = 1000개 항아리  ->  log₂(1000) = ~10명의 하인
-n = 1,000,000     ->  log₂(1,000,000) = ~20명의 하인
+n = 1000 jars  ->  log_2(1000) = ~10 servants
+n = 1,000,000  ->  log_2(1,000,000) = ~20 servants
 ```
 
-이것이 **이진 인코딩**의 힘 — 근본적으로 다른 사고방식이다.
+This is the power of **binary encoding** — a fundamentally different way of thinking.
 
-> **참고:** 이 문제는 **정보 이론(Information Theory)** 과 관련이 있다. 각 하인은 "살았다/죽었다"라는 1비트의 정보를 제공한다. n개의 항아리를 구분하려면 log₂(n)비트의 정보가 필요하므로, 최소 log₂(n)명의 하인이 필요하다. 이처럼 로그는 "구분하는 데 필요한 최소 정보량"으로도 해석할 수 있다.
+> **Note:** This problem is related to **Information Theory**. Each servant provides 1 bit of information: "alive/dead." To distinguish among n jars, log_2(n) bits of information are needed, so at least log_2(n) servants are required. In this way, logarithm can also be interpreted as "the minimum amount of information needed to distinguish."
 
-> **참고:** n이 정확히 2의 거듭제곱이 아닌 경우에는 **⌈log₂(n)⌉** (올림)명의 하인이 필요하다. 예를 들어, n=5이면 log₂(5) ≈ 2.32이므로 3명이 필요하다. 3비트(8가지 상태)로 5개 항아리를 구분할 수 있기 때문이다. 나머지 3가지 상태(이진수 101, 110, 111)는 사용하지 않는다.
+> **Note:** When n is not exactly a power of 2, **ceil(log_2(n))** servants are needed. For example, if n=5, log_2(5) ~ 2.32, so 3 servants are needed. 3 bits (8 states) can distinguish among 5 jars. The remaining 3 states (binary 101, 110, 111) are simply unused.
 
-> **참고:** 5개 항아리의 경우를 구체적으로 살펴보면: 항아리 0~4에 이진수 000~100을 할당하고, 3명의 하인을 사용한다. 이진수 101(5), 110(6), 111(7)은 사용하지 않는다. 만약 하인 A만 사망하면(100) 항아리 4가 독이고, 아무도 사망하지 않으면(000) 항아리 0이 독이다. 이처럼 $2^n$ > (항아리 수)이면 일부 코드가 남지만 문제 없이 작동한다.
+> **Note:** For the 5-jar case specifically: Assign binary numbers 000-100 to jars 0-4, using 3 servants. Binary numbers 101(5), 110(6), 111(7) are unused. If only Servant A dies (100), jar 4 is poisoned; if nobody dies (000), jar 0 is poisoned. As long as $2^n$ > (number of jars), some codes remain unused but the scheme works without issues.
 
 ---
 
 <br>
 
-## 요약
+## Summary
 
-| 문제 | 알고리즘 / 전략 | 핵심 개념 |
-|:-----|:---------------|:---------|
-| 최댓값 찾기 | 모든 원소 스캔 | 순차 탐색 — O(n) |
-| 특정 값 찾기 | 정렬된 데이터를 반으로 나눔 | 이진 탐색 — O(log n) |
-| 동전 거스름돈 | 가장 큰 동전부터 선택 | 탐욕법 (4장) |
-| 오일러 경로 | 사이클을 따라가고, 다리를 피함 | 오일러 순환 / DFS |
-| 미로 찾기 | 오른손 법칙 (벽 따라가기) | DFS의 변형 |
-| 가짜 동전 | 더미를 반으로 분할 | 분할 정복 (3장) — O(log n) |
-| 독이 든 와인 | 이진수 할당 | 이진 인코딩 — log₂(n)명 |
+| Problem | Algorithm / Strategy | Key Concept |
+|:--------|:--------------------|:------------|
+| Finding the Maximum | Scan all elements | Sequential Search — O(n) |
+| Finding a Specific Value | Split sorted data in half | Binary Search — O(log n) |
+| Coin Change | Choose the largest coin first | Greedy (Chapter 4) |
+| Euler Path | Follow cycles, avoid bridges | Euler Circuit / DFS |
+| Maze Solving | Right-hand rule (follow the wall) | Variant of DFS |
+| Counterfeit Coin | Split the pile in half | Divide and Conquer (Chapter 3) — O(log n) |
+| Poisoned Wine | Binary number assignment | Binary Encoding — log_2(n) servants |
 
-**반복되는 주제:** **log₂(n)** 함수는 이진 탐색, 가짜 동전, 독이 든 와인에서 등장한다. 매 단계마다 문제 크기를 절반으로 줄이는 알고리즘은 **로그 수준**의 성능을 달성한다.
+**Recurring Theme:** The **log_2(n)** function appears in binary search, the counterfeit coin problem, and the poisoned wine problem. Algorithms that halve the problem size at every step achieve **logarithmic** performance.
 
 ---
 
 <br>
 
-## 부록
+## Appendix
 
-- **2주차:** 알고리즘 분석 — Big-O 표기법, 시간 복잡도, 점근적 분석
-- 다음 주부터 **가정 과제** 시작
-- 이번 주는 퀴즈 없음, 과제 없음 (OT 주차)
+- **Week 2:** Algorithm Analysis — Big-O notation, time complexity, asymptotic analysis
+- **Homework** starts from next week
+- No quiz, no homework this week (OT week)
 
-**문의:** *[블라인드 처리됨]*
+**Contact:** *[Redacted]*
 
 ---

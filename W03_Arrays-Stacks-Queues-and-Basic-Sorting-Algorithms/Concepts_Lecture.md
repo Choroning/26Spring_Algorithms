@@ -1,73 +1,73 @@
-# 3주차 이론 — 배열, 스택, 큐, 그리고 기본 정렬 알고리즘
+# Week 3 Lecture — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-> **최종 수정일:** 2026-03-18
+> **Last Updated:** 2026-03-21
 
 ---
 
-## 목차
+## Table of Contents
 
-- [1. 기본 자료구조와 기초 정렬](#1-기본-자료구조와-기초-정렬)
-  - [1.1 학습 목표](#11-학습-목표)
-  - [1.2 연결 리스트](#12-연결-리스트)
-  - [1.3 스택](#13-스택)
-  - [1.4 큐](#14-큐)
-  - [1.5 힙](#15-힙)
-  - [1.6 정렬 알고리즘 — 전체 조감도](#16-정렬-알고리즘--전체-조감도)
-- [2. 기초 정렬 — O(n²)](#2-기초-정렬--on²)
-  - [2.1 선택 정렬 — 아이디어](#21-선택-정렬--아이디어)
-  - [2.2 선택 정렬 — 의사코드](#22-선택-정렬--의사코드)
-  - [2.3 선택 정렬 — 단계별 예시](#23-선택-정렬--단계별-예시)
-  - [2.4 버블 정렬 — 아이디어](#24-버블-정렬--아이디어)
-  - [2.5 버블 정렬 — 의사코드](#25-버블-정렬--의사코드)
-  - [2.6 버블 정렬 — 단계별 예시](#26-버블-정렬--단계별-예시)
-  - [2.7 삽입 정렬 — 아이디어](#27-삽입-정렬--아이디어)
-  - [2.8 삽입 정렬 — 의사코드](#28-삽입-정렬--의사코드)
-  - [2.9 삽입 정렬 — 정확성의 귀납적 증명](#29-삽입-정렬--정확성의-귀납적-증명)
-  - [2.10 기초 정렬의 재귀적 구조](#210-기초-정렬의-재귀적-구조)
-- [3. 고급 정렬 — O(n log n)](#3-고급-정렬--on-log-n)
-  - [3.1 병합 정렬 — 아이디어](#31-병합-정렬--아이디어)
-  - [3.2 병합 정렬 — 의사코드](#32-병합-정렬--의사코드)
-  - [3.3 병합 정렬 — 합병 과정 예시](#33-병합-정렬--합병-과정-예시)
-  - [3.4 병합 정렬 — 복잡도 분석](#34-병합-정렬--복잡도-분석)
-  - [3.5 퀵 정렬 — 아이디어](#35-퀵-정렬--아이디어)
-  - [3.6 퀵 정렬 — 의사코드](#36-퀵-정렬--의사코드)
-  - [3.7 퀵 정렬 — 분할 예시](#37-퀵-정렬--분할-예시)
-  - [3.8 퀵 정렬 — 복잡도 분석](#38-퀵-정렬--복잡도-분석)
-  - [3.9 퀵 정렬 — 평균 O(n log n)인 이유](#39-퀵-정렬--평균-on-log-n인-이유)
-  - [3.10 힙 정렬 — 힙 복습](#310-힙-정렬--힙-복습)
-  - [3.11 힙 정렬 — 알고리즘](#311-힙-정렬--알고리즘)
-  - [3.12 힙 정렬 — buildHeap과 heapify](#312-힙-정렬--buildheap과-heapify)
-  - [3.13 힙 정렬 — buildHeap 예시](#313-힙-정렬--buildheap-예시)
-  - [3.14 힙 정렬 — 정렬 단계](#314-힙-정렬--정렬-단계)
-  - [3.15 힙 정렬 — 복잡도](#315-힙-정렬--복잡도)
-- [4. 선형 시간 정렬 — O(n)](#4-선형-시간-정렬--on)
-  - [4.1 비교 기반 정렬의 하한](#41-비교-기반-정렬의-하한)
-  - [4.2 기수 정렬](#42-기수-정렬)
-  - [4.3 기수 정렬 — 예시](#43-기수-정렬--예시)
-  - [4.4 계수 정렬](#44-계수-정렬)
-  - [4.5 계수 정렬 — 예시](#45-계수-정렬--예시)
-  - [4.6 복잡도 비교 — 모든 정렬 알고리즘](#46-복잡도-비교--모든-정렬-알고리즘)
-- [요약](#요약)
-- [부록](#부록)
+- [1. Basic Data Structures and Elementary Sorting](#1-basic-data-structures-and-elementary-sorting)
+  - [1.1 Learning Objectives](#11-learning-objectives)
+  - [1.2 Linked List](#12-linked-list)
+  - [1.3 Stack](#13-stack)
+  - [1.4 Queue](#14-queue)
+  - [1.5 Heap](#15-heap)
+  - [1.6 Sorting Algorithms — Bird's-Eye View](#16-sorting-algorithms--birds-eye-view)
+- [2. Elementary Sorting — O(n^2)](#2-elementary-sorting--on²)
+  - [2.1 Selection Sort — Idea](#21-selection-sort--idea)
+  - [2.2 Selection Sort — Pseudocode](#22-selection-sort--pseudocode)
+  - [2.3 Selection Sort — Step-by-Step Example](#23-selection-sort--step-by-step-example)
+  - [2.4 Bubble Sort — Idea](#24-bubble-sort--idea)
+  - [2.5 Bubble Sort — Pseudocode](#25-bubble-sort--pseudocode)
+  - [2.6 Bubble Sort — Step-by-Step Example](#26-bubble-sort--step-by-step-example)
+  - [2.7 Insertion Sort — Idea](#27-insertion-sort--idea)
+  - [2.8 Insertion Sort — Pseudocode](#28-insertion-sort--pseudocode)
+  - [2.9 Insertion Sort — Inductive Proof of Correctness](#29-insertion-sort--inductive-proof-of-correctness)
+  - [2.10 Recursive Structure of Elementary Sorts](#210-recursive-structure-of-elementary-sorts)
+- [3. Advanced Sorting — O(n log n)](#3-advanced-sorting--on-log-n)
+  - [3.1 Merge Sort — Idea](#31-merge-sort--idea)
+  - [3.2 Merge Sort — Pseudocode](#32-merge-sort--pseudocode)
+  - [3.3 Merge Sort — Merge Process Example](#33-merge-sort--merge-process-example)
+  - [3.4 Merge Sort — Complexity Analysis](#34-merge-sort--complexity-analysis)
+  - [3.5 Quick Sort — Idea](#35-quick-sort--idea)
+  - [3.6 Quick Sort — Pseudocode](#36-quick-sort--pseudocode)
+  - [3.7 Quick Sort — Partition Example](#37-quick-sort--partition-example)
+  - [3.8 Quick Sort — Complexity Analysis](#38-quick-sort--complexity-analysis)
+  - [3.9 Quick Sort — Why the Average Is O(n log n)](#39-quick-sort--why-the-average-is-on-log-n)
+  - [3.10 Heap Sort — Heap Review](#310-heap-sort--heap-review)
+  - [3.11 Heap Sort — Algorithm](#311-heap-sort--algorithm)
+  - [3.12 Heap Sort — buildHeap and heapify](#312-heap-sort--buildheap-and-heapify)
+  - [3.13 Heap Sort — buildHeap Example](#313-heap-sort--buildheap-example)
+  - [3.14 Heap Sort — Sorting Phase](#314-heap-sort--sorting-phase)
+  - [3.15 Heap Sort — Complexity](#315-heap-sort--complexity)
+- [4. Linear-Time Sorting — O(n)](#4-linear-time-sorting--on)
+  - [4.1 Lower Bound for Comparison-Based Sorting](#41-lower-bound-for-comparison-based-sorting)
+  - [4.2 Radix Sort](#42-radix-sort)
+  - [4.3 Radix Sort — Example](#43-radix-sort--example)
+  - [4.4 Counting Sort](#44-counting-sort)
+  - [4.5 Counting Sort — Example](#45-counting-sort--example)
+  - [4.6 Complexity Comparison — All Sorting Algorithms](#46-complexity-comparison--all-sorting-algorithms)
+- [Summary](#summary)
+- [Appendix](#appendix)
 
 ---
 
 <br>
 
-## 1. 기본 자료구조와 기초 정렬
+## 1. Basic Data Structures and Elementary Sorting
 
-### 1.1 학습 목표
+### 1.1 Learning Objectives
 
-- 기본 자료구조 복습: 리스트, 스택, 큐, 힙
-- 기초 정렬 알고리즘과 O(n²) 동작 이해
-- 고급 정렬 알고리즘과 O(n log n) 동작 이해
-- 선형 시간 정렬과 이를 가능하게 하는 조건 이해
-- 정렬 알고리즘의 **재귀적(귀납적) 구조** 파악
-- 정렬 알고리즘 복잡도 비교
+- Review basic data structures: lists, stacks, queues, heaps
+- Understand elementary sorting algorithms and O(n^2) behavior
+- Understand advanced sorting algorithms and O(n log n) behavior
+- Understand linear-time sorting and the conditions that make it possible
+- Identify the **recursive (inductive) structure** of sorting algorithms
+- Compare sorting algorithm complexities
 
-### 1.2 연결 리스트
+### 1.2 Linked List
 
-- **노드(node)** 의 연속으로, 각 노드는 데이터와 다음 노드를 가리키는 포인터를 포함한다.
+- A sequence of **nodes**, each containing data and a pointer to the next node.
 
 ```
 ┌──────┬───┐    ┌──────┬───┐    ┌──────┬───┐
@@ -84,29 +84,29 @@ typedef struct ListNode {
 } ListNode;
 ```
 
-> **참고:** Python에서는 연결 리스트를 클래스로 구현한다:
+> **Note:** In Python, linked lists are implemented using classes:
 > ```python
 > class ListNode:
 >     def __init__(self, data, next=None):
 >         self.data = data
->         self.next = next  # 다음 노드를 가리키는 참조
+>         self.next = next  # Reference to the next node
 > ```
-> C의 포인터(`*link`)가 Python에서는 객체 참조(`self.next`)에 해당한다.
+> C's pointer (`*link`) corresponds to Python's object reference (`self.next`).
 
-- 연산: 삽입, 삭제, 탐색 — 모두 최악의 경우 O(n)
-- 시각화: [https://visualgo.net/en/list](https://visualgo.net/en/list)
+- Operations: insertion, deletion, search — all O(n) in the worst case
+- Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[자료구조]** 연결 리스트와 배열의 핵심 차이는 다음과 같다:
-> - **배열**: 메모리에 연속 저장, 인덱스 접근 O(1), 삽입/삭제 O(n) (밀거나 당겨야 한다)
-> - **연결 리스트**: 메모리에 흩어져 저장, 접근 O(n) (처음부터 따라가야 한다), 삽입/삭제 O(1) (포인터만 변경)
+> **[Data Structures]** The key differences between linked lists and arrays:
+> - **Array**: Stored contiguously in memory, index access O(1), insertion/deletion O(n) (must shift elements)
+> - **Linked List**: Stored scattered in memory, access O(n) (must traverse from the beginning), insertion/deletion O(1) (only change pointers)
 >
-> 위 코드에서 `link`가 다음 노드를 가리키는 포인터이고, 마지막 노드의 link는 NULL(`/`)이다.
+> In the code above, `link` is the pointer to the next node, and the last node's link is NULL (`/`).
 
-### 1.3 스택
+### 1.3 Stack
 
-- **LIFO** (Last In, First Out — 후입선출)
-- `push()`: 맨 위에 원소 추가
-- `pop()`: 맨 위에서 원소 제거
+- **LIFO** (Last In, First Out)
+- `push()`: Add an element to the top
+- `pop()`: Remove an element from the top
 
 ```
          ┌─────┐
@@ -118,158 +118,160 @@ bottom → │  A  │
          └─────┘
 ```
 
-- 활용: 함수 호출 스택, 수식 평가, 백트래킹
-- 시각화: [https://visualgo.net/en/list](https://visualgo.net/en/list)
+- Applications: function call stack, expression evaluation, backtracking
+- Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[자료구조]** 스택은 "가장 최근 것부터 처리"해야 할 때 사용한다. 대표적 활용은 다음과 같다:
-> - **함수 호출 스택**: 2주차에서 본 GCD 재귀처럼, 함수 호출이 중첩될 때 스택으로 관리한다
-> - **괄호 매칭**: `({[]})`에서 여는 괄호를 push, 닫는 괄호가 오면 pop해서 짝이 맞는지 확인한다
-> - **뒤로 가기(Undo)**: 웹 브라우저의 뒤로 가기 기능도 스택 기반이다
+> **[Data Structures]** Stacks are used when "the most recent item must be processed first." Representative applications include:
+> - **Function call stack**: As seen with GCD recursion in Week 2, nested function calls are managed via a stack
+> - **Parenthesis matching**: In `({[]})`, push opening brackets and pop when a closing bracket appears to check for matching
+> - **Undo**: Web browser back navigation is also stack-based
 
-### 1.4 큐
+### 1.4 Queue
 
-- **FIFO** (First In, First Out — 선입선출)
-- `enqueue()`: 뒤쪽(rear)에 원소 추가
-- `dequeue()`: 앞쪽(front)에서 원소 제거
+- **FIFO** (First In, First Out)
+- `enqueue()`: Add an element to the rear
+- `dequeue()`: Remove an element from the front
 
 ```
   dequeue ◄── [ A | B | C | D ] ◄── enqueue
               front        rear
 ```
 
-- 활용: BFS, 스케줄링, 버퍼링
-- 시각화: [https://visualgo.net/en/list](https://visualgo.net/en/list)
+- Applications: BFS, scheduling, buffering
+- Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[자료구조]** 큐는 "먼저 들어온 것을 먼저 처리"해야 할 때 사용한다.
-> - **BFS(너비 우선 탐색)**: 그래프에서 가까운 노드부터 탐색할 때 큐를 사용한다
-> - **프린터 대기열**: 먼저 요청한 문서부터 인쇄한다
-> - **운영체제 프로세스 스케줄링**: CPU 시간을 공정하게 배분한다
+> **[Data Structures]** Queues are used when "the first arrived must be processed first."
+> - **BFS (Breadth-First Search)**: Uses a queue to explore the nearest nodes first in a graph
+> - **Printer queue**: Documents are printed in the order they were requested
+> - **OS process scheduling**: Distributes CPU time fairly
 >
-> 스택(LIFO)과 큐(FIFO)는 서로 반대 개념이라고 기억하면 된다.
+> Remember that stacks (LIFO) and queues (FIFO) are opposite concepts.
 
-### 1.5 힙
+### 1.5 Heap
 
-- 힙 속성을 만족하는 **완전 이진 트리(complete binary tree)** 이다.
-  - **최대 힙(Max Heap)**: key(부모) >= key(자식)
-  - **최소 힙(Min Heap)**: key(부모) <= key(자식)
-- 힙은 **배열**로 저장한다 (포인터 불필요).
-  - A[i]의 자식: **A[2i]**, **A[2i+1]**
-  - A[i]의 부모: **A[floor(i/2)]**
-- 활용: 우선순위 큐, 힙 정렬
-- 시각화: [visualgo.net/en/heap](https://visualgo.net/en/heap)
+- A **complete binary tree** satisfying the heap property.
+  - **Max Heap**: key(parent) >= key(child)
+  - **Min Heap**: key(parent) <= key(child)
+- Heaps are stored in an **array** (no pointers needed).
+  - Children of A[i]: **A[2i]**, **A[2i+1]**
+  - Parent of A[i]: **A[floor(i/2)]**
+- Applications: priority queue, heap sort
+- Visualization: [visualgo.net/en/heap](https://visualgo.net/en/heap)
 
-![힙: 트리와 배열 표현](../images/ch06_p002_001.png)
+![Heap: Tree and Array Representation](../images/ch06_p002_001.png)
 
-> **[자료구조]** 완전 이진 트리와 힙에 대해 자료구조에서 다룬 개념을 다시 정리한다.
-> - **완전 이진 트리**: 마지막 레벨을 제외한 모든 레벨이 꽉 차 있고, 마지막 레벨은 왼쪽부터 채워진 트리이다
-> - **힙을 배열로 저장하는 방법**: 루트를 인덱스 1에 놓으면, i번 노드의 왼쪽 자식은 2i, 오른쪽 자식은 2i+1, 부모는 i/2(내림)이다. 포인터 없이 배열 인덱스 계산만으로 트리를 탐색할 수 있어 매우 효율적이다.
-> - **우선순위 큐**: 힙의 핵심 활용이다. 가장 크거나(Max Heap) 작은(Min Heap) 원소를 O(log n)에 꺼낼 수 있다.
+> **[Data Structures]** Reviewing complete binary trees and heaps from Data Structures:
+> - **Complete binary tree**: All levels except the last are completely filled, and the last level is filled from left to right
+> - **Storing a heap in an array**: Place the root at index 1, then node i's left child is 2i, right child is 2i+1, and parent is floor(i/2). This allows traversing the tree using only array index calculations — no pointers needed, making it very efficient.
+> - **Priority queue**: The key application of heaps. The largest (Max Heap) or smallest (Min Heap) element can be extracted in O(log n).
 
-### 1.6 정렬 알고리즘 — 전체 조감도
+### 1.6 Sorting Algorithms — Bird's-Eye View
 
-- 대부분의 정렬 알고리즘은 **O(n²)** 과 **O(n log n)** 사이에 위치한다.
-- 입력이 특별한 속성을 가지면 **O(n)** 정렬도 가능하다.
+- Most sorting algorithms fall between **O(n^2)** and **O(n log n)**.
+- If the input has special properties, **O(n)** sorting is also possible.
 
-| 분류 | 알고리즘 | 복잡도 |
-|:-----|:---------|:-------|
-| 기초 | 선택, 버블, 삽입 | O(n²) |
-| 고급 | 병합, 퀵, 힙 | O(n log n) |
-| 선형 시간 | 기수, 계수 | O(n) |
+| Category | Algorithms | Complexity |
+|:---------|:-----------|:-----------|
+| Elementary | Selection, Bubble, Insertion | O(n^2) |
+| Advanced | Merge, Quick, Heap | O(n log n) |
+| Linear-Time | Radix, Counting | O(n) |
 
-> 알고리즘을 바라보는 두 가지 관점이 있다:
-> - **흐름 기반(Flow-based)**: 실행 단계를 하나씩 따라간다
-> - **관계 기반(Relational)**: 각 단계가 상태를 어떻게 변환하는지 관찰한다 (더 깊은 이해)
+> Two perspectives on understanding algorithms:
+> - **Flow-based**: Follow the execution steps one by one
+> - **Relational**: Observe how each step transforms the state (deeper understanding)
 
-> **핵심:** 정렬 알고리즘은 알고리즘 과목의 핵심 주제이다. (1) 실무에서 가장 자주 사용되는 연산이고, (2) 분할 정복, 재귀, 복잡도 분석 등 핵심 개념을 모두 포함하며, (3) 비교 기반 정렬의 하한(Ω(n log n))이라는 이론적으로 중요한 결과가 있기 때문이다.
+> **Key Point:** Sorting algorithms are a core topic in algorithms courses because (1) they are the most frequently used operation in practice, (2) they encompass core concepts like divide and conquer, recursion, and complexity analysis, and (3) there is the theoretically important result of the lower bound for comparison-based sorting (Omega(n log n)).
 
 ---
 
 <br>
 
-## 2. 기초 정렬 — O(n²)
+## 2. Elementary Sorting — O(n^2)
 
-### 2.1 선택 정렬 — 아이디어
+### 2.1 Selection Sort — Idea
 
-각 반복마다:
-1. 정렬되지 않은 부분에서 **최솟값**을 찾는다
-2. 정렬되지 않은 부분의 가장 왼쪽 원소와 **교환**한다
-3. 그 원소를 **제외**한다 (이제 최종 위치에 있다)
-4. 원소가 하나 남을 때까지 반복한다
+In each iteration:
+1. Find the **minimum** (or maximum) value in the unsorted portion
+2. **Swap** it with the leftmost element of the unsorted portion
+3. **Exclude** that element (it is now in its final position)
+4. Repeat until one element remains
 
 ```text
-[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]    최솟값 찾기 (3)
-[3 | 11, 29, 20, 65, 15, 73, 48, 31, 8]   3↔15 교환, 3 제외
-[3, 8 | 29, 20, 65, 15, 73, 48, 31, 11]   최솟값(8) 찾기, 8↔11 교환, 제외
+[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]    Find minimum (3)
+[3 | 11, 29, 20, 65, 15, 73, 48, 31, 8]   Swap 3↔15, exclude 3
+[3, 8 | 29, 20, 65, 15, 73, 48, 31, 11]   Find min(8), swap 8↔11, exclude
   ...
-[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]    정렬 완료!
+[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]    Sorting complete!
 ```
 
-- 매 라운드마다 **최솟값**(또는 최댓값)을 선택한다.
+- Each round **selects** the minimum (or maximum) value.
 
-### 2.2 선택 정렬 — 의사코드
+### 2.2 Selection Sort — Pseudocode
 
 ```
-selectionSort(A[], n)          ▷ A[1...n]을 정렬
+selectionSort(A[], n)          ▷ Sort A[1...n]
 {
     for last ← n downto 2 {                           ── ①
         Find the largest element A[k] in A[1...last]; ── ②
-        A[k] ↔ A[last];   ▷ A[k]와 A[last]를 교환       ── ③
+        A[k] ↔ A[last];   ▷ Swap A[k] and A[last]       ── ③
     }
 }
 ```
 
-**복잡도 분석:**
-- 루프 ①은 **n - 1**번 실행된다
-- 최댓값 찾기 ②: n-1, n-2, ..., 2, 1번 비교가 필요하다
-- 교환 ③은 상수 시간이다
+**Complexity Analysis:**
+- Loop ① executes **n - 1** times
+- Finding the maximum ②: requires n-1, n-2, ..., 2, 1 comparisons
+- Swap ③ is constant time
 
 $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
-- **최악의 경우**: Θ(n²) | **평균의 경우**: Θ(n²)
+- **Worst case**: Theta(n^2) | **Average case**: Theta(n^2)
 
-> **핵심:** 선택 정렬의 핵심 특징은 입력이 어떤 상태이든(이미 정렬됨, 역순, 랜덤) **항상 Θ(n²)** 이라는 점이다. 최선/평균/최악이 모두 같다. 비교 횟수는 항상 n(n-1)/2회이고, 교환 횟수만 최대 n-1회(이미 정렬된 경우 0회)이다.
+> **Key Point:** The key characteristic of selection sort is that regardless of the input state (already sorted, reversed, random), it is **always Theta(n^2)**. Best/average/worst are all the same. The number of comparisons is always n(n-1)/2, and only the number of swaps varies (up to n-1, or 0 if already sorted).
 
-### 2.3 선택 정렬 — 단계별 예시
+> **Note:** The lecture explains selection sort as "find the maximum and send it to the back," while the lab uses "find the minimum and bring it to the front." Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
 
-| 단계 | 배열 상태 | 동작 |
-|:-----|:----------|:-----|
-| 0 | `[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]` | 초기 배열 |
-| 1 | `[15, 11, 29, 20, 65, 3, \|8\|, 48, 31 \| 73]` | 최대=73, 73↔8 교환 |
-| 2 | `[15, 11, 29, 20, \|31\|, 3, 8, 48 \| 65, 73]` | 최대=65, 65↔31 교환 |
-| 3 | `[15, 11, 29, 20, 31, 3, 8 \| 48, 65, 73]` | 최대=48, 교환 불필요 |
-| 4 | `[15, 11, 29, 20, \|8\|, 3 \| 31, 48, 65, 73]` | 최대=31, 31↔8 교환 |
-| 5 | `[15, 11, \|3\|, 20, 8 \| 29, 31, 48, 65, 73]` | 최대=29, 29↔3 교환 |
-| 6 | `[15, 11, 3, \|8\| \| 20, 29, 31, 48, 65, 73]` | 최대=20, 20↔8 교환 |
-| 7 | `[\|8\|, 11, 3 \| 15, 20, 29, 31, 48, 65, 73]` | 최대=15, 15↔8 교환 |
-| 8 | `[8, \|3\| \| 11, 15, 20, 29, 31, 48, 65, 73]` | 최대=11, 11↔3 교환 |
-| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | 정렬 완료! |
+### 2.3 Selection Sort — Step-by-Step Example
 
-> 애니메이션: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+| Step | Array State | Action |
+|:-----|:-----------|:-------|
+| 0 | `[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]` | Initial array |
+| 1 | `[15, 11, 29, 20, 65, 3, \|8\|, 48, 31 \| 73]` | max=73, swap 73↔8 |
+| 2 | `[15, 11, 29, 20, \|31\|, 3, 8, 48 \| 65, 73]` | max=65, swap 65↔31 |
+| 3 | `[15, 11, 29, 20, 31, 3, 8 \| 48, 65, 73]` | max=48, no swap needed |
+| 4 | `[15, 11, 29, 20, \|8\|, 3 \| 31, 48, 65, 73]` | max=31, swap 31↔8 |
+| 5 | `[15, 11, \|3\|, 20, 8 \| 29, 31, 48, 65, 73]` | max=29, swap 29↔3 |
+| 6 | `[15, 11, 3, \|8\| \| 20, 29, 31, 48, 65, 73]` | max=20, swap 20↔8 |
+| 7 | `[\|8\|, 11, 3 \| 15, 20, 29, 31, 48, 65, 73]` | max=15, swap 15↔8 |
+| 8 | `[8, \|3\| \| 11, 15, 20, 29, 31, 48, 65, 73]` | max=11, swap 11↔3 |
+| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Sorting complete! |
 
-### 2.4 버블 정렬 — 아이디어
+> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
-각 반복마다:
-1. 왼쪽부터 시작하여 **인접한 쌍**을 비교한다
-2. 순서가 잘못되어 있으면 **교환**한다
-3. 가장 큰 원소가 가장 오른쪽으로 **"올라간다(bubble up)"**
-4. 가장 오른쪽 원소를 제외하고 반복한다
+### 2.4 Bubble Sort — Idea
+
+In each iteration:
+1. Start from the left and compare **adjacent pairs**
+2. **Swap** if they are in the wrong order
+3. The largest element **"bubbles up"** to the rightmost position
+4. Exclude the rightmost element and repeat
 
 ```text
-[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]    인접 쌍 비교
-[15, 29, 20, 11, 8, 65, 48, 31, 3, |73|]  73이 끝으로 올라감, 제외
-[15, 20, 11, 8, 29, 48, 31, 3, |65, 73|]  65 올라감, 제외
+[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]    Compare adjacent pairs
+[15, 29, 20, 11, 8, 65, 48, 31, 3, |73|]  73 bubbles to end, excluded
+[15, 20, 11, 8, 29, 48, 31, 3, |65, 73|]  65 bubbles up, excluded
   ...
-[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]    정렬 완료!
+[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]    Sorting complete!
 ```
 
-- 매 라운드마다 **최댓값**이 끝으로 올라간다.
+- Each round, the **maximum** bubbles up to the end.
 
-> **참고:** "버블(거품) 정렬"이라는 이름은 가장 큰 원소가 마치 물속의 거품처럼 위(오른쪽)로 떠오르는 모습에서 유래한다.
+> **Note:** "Bubble sort" gets its name from how the largest element rises to the top (right) like a bubble rising in water.
 
-### 2.5 버블 정렬 — 의사코드
+### 2.5 Bubble Sort — Pseudocode
 
 ```
-bubbleSort(A[], n)             ▷ A[1...n]을 정렬
+bubbleSort(A[], n)             ▷ Sort A[1...n]
 {
     for last ← n downto 2                            ── ①
         for i ← 1 to last-1                          ── ②
@@ -277,105 +279,105 @@ bubbleSort(A[], n)             ▷ A[1...n]을 정렬
 }
 ```
 
-**복잡도 분석:**
-- 루프 ①은 **n - 1**번 실행된다
-- 루프 ②는 각각 n-1, n-2, ..., 2, 1번 실행된다
-- 교환 ③은 상수 시간이다
+**Complexity Analysis:**
+- Loop ① executes **n - 1** times
+- Loop ② executes n-1, n-2, ..., 2, 1 times respectively
+- Swap ③ is constant time
 
 $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
-- **최악의 경우**: Θ(n²) | **평균의 경우**: Θ(n²)
+- **Worst case**: Theta(n^2) | **Average case**: Theta(n^2)
 
-> **참고:** 버블 정렬에는 유용한 최적화가 있다. 한 패스(pass)에서 **교환이 한 번도 일어나지 않으면**, 배열이 이미 정렬된 것이므로 즉시 종료할 수 있다. 이 최적화를 적용하면 **최선의 경우(이미 정렬된 입력)에 Θ(n)** 이 된다. 실습 파일의 Python 코드에 `swapped` 플래그가 바로 이 최적화이다.
+> **Note:** Bubble sort has a useful optimization. If **no swaps occur** during an entire pass, the array is already sorted and can terminate immediately. With this optimization, the **best case (already sorted input) becomes Theta(n)**. The `swapped` flag in the lab's Python code is precisely this optimization.
 
-### 2.6 버블 정렬 — 단계별 예시
+### 2.6 Bubble Sort — Step-by-Step Example
 
-| 패스 | 패스 후 배열 | 올라간 원소 |
-|:-----|:------------|:-----------|
-| 0 | `[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]` | (초기) |
+| Pass | Array After Pass | Bubbled Element |
+|:-----|:----------------|:----------------|
+| 0 | `[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]` | (initial) |
 | 1 | `[15, 29, 20, 11, 8, 65, 48, 31, 3, \|73\|]` | 73 |
 | 2 | `[15, 20, 11, 8, 29, 48, 31, 3, \|65, 73\|]` | 65 |
 | 3 | `[15, 11, 8, 20, 29, 31, 3, \|48, 65, 73\|]` | 48 |
 | ... | ... | ... |
-| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | 완료 |
+| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Complete |
 
-> 각 패스 내에서, 인접 원소를 왼쪽에서 오른쪽으로 비교하며 순서가 잘못되면 교환한다.
+> Within each pass, adjacent elements are compared left to right and swapped if out of order.
 
-> 애니메이션: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
-### 2.7 삽입 정렬 — 아이디어
+### 2.7 Insertion Sort — Idea
 
-각 반복마다:
-1. 정렬되지 않은 부분에서 다음 원소(**키, key**)를 가져온다
-2. 정렬된 부분에서 그보다 큰 원소들을 **밀어낸다(shift)**
-3. 올바른 위치에 원소를 **삽입**한다
+In each iteration:
+1. Take the next element (**key**) from the unsorted portion
+2. **Shift** larger elements in the sorted portion to the right
+3. **Insert** the element at the correct position
 
 ```text
-[29]  10  14  37  13           29는 자명하게 정렬됨
-[10, 29]  14  37  13           10 삽입: 29를 밀고, 10 배치
-[10, 14, 29]  37  13           14 삽입: 29를 밀고, 14 배치
-[10, 14, 29, 37]  13           37 삽입: 이미 제자리
-[10, 13, 14, 29, 37]           13 삽입: 37,29,14를 밀고, 13 배치
+[29]  10  14  37  13           29 is trivially sorted
+[10, 29]  14  37  13           Insert 10: shift 29, place 10
+[10, 14, 29]  37  13           Insert 14: shift 29, place 14
+[10, 14, 29, 37]  13           Insert 37: already in place
+[10, 13, 14, 29, 37]           Insert 13: shift 37,29,14, place 13
 ```
 
-- 이미 **정렬된** 부분 배열에 각 원소를 삽입한다.
+- Each element is inserted into the already **sorted** subarray.
 
-> **참고:** 삽입 정렬은 카드 게임에서 손에 든 카드를 정리하는 방식과 동일하다. 새 카드를 받으면, 이미 정렬된 카드들 사이의 올바른 위치에 끼워넣는다. 이 직관적인 방식이 바로 삽입 정렬이다.
+> **Note:** Insertion sort is identical to how you sort cards in your hand during a card game. When you receive a new card, you insert it into the correct position among the already-sorted cards. This intuitive approach is precisely insertion sort.
 
-### 2.8 삽입 정렬 — 의사코드
+### 2.8 Insertion Sort — Pseudocode
 
 ```
-insertionSort(A[], n)          ▷ A[1...n]을 정렬
+insertionSort(A[], n)          ▷ Sort A[1...n]
 {
     for i ← 2 to n                                      ── ①
         Insert A[i] into its proper place in A[1...i];  ── ②
 }
 ```
 
-**복잡도 분석:**
-- 루프 ①은 **n - 1**번 실행된다
-- 삽입 ②는 최대 i - 1번의 비교가 필요하다
+**Complexity Analysis:**
+- Loop ① executes **n - 1** times
+- Insertion ② requires at most i - 1 comparisons
 
-| 경우 | 비교 횟수 | 복잡도 |
-|:-----|:----------|:-------|
-| **최악** (역순 정렬) | 1 + 2 + ... + (n-1) | Θ(n²) |
-| **평균** | 1/2 (1 + 2 + ... + (n-1)) | Θ(n²) |
-| **최선** (이미 정렬) | 1 + 1 + ... + 1 | **Θ(n)** |
+| Case | Comparisons | Complexity |
+|:-----|:-----------|:-----------|
+| **Worst** (reverse sorted) | 1 + 2 + ... + (n-1) | Theta(n^2) |
+| **Average** | 1/2 (1 + 2 + ... + (n-1)) | Theta(n^2) |
+| **Best** (already sorted) | 1 + 1 + ... + 1 | **Theta(n)** |
 
-> 삽입 정렬은 거의 정렬된 데이터에서 기초 정렬 중 **가장 빠르다**.
+> Insertion sort is the **fastest** among elementary sorts for nearly sorted data.
 
-> **핵심:** 삽입 정렬이 최선의 경우 Θ(n)인 이유는 다음과 같다. 이미 정렬되어 있으면 각 원소를 삽입할 때 비교를 **1번만** 하면 된다 (바로 앞 원소와 비교해서 이미 올바른 위치임을 확인). 총 n-1번 × 1비교 = Θ(n)이다. 이 때문에 실무에서 **거의 정렬된 소규모 데이터**에는 삽입 정렬이 자주 사용된다. Python의 Timsort도 내부적으로 작은 구간에서 삽입 정렬을 사용한다.
+> **Key Point:** The reason insertion sort is Theta(n) in the best case: when already sorted, inserting each element requires only **1 comparison** (comparing with the element directly in front confirms it is already in the correct position). Total n-1 times x 1 comparison = Theta(n). This is why insertion sort is frequently used in practice for **nearly sorted, small-scale data**. Python's Timsort also uses insertion sort internally for small segments.
 
-### 2.9 삽입 정렬 — 정확성의 귀납적 증명
+### 2.9 Insertion Sort — Inductive Proof of Correctness
 
-**루프 불변식(Loop Invariant)**: i번째 반복 시작 시, 부분 배열 A[1...i-1]은 정렬되어 있다.
+**Loop Invariant**: At the start of the i-th iteration, subarray A[1...i-1] is sorted.
 
-- **기저 사례** (n = 1): 단일 원소 A[1]은 자명하게 정렬되어 있다.
-- **귀납 단계**: A[1...k]가 정렬되어 있으면 (P(k) 성립), A[k+1]을 올바른 위치에 삽입하면 정렬된 A[1...k+1]이 된다 (P(k+1) 성립).
-- **결론**: n번째 반복 후, 전체 배열 A[1...n]이 정렬된다.
+- **Base case** (n = 1): A single element A[1] is trivially sorted.
+- **Inductive step**: If A[1...k] is sorted (P(k) holds), inserting A[k+1] at the correct position yields sorted A[1...k+1] (P(k+1) holds).
+- **Conclusion**: After the n-th iteration, the entire array A[1...n] is sorted.
 
-> 이것은 고등학교에서 배운 **수학적 귀납법**을 알고리즘에 적용한 것과 정확히 같다.
+> This is exactly the same as applying **mathematical induction** (learned in high school) to algorithms.
 
-> **시험 팁:** **루프 불변식(Loop Invariant)** 은 알고리즘의 정확성을 증명하는 핵심 도구이다. "루프가 반복될 때마다 항상 참인 조건"을 말한다. 수학적 귀납법의 구조와 동일하다:
-> - 기저 사례 = 루프 시작 전에 참
-> - 귀납 단계 = 한 번 반복해도 여전히 참
-> - 결론 = 루프 종료 후에 원하는 성질이 성립
+> **Exam Tip:** A **loop invariant** is a key tool for proving algorithm correctness. It is "a condition that remains true at every iteration of the loop." Its structure is identical to mathematical induction:
+> - Base case = true before the loop starts
+> - Inductive step = still true after one iteration
+> - Conclusion = the desired property holds after the loop terminates
 >
-> 시험에서 알고리즘의 정확성 증명 문제가 출제될 경우, 루프 불변식을 이용하여 증명하는 것이 정석이다.
+> When exam questions ask for correctness proofs, using loop invariants is the standard approach.
 
-### 2.10 기초 정렬의 재귀적 구조
+### 2.10 Recursive Structure of Elementary Sorts
 
-세 기초 정렬은 모두 **동일한 재귀적 구조**를 가진다:
+All three elementary sorts share the **same recursive structure**:
 
 ```
-T(n) = T(n-1) + Θ(n)
+T(n) = T(n-1) + Theta(n)
 ```
 
-| 알고리즘 | 재귀적 형태 | "레벨당 작업량" |
-|:---------|:-----------|:---------------|
-| **삽입 정렬** | A[1...n-1] 정렬 후, A[n] 삽입 | insert(n) = Θ(n) |
-| **선택 정렬** | 최대값 찾아 교환 후, A[1...n-1] 정렬 | maxSwap(n) = Θ(n) |
-| **버블 정렬** | 최대값을 끝으로 올린 후, A[1...n-1] 정렬 | bubble(n) = Θ(n) |
+| Algorithm | Recursive Form | "Work Per Level" |
+|:----------|:--------------|:-----------------|
+| **Insertion Sort** | Sort A[1...n-1], then insert A[n] | insert(n) = Theta(n) |
+| **Selection Sort** | Find max and swap, then sort A[1...n-1] | maxSwap(n) = Theta(n) |
+| **Bubble Sort** | Bubble max to end, then sort A[1...n-1] | bubble(n) = Theta(n) |
 
 ```
 insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
@@ -385,49 +387,49 @@ insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
 }                           }                           }
 ```
 
-> 핵심 차이: 삽입 정렬은 재귀 호출 **후에** 작업하고, 선택/버블 정렬은 재귀 호출 **전에** 작업한다.
+> Key difference: Insertion sort does work **after** the recursive call, while selection/bubble sort do work **before** the recursive call.
 
-> **핵심:** 이 재귀 구조는 매우 중요하다! 세 알고리즘 모두 $T(n) = T(n-1) + \Theta(n)$이라는 동일한 점화식을 따르며, 이를 풀면 $T(n) = \Theta(n) + \Theta(n-1) + ... + \Theta(1) = \Theta(n^2)$이 된다. 즉, O(n²)의 근본적인 원인은 **문제 크기가 1씩만 줄어드는 구조** 때문이다. O(n log n) 알고리즘(병합, 퀵)은 문제를 **절반으로** 나누어 $T(n) = 2T(n/2) + \Theta(n)$이 되므로 훨씬 빠르다.
+> **Key Point:** This recursive structure is very important! All three algorithms follow the same recurrence $T(n) = T(n-1) + \Theta(n)$, which solves to $T(n) = \Theta(n) + \Theta(n-1) + ... + \Theta(1) = \Theta(n^2)$. The fundamental cause of O(n^2) is the structure where **the problem size decreases by only 1 at each step**. O(n log n) algorithms (merge, quick) split the problem **in half**, giving $T(n) = 2T(n/2) + \Theta(n)$, which is much faster.
 
 ---
 
 <br>
 
-## 3. 고급 정렬 — O(n log n)
+## 3. Advanced Sorting — O(n log n)
 
-### 3.1 병합 정렬 — 아이디어
+### 3.1 Merge Sort — Idea
 
-**분할 정복(Divide and Conquer)**:
-1. **분할(Divide)**: 배열을 두 반으로 나눈다
-2. **정복(Conquer)**: 각 반을 재귀적으로 정렬한다
-3. **결합(Combine)**: 두 정렬된 반쪽을 합병한다
+**Divide and Conquer**:
+1. **Divide**: Split the array into two halves
+2. **Conquer**: Recursively sort each half
+3. **Combine**: Merge the two sorted halves
 
 ```text
-[31, 3, 65, 73, 8, 11, 20, 29, 48, 15]     원본
+[31, 3, 65, 73, 8, 11, 20, 29, 48, 15]     Original
 
-[31, 3, 65, 73, 8] | [11, 20, 29, 48, 15]  ① 분할
+[31, 3, 65, 73, 8] | [11, 20, 29, 48, 15]  ① Divide
 
-[3, 8, 31, 65, 73] | [11, 15, 20, 29, 48]  ②③ 각 반 정렬
+[3, 8, 31, 65, 73] | [11, 15, 20, 29, 48]  ②③ Sort each half
 
-[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]     ④ 합병
+[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]     ④ Merge
 ```
 
-### 3.2 병합 정렬 — 의사코드
+### 3.2 Merge Sort — Pseudocode
 
 ```
-mergeSort(A[], p, r)             ▷ A[p...r]을 정렬
+mergeSort(A[], p, r)             ▷ Sort A[p...r]
 {
     if (p < r) then {
-        q ← floor((p + r) / 2);  ▷ 중간점
-        mergeSort(A, p, q);      ▷ 왼쪽 반 정렬
-        mergeSort(A, q+1, r);    ▷ 오른쪽 반 정렬
-        merge(A, p, q, r);       ▷ 두 정렬된 반쪽을 합병
+        q ← floor((p + r) / 2);  ▷ Midpoint
+        mergeSort(A, p, q);      ▷ Sort left half
+        mergeSort(A, q+1, r);    ▷ Sort right half
+        merge(A, p, q, r);       ▷ Merge the two sorted halves
     }
 }
 ```
 
 ```
-merge(A[], p, q, r)              ▷ A[p...q]와 A[q+1...r]을 합병
+merge(A[], p, q, r)              ▷ Merge A[p...q] and A[q+1...r]
 {
     i ← p; j ← q+1; t ← 1;
     while (i ≤ q and j ≤ r) {
@@ -436,89 +438,89 @@ merge(A[], p, q, r)              ▷ A[p...q]와 A[q+1...r]을 합병
         else
             tmp[t++] ← A[j++];
     }
-    Copy remaining elements to tmp[];  ▷ 남은 원소를 tmp[]에 복사
-    Copy tmp[] back to A[p...r];       ▷ tmp[]를 A[p...r]에 복사
+    Copy remaining elements to tmp[];  ▷ Copy remaining elements to tmp[]
+    Copy tmp[] back to A[p...r];       ▷ Copy tmp[] back to A[p...r]
 }
 ```
 
-> **핵심:** merge 함수의 핵심은 두 개의 **이미 정렬된** 배열을 합치는 것이다. 양쪽 배열의 앞에서부터 하나씩 비교하며 작은 것을 결과 배열에 넣는다. 양쪽 다 정렬되어 있으므로, 이 과정은 O(n)에 완료된다. 이 merge가 바로 "결합(Combine)" 단계이다.
+> **Key Point:** The core of the merge function is combining two **already sorted** arrays. It compares elements from the front of both arrays and places the smaller one into the result array. Since both sides are sorted, this process completes in O(n). This merge is precisely the "Combine" step.
 
-### 3.3 병합 정렬 — 합병 과정 예시
+### 3.3 Merge Sort — Merge Process Example
 
-`[3, 8, 31, 65, 73]`과 `[11, 15, 20, 29, 48]`을 합병한다:
+Merging `[3, 8, 31, 65, 73]` and `[11, 15, 20, 29, 48]`:
 
 ```
  i                      j                       tmp
 [3, 8, 31, 65, 73]     [11, 15, 20, 29, 48]     []
 
-단계 1: 3 < 11  → tmp = [3],         i 오른쪽으로
-단계 2: 8 < 11  → tmp = [3, 8],      i 오른쪽으로
-단계 3: 31 > 11 → tmp = [3, 8, 11],  j 오른쪽으로
-단계 4: 31 > 15 → tmp = [3, 8, 11, 15],  j 오른쪽으로
-단계 5: 31 > 20 → tmp = [3, 8, 11, 15, 20],  j 오른쪽으로
-단계 6: 31 > 29 → tmp = [3, 8, 11, 15, 20, 29],  j 오른쪽으로
-단계 7: 31 < 48 → tmp = [3, 8, 11, 15, 20, 29, 31],  i 오른쪽으로
-단계 8: 65 > 48 → tmp = [3, 8, 11, 15, 20, 29, 31, 48],  j 오른쪽으로
-단계 9-10: 남은 [65, 73] 복사
+Step 1: 3 < 11  → tmp = [3],         advance i
+Step 2: 8 < 11  → tmp = [3, 8],      advance i
+Step 3: 31 > 11 → tmp = [3, 8, 11],  advance j
+Step 4: 31 > 15 → tmp = [3, 8, 11, 15],  advance j
+Step 5: 31 > 20 → tmp = [3, 8, 11, 15, 20],  advance j
+Step 6: 31 > 29 → tmp = [3, 8, 11, 15, 20, 29],  advance j
+Step 7: 31 < 48 → tmp = [3, 8, 11, 15, 20, 29, 31],  advance i
+Step 8: 65 > 48 → tmp = [3, 8, 11, 15, 20, 29, 31, 48],  advance j
+Step 9-10: Copy remaining [65, 73]
 
-결과: [3, 8, 11, 15, 20, 29, 31, 48, 65, 73]
+Result: [3, 8, 11, 15, 20, 29, 31, 48, 65, 73]
 ```
 
-### 3.4 병합 정렬 — 복잡도 분석
+### 3.4 Merge Sort — Complexity Analysis
 
-**점화식**:
+**Recurrence**:
 
 $$T(n) = 2T\left(\frac{n}{2}\right) + \Theta(n)$$
 
-**재귀 트리**: 각 레벨의 총 작업량이 Θ(n)이고, log₂(n)개의 레벨이 존재한다.
+**Recursion Tree**: Total work at each level is Theta(n), and there are log_2(n) levels.
 
 ```
-레벨 0:         n            → n 작업
-레벨 1:     n/2   n/2        → n 작업
-레벨 2:   n/4 n/4 n/4 n/4    → n 작업
+Level 0:         n            → n work
+Level 1:     n/2   n/2        → n work
+Level 2:   n/4 n/4 n/4 n/4    → n work
   ...
-레벨 h:   1  1  1  ...  1    → n 작업
+Level h:   1  1  1  ...  1    → n work
 
-h = log₂n 레벨  →  총합: n × log₂n
+h = log₂n levels  →  Total: n × log₂n
 ```
 
 $$T(n) = \Theta(n \log n)$$
 
-> 병합 정렬은 **항상** Θ(n log n)이다 — 최악, 평균, 최선 모두 동일하다.
-> 트레이드오프: 임시 배열을 위한 **O(n) 추가 공간**이 필요하다.
+> Merge sort is **always** Theta(n log n) — worst, average, and best cases are all the same.
+> Trade-off: **O(n) extra space** is needed for the temporary array.
 
-> **참고:** 2주차에서 다룬 마스터 정리를 이 점화식에 적용하면: a=2, b=2, f(n)=n이므로 $n^{\log_2 2} = n$이고, $f(n) = \Theta(n^{\log_b a})$이므로 **Case 2**에 해당한다. 따라서 $T(n) = \Theta(n \log n)$이다. 반복 대입법으로 풀든 마스터 정리로 풀든 같은 결과이다.
+> **Note:** Applying the Master Theorem from Week 2 to this recurrence: a=2, b=2, f(n)=n, so $n^{\log_2 2} = n$, and $f(n) = \Theta(n^{\log_b a})$, giving **Case 2**. Therefore $T(n) = \Theta(n \log n)$. Whether solved by repeated substitution or the Master Theorem, the result is the same.
 
-### 3.5 퀵 정렬 — 아이디어
+### 3.5 Quick Sort — Idea
 
-1. **피벗(pivot)** 원소를 선택한다 (예: 마지막 원소)
-2. **분할(Partition)**: 피벗보다 작은 원소는 왼쪽, 큰 원소는 오른쪽으로 재배치한다
-3. 피벗은 이제 **최종 정렬 위치**에 있다
-4. 왼쪽과 오른쪽 부분 배열을 재귀적으로 정렬한다
+1. Select a **pivot** element (e.g., the last element)
+2. **Partition**: Rearrange elements so those smaller than the pivot go left, larger ones go right
+3. The pivot is now in its **final sorted position**
+4. Recursively sort the left and right subarrays
 
 ```text
-[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]    피벗 = 15
+[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]    pivot = 15
 
-[8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]  분할 후
+[8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]  After partition
 
-[3, 8, 11, |15|, 20, 29, 31, 48, 65, 73]  왼쪽 & 오른쪽 재귀 정렬
+[3, 8, 11, |15|, 20, 29, 31, 48, 65, 73]  Left & right recursively sorted
 ```
 
-> **핵심:** 병합 정렬과 퀵 정렬의 핵심 차이는 다음과 같다:
-> - **병합 정렬**: 먼저 나누고(분할은 간단), 합칠 때 작업한다(merge가 복잡)
-> - **퀵 정렬**: 나눌 때 작업하고(partition이 복잡), 합치는 건 불필요하다(이미 제자리)
+> **Key Point:** The key difference between merge sort and quick sort:
+> - **Merge sort**: Divide first (division is simple), do work when combining (merge is complex)
+> - **Quick sort**: Do work when dividing (partition is complex), combining is unnecessary (already in-place)
 >
-> 즉, 병합 정렬은 "결합"이 핵심이고, 퀵 정렬은 "분할"이 핵심이다.
+> In other words, merge sort's core is "combine" while quick sort's core is "divide."
 
-### 3.6 퀵 정렬 — 의사코드
+### 3.6 Quick Sort — Pseudocode
 
 ```
-quickSort(A[], p, r)             ▷ A[p...r]을 정렬
+quickSort(A[], p, r)             ▷ Sort A[p...r]
 {
     if (p < r) then {
-        q ← partition(A, p, r);  ▷ 피벗 기준으로 분할
-        quickSort(A, p, q-1);    ▷ 왼쪽 부분 배열 정렬
-        quickSort(A, q+1, r);    ▷ 오른쪽 부분 배열 정렬
+        q ← partition(A, p, r);  ▷ Partition around pivot
+        quickSort(A, p, q-1);    ▷ Sort left subarray
+        quickSort(A, q+1, r);    ▷ Sort right subarray
     }
 }
 ```
@@ -526,7 +528,7 @@ quickSort(A[], p, r)             ▷ A[p...r]을 정렬
 ```
 partition(A[], p, r)
 {
-    pivot ← A[r];                ▷ 마지막 원소를 피벗으로 선택
+    pivot ← A[r];                ▷ Choose last element as pivot
     i ← p - 1;
     for j ← p to r-1 {
         if (A[j] ≤ pivot) {
@@ -534,91 +536,91 @@ partition(A[], p, r)
             A[i] ↔ A[j];
         }
     }
-    A[i+1] ↔ A[r];               ▷ 피벗을 최종 위치에 배치
+    A[i+1] ↔ A[r];               ▷ Place pivot in its final position
     return i + 1;
 }
 ```
 
-> `i`는 경계를 표시한다: 인덱스 `i` 이하의 모든 원소는 <= 피벗이다.
-> `j`는 배열을 왼쪽에서 오른쪽으로 스캔한다.
+> `i` marks the boundary: all elements at index `i` or below are <= pivot.
+> `j` scans the array from left to right.
 
-![분할 불변식](../images/ch07_p004_002.png)
+![Partition Invariant](../images/ch07_p004_002.png)
 
-> **참고:** partition 함수의 동작을 직관적으로 이해하는 방법은 다음과 같다. `i`는 "피벗 이하 영역의 끝"을 가리키고, `j`는 "아직 확인하지 않은 영역의 시작"을 가리킨다. A[j] <= pivot이면 i를 하나 늘려 피벗 이하 영역을 확장하고, A[j]를 그 자리로 교환한다. 마지막에 피벗을 i+1 위치에 놓으면, 피벗 왼쪽은 모두 피벗 이하, 오른쪽은 모두 피벗 초과가 된다.
+> **Note:** An intuitive way to understand the partition function: `i` points to "the end of the region <= pivot," and `j` points to "the start of the unexamined region." When A[j] <= pivot, i is incremented to expand the <= pivot region, and A[j] is swapped into that position. At the end, placing the pivot at position i+1 ensures everything to its left is <= pivot and everything to its right is > pivot.
 
-> **참고:** `i = p - 1`로 초기화하는 이유: i는 "피벗 이하 영역의 마지막 인덱스"를 추적한다. 처음에는 피벗 이하인 원소가 아직 하나도 없으므로, 영역의 끝을 배열 시작점의 **바로 앞**(p-1)에 놓는 것이다. A[j] <= pivot인 원소를 처음 발견하면 i가 p로 증가하여, 비로소 유효한 인덱스를 가리키게 된다.
+> **Note:** The reason `i = p - 1` for initialization: i tracks "the last index of the <= pivot region." Initially, no elements have been identified as <= pivot, so the end of the region is placed **just before** the array start (p-1). When the first element with A[j] <= pivot is found, i increases to p, finally pointing to a valid index.
 
-### 3.7 퀵 정렬 — 분할 예시
+### 3.7 Quick Sort — Partition Example
 
-`[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]`를 피벗 = 15로 분할한다:
+Partitioning `[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]` with pivot = 15:
 
 ```
 pivot = A[10] = 15,  i = 0
 
-j=1: A[1]=31 > 15   → 건너뜀
-j=2: A[2]=8  ≤ 15   → i=1, A[1]↔A[2] 교환
-j=3: A[3]=48 > 15   → 건너뜀
-j=4: A[4]=73 > 15   → 건너뜀
-j=5: A[5]=11 ≤ 15   → i=2, A[2]↔A[5] 교환
-j=6: A[6]=3  ≤ 15   → i=3, A[3]↔A[6] 교환
-j=7~9: > 15         → 건너뜀
+j=1: A[1]=31 > 15   → skip
+j=2: A[2]=8  ≤ 15   → i=1, swap A[1]↔A[2]
+j=3: A[3]=48 > 15   → skip
+j=4: A[4]=73 > 15   → skip
+j=5: A[5]=11 ≤ 15   → i=2, swap A[2]↔A[5]
+j=6: A[6]=3  ≤ 15   → i=3, swap A[3]↔A[6]
+j=7~9: > 15         → skip
 
-최종: A[4]↔A[10] 교환
+Final: swap A[4]↔A[10]
 → [8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]
 ```
 
-![PARTITION 단계별 (CLRS)](../images/ch07_p003_001.png)
+![PARTITION Step-by-Step (CLRS)](../images/ch07_p003_001.png)
 
-> 애니메이션: [visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+> Animation: [visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
-### 3.8 퀵 정렬 — 복잡도 분석
+### 3.8 Quick Sort — Complexity Analysis
 
-**점화식**: T(n) = T(i - 1) + T(n - i) + Θ(n), 여기서 i는 피벗의 최종 위치이다.
+**Recurrence**: T(n) = T(i - 1) + T(n - i) + Theta(n), where i is the pivot's final position.
 
-| 경우 | 분할 균형 | 점화식 | 복잡도 |
-|:-----|:---------|:-------|:-------|
-| **최악** | 0 : n-1 (정렬된 입력) | T(n) = T(n-1) + Θ(n) | **Θ(n²)** |
-| **최선** | n/2 : n/2 (완벽한 분할) | T(n) = 2T(n/2) + Θ(n) | **Θ(n log n)** |
-| **평균** | 랜덤 분할 | 아래 참조 | **Θ(n log n)** |
+| Case | Partition Balance | Recurrence | Complexity |
+|:-----|:-----------------|:-----------|:-----------|
+| **Worst** | 0 : n-1 (sorted input) | T(n) = T(n-1) + Theta(n) | **Theta(n^2)** |
+| **Best** | n/2 : n/2 (perfect split) | T(n) = 2T(n/2) + Theta(n) | **Theta(n log n)** |
+| **Average** | Random split | See below | **Theta(n log n)** |
 
-**최악의 경우** — 입력이 이미 정렬됨, 피벗이 항상 최솟값 또는 최댓값:
-
-```
-T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
-     = Θ(n) + Θ(n-1) + ... + Θ(1) = Θ(n²)
-```
-
-![퀵 정렬 최악 vs 최선](../images/ch07_p008_006.png)
-
-> **참고:** 퀵 정렬의 최악 O(n²)를 피하는 실전 기법들은 다음과 같다:
-> 1. **랜덤 피벗(Randomized Pivot)**: 피벗을 무작위로 선택하면 최악의 경우가 발생할 확률이 극히 낮아진다
-> 2. **Median-of-Three**: 첫/중간/마지막 원소 중 중간값을 피벗으로 선택한다
-> 3. **Introsort**: 재귀 깊이가 너무 깊어지면 힙 정렬로 전환한다 (C++ STL의 `std::sort`가 이 방식이다)
-
-### 3.9 퀵 정렬 — 평균 O(n log n)인 이유
-
-**핵심 통찰**: 분할 비율이 **어떤 상수 비율이든** (1:9, 1:99라 해도), 깊이는 O(log n)으로 유지된다.
-
-- 가장 긴 경로: n → 9n/10 → (9/10)²n → ... → 1
-- 깊이 = log_{10/9}(n) = O(log n)
-- 각 레벨의 총 작업량은 여전히 O(n)이다
-
-![1/10 : 9/10 재귀 트리](../images/ch07_p007_004.png)
-
-**평균 분석 증명** (귀납법 사용):
-- 모든 i < n에 대해 T(i) <= c * i * log(i)라 가정한다
-- 모든 가능한 피벗 위치에 대해 평균: T(n) = (1/n) * sum_{i=0}^{n-1} [T(i) + T(n-i-1)] + Θ(n)
-- 적분 근사법으로: T(n) <= c * n * log(n)
-- 따라서 T(n) = **O(n log n)** (평균)
-
-> **참고:** 1:9 같은 불균형 분할이 허용되는 이유를 살펴보면, 문제 크기가 매번 9/10로 줄어든다고 해도, $n \times (9/10)^k = 1$을 풀면 $k = \log_{10/9}(n)$이고, 이는 $O(\log n)$이다 (밑만 다를 뿐이다). 정말 문제가 되는 것은 0:(n-1) 같은 **극단적 불균형**이 매번 반복될 때뿐이다.
-
-### 3.10 힙 정렬 — 힙 복습
-
-**힙(Heap)**: 힙 속성을 가진 완전 이진 트리로, 배열에 저장한다.
+**Worst case** — input is already sorted, pivot is always the minimum or maximum:
 
 ```
-   최소 힙 예시         최대 힙 예시
+T(n) = T(0) + T(n-1) + Theta(n) = T(n-1) + Theta(n)
+     = Theta(n) + Theta(n-1) + ... + Theta(1) = Theta(n^2)
+```
+
+![Quick Sort Worst vs Best](../images/ch07_p008_006.png)
+
+> **Note:** Practical techniques to avoid quick sort's worst-case O(n^2):
+> 1. **Randomized Pivot**: Choosing the pivot randomly makes the probability of worst-case occurrence extremely low
+> 2. **Median-of-Three**: Choose the median of the first/middle/last elements as the pivot
+> 3. **Introsort**: Switch to heap sort when recursion depth becomes too deep (this is how C++ STL's `std::sort` works)
+
+### 3.9 Quick Sort — Why the Average Is O(n log n)
+
+**Key Insight**: Even with a partition ratio that is **any constant ratio** (1:9, 1:99), the depth remains O(log n).
+
+- Longest path: n -> 9n/10 -> (9/10)^2 n -> ... -> 1
+- Depth = log_{10/9}(n) = O(log n)
+- Total work at each level is still O(n)
+
+![1/10 : 9/10 Recursion Tree](../images/ch07_p007_004.png)
+
+**Average Analysis Proof** (using induction):
+- Assume T(i) <= c * i * log(i) for all i < n
+- Average over all possible pivot positions: T(n) = (1/n) * sum_{i=0}^{n-1} [T(i) + T(n-i-1)] + Theta(n)
+- Using integral approximation: T(n) <= c * n * log(n)
+- Therefore T(n) = **O(n log n)** (average)
+
+> **Note:** Why an unbalanced split like 1:9 is acceptable: even when the problem size shrinks by 9/10 each time, solving $n \times (9/10)^k = 1$ gives $k = \log_{10/9}(n)$, which is $O(\log n)$ (only the base differs). What truly causes problems is when an **extreme imbalance** like 0:(n-1) repeats every time.
+
+### 3.10 Heap Sort — Heap Review
+
+**Heap**: A complete binary tree with the heap property, stored in an array.
+
+```
+   Min Heap Example      Max Heap Example
        3                 9
       / \               / \
      6   4             7   8
@@ -626,81 +628,81 @@ T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
    8   9   7         3   6   4
 ```
 
-**배열 표현** (1-인덱스):
-- A[i]의 자식: **A[2i]** 과 **A[2i + 1]**
-- A[i]의 부모: **A[floor(i/2)]**
-- A[i]의 형제: **A[i-1]** (i가 홀수일 때)
+**Array Representation** (1-indexed):
+- Children of A[i]: **A[2i]** and **A[2i + 1]**
+- Parent of A[i]: **A[floor(i/2)]**
+- Sibling of A[i]: **A[i-1]** (when i is odd)
 
-![MAX-HEAPIFY 연산](../images/ch06_p005_002.png)
+![MAX-HEAPIFY Operation](../images/ch06_p005_002.png)
 
-### 3.11 힙 정렬 — 알고리즘
+### 3.11 Heap Sort — Algorithm
 
 ```
-heapSort(A[], n)              ▷ A[1...n]을 정렬
+heapSort(A[], n)              ▷ Sort A[1...n]
 {
-    buildHeap(A, n);          ▷ 최소 힙(또는 최대 힙) 구축
+    buildHeap(A, n);          ▷ Build a min heap (or max heap)
     for i ← n downto 2 {
-        A[1] ↔ A[i];          ▷ 루트(최솟값/최댓값)와 마지막 원소 교환
-        heapify(A, 1, i-1);   ▷ 힙 속성 복원
+        A[1] ↔ A[i];          ▷ Swap root (min/max) with last element
+        heapify(A, 1, i-1);   ▷ Restore heap property
     }
 }
 ```
 
-**두 핵심 서브루틴:**
-1. `buildHeap`: 임의의 배열을 힙으로 변환한다 — **O(n)**
-2. `heapify`: 단일 노드에서 힙 속성을 수정한다 — **O(log n)**
+**Two Key Subroutines:**
+1. `buildHeap`: Transforms an arbitrary array into a heap — **O(n)**
+2. `heapify`: Fixes the heap property at a single node — **O(log n)**
 
-> **최악의 경우**: O(n log n) — 퀵 정렬과 달리 보장된다!
+> **Worst case**: O(n log n) — guaranteed, unlike quick sort!
 
-> **참고:** 힙 정렬의 동작 원리는 다음과 같다. (1) 배열 전체를 힙으로 만든다 (buildHeap), (2) 힙의 루트(최솟값 또는 최댓값)를 배열 끝으로 보내고, (3) 힙 크기를 1 줄인 뒤 다시 힙 속성을 복원(heapify)한다. 이를 반복하면 배열이 정렬된다.
+> **Note:** How heap sort works: (1) Turn the entire array into a heap (buildHeap), (2) Move the heap's root (min or max) to the end of the array, (3) Reduce the heap size by 1 and restore the heap property (heapify). Repeating this sorts the array.
 
-### 3.12 힙 정렬 — buildHeap과 heapify
+### 3.12 Heap Sort — buildHeap and heapify
 
 ```
 buildHeap(A[], n)
 {
-    for i ← floor(n/2) downto 1      ▷ 마지막 내부 노드부터 시작
+    for i ← floor(n/2) downto 1      ▷ Start from the last internal node
         heapify(A, i, n);
 }
 ```
 
 ```
-heapify(A[], k, n)                   ▷ A[k]를 루트로 하는 힙 수정
-{                                    ▷ A[k]의 서브트리들은 이미 힙
+heapify(A[], k, n)                   ▷ Fix heap rooted at A[k]
+{                                    ▷ Subtrees of A[k] are already heaps
     left ← 2k;  right ← 2k + 1;
-    if (right ≤ n) then {            ▷ 자식이 둘
+    if (right ≤ n) then {            ▷ Two children
         if (A[left] < A[right])
             smaller ← left;
         else smaller ← right;
     }
-    else if (left ≤ n) then          ▷ 왼쪽 자식만 존재
+    else if (left ≤ n) then          ▷ Only left child exists
         smaller ← left;
-    else return;                     ▷ 리프 노드
+    else return;                     ▷ Leaf node
 
-    if (A[smaller] < A[k]) then {    ▷ 힙 속성 위반
+    if (A[smaller] < A[k]) then {    ▷ Heap property violated
         A[k] ↔ A[smaller];
-        heapify(A, smaller, n);      ▷ 아래로 재귀
+        heapify(A, smaller, n);      ▷ Recurse downward
     }
 }
 ```
 
-> **참고:** buildHeap이 O(n)인 이유는 직관적이지 않다. O(n log n)이 아닌 O(n)인 근거는 다음과 같다. 리프 노드(절반)는 heapify가 불필요하고, 높이 1인 노드는 1번만, 높이 2인 노드는 2번만 내려가면 된다. 총합은 $\sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h$이고, 이 급수의 합은 O(n)이다. 수학적으로 엄밀한 증명은 CLRS 6.3절을 참고할 수 있다.
+> **Note:** The reason buildHeap is O(n) is not intuitive. The rationale for why it is O(n) rather than O(n log n): leaf nodes (half of all nodes) require no heapify, height-1 nodes only go down 1 level, height-2 nodes only go down 2 levels. The total sum is $\sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h$, and this series sums to O(n). For a mathematically rigorous proof, see CLRS Section 6.3.
 
-> **참고:** `floor(n/2)`부터 시작하는 이유: 인덱스 floor(n/2)+1부터 n까지의 노드는 모두 **리프 노드**(자식이 없는 노드)이다. 리프 노드는 그 자체로 크기 1인 힙이므로 heapify가 불필요하다. 따라서 마지막 내부 노드인 floor(n/2)부터 루트(1)까지 역순으로 heapify를 적용하면, 아래에서 위로 힙 속성이 전파된다.
+> **Note:** The reason for starting at `floor(n/2)`: Nodes from index floor(n/2)+1 through n are all **leaf nodes** (nodes with no children). Leaf nodes are trivially heaps of size 1, so heapify is unnecessary. Therefore, applying heapify in reverse order from the last internal node floor(n/2) down to root (1) propagates the heap property from bottom to top.
 
-### 3.13 힙 정렬 — buildHeap 예시
+### 3.13 Heap Sort — buildHeap Example
 
-`A = [7, 9, 4, 8, 6, 3]`으로부터 최소 힙을 구축한다:
+Building a min heap from `A = [7, 9, 4, 8, 6, 3]`:
 
 ```
-(a) 시작         (b) heapify(3)   (c) heapify(2)
+(a) Start          (b) heapify(3)   (c) heapify(2)
      7                 7                7
     / \               / \              / \
    9   4             9   3            6   3
   / \   \           / \   \          / \   \
  8   6   3         8   6   4        8   9   4
 
-(d) heapify(1)   (e) 최종 힙
+(d) heapify(1)   (e) Final Heap
      3                 3
     / \               / \
    6   4             6   4
@@ -708,108 +710,108 @@ heapify(A[], k, n)                   ▷ A[k]를 루트로 하는 힙 수정
  8   9   7         8   9   7
 ```
 
-> buildHeap은 노드를 **아래에서 위로** (floor(n/2)에서 1까지) 처리한다.
+> buildHeap processes nodes **bottom-up** (from floor(n/2) to 1).
 
 ![BUILD-MAX-HEAP (CLRS)](../images/ch06_p008_003.png)
 
-### 3.14 힙 정렬 — 정렬 단계
+### 3.14 Heap Sort — Sorting Phase
 
-buildHeap 이후, 최솟값을 반복적으로 추출한다:
+After buildHeap, repeatedly extract the minimum:
 
 ```
-(a) [3,6,4,8,9,7]  A[1]↔A[6] 교환, heapify → [4,6,7,8,9,|3]
-(b) [4,6,7,8,9,|3] A[1]↔A[5] 교환, heapify → [6,8,7,9,|4,3]
-(c) [6,8,7,9,|4,3] A[1]↔A[4] 교환, heapify → [7,8,9,|6,4,3]
-(d) [7,8,9,|6,4,3] A[1]↔A[3] 교환, heapify → [8,9,|7,6,4,3]
-(e) [8,9,|7,6,4,3] A[1]↔A[2] 교환 → 완료!
+(a) [3,6,4,8,9,7]  Swap A[1]↔A[6], heapify → [4,6,7,8,9,|3]
+(b) [4,6,7,8,9,|3] Swap A[1]↔A[5], heapify → [6,8,7,9,|4,3]
+(c) [6,8,7,9,|4,3] Swap A[1]↔A[4], heapify → [7,8,9,|6,4,3]
+(d) [7,8,9,|6,4,3] Swap A[1]↔A[3], heapify → [8,9,|7,6,4,3]
+(e) [8,9,|7,6,4,3] Swap A[1]↔A[2] → Done!
 
-결과 (내림차순): [9, 8, 7, 6, 4, 3]
+Result (descending): [9, 8, 7, 6, 4, 3]
 ```
 
-> 최소 힙 → **내림차순** 정렬.
-> 최대 힙 → **오름차순** 정렬.
+> Min heap → **descending** order.
+> Max heap → **ascending** order.
 
-![HEAPSORT 정렬 단계 (CLRS)](../images/ch06_p011_004.png)
+![HEAPSORT Sorting Phase (CLRS)](../images/ch06_p011_004.png)
 
-### 3.15 힙 정렬 — 복잡도
+### 3.15 Heap Sort — Complexity
 
 ```
 heapSort(A[], n)
 {
-    buildHeap(A, n);          → O(n)  [더 정밀한 분석] 또는 O(n log n)
-    for i ← n downto 2 {      → n - 1 반복
+    buildHeap(A, n);          → O(n)  [tighter analysis] or O(n log n)
+    for i ← n downto 2 {      → n - 1 iterations
         A[1] ↔ A[i];          → O(1)
         heapify(A, 1, i-1);   → O(log n)
     }
 }
 ```
 
-| 단계 | 복잡도 |
-|:-----|:-------|
+| Phase | Complexity |
+|:------|:-----------|
 | buildHeap | O(n) |
-| 정렬 루프 | (n-1) × O(log n) = **O(n log n)** |
-| **총합** | **O(n log n)** |
+| Sorting loop | (n-1) x O(log n) = **O(n log n)** |
+| **Total** | **O(n log n)** |
 
-> 힙 정렬은 **최악의 경우에도 O(n log n)** 이다 — 퀵 정렬처럼 퇴화하는 입력이 없다!
-> **제자리 정렬(in-place)** 이다 (병합 정렬과 달리 추가 배열이 불필요하다).
+> Heap sort is **O(n log n) even in the worst case** — no degenerate inputs like quick sort!
+> It is **in-place** (unlike merge sort, no extra array is needed).
 
-> **시험 팁:** 세 가지 O(n log n) 정렬의 비교는 다음과 같다:
+> **Exam Tip:** Comparison of the three O(n log n) sorts:
 >
-> | | 병합 정렬 | 퀵 정렬 | 힙 정렬 |
+> | | Merge Sort | Quick Sort | Heap Sort |
 > |:---|:---|:---|:---|
-> | 최악 | O(n log n) | **O(n²)** | O(n log n) |
-> | 추가 공간 | **O(n)** | O(log n) | O(1) |
-> | 실전 속도 | 빠르다 | **가장 빠르다** | 보통이다 |
-> | 안정성 | **안정** | 불안정 | 불안정 |
+> | Worst | O(n log n) | **O(n^2)** | O(n log n) |
+> | Extra space | **O(n)** | O(log n) | O(1) |
+> | Practical speed | Fast | **Fastest** | Average |
+> | Stability | **Stable** | Unstable | Unstable |
 >
-> 퀵 정렬이 최악 O(n²)임에도 실전에서 가장 많이 쓰이는 이유는, 캐시 효율성이 좋고 상수 인자가 작기 때문이다.
+> The reason quick sort is most commonly used in practice despite its worst-case O(n^2) is its excellent cache efficiency and small constant factors.
 
 ---
 
 <br>
 
-## 4. 선형 시간 정렬 — O(n)
+## 4. Linear-Time Sorting — O(n)
 
-### 4.1 비교 기반 정렬의 하한
+### 4.1 Lower Bound for Comparison-Based Sorting
 
-**정리**: 어떤 비교 기반 정렬 알고리즘이든 최악의 경우 **Ω(n log n)** 번의 비교가 필요하다.
+**Theorem**: Any comparison-based sorting algorithm requires at least **Omega(n log n)** comparisons in the worst case.
 
-> 이는 선택, 버블, 삽입, 병합, 퀵, 힙 정렬이 비교만 사용하는 한 O(n log n)보다 **더 빨라질 수 없다**는 뜻이다.
+> This means selection, bubble, insertion, merge, quick, and heap sort **cannot be faster than** O(n log n) as long as they use only comparisons.
 
-**하지만**: 원소가 **특별한 속성**을 가지면, 비교를 완전히 우회할 수 있다.
+**However**: If elements have **special properties**, comparisons can be bypassed entirely.
 
-| 알고리즘 | 조건 | 복잡도 |
-|:---------|:-----|:-------|
-| **기수 정렬** | 원소가 최대 k자리 (k = 상수) | Θ(n) |
-| **계수 정렬** | 원소 값의 범위가 [-O(n), O(n)] | Θ(n) |
+| Algorithm | Condition | Complexity |
+|:----------|:---------|:-----------|
+| **Radix Sort** | Elements have at most k digits (k = constant) | Theta(n) |
+| **Counting Sort** | Element values range in [-O(n), O(n)] | Theta(n) |
 
-> **핵심:** 이 하한 정리는 **결정 트리(decision tree)** 모델로 증명된다. 비교 기반 정렬은 각 단계에서 "A[i] ≤ A[j]?"라는 예/아니오 질문을 한다. n개 원소의 가능한 순서는 n!가지이므로, 이를 모두 구분하려면 최소 log₂(n!)번의 비교가 필요하다. Stirling 근사에 의해 log₂(n!) = Θ(n log n)이다. 즉, **비교만 사용하는 정렬은 절대로 O(n log n)보다 빠를 수 없다**.
+> **Key Point:** This lower bound theorem is proven using the **decision tree** model. A comparison-based sort asks "A[i] <= A[j]?" (yes/no) at each step. Since there are n! possible orderings of n elements, at least log_2(n!) comparisons are needed to distinguish them all. By Stirling's approximation, log_2(n!) = Theta(n log n). That is, **sorting using only comparisons can never be faster than O(n log n)**.
 
-> **참고:** 결정 트리를 구체적으로 이해하면: n=3 원소 [a, b, c]의 정렬을 생각한다. 가능한 순서는 3! = 6가지이다. 비교 기반 정렬의 각 비교("a ≤ b?")는 트리의 내부 노드이고, 각 리프는 하나의 순열(정렬 결과)이다. 6개의 리프를 가진 이진 트리의 최소 높이는 ⌈log₂ 6⌉ = 3이므로, 최소 3번의 비교가 필요하다. 일반적으로 n!개의 리프를 가진 이진 트리의 높이는 최소 log₂(n!) = Θ(n log n)이다.
+> **Note:** Understanding the decision tree concretely: Consider sorting n=3 elements [a, b, c]. There are 3! = 6 possible orderings. Each comparison ("a <= b?") is an internal node of the tree, and each leaf is one permutation (sorting result). The minimum height of a binary tree with 6 leaves is ceil(log_2 6) = 3, so at least 3 comparisons are needed. In general, the height of a binary tree with n! leaves is at least log_2(n!) = Theta(n log n).
 
-### 4.2 기수 정렬
+### 4.2 Radix Sort
 
-각 자릿수 위치별로, **최하위 자릿수(LSD)부터 최상위 자릿수(MSD)까지**, **안정 정렬(stable sort)** 을 사용하여 정렬한다.
+Sort by each digit position, from the **least significant digit (LSD)** to the **most significant digit (MSD)**, using a **stable sort**.
 
 ```
-radixSort(A[], n, k)           ▷ 원소가 최대 k자리
+radixSort(A[], n, k)           ▷ Elements have at most k digits
 {
     for i ← 1 to k
         Stable-sort A[1...n] on the i-th digit;
-                               ▷ i번째 자릿수에 대해 안정 정렬
+                               ▷ Stable sort on the i-th digit
 }
 ```
 
-**안정 정렬(Stable Sort)**: 키가 같은 원소들이 **원래의 상대적 순서**를 유지하는 정렬이다.
+**Stable Sort**: A sort that preserves the **original relative order** of elements with equal keys.
 
-> **참고:** 안정성(Stability)이 기수 정렬에서 중요한 이유는 다음과 같다. 1의 자리로 정렬한 후 10의 자리로 정렬할 때, 10의 자리가 같은 원소들은 이미 1의 자리 순서로 정렬되어 있어야 한다. 안정 정렬이 아니면 이 순서가 깨져서 최종 결과가 틀려진다.
+> **Note:** Why stability is important in radix sort: After sorting by the 1's digit, when sorting by the 10's digit, elements with the same 10's digit must already be ordered by their 1's digit. If the sort is not stable, this order breaks and the final result becomes incorrect.
 
-### 4.3 기수 정렬 — 예시
+### 4.3 Radix Sort — Example
 
-정렬: `[0123, 2154, 0222, 0004, 0283, 1560, 1061, 2150]`
+Sort: `[0123, 2154, 0222, 0004, 0283, 1560, 1061, 2150]`
 
 ```
- 원본        1번째 자리     2번째 자리     3번째 자리     4번째 자리
+ Original        1st digit      2nd digit      3rd digit      4th digit
  0123         1560         0004         0004         0004
  2154         2150         0222         1061         0123
  0222         1061         0123         0123         0222
@@ -820,136 +822,136 @@ radixSort(A[], n, k)           ▷ 원소가 최대 k자리
  2150         0004         0283         1560         2154
 ```
 
-- 각 열은 강조된 자릿수에 대한 **안정 정렬**을 적용한 결과이다
-- k = 4개 자릿수를 모두 처리하면 배열이 완전히 정렬된다
+- Each column shows the result of applying a **stable sort** on the highlighted digit
+- After processing all k = 4 digits, the array is fully sorted
 
-$$T(n) = k \cdot \Theta(n) = \Theta(n) \quad \text{(}k\text{가 상수일 때)}$$
+$$T(n) = k \cdot \Theta(n) = \Theta(n) \quad \text{(when }k\text{ is constant)}$$
 
-### 4.4 계수 정렬
+### 4.4 Counting Sort
 
-원소 값이 범위 내에 있을 때 사용한다: 모든 값이 `{1, 2, ..., k}` (k = O(n)).
+Used when element values are within a range: all values in `{1, 2, ..., k}` (k = O(n)).
 
 ```
-countingSort(A[], B[], n)        ▷ A[1...n]: 입력, B[1...n]: 출력
+countingSort(A[], B[], n)        ▷ A[1...n]: input, B[1...n]: output
 {
     for i ← 1 to k
-        C[i] ← 0;                ▷ 카운트 초기화
+        C[i] ← 0;                ▷ Initialize counts
 
     for j ← 1 to n
-        C[A[j]]++;               ▷ 발생 횟수 세기
+        C[A[j]]++;               ▷ Count occurrences
 
-    // C[i]는 이제 i와 같은 원소의 수
+    // C[i] now holds the number of elements equal to i
 
     for i ← 2 to k
-        C[i] ← C[i] + C[i-1];    ▷ 누적 합
+        C[i] ← C[i] + C[i-1];    ▷ Cumulative sum
 
-    // C[i]는 이제 i 이하인 원소의 수
+    // C[i] now holds the number of elements ≤ i
 
     for j ← n downto 1 {
-        B[C[A[j]]] ← A[j];       ▷ 원소 배치
-        C[A[j]]--;               ▷ 카운트 감소
+        B[C[A[j]]] ← A[j];       ▷ Place element
+        C[A[j]]--;               ▷ Decrement count
     }
 }
 ```
 
-> **핵심:** 계수 정렬의 핵심 아이디어는 다음과 같다. (1) 각 값이 몇 번 나타나는지 센다, (2) 누적합을 계산하면 "이 값은 결과 배열의 어디에 들어가야 하는지"를 바로 알 수 있다, (3) 원본을 뒤에서부터 순회하며 제자리에 배치한다 (뒤에서부터 순회하는 이유는 안정성을 보장하기 위해서이다). 비교를 전혀 하지 않으므로 Ω(n log n) 하한을 우회한다.
+> **Key Point:** The core idea of counting sort: (1) Count how many times each value appears, (2) Compute the cumulative sum, which directly tells "where this value should go in the result array," (3) Traverse the original array from back to front, placing each element in its position (traversing from back to front ensures stability). Since no comparisons are made, the Omega(n log n) lower bound is bypassed.
 
-> **참고:** 왜 뒤에서부터 순회해야 안정적인가: 누적합 C[v]는 "값 v인 원소가 들어갈 마지막 위치"를 가리킨다. 뒤에서부터 순회하면, 같은 값을 가진 원소들 중 **원본에서 뒤에 있던 것이 먼저** 결과 배열의 뒤쪽 자리에 배치되고, C[v]가 감소하여 앞쪽 자리가 남는다. 앞에서부터 순회하면 상대적 순서가 뒤집힌다. 기수 정렬이 계수 정렬의 안정성에 의존하므로 이 순회 방향은 매우 중요하다.
+> **Note:** Why traversing from back to front ensures stability: The cumulative sum C[v] points to "the last position where a value v should go." By traversing from back to front, among elements with the same value, **the one later in the original** is placed first at the later position in the result array, and C[v] decrements to leave earlier positions for the rest. Traversing from front to back would reverse the relative order. Since radix sort depends on counting sort's stability, this traversal direction is very important.
 
-### 4.5 계수 정렬 — 예시
+### 4.5 Counting Sort — Example
 
-`A = [3, 1, 2, 1, 1, 4, 2, 3, 1, 2]`를 k = 4로 정렬한다:
+Sort `A = [3, 1, 2, 1, 1, 4, 2, 3, 1, 2]` with k = 4:
 
 ```
-1단계: 발생 횟수 세기                 2단계: 누적 합
+Step 1: Count occurrences               Step 2: Cumulative sum
 C = [4, 3, 2, 1]                  C = [4, 7, 9, 10]
      1  2  3  4                        1  2  3  4
 
      ↑                                 ↑
-     1이 4번, 2가 3번,                   1 이하 원소: 4개
-     3이 2번, 4가 1번                    2 이하 원소: 7개
-                                       3 이하 원소: 9개
-                                       4 이하 원소: 10개
+     1 appears 4 times, 2 three times,    Elements ≤ 1: 4
+     3 two times, 4 one time              Elements ≤ 2: 7
+                                          Elements ≤ 3: 9
+                                          Elements ≤ 4: 10
 
-3단계: 원소 배치 (안정성을 위해 오른쪽에서 왼쪽으로)
+Step 3: Place elements (right to left for stability)
 j=10: A[10]=2, C[2]=7 → B[7]=2, C[2]=6
 j=9:  A[9]=1,  C[1]=4 → B[4]=1, C[1]=3
 j=8:  A[8]=3,  C[3]=9 → B[9]=3, C[3]=8
   ...
 
-B = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4]     ← 정렬 완료!
+B = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4]     ← Sorting complete!
 ```
 
-$$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(}k = O(n)\text{일 때)}$$
+$$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
-### 4.6 복잡도 비교 — 모든 정렬 알고리즘
+### 4.6 Complexity Comparison — All Sorting Algorithms
 
-| 알고리즘 | 최악 | 평균 | 최선 | 공간 | 안정? |
-|:---------|:-----|:-----|:-----|:-----|:------|
-| **선택 정렬** | Θ(n²) | Θ(n²) | Θ(n²) | O(1) | 아니오 |
-| **버블 정렬** | Θ(n²) | Θ(n²) | Θ(n) | O(1) | 예 |
-| **삽입 정렬** | Θ(n²) | Θ(n²) | **Θ(n)** | O(1) | 예 |
-| **병합 정렬** | Θ(n log n) | Θ(n log n) | Θ(n log n) | **O(n)** | 예 |
-| **퀵 정렬** | **Θ(n²)** | Θ(n log n) | Θ(n log n) | O(log n) | 아니오 |
-| **힙 정렬** | Θ(n log n) | Θ(n log n) | Θ(n log n) | O(1) | 아니오 |
-| **계수 정렬** | Θ(n + k) | Θ(n + k) | Θ(n + k) | O(k) | 예 |
-| **기수 정렬** | Θ(nk) | Θ(nk) | Θ(nk) | O(n + k) | 예 |
+| Algorithm | Worst | Average | Best | Space | Stable? |
+|:----------|:------|:--------|:-----|:------|:--------|
+| **Selection Sort** | Theta(n^2) | Theta(n^2) | Theta(n^2) | O(1) | No |
+| **Bubble Sort** | Theta(n^2) | Theta(n^2) | Theta(n) | O(1) | Yes |
+| **Insertion Sort** | Theta(n^2) | Theta(n^2) | **Theta(n)** | O(1) | Yes |
+| **Merge Sort** | Theta(n log n) | Theta(n log n) | Theta(n log n) | **O(n)** | Yes |
+| **Quick Sort** | **Theta(n^2)** | Theta(n log n) | Theta(n log n) | O(log n) | No |
+| **Heap Sort** | Theta(n log n) | Theta(n log n) | Theta(n log n) | O(1) | No |
+| **Counting Sort** | Theta(n + k) | Theta(n + k) | Theta(n + k) | O(k) | Yes |
+| **Radix Sort** | Theta(nk) | Theta(nk) | Theta(nk) | O(n + k) | Yes |
 
-> 비교 기반 정렬의 하한: **Ω(n log n)**
-> 선형 시간 정렬은 비교가 아닌 입력 구조를 활용하여 이를 우회한다.
+> Lower bound for comparison-based sorting: **Omega(n log n)**
+> Linear-time sorts bypass this by exploiting input structure rather than comparisons.
 
-> **시험 팁:** 이 표는 시험에 자주 출제되는 핵심 정리이다. 숙지해야 할 사항은 다음과 같다:
-> - 항상 O(n²)인 것: 선택 정렬
-> - 최선 O(n)인 기초 정렬: 버블(최적화 시), 삽입
-> - 항상 O(n log n)인 것: 병합, 힙
-> - 최악 O(n²)인 고급 정렬: 퀵 (하지만 평균은 가장 빠르다)
-> - 추가 공간 O(n) 필요: 병합
-> - 제자리(in-place): 선택, 버블, 삽입, 힙
-> - 안정(stable): 버블, 삽입, 병합, 계수, 기수
-
----
-
-<br>
-
-## 요약
-
-| 개념 | 핵심 정리 |
-|:-----|:---------|
-| 자료구조 | 리스트, 스택(LIFO), 큐(FIFO), 힙(완전 이진 트리) — 각 자료구조의 핵심 연산과 활용을 이해해야 한다 |
-| 정렬 알고리즘 분류 | 기초 O(n²), 고급 O(n log n), 선형 O(n) — 세 그룹으로 나뉜다 |
-| 선택 정렬 | 매 라운드마다 최댓값을 찾아 교환; 항상 Θ(n²) (최선/평균/최악 동일) |
-| 버블 정렬 | 인접 쌍을 비교하며 최댓값을 끝으로 올림; Θ(n²), 최적화 시 최선 Θ(n) |
-| 삽입 정렬 | 정렬된 부분에 원소를 삽입; 최선 **Θ(n)** (거의 정렬된 데이터에 최적) |
-| 기초 정렬의 재귀 구조 | 세 알고리즘 모두 $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$; 문제 크기가 1씩만 줄어드는 것이 원인이다 |
-| 병합 정렬 | 분할 정복; 항상 Θ(n log n); O(n) 추가 공간 필요; 안정 정렬이다 |
-| 퀵 정렬 | 피벗 기준 분할; 평균 Θ(n log n), 최악 Θ(n²); 실전에서 가장 빠르다 |
-| 힙 정렬 | buildHeap O(n) + 정렬 O(n log n); 최악에도 O(n log n) 보장; 제자리이다 |
-| 비교 기반 하한 | 비교 기반 정렬은 **Ω(n log n)** 이 하한이다 (결정 트리 모델로 증명) |
-| 기수 정렬 | 자릿수별 안정 정렬; k가 상수이면 Θ(n)이다 |
-| 계수 정렬 | 값 범위가 O(n)이면 Θ(n); 비교를 사용하지 않는다 |
-| 정렬 알고리즘 비교 | 아래 표 참조 |
-
-**정렬 알고리즘 종합 비교:**
-
-| 알고리즘 | 최악 | 평균 | 최선 | 공간 | 안정? | 비고 |
-|:---------|:-----|:-----|:-----|:-----|:------|:-----|
-| 선택 정렬 | Θ(n²) | Θ(n²) | Θ(n²) | O(1) | 아니오 | 항상 동일한 복잡도 |
-| 버블 정렬 | Θ(n²) | Θ(n²) | Θ(n) | O(1) | 예 | 최적화 시 최선 Θ(n) |
-| 삽입 정렬 | Θ(n²) | Θ(n²) | Θ(n) | O(1) | 예 | 거의 정렬된 데이터에 최적 |
-| 병합 정렬 | Θ(n log n) | Θ(n log n) | Θ(n log n) | O(n) | 예 | 안정적이고 항상 보장 |
-| 퀵 정렬 | Θ(n²) | Θ(n log n) | Θ(n log n) | O(log n) | 아니오 | 실전에서 가장 빠르다 |
-| 힙 정렬 | Θ(n log n) | Θ(n log n) | Θ(n log n) | O(1) | 아니오 | 제자리, 최악 보장 |
-| 계수 정렬 | Θ(n+k) | Θ(n+k) | Θ(n+k) | O(k) | 예 | 값 범위 제한 필요 |
-| 기수 정렬 | Θ(nk) | Θ(nk) | Θ(nk) | O(n+k) | 예 | 자릿수 k가 상수일 때 Θ(n) |
+> **Exam Tip:** This table is a key summary frequently tested on exams. What to memorize:
+> - Always O(n^2): Selection sort
+> - Best-case O(n) among elementary sorts: Bubble (with optimization), Insertion
+> - Always O(n log n): Merge, Heap
+> - Worst-case O(n^2) among advanced sorts: Quick (but average is the fastest)
+> - Requires O(n) extra space: Merge
+> - In-place: Selection, Bubble, Insertion, Heap
+> - Stable: Bubble, Insertion, Merge, Counting, Radix
 
 ---
 
 <br>
 
-## 부록
+## Summary
 
-- **다음 주**: 더 고급 알고리즘 패러다임
+| Concept | Key Takeaway |
+|:--------|:-------------|
+| Data Structures | Lists, Stacks (LIFO), Queues (FIFO), Heaps (complete binary trees) — understand the core operations and applications of each |
+| Sorting Algorithm Categories | Elementary O(n^2), Advanced O(n log n), Linear O(n) — three groups |
+| Selection Sort | Find max each round and swap; always Theta(n^2) (best/average/worst identical) |
+| Bubble Sort | Compare and swap adjacent pairs, bubble max to end; Theta(n^2), best Theta(n) with optimization |
+| Insertion Sort | Insert into sorted prefix; best **Theta(n)** (optimal for nearly sorted data) |
+| Recursive Structure of Elementary Sorts | All three follow $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$; the cause is the problem size decreasing by only 1 |
+| Merge Sort | Divide and conquer; always Theta(n log n); O(n) extra space; stable |
+| Quick Sort | Partition around pivot; average Theta(n log n), worst Theta(n^2); fastest in practice |
+| Heap Sort | buildHeap O(n) + sort O(n log n); O(n log n) guaranteed even in worst case; in-place |
+| Comparison-Based Lower Bound | Comparison-based sorting has a lower bound of **Omega(n log n)** (proven via decision tree model) |
+| Radix Sort | Stable sort per digit; Theta(n) when k is constant |
+| Counting Sort | Theta(n) when value range is O(n); uses no comparisons |
+| Sorting Algorithm Comparison | See table below |
 
-**문의:** *[블라인드 처리됨]*
+**Comprehensive Sorting Algorithm Comparison:**
+
+| Algorithm | Worst | Average | Best | Space | Stable? | Note |
+|:----------|:------|:--------|:-----|:------|:--------|:-----|
+| Selection Sort | Theta(n^2) | Theta(n^2) | Theta(n^2) | O(1) | No | Always same complexity |
+| Bubble Sort | Theta(n^2) | Theta(n^2) | Theta(n) | O(1) | Yes | Best Theta(n) with optimization |
+| Insertion Sort | Theta(n^2) | Theta(n^2) | Theta(n) | O(1) | Yes | Optimal for nearly sorted data |
+| Merge Sort | Theta(n log n) | Theta(n log n) | Theta(n log n) | O(n) | Yes | Stable and always guaranteed |
+| Quick Sort | Theta(n^2) | Theta(n log n) | Theta(n log n) | O(log n) | No | Fastest in practice |
+| Heap Sort | Theta(n log n) | Theta(n log n) | Theta(n log n) | O(1) | No | In-place, worst-case guaranteed |
+| Counting Sort | Theta(n+k) | Theta(n+k) | Theta(n+k) | O(k) | Yes | Requires limited value range |
+| Radix Sort | Theta(nk) | Theta(nk) | Theta(nk) | O(n+k) | Yes | Theta(n) when digit count k is constant |
+
+---
+
+<br>
+
+## Appendix
+
+- **Next week**: More advanced algorithm paradigms
+
+**Contact:** *[Redacted]*
 
 ---

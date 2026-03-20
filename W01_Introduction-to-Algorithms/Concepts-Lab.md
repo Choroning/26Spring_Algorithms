@@ -1,340 +1,342 @@
-# 1주차 실습 — 코딩 에이전트
+# Week 1 Lab — Coding Agents
 
-> **최종 수정일:** 2026-03-17
-
----
-
-## 목차
-
-- [1. 실습 개요](#1-실습-개요)
-- [2. 코딩 에이전트란?](#2-코딩-에이전트란)
-  - [2.1 사용 가능한 에이전트](#21-사용-가능한-에이전트)
-- [3. Task 1 — 코딩 에이전트 설치](#3-task-1--코딩-에이전트-설치)
-- [4. Task 2 — 파일 정리](#4-task-2--파일-정리)
-- [5. Task 3 — GitHub 저장소 문서화](#5-task-3--github-저장소-문서화)
-- [6. Task 4 — Ralph 기법](#6-task-4--ralph-기법)
-  - [6.1 Ralph 기법이란?](#61-ralph-기법이란)
-  - [6.2 Ralphton 해커톤 — 실제 사례](#62-ralphton-해커톤--실제-사례)
-  - [6.3 Ralph 실습](#63-ralph-실습)
-- [7. Task 5 — 정렬 벤치마크 만들기](#7-task-5--정렬-벤치마크-만들기)
-  - [7.1 관찰할 점](#71-관찰할-점)
-- [요약](#요약)
-- [부록](#부록)
+> **Last Updated:** 2026-03-21
 
 ---
 
-<br>
+## Table of Contents
 
-## 1. 실습 개요
-
-- **목표**: AI 기반 코딩 에이전트를 설치하고 실제 개발 작업에 활용한다
-- **소요 시간**: ~50분
-- **제출물**: 없음 — 탐색형 실습
-- 이 도구들은 **학기 내내** 실습과 과제에 사용된다
-
-**실습 흐름:**
-
-| 순서 | Task | 내용 |
-|:-----|:-----|:-----|
-| 1 | Task 1 | 에이전트 설치 |
-| 2 | Task 2 | 파일 정리 |
-| 3 | Task 3 | 저장소 문서화 |
-| 4 | Task 4 | RALPH 기법 |
-| 5 | Task 5 | 정렬 벤치마크 |
+- [1. Lab Overview](#1-lab-overview)
+- [2. What Is a Coding Agent?](#2-what-is-a-coding-agent)
+  - [2.1 Available Agents](#21-available-agents)
+- [3. Task 1 — Install a Coding Agent](#3-task-1--install-a-coding-agent)
+- [4. Task 2 — File Organization](#4-task-2--file-organization)
+- [5. Task 3 — GitHub Repository Documentation](#5-task-3--github-repository-documentation)
+- [6. Task 4 — The Ralph Technique](#6-task-4--the-ralph-technique)
+  - [6.1 What Is the Ralph Technique?](#61-what-is-the-ralph-technique)
+  - [6.2 Ralphton Hackathon — A Real-World Example](#62-ralphton-hackathon--a-real-world-example)
+  - [6.3 Ralph Practice](#63-ralph-practice)
+- [7. Task 5 — Build a Sorting Benchmark](#7-task-5--build-a-sorting-benchmark)
+  - [7.1 What to Observe](#71-what-to-observe)
+- [Summary](#summary)
+- [Appendix](#appendix)
 
 ---
 
 <br>
 
-## 2. 코딩 에이전트란?
+## 1. Lab Overview
 
-코드를 **문맥(context)을 이해하여** 생성하는 AI 기반 CLI 도구이다.
+- **Goal**: Install AI-based coding agents and apply them to real development tasks
+- **Duration**: ~50 minutes
+- **Submission**: None — this is an exploratory lab
+- These tools will be used **throughout the semester** in labs and assignments
 
-**동작 흐름:**
+**Lab Flow:**
+
+| Order | Task | Description |
+|:------|:-----|:------------|
+| 1 | Task 1 | Install an agent |
+| 2 | Task 2 | File organization |
+| 3 | Task 3 | Repository documentation |
+| 4 | Task 4 | RALPH technique |
+| 5 | Task 5 | Sorting benchmark |
+
+---
+
+<br>
+
+## 2. What Is a Coding Agent?
+
+An AI-based CLI tool that generates code by **understanding context**.
+
+**Workflow:**
 
 ```
-읽기(Read)      →  계획(Plan)      →  실행(Act)       →  검증(Verify)
-파일 & 문맥         무엇을 할지         편집 & 실행         결과 확인
-                         ← 반복 →
+Read            →  Plan            →  Act             →  Verify
+Files & Context    Decide what       Edit & Execute     Check results
+                   to do
+                         ← Iterate →
 ```
 
-- 파일 시스템을 읽고, 명령을 실행하고, 자율적으로 편집할 수 있다
-- 유용한 분야: 스캐폴딩, 리팩토링, 문서화, 디버깅
+- Can read the file system, execute commands, and edit autonomously
+- Useful for: scaffolding, refactoring, documentation, debugging
 
-> **예시:** *"Python 정렬 벤치마크를 타이밍 유틸리티와 함께 만들어줘"* → 에이전트가 디렉토리를 확인하고, 파일을 작성하고, 테스트 통과를 확인한다.
+> **Example:** *"Create a Python sorting benchmark with timing utilities"* → The agent checks the directory, writes files, and verifies tests pass.
 
-> **핵심:** 코딩 에이전트(Coding Agent)는 최근 급격히 발전한 AI 도구이다. 기존의 ChatGPT 같은 대화형 AI와 다른 점은, **파일 시스템에 직접 접근**하고 **명령을 실행**할 수 있다는 것이다. 즉, 코드를 복사-붙여넣기할 필요 없이 에이전트가 직접 파일을 읽고 수정한다.
+> **Key Point:** Coding agents are AI tools that have advanced rapidly in recent times. What distinguishes them from conversational AI like ChatGPT is their ability to **directly access the file system** and **execute commands**. That is, instead of copying and pasting code, the agent reads and modifies files directly.
 
-> **참고:** 구체적인 동작 예시: 에이전트에게 "bubble_sort 함수를 작성해줘"라고 요청하면, (1) Read: 프로젝트의 기존 파일 구조와 코드를 확인한다, (2) Plan: sorting.py에 함수를 추가하기로 결정한다, (3) Act: 파일을 직접 편집하여 코드를 작성한다, (4) Verify: 작성한 코드를 실행하여 오류가 없는지 확인한다. ChatGPT 웹과의 핵심 차이는, 코드를 복사-붙여넣기할 필요 없이 에이전트가 파일을 **직접** 수정한다는 점이다.
+> **Note:** A concrete example of how it works: when you ask the agent to "write a bubble_sort function," (1) Read: it examines the project's existing file structure and code, (2) Plan: it decides to add the function to sorting.py, (3) Act: it directly edits the file to write the code, (4) Verify: it runs the written code to check for errors. The key difference from ChatGPT's web interface is that the agent modifies files **directly** without any copy-paste.
 
-### 2.1 사용 가능한 에이전트
+### 2.1 Available Agents
 
-| 에이전트 | 가격 | 개발사 | 특징 |
-|:---------|:-----|:-------|:-----|
-| **Gemini CLI** | 무료 (1일 1000회) | Google | 좋은 기본 선택 |
-| **Claude Code** | 유료 | Anthropic | 강력한 멀티파일 추론 |
-| **Codex CLI** | 유료 | OpenAI | 오픈소스 CLI |
+| Agent | Price | Developer | Features |
+|:------|:------|:----------|:---------|
+| **Gemini CLI** | Free (1,000/day) | Google | Good default choice |
+| **Claude Code** | Paid | Anthropic | Powerful multi-file reasoning |
+| **Codex CLI** | Paid | OpenAI | Open-source CLI |
 
-기타: **OpenCode** (오픈소스 harness — 오픈소스 LLM 포함 모든 모델 사용 가능)
+Others: **OpenCode** (open-source harness — supports all models including open-source LLMs)
 
-> **참고:** 특별한 선호가 없다면 **Gemini CLI** 설치를 권장한다 — 무료이며 설정이 간편하다.
+> **Note:** If you have no particular preference, **Gemini CLI** is recommended — it is free and easy to set up.
 
 ---
 
 <br>
 
-## 3. Task 1 — 코딩 에이전트 설치
+## 3. Task 1 — Install a Coding Agent
 
-공식 문서를 참고하여 최소 하나의 코딩 에이전트를 설치한다.
+Refer to the official documentation and install at least one coding agent.
 
-**설치 명령어:**
+**Installation Commands:**
 
 ```bash
-npm install -g @google/gemini-cli          # Gemini CLI (무료)
-npm install -g @anthropic-ai/claude-code    # Claude Code (유료)
+npm install -g @google/gemini-cli          # Gemini CLI (Free)
+npm install -g @anthropic-ai/claude-code    # Claude Code (Paid)
 ```
 
-**설치 확인:**
+**Verify Installation:**
 
 ```bash
-gemini --version    # 또는: claude --version
+gemini --version    # or: claude --version
 ```
 
-**확인 사항:**
+**Checklist:**
 
-- CLI가 오류 없이 실행되는지
-- 인증이 가능한지 (Gemini는 Google 계정, Claude는 Anthropic 계정)
-- 간단한 프롬프트로 응답을 확인: `"What is 2 + 2?"`
+- Does the CLI run without errors?
+- Can you authenticate? (Gemini uses a Google account, Claude uses an Anthropic account)
+- Confirm a response with a simple prompt: `"What is 2 + 2?"`
 
-> **참고:** `npm`은 Node.js의 패키지 관리자이다. 위 명령어를 실행하려면 먼저 Node.js가 설치되어 있어야 한다. `-g` 플래그는 "global"의 약자로, 시스템 전역에 설치하여 어디서든 명령어로 사용할 수 있게 한다.
+> **Note:** `npm` is Node.js's package manager. To run the commands above, Node.js must be installed first. The `-g` flag stands for "global," meaning it installs system-wide so the command can be used from anywhere.
 
 ---
 
 <br>
 
-## 4. Task 2 — 파일 정리
+## 4. Task 2 — File Organization
 
-에이전트를 사용하여 지저분한 디렉토리의 **파일을 정리**한다.
+Use the agent to **organize files** in a messy directory.
 
-**프롬프트 예시:**
+**Example Prompt:**
 
 ```
-"~/Downloads 폴더의 파일을 파일 유형별로 하위 폴더(images, documents, code 등)에 정리해줘.
- 실행하기 전에 계획을 먼저 보여줘."
+"Organize the files in my ~/Downloads folder into subfolders by file type
+ (images, documents, code, etc.). Show me the plan before executing."
 ```
 
-**관찰할 점:**
+**What to Observe:**
 
-- 에이전트가 파일을 옮기기 전에 **확인을 요청**하는가?
-- 합리적인 폴더 구조를 만드는가?
-- 엣지 케이스(예: 확장자 없는 파일)를 어떻게 처리하는가?
+- Does the agent **ask for confirmation** before moving files?
+- Does it create a reasonable folder structure?
+- How does it handle edge cases (e.g., files without extensions)?
 
-**토론:**
+**Discussion:**
 
-- *"계획을 먼저 보여줘"* 라고 말하지 않았다면 어떻게 됐을까?
-- 결과가 마음에 들지 않을 때 어떻게 더 구체적인 지시를 할 수 있을까?
+- What would have happened if you hadn't said *"show me the plan first"*?
+- How can you give more specific instructions when the results are not satisfactory?
 
 ---
 
 <br>
 
-## 5. Task 3 — GitHub 저장소 문서화
+## 5. Task 3 — GitHub Repository Documentation
 
-에이전트를 사용하여 기존 코드베이스의 **README.md를 생성**한다.
+Use the agent to **generate a README.md** for an existing codebase.
 
-**대상 저장소 선택:**
+**Choose a Target Repository:**
 
-- 본인의 프로젝트 또는 공개 저장소:
+- Your own project or a public repository:
   - `https://github.com/code-yeongyu/oh-my-opencode`
 
-**프롬프트 예시:**
+**Example Prompt:**
 
 ```
-"이 코드베이스를 읽고 아키텍처 개요, 설정 방법, 사용 예시가 포함된
- 종합적인 README.md를 생성해줘."
+"Read this codebase and generate a comprehensive README.md that includes
+ an architecture overview, setup instructions, and usage examples."
 ```
 
-**결과물 평가:**
+**Evaluate the Output:**
 
-- README가 프로젝트를 **정확히** 설명하는가?
-- 설정 방법이 정확하고 완전한가?
-- 빠진 것이 있는가? (라이선스, 기여 가이드, 스크린샷)
+- Does the README **accurately** describe the project?
+- Are the setup instructions correct and complete?
+- Is anything missing? (License, contribution guide, screenshots)
 
-> **참고:** 이 README를 저장한다 — 다음 Task에서 개선할 것이다.
+> **Note:** Save this README — you will improve it in the next Task.
 
 ---
 
 <br>
 
-## 6. Task 4 — Ralph 기법
+## 6. Task 4 — The Ralph Technique
 
-### 6.1 Ralph 기법이란?
+### 6.1 What Is the Ralph Technique?
 
-Geoffrey Huntley가 만든 **bash 스크립트 루프**로, *The Simpsons*의 **Ralph Wiggum**에서 이름을 따왔다. AI 코딩 에이전트를 작업이 완료될 때까지 **반복적으로** 실행하여 자동화한다.
+A **bash script loop** created by Geoffrey Huntley, named after **Ralph Wiggum** from *The Simpsons*. It automates AI coding agents by running them **repeatedly** until a task is completed.
 
 ![Ralph Wiggum](../images/ralph-wiggum.jpg)
 
-**작동 방식:**
+**How It Works:**
 
-- **무한 루프** — `while true`로 목표가 달성될 때까지 에이전트를 계속 실행한다
-- **새로운 컨텍스트** — 매 반복마다 깨끗한 상태로 시작하여 AI가 막히는 것을 방지한다
-- **파일 기반 메모리** — 에이전트가 대화 기록 대신 파일 시스템(git, 진행 상황 파일)을 읽고 쓴다
-- **자는 동안 코드 배포** — 밤새 자율적으로 테스트하고 변경사항을 적용한다
+- **Infinite loop** — Uses `while true` to keep running the agent until the goal is achieved
+- **Fresh context** — Each iteration starts with a clean state, preventing the AI from getting stuck
+- **File-based memory** — The agent reads and writes to the file system (git, progress files) instead of conversation history
+- **Deploy code while you sleep** — Autonomously tests and applies changes overnight
 
-> **핵심:** Ralph 기법의 핵심 아이디어는 "AI 에이전트가 한 번에 완벽히 해내지 못해도, 반복하면 점점 나아진다"는 것이다. 각 반복에서 에이전트는 (1) 현재 상태를 파일 시스템에서 읽고, (2) 무엇이 부족한지 판단하고, (3) 수정한다. 대화 히스토리 대신 파일 시스템을 "기억 장치"로 사용하므로, 매번 새로운 세션에서도 이전 진행 상황을 이어갈 수 있다.
+> **Key Point:** The core idea of the Ralph technique is "even if an AI agent cannot get it perfect on the first try, it keeps improving with iteration." In each iteration, the agent (1) reads the current state from the file system, (2) determines what is lacking, and (3) makes corrections. Since it uses the file system as "memory" instead of conversation history, it can continue from previous progress even in a brand-new session.
 
-> **참고:** Ralph 루프의 기본 bash 스크립트 형태:
+> **Note:** The basic bash script form of the Ralph loop:
 > ```bash
 > while true; do
->   gemini "PROGRESS.md를 읽고, 미완성 항목을 하나 골라 구현해"
+>   gemini "Read PROGRESS.md, pick one incomplete item, and implement it"
 >   git add -A && git commit -m "auto: progress update"
 > done
 > ```
-> 핵심은 (1) `while true`로 무한 반복하고, (2) 매 반복에서 에이전트가 파일 시스템(PROGRESS.md)을 읽어 현재 상태를 파악하며, (3) 결과를 git으로 저장하여 다음 반복에서도 이전 작업을 이어갈 수 있다는 것이다.
+> The key points are (1) `while true` for infinite iteration, (2) in each iteration the agent reads the file system (PROGRESS.md) to assess the current state, and (3) results are saved via git so subsequent iterations can continue from where the previous one left off.
 
-### 6.2 Ralphton 해커톤 — 실제 사례
+### 6.2 Ralphton Hackathon — A Real-World Example
 
-한국 최초의 **Ralphton** 해커톤에서, 13개 엘리트 팀이 AI 에이전트에게 **밤새 자율적으로 코딩**을 시키고 다음 날 아침 결과를 검토했다.
+At Korea's first **Ralphton** hackathon, 13 elite teams had AI agents **code autonomously overnight**, then reviewed the results the next morning.
 
 ![OpenClaw Lobster](../images/openclaw-lobster.png)
 
-| 지표 | 값 | 설명 |
-|:-----|:---|:-----|
-| 코드 줄 수 | **100K** | 밤새 생성된 코드 총량 |
-| 테스트 코드 비율 | **70%** | 자동 검증 기준으로서의 테스트 |
-| 추론 루프 횟수 | **133** | 에이전트의 반복 실행 횟수 |
+| Metric | Value | Description |
+|:-------|:------|:------------|
+| Lines of Code | **100K** | Total code generated overnight |
+| Test Code Ratio | **70%** | Tests as automatic verification criteria |
+| Reasoning Loops | **133** | Number of agent iteration cycles |
 
-**엔지니어링의 진화:**
-
-```
-프롬프트 엔지니어링 → 컨텍스트 엔지니어링 → 하네스 엔지니어링
-  (무엇을 말할지)       (무엇을 제공할지)     (어떻게 검증할지)
-```
-
-> *출처: [한국 최초 Ralphton 리뷰 — Brian Jang](https://briandwjang.substack.com/p/8d3)*
-
-> **참고:** 여기서 주목할 통계는 "70%가 테스트 코드"라는 점이다. AI 에이전트가 자율적으로 작업할 때, 테스트 코드가 "검증 기준"의 역할을 한다. 테스트가 통과하면 올바른 코드라고 판단하고, 실패하면 수정을 반복한다. 이것이 "하네스 엔지니어링"의 핵심 — **AI가 스스로 검증할 수 있는 구조**를 만드는 것이다.
-
-> **참고:** 세 단계의 차이를 정리하면:
-> - **프롬프트 엔지니어링**: "무엇을 말할지" — 좋은 질문/지시를 작성하는 기술이다.
-> - **컨텍스트 엔지니어링**: "무엇을 제공할지" — 에이전트에게 적절한 파일, 문서, 예시를 제공하여 맥락을 갖추게 하는 기술이다.
-> - **하네스 엔지니어링**: "어떻게 검증할지" — 테스트, 루브릭 등 AI가 스스로 결과를 판단할 수 있는 자동 검증 구조를 설계하는 기술이다.
-
-### 6.3 Ralph 실습
-
-Ralph 기법을 사용하여 Task 3의 README를 **반복적으로 개선**한다.
-
-**워크플로우 예시:**
+**The Evolution of Engineering:**
 
 ```
-나:      "고품질 오픈소스 README 평가를 위한 루브릭을 만들어줘."
-에이전트:  8개 기준 반환 (설명, 설치, 사용법, 아키텍처, ...)
-
-나:      "네가 작성한 README를 이 루브릭으로 평가해봐. 각 기준별 점수를 매겨."
-에이전트:  6/8 점수 — 미흡: 아키텍처 다이어그램, 기여 가이드
-
-나:      "실패한 기준을 모두 수정해. 모든 기준이 충족될 때까지 계속해."
-에이전트:  자율적으로 반복 — README 업데이트, 재평가, 다시 수정...
-
-결과:    8/8 — 모든 기준 충족.
+Prompt Engineering → Context Engineering → Harness Engineering
+  (What to say)        (What to provide)     (How to verify)
 ```
 
-**핵심 통찰 — 이것이 바로 Ralph 루프이다:**
+> *Source: [Korea's First Ralphton Review — Brian Jang](https://briandwjang.substack.com/p/8d3)*
 
-- 매 반복: 에이전트가 평가 → 문제 발견 → 수정 → 재평가
-- 여러분이 **목표와 기준**을 설정하면, 에이전트가 완료할 때까지 반복한다
-- bash 루프와 동일한 원리 — **지속적인 반복**이 1회성 프롬프트보다 효과적이다
+> **Note:** The notable statistic here is "70% is test code." When AI agents work autonomously, test code serves as the "verification criteria." If tests pass, the code is deemed correct; if they fail, the agent iterates on fixes. This is the essence of "harness engineering" — **building a structure where the AI can verify its own output**.
+
+> **Note:** To summarize the difference between the three stages:
+> - **Prompt Engineering**: "What to say" — the art of writing good questions/instructions.
+> - **Context Engineering**: "What to provide" — the art of providing the agent with appropriate files, documents, and examples to establish context.
+> - **Harness Engineering**: "How to verify" — the art of designing automatic verification structures (tests, rubrics, etc.) so the AI can judge its own results.
+
+### 6.3 Ralph Practice
+
+Use the Ralph technique to **iteratively improve** the README from Task 3.
+
+**Example Workflow:**
+
+```
+You:    "Create a rubric for evaluating high-quality open-source READMEs."
+Agent:  Returns 8 criteria (description, installation, usage, architecture, ...)
+
+You:    "Evaluate the README you wrote against this rubric. Score each criterion."
+Agent:  Score 6/8 — Deficient: architecture diagram, contribution guide
+
+You:    "Fix all failing criteria. Keep going until all criteria are met."
+Agent:  Iterates autonomously — updates README, re-evaluates, fixes again...
+
+Result: 8/8 — All criteria met.
+```
+
+**Key Insight — This IS the Ralph Loop:**
+
+- Each iteration: the agent evaluates -> finds issues -> fixes -> re-evaluates
+- You set the **goals and criteria**, and the agent iterates until complete
+- Same principle as the bash loop — **continuous iteration** is more effective than a one-shot prompt
 
 ---
 
 <br>
 
-## 7. Task 5 — 정렬 벤치마크 만들기
+## 7. Task 5 — Build a Sorting Benchmark
 
-에이전트를 사용하여 **멀티 파일 정렬 벤치마크**를 만든다 — 학기 프로젝트의 미리보기이다.
+Use the agent to create a **multi-file sorting benchmark** — a preview of the semester project.
 
-**프롬프트 예시:**
+**Example Prompt:**
 
 ```
-"버블 정렬, 병합 정렬, Python 내장 정렬을 비교하는 Python 정렬 벤치마크를 만들어줘.
- 타이밍 유틸리티와 결과 테이블을 포함하고, 코드를 별도 모듈로 구성해줘."
+"Create a Python sorting benchmark comparing bubble sort, merge sort,
+ and Python's built-in sort. Include timing utilities and a results table,
+ and organize the code into separate modules."
 ```
 
-**예상 결과물:**
+**Expected Output:**
 
-| 파일 | 역할 |
+| File | Role |
 |:-----|:-----|
-| `sorting.py` | 정렬 알고리즘 |
-| `timer.py` | 타이밍 유틸리티 |
-| `benchmark.py` | 메인 실행기 |
-| `README.md` | 문서화 |
+| `sorting.py` | Sorting algorithms |
+| `timer.py` | Timing utilities |
+| `benchmark.py` | Main runner |
+| `README.md` | Documentation |
 
-> **[자료구조]** 자료구조에서 다룬 정렬 알고리즘을 상기한다.
-> - **버블 정렬(Bubble Sort)**: 인접한 두 원소를 비교·교환하며 정렬한다. O(n²). 구현이 가장 간단하지만 가장 느리다.
-> - **병합 정렬(Merge Sort)**: 배열을 반으로 나누고, 각각 정렬한 후 합친다. O(n log n). 분할 정복의 대표적 예시이다.
-> - **Python 내장 정렬**: Timsort라는 알고리즘을 사용한다. 병합 정렬 + 삽입 정렬의 하이브리드이다. O(n log n). 실무에서 가장 빠르다.
+> **[Data Structures]** Recall the sorting algorithms covered in Data Structures.
+> - **Bubble Sort**: Compares and swaps adjacent elements. O(n^2). Simplest to implement but slowest.
+> - **Merge Sort**: Divides the array in half, sorts each half, then merges. O(n log n). A classic example of divide and conquer.
+> - **Python's built-in sort**: Uses the Timsort algorithm, a hybrid of merge sort and insertion sort. O(n log n). Fastest in practice.
 
-### 7.1 관찰할 점
+### 7.1 What to Observe
 
-완벽한 벤치마크가 목표가 아니다 — **과정**이 중요하다.
+A perfect benchmark is not the goal — the **process** is what matters.
 
-**에이전트가 어떻게 하는지 관찰한다:**
+**Observe how the agent:**
 
-- 복잡한 문제를 여러 파일로 분리하는 방법
-- 각 구성요소의 역할을 설명하는 방법
-- 피드백을 주었을 때 오류를 처리하는 방법
-- 빌드 실패 시 반복하는 방법 (있는 경우)
+- Breaks a complex problem into multiple files
+- Explains the role of each component
+- Handles errors when given feedback
+- Iterates on build failures (if any)
 
-**후속 프롬프트 시도:**
+**Follow-up Prompts to Try:**
 
-- *"결과를 막대 차트로 시각화해줘"*
-- *"각 정렬 알고리즘의 시간 복잡도를 설명해줘"*
-- *"벤치마크가 큰 N에서 크래시해 — 고쳐줘"*
-
----
-
-<br>
-
-## 요약
-
-| 개념 | 핵심 정리 |
-|:-----|:---------|
-| 코딩 에이전트 | 파일 시스템에 직접 접근하여 코드를 읽고, 실행하고, 수정하는 AI 기반 CLI 도구 |
-| 동작 흐름 | 읽기(Read) → 계획(Plan) → 실행(Act) → 검증(Verify) → 반복 |
-| 에이전트 선택 | Gemini CLI(무료, 권장), Claude Code(유료, 멀티파일 추론), Codex CLI(유료, 오픈소스) |
-| Task 1: 설치 | `npm install -g`로 설치; Node.js 필요; 인증 및 간단한 프롬프트로 동작 확인 |
-| Task 2: 파일 정리 | 에이전트에게 실제 작업 위임; 실행 전 계획 확인 요청이 핵심 |
-| Task 3: 문서화 | 에이전트로 README.md 생성 후, 정확성·완전성을 직접 평가 |
-| Task 4: Ralph 기법 | bash 루프로 에이전트를 반복 실행; 파일 기반 메모리로 상태 유지; 지속적 반복이 1회성보다 효과적 |
-| Ralphton 해커톤 | 13개 팀, 100K 줄 코드, 70%가 테스트 코드; 하네스 엔지니어링의 핵심은 AI가 스스로 검증할 수 있는 구조 |
-| 엔지니어링 진화 | 프롬프트 엔지니어링 → 컨텍스트 엔지니어링 → 하네스 엔지니어링 |
-| Task 5: 정렬 벤치마크 | 멀티 파일 프로젝트; 버블 정렬 O(n²), 병합 정렬 O(n log n), Python 내장 정렬(Timsort) O(n log n) |
-| 핵심 교훈 | 코딩 에이전트는 도구일 뿐 — 산출물을 이해하는 것은 여전히 **사용자의 책임**이다 |
+- *"Visualize the results as a bar chart"*
+- *"Explain the time complexity of each sorting algorithm"*
+- *"The benchmark crashes on large N — fix it"*
 
 ---
 
 <br>
 
-## 부록
+## Summary
 
-### 과제 & 팀 프로젝트
+| Concept | Key Takeaway |
+|:--------|:-------------|
+| Coding Agents | AI-based CLI tools that directly access the file system to read, execute, and modify code |
+| Workflow | Read -> Plan -> Act -> Verify -> Iterate |
+| Agent Selection | Gemini CLI (free, recommended), Claude Code (paid, multi-file reasoning), Codex CLI (paid, open-source) |
+| Task 1: Installation | Install with `npm install -g`; Node.js required; verify with authentication and a simple prompt |
+| Task 2: File Organization | Delegate real tasks to the agent; requesting a plan before execution is key |
+| Task 3: Documentation | Generate README.md with the agent, then personally evaluate for accuracy and completeness |
+| Task 4: Ralph Technique | Run the agent in a bash loop; maintain state via file-based memory; continuous iteration is more effective than a one-shot approach |
+| Ralphton Hackathon | 13 teams, 100K lines of code, 70% test code; the core of harness engineering is building a structure where AI can verify its own output |
+| Evolution of Engineering | Prompt Engineering -> Context Engineering -> Harness Engineering |
+| Task 5: Sorting Benchmark | Multi-file project; Bubble Sort O(n^2), Merge Sort O(n log n), Python built-in sort (Timsort) O(n log n) |
+| Core Lesson | Coding agents are merely tools — understanding the output remains **the user's responsibility** |
 
-**주간 과제 (2~6주차):**
+---
 
-- **2~6주차**, 매주 과제가 주어진다
-- 각 과제: 해당 주에 배운 알고리즘을 적용한 **웹 애플리케이션** 구축
-- 목표: 알고리즘이 실제 소프트웨어 성능을 어떻게 개선하는지 경험한다
+<br>
 
-**팀 프로젝트 (기말고사, 9~13주차):**
+## Appendix
 
-- 3~4명으로 구성된 팀이 수업에서 다룬 **모든 알고리즘**을 적용한 **웹 애플리케이션**을 구축한다
-- 산출물: **작동하는 웹 앱** + **보고서** + **발표**
-- 에이전트가 전 과정에서 주요 개발 도구이다
+### Assignments & Team Project
 
-> 코딩 에이전트를 최대한 활용하는 것이 권장된다 — 과제와 기말 프로젝트 모두에 필수적이다.
+**Weekly Assignments (Weeks 2-6):**
 
-### 다음 시간
+- **Weeks 2-6**, assignments are given each week
+- Each assignment: Build a **web application** applying the algorithms learned that week
+- Goal: Experience how algorithms improve real software performance
 
-- **2주차 실습**: 복잡도 분석 실습 (O(n²) vs O(n) 비교)
+**Team Project (Final Exam, Weeks 9-13):**
+
+- Teams of 3-4 build a **web application** applying **all algorithms** covered in class
+- Deliverables: **Working web app** + **Report** + **Presentation**
+- Agents are the primary development tool throughout the process
+
+> Using coding agents to their fullest extent is encouraged — they are essential for both assignments and the final project.
+
+### Next Session
+
+- **Week 2 Lab**: Complexity Analysis Lab (O(n^2) vs O(n) comparison)
 
 ---
