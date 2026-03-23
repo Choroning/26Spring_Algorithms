@@ -2,7 +2,7 @@
 @file    locustfile.py
 @brief   Locust load testing script for product search API
 @author  Cheolwon Park
-@date    2026-03-XX
+@date    2026-03-18
 """
 
 from locust import HttpUser, task
