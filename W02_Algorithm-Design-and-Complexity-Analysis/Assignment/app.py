@@ -2,7 +2,7 @@
 @file    app.py
 @brief   FastAPI product search server for complexity analysis lab
 @author  Cheolwon Park
-@date    2026-03-XX
+@date    2026-03-18
 """
 
 import time
