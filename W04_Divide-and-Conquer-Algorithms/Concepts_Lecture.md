@@ -79,7 +79,7 @@ An algorithm that **divides** the input of a given problem and **conquers (solve
 
 ```
           ┌──────────┐
-          │  Problem  │
+          │ Problem  │
           └────┬─────┘
                ↓ Divide
        ┌───────┴───────┐
@@ -93,7 +93,7 @@ An algorithm that **divides** the input of a given problem and **conquers (solve
        └───────┬───────┘
                ↓ Combine
           ┌────┴─────┐
-          │ Solution  │
+          │ Solution │
           └──────────┘
 ```
 
@@ -112,7 +112,7 @@ $$n/2^k = 1 \implies k = \log_2 n$$
 
 Total number of divisions $= \log_2 n$
 
-> **[Discrete Math]** The reason $\log_2 n$ appears repeatedly is that halving a size-$n$ input $\log_2 n$ times reduces it to size 1. This is the fundamental reason why $\log n$ always appears in "halving" structures like binary search and merge sort.
+> **[Discrete Mathematics]** The reason $\log_2 n$ appears repeatedly is that halving a size-$n$ input $\log_2 n$ times reduces it to size 1. This is the fundamental reason why $\log n$ always appears in "halving" structures like binary search and merge sort.
 
 ### 1.4 Conquer and Combine
 
@@ -154,7 +154,7 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 **Depth:** $k = \log_b n$ &nbsp; **Number of leaves:** $n^{\log_b a}$
 
-![Master Theorem Recursion Tree](./images/ch04_p035_008.png)
+![Master Theorem Recursion Tree](../images/ch04_p035_008.png)
 
 > **Note:** The recursion tree is a key tool for visually understanding divide and conquer recurrences. Summing the costs from root to leaves across all levels gives the total time complexity. The Master Theorem simplifies this summation into a comparison between $f(n)$ and $n^{\log_b a}$.
 
@@ -171,7 +171,7 @@ $$T(n) = \Theta(n^{\log_b a} \log n)$$
 **Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ — Combine cost dominates
 $$T(n) = \Theta(f(n))$$
 
-![Recursion Tree Example: T(n)=3T(n/4)+cn²](./images/ch04_p025_006.png)
+![Recursion Tree Example: T(n)=3T(n/4)+cn²](../images/ch04_p025_006.png)
 
 > **Note (Case 3):** The *regularity condition* is also required: for some $c < 1$, $a \cdot f(n/b) \le c \cdot f(n)$ must hold.
 
@@ -192,7 +192,7 @@ $$T(n) = \Theta(f(n))$$
 | $T(n) = \max\{T(i), T(n-i)\} + O(?)$ | 2 parts, only 1 needed, unequal sizes | Selection |
 | $T(n) = T(n-1) + O(?)$ | Size decreases by 1 | Insertion Sort, Fibonacci |
 
-![Unequal Partition Recursion Tree](./images/ch04_p027_007.png)
+![Unequal Partition Recursion Tree](../images/ch04_p027_007.png)
 
 > **Key Idea:** The Master Theorem can only be directly applied to recurrences of the form $T(n) = aT(n/b) + f(n)$. For cases like Quick Sort where the partition is unequal, or Insertion Sort where the size decreases by only 1, separate analysis is required.
 
@@ -219,7 +219,7 @@ MERGE-SORT(A, p, r)
     MERGE(A, p, q, r)         // Merge two halves
 ```
 
-![Merge Sort Operation Tree (CLRS Figure 2.4)](./images/ch02_fig2_4_1.png)
+![Merge Sort Operation Tree (CLRS Figure 2.4)](../images/ch02_fig2_4_1.png)
 
 > **[Data Structures]** The key to merge sort is the MERGE process. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
 
@@ -367,9 +367,9 @@ PARTITION(A, p, r)
 
 Returns the final index of the pivot.
 
-![Partition Regions (CLRS Figure 7.2)](./images/ch07_partition_1.png)
+![Partition Regions (CLRS Figure 7.2)](../images/ch07_partition_1.png)
 
-![Partition Iteration Cases (CLRS Figure 7.3)](./images/ch07_partition_2.png)
+![Partition Iteration Cases (CLRS Figure 7.3)](../images/ch07_partition_2.png)
 
 > **Note:** Variable `i` tracks the "last index of elements ≤ pivot." As `j` scans the array, whenever an element ≤ pivot is found, `i` is incremented and `A[i]` and `A[j]` are swapped to include that element in the left region.
 
@@ -518,7 +518,7 @@ $T(n) = \Omega(n)$ is trivial (every element must be examined), so:
 
 $$T(n) = \Theta(n)$$
 
-> **[Discrete Math]** The infinite geometric series $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($|r| < 1$) is used here. Since $r = 3/4 < 1$, the series converges to the constant $4c$. Such geometric decrease appears very frequently in divide and conquer analysis.
+> **[Discrete Mathematics]** The infinite geometric series $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($|r| < 1$) is used here. Since $r = 3/4 < 1$, the series converges to the constant $4c$. Such geometric decrease appears very frequently in divide and conquer analysis.
 
 ### 5.6 Selection — Worst-Case Time Analysis
 
@@ -594,7 +594,7 @@ $$M = 18$$
 
 Each column = a group of 5. White circles = medians. Shaded region = elements guaranteed to be $\ge x$.
 
-![Median of Medians Analysis (CLRS Figure 9.1)](./images/ch09_fig9_1_1.png)
+![Median of Medians Analysis (CLRS Figure 9.1)](../images/ch09_fig9_1_1.png)
 
 ### 5.10 Linear Selection — Time Complexity
 
