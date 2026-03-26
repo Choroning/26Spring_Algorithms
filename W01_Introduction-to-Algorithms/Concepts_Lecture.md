@@ -616,6 +616,4 @@ This is the power of **binary encoding** — a fundamentally different way of th
 - **Homework** starts from next week
 - No quiz, no homework this week (OT week)
 
-**Contact:** *[Redacted]*
-
 ---

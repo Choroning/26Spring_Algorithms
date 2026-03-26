@@ -812,5 +812,3 @@ FIB-NUMBER(n)
 <br>
 
 ## Appendix
-
-- **Q & A:** *[Redacted]*
