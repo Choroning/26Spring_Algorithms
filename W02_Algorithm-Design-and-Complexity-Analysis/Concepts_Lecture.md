@@ -820,6 +820,4 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 - No quiz this week; quizzes start in **Week 3**
 - Next week: **Arrays, Sorting Algorithms** — basic and advanced sorting
 
-**Contact:** *[Redacted]*
-
 ---

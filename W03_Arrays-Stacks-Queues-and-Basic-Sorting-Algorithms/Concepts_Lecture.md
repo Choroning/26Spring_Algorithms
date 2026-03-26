@@ -952,6 +952,4 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 - **Next week**: More advanced algorithm paradigms
 
-**Contact:** *[Redacted]*
-
 ---
