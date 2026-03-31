@@ -29,6 +29,8 @@
 
 ## 1. Overview
 
+> **Note:** This lab focuses on sorting algorithms. Arrays, stacks, queues, and heaps are covered in the lecture notes (Concepts_Lecture.md).
+
 ### Today's Goals
 
 - Implement **elementary** sorting algorithms: Selection Sort, Bubble Sort, Insertion Sort
@@ -89,6 +91,10 @@ def selection_sort(arr):
                 min_idx = j
         a[i], a[min_idx] = a[min_idx], a[i]
     return a
+
+# Example usage:
+print(selection_sort([64, 34, 25, 12, 22, 11, 90]))
+# Output: [11, 12, 22, 25, 34, 64, 90]
 ```
 
 > **Note:** `arr[:]` is a **shallow copy** of the array. It sorts a copy without modifying the original array. `a[i], a[min_idx] = a[min_idx], a[i]` is Python's simultaneous assignment, swapping two values without a separate temporary variable.
@@ -133,6 +139,8 @@ def bubble_sort(arr):
 ```
 
 The `swapped` flag enables early termination — best case O(n) for already sorted input.
+
+Here, `i` is the pass number (0, 1, 2, ...). After pass `i`, the last `i` elements are already in their final positions, so the inner loop only needs to go up to index `n-i-2` (i.e., `range(0, n-i-1)`).
 
 > **Note:** The reason for `n - i - 1`: After each pass, one more element is fixed at the right end, so the last i elements need not be compared in the i-th pass. This optimization does not affect correctness but reduces unnecessary comparisons.
 
@@ -184,6 +192,8 @@ python examples/solutions/a1_basic_sorts.py
 ```
 
 ### 2.2 A-2: Advanced Sorting Algorithms
+
+> **Prerequisite:** The following algorithms use **recursion** -- a function calling itself with a smaller input until reaching a base case. If this concept is new, review the Data Structures course or Week 2 Lecture section on recursion.
 
 #### 2.2.1 Merge Sort
 
@@ -241,6 +251,8 @@ def _merge(left, right):
 
 > **Note:** In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
 
+**Merge trace -- merging [27, 38] and [3, 43]:** i=0, j=0: compare 27 vs 3 -> take 3. i=0, j=1: compare 27 vs 43 -> take 27. i=1, j=1: compare 38 vs 43 -> take 38. Take remaining 43. Result: [3, 27, 38, 43].
+
 #### 2.2.2 Quick Sort
 
 **Idea**: Select a pivot, partition into smaller/equal/larger elements, then recurse.
@@ -261,6 +273,8 @@ Result: [3, 9, 10, 27, 38] + [43] + [82]
 ```
 
 **Complexity**: Average O(n log n), Worst O(n^2)
+
+The worst case O(n^2) occurs when the pivot is always the smallest or largest element, producing maximally unbalanced partitions (e.g., already-sorted input with first/last element as pivot). This reduces the recursion to n levels instead of log n.
 
 **Solution:**
 
@@ -288,6 +302,8 @@ def quick_sort(arr):
 >
 > Choosing the middle element as pivot makes balanced partitions more likely even on already-sorted input, helping avoid worst-case behavior. Since exams will likely use the CLRS approach, understanding both methods is important.
 
+> **Note on stability:** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve relative order of equal elements.
+
 **Run and Test:**
 
 ```bash
@@ -295,6 +311,8 @@ python examples/solutions/a2_advanced_sorts.py
 ```
 
 #### 2.2.3 Sorting Algorithm Comparison
+
+A **stable** sort preserves the relative order of elements with equal keys. An **in-place** sort uses O(1) extra memory (not counting the input array).
 
 | Algorithm | Best | Average | Worst | Stable? | In-Place? |
 |:----------|:-----|:--------|:------|:--------|:----------|
@@ -377,6 +395,8 @@ cd examples/solutions/b1_web_sort
 pip install flask
 python app.py
 ```
+
+Flask is a lightweight Python web framework. Install with `pip install flask`. Once running, visit `http://127.0.0.1:5000` in your browser.
 
 Open **http://localhost:5000** in your browser.
 

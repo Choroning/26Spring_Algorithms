@@ -58,6 +58,8 @@
 
 ### 2.1 A-1: 병합 정렬 추적
 
+병합 정렬(강의에서 다룸)은 배열을 반으로 나누고, 각 절반을 재귀적으로 정렬한 후, 결과를 병합한다. 여기서는 실행 과정을 추적하고 구현한다.
+
 #### 2.1.1 문제
 
 **목표**: 호출 트리를 시각화하여 병합 정렬의 재귀 구조를 이해한다.
@@ -115,6 +117,8 @@ def merge_sort_trace(arr, depth=0):
     return merged
 ```
 
+**병합 추적:** [27, 38]과 [3, 43]을 병합: 27 vs 3 비교 → 3을 취함. 27 vs 43 비교 → 27을 취함. 38 vs 43 비교 → 38을 취함. 나머지 43을 취함. 결과: [3, 27, 38, 43].
+
 **핵심 관찰**: `depth` 매개변수가 들여쓰기를 제어하여 **재귀 트리** 구조를 드러낸다.
 
 ---
@@ -148,6 +152,8 @@ def merge_sort_trace(arr, depth=0):
 
 #### 2.2.2 랜덤 선택의 동작 원리
 
+전화번호부에서 이름을 찾을 때, 모든 페이지를 읽는 대신 임의의 페이지를 펼쳐서 왼쪽 또는 오른쪽 중 어디를 볼지 결정하는 것과 같다.
+
 퀵 정렬의 **분할(partition)** 단계를 사용하되, **한쪽**으로만 재귀한다.
 
 ```
@@ -168,36 +174,44 @@ def merge_sort_trace(arr, depth=0):
 단계 3: 랜덤 피벗 = 7, 분할:
         []  [7]  [8]
              ^-- 인덱스 0
-        k=1 > 0, 오른쪽 탐색 -> [8]
-        다시 인덱싱하면... k=3 전체 -> 결과 = 8
+        k=1 > 0, 오른쪽 부분 배열 [8]로 재귀.
+        원소가 하나뿐 -> 8을 반환.
+        이것이 전체에서 4번째로 작은 원소이다.
 ```
 
 #### 2.2.3 풀이
 
+퀵 정렬의 분할(partition) 단계를 처음 보는 경우를 위한 설명: 피벗을 하나 선택하고, 피벗보다 작은 원소는 왼쪽에, 피벗은 최종 위치에, 피벗보다 큰 원소는 오른쪽에 오도록 배열을 재배치한다.
+
 ```python
+import random
+
 def partition(arr, left, right, pivot_idx):
     pivot = arr[pivot_idx]
+    # 피벗을 맨 끝으로 이동하여 방해되지 않게 한다
     arr[pivot_idx], arr[right] = arr[right], arr[pivot_idx]
-    store = left
+    store = left  # "작은 원소" 영역과 "미정렬" 영역의 경계
     for i in range(left, right):
         if arr[i] < pivot:
+            # 현재 원소를 "작은 원소" 영역으로 교환
             arr[i], arr[store] = arr[store], arr[i]
             store += 1
+    # 피벗을 최종 정렬 위치에 배치
     arr[store], arr[right] = arr[right], arr[store]
-    return store
+    return store  # 피벗의 최종 인덱스를 반환
 
 def randomized_select(arr, left, right, k):
     """k번째로 작은 원소를 찾는다 (0-인덱스)."""
     if left == right:
         return arr[left]
     pivot_idx = random.randint(left, right)
-    pivot_idx = partition(arr, left, right, pivot_idx)
-    if k == pivot_idx:
+    final_pos = partition(arr, left, right, pivot_idx)
+    if k == final_pos:
         return arr[k]
-    elif k < pivot_idx:
-        return randomized_select(arr, left, pivot_idx - 1, k)
+    elif k < final_pos:
+        return randomized_select(arr, left, final_pos - 1, k)
     else:
-        return randomized_select(arr, pivot_idx + 1, right, k)
+        return randomized_select(arr, final_pos + 1, right, k)
 ```
 
 파일: `examples/a2_kth_smallest.py`
@@ -205,6 +219,11 @@ def randomized_select(arr, left, right, k):
 #### 2.2.4 성능 비교
 
 ```python
+def kth_smallest(arr, k):
+    """래퍼: k번째로 작은 원소를 반환한다 (0-인덱스)."""
+    data = arr[:]  # 원본 변경을 방지하기 위해 복사본으로 작업
+    return randomized_select(data, 0, len(data) - 1, k)
+
 # 랜덤 선택: O(n) 평균
 result1 = kth_smallest(big_data, n // 2)
 
@@ -254,6 +273,8 @@ result2 = sorted(big_data)[n // 2 - 1]
 | 완전 탐색 | O(n²) | n(n-1)/2개의 모든 쌍을 검사 |
 | **분할 정복** | **O(n log n)** | 분할하고, 각 절반을 풀고, 띠(strip)를 검사 |
 
+군중 속에서 가장 가까이 서 있는 두 사람을 찾는 것과 같다 -- 군중을 반으로 나누고 경계선 근처를 확인하는 것이 모든 사람을 일일이 비교하는 것보다 훨씬 빠르다.
+
 #### 2.3.2 분할 정복 전략
 
 ```
@@ -283,6 +304,15 @@ result2 = sorted(big_data)[n // 2 - 1]
 #### 2.3.3 풀이 (핵심 부분)
 
 ```python
+import math
+
+def dist(p1, p2):
+    """두 점 사이의 유클리드 거리."""
+    return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+
+# closest_pair_bruteforce(pts)는 모든 쌍을 O(n^2)으로 검사한다;
+# n <= 3일 때 기저 사례로 사용된다.
+
 def closest_pair_dc(points):
     """O(n log n): 분할 정복 접근."""
     points_sorted = sorted(points, key=lambda p: p[0])
@@ -302,7 +332,10 @@ def _closest_dc(pts):
     best = left_result if left_result[0] <= right_result[0] \
                        else right_result
 
-    # 띠(strip) 검사
+    # 띠(strip) 검사 — 핵심 사실: 띠 안의 각 점에 대해 최대 7개의
+    # 다른 점만 검사하면 된다 (y 방향으로 거리 d 이내인 점들).
+    # 각 절반의 점들은 최소 d만큼 떨어져 있으므로, d x 2d 직사각형 안에
+    # 상수 개의 점만 들어갈 수 있다. 따라서 띠 검사는 총 O(n)이다.
     strip = [p for p in pts if abs(p[0] - mid_x) < d]
     strip.sort(key=lambda p: p[1])
     for i in range(len(strip)):
@@ -355,6 +388,8 @@ N       완전 탐색        분할 정복       속도 향상
 ### 3.1 B-1: 자동완성 API
 
 #### 3.1.1 설정
+
+먼저 의존성을 설치한다: `pip install flask`. Flask는 경량 Python 웹 프레임워크이다.
 
 Flask 앱 실행:
 
@@ -448,4 +483,4 @@ python app.py
 
 ## 부록
 
-> 이 문서는 슬라이드 자료 `W04_LB_Advanced-Divide-and-Conquer.md`의 한국어 번역본이다.
+> 이 문서는 슬라이드 자료 `W04_LB_Advanced-Divide-and-Conquer.md`를 바탕으로 작성되었다.

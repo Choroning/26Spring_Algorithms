@@ -58,6 +58,8 @@
 
 ### 2.1 A-1: Merge Sort Trace
 
+Merge sort (covered in the lecture) divides the array in half, recursively sorts each half, and merges the results. Here we trace through its execution and implement it.
+
 #### 2.1.1 Problem
 
 **Goal**: Visualize the call tree to understand the recursive structure of merge sort.
@@ -115,6 +117,8 @@ def merge_sort_trace(arr, depth=0):
     return merged
 ```
 
+**Merge trace:** Merging [27, 38] and [3, 43]: Compare 27 vs 3 → take 3. Compare 27 vs 43 → take 27. Compare 38 vs 43 → take 38. Take remaining 43. Result: [3, 27, 38, 43].
+
 **Key observation**: The `depth` parameter controls indentation, revealing the **recursion tree** structure.
 
 ---
@@ -148,6 +152,8 @@ Why sort the entire array when you only need a single element?
 
 #### 2.2.2 How Randomized Select Works
 
+Like looking for a name in a phonebook by opening to a random page and deciding whether to look left or right, rather than reading every page.
+
 Uses the **partition** step from quicksort, but only recurses into **one side**.
 
 ```
@@ -168,36 +174,44 @@ Step 2: Random pivot = 4, partition:
 Step 3: Random pivot = 7, partition:
         []  [7]  [8]
              ^-- index 0
-        k=1 > 0, search right -> [8]
-        Re-indexing... k=3 overall -> result = 8
+        k=1 > 0, recurse into right subarray [8].
+        Single element -> return 8.
+        This is the 4th smallest element overall.
 ```
 
 #### 2.2.3 Solution
 
+If you haven't seen quicksort's partition step before, here is the idea: choose a pivot, rearrange the array so everything smaller is on the left, the pivot is in its final position, and everything larger is on the right.
+
 ```python
+import random
+
 def partition(arr, left, right, pivot_idx):
     pivot = arr[pivot_idx]
+    # Move pivot to the end so it's out of the way
     arr[pivot_idx], arr[right] = arr[right], arr[pivot_idx]
-    store = left
+    store = left  # Boundary between "smaller" and "unsorted" regions
     for i in range(left, right):
         if arr[i] < pivot:
+            # Swap current element into the "smaller" region
             arr[i], arr[store] = arr[store], arr[i]
             store += 1
+    # Place pivot in its final sorted position
     arr[store], arr[right] = arr[right], arr[store]
-    return store
+    return store  # Return the pivot's final index
 
 def randomized_select(arr, left, right, k):
     """Find the k-th smallest element (0-indexed)."""
     if left == right:
         return arr[left]
     pivot_idx = random.randint(left, right)
-    pivot_idx = partition(arr, left, right, pivot_idx)
-    if k == pivot_idx:
+    final_pos = partition(arr, left, right, pivot_idx)
+    if k == final_pos:
         return arr[k]
-    elif k < pivot_idx:
-        return randomized_select(arr, left, pivot_idx - 1, k)
+    elif k < final_pos:
+        return randomized_select(arr, left, final_pos - 1, k)
     else:
-        return randomized_select(arr, pivot_idx + 1, right, k)
+        return randomized_select(arr, final_pos + 1, right, k)
 ```
 
 File: `examples/a2_kth_smallest.py`
@@ -205,6 +219,11 @@ File: `examples/a2_kth_smallest.py`
 #### 2.2.4 Performance Comparison
 
 ```python
+def kth_smallest(arr, k):
+    """Wrapper: returns the k-th smallest element (0-indexed)."""
+    data = arr[:]  # work on a copy to avoid mutating the original
+    return randomized_select(data, 0, len(data) - 1, k)
+
 # Randomized select: O(n) average
 result1 = kth_smallest(big_data, n // 2)
 
@@ -254,6 +273,8 @@ Sort + Index            0.85s     O(n log n)
 | Brute force | O(n^2) | Check all n(n-1)/2 pairs |
 | **Divide and conquer** | **O(n log n)** | Divide, solve each half, check strip |
 
+Like finding the two people standing closest together in a crowd -- splitting the crowd in half and checking near the dividing line is much faster than comparing everyone.
+
 #### 2.3.2 Divide and Conquer Strategy
 
 ```
@@ -283,6 +304,15 @@ Sort + Index            0.85s     O(n log n)
 #### 2.3.3 Solution (Core Part)
 
 ```python
+import math
+
+def dist(p1, p2):
+    """Euclidean distance between two points."""
+    return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+
+# closest_pair_bruteforce(pts) checks all pairs in O(n^2);
+# used as the base case when n <= 3.
+
 def closest_pair_dc(points):
     """O(n log n): divide and conquer approach."""
     points_sorted = sorted(points, key=lambda p: p[0])
@@ -302,7 +332,10 @@ def _closest_dc(pts):
     best = left_result if left_result[0] <= right_result[0] \
                        else right_result
 
-    # Strip check
+    # Strip check — Key fact: for any point in the strip, at most 7 other
+    # points need to be checked (those within distance d in the y-direction).
+    # Points in each half are at least d apart, so only a constant number
+    # fit in a d x 2d rectangle. This keeps the strip check at O(n) total.
     strip = [p for p in pts if abs(p[0] - mid_x) < d]
     strip.sort(key=lambda p: p[1])
     for i in range(len(strip)):
@@ -355,6 +388,8 @@ Time
 ### 3.1 B-1: Autocomplete API
 
 #### 3.1.1 Setup
+
+Install dependencies first: `pip install flask`. Flask is a lightweight Python web framework.
 
 Run the Flask app:
 
@@ -448,4 +483,4 @@ Refer to `../3_assignment/README.md` for assignment details.
 
 ## Appendix
 
-> This document is the English translation of the slide material `W04_LB_Advanced-Divide-and-Conquer.md`.
+> This document is based on the slide material `W04_LB_Advanced-Divide-and-Conquer.md`.

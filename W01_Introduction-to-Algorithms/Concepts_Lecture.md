@@ -1,6 +1,6 @@
 # Week 1 Lecture — Introduction to Algorithms
 
-> **Last Updated:** 2026-03-21
+> **Last Modified:** 2026-03-31
 
 ---
 
@@ -111,6 +111,8 @@ Problem Solving <-> Divide and Conquer <-> Recursive Thinking <-> Recurrence Rel
 
 > **Key Point:** CLRS is the most widely used standard textbook in the field of algorithms worldwide. The flow of "Divide and Conquer -> Recursive Thinking -> Recurrence Relations" is the thinking pattern that runs through this entire course, so keeping this connection in mind throughout the lectures will be very helpful.
 
+> **Note:** Recursive thinking means breaking a problem into smaller versions of itself; recurrence relations are mathematical equations that describe this breakdown. These concepts will be defined formally in Weeks 3-4.
+
 ### 1.8 Course Roadmap
 
 | Week | Topic | Week | Topic |
@@ -185,6 +187,7 @@ Algorithms are the core of technical interviews and coding tests.
 **Requirements:**
 - Input and output must be clearly specified
 - The algorithm describes the process of transforming input into output
+- The algorithm must be *correct*: for every valid input, it must eventually terminate and produce the correct output.
 
 > **Note:** Each step of an algorithm must be **unambiguous**. That is, what action to take in any given situation must not be vague. An expression like "handle appropriately according to the situation" is not an algorithm.
 
@@ -245,6 +248,8 @@ Simple, finite, and correct — the hallmarks of a good algorithm.
 
 ## 3. Classical Problems
 
+Now that we understand what an algorithm is, let's explore several classical problems that illustrate fundamental algorithmic strategies. Each problem introduces a different way of thinking -- sequential scanning, divide and conquer, greedy choices, graph traversal, and information-theoretic encoding -- that will recur throughout this course.
+
 ### 3.1 Finding the Maximum
 
 **Problem:** Among face-down number cards, find the card with the largest number.
@@ -269,6 +274,8 @@ def find_max(cards):
 This is **Sequential Search** — reading cards one by one in order.
 
 > **[Data Structures]** In the code above, `cards` is an array (list), and the `for` loop iterates from index 1 to the end. As learned in Data Structures, arrays allow O(1) access by index. This algorithm visits every element once, so the time complexity is **O(n)**. This is the minimum time required to find the maximum in an unsorted array — because every element must be checked at least once.
+
+> **Note:** We write O(n) to describe how an algorithm's running time grows with input size n. This notation will be covered rigorously in Week 2. Informally, O(n) means "roughly proportional to n" and O(log n) means "roughly proportional to log n."
 
 ### 3.2 Finding a Specific Number (Binary Search)
 
@@ -348,6 +355,8 @@ Remaining amount: 730
 Total coins: 1 + 2 + 3 = 6 (minimum!)
 ```
 
+Notice that the 50-won coin is not used because the remaining amount (30) after using 100-won coins is less than 50. The algorithm naturally skips denominations that are too large for the remaining amount.
+
 > **Greedy Algorithm:** A method that makes the **locally optimal choice** at each step, hoping to achieve a **globally optimal solution**.
 
 ```python
@@ -370,17 +379,33 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 ### 3.4 Euler Path (One-Stroke Drawing)
 
+An Euler *path* traverses every edge exactly once. If it also returns to the starting vertex, it is called an Euler *circuit* (or *cycle*). The problem here asks for an Euler circuit specifically.
+
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
 ![Konigsberg's 7 Bridges](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png)
 
 > **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous "Konigsberg bridge problem." Euler proved that for a path traversing every edge exactly once (Euler path) to exist, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
 
+The following graph (vertices 1-10) is used in the worked example below:
+
+```
+        1
+       / \
+      2   10
+      |     \
+      3---9--7
+      |   |  |
+      4   8  6
+       \ /  /
+        5--+
+```
+
 **Key Insight:**
 
 At a vertex with multiple choices, which edge should be taken?
 
-**Rule:** Only move to a neighbor if a **cycle** exists that returns to the current vertex through that neighbor. Avoid **bridges** (edges whose removal disconnects the graph).
+**Rule:** Only move to a neighbor if a **cycle** exists that returns to the current vertex through that neighbor. Avoid **bridges** (edges whose removal disconnects the graph). For instance, if removing edge (7,10) would leave vertex 10 completely unreachable from the rest of the graph, then (7,10) is a bridge. Crossing a bridge too early can strand you, leaving edges you can never traverse.
 
 **Example:** At vertex 7, should you go to 6, 9, or 10?
 - Vertex 6: A cycle exists via 5, 4, 3, 9, 7 -> **Safe**
@@ -392,6 +417,8 @@ At a vertex with multiple choices, which edge should be taken?
 2. Otherwise, move to a neighbor through which a **cycle** back to the current vertex exists
 
 Cycle detection can be performed using **Depth-First Search (DFS)**.
+
+The key insight is that crossing a bridge prematurely can split the graph into disconnected parts, making it impossible to traverse the remaining edges. By always choosing an edge that keeps the graph connected, you ensure all edges remain reachable.
 
 > **[Data Structures]** DFS is a graph traversal method learned in Data Structures. It explores as far as possible along one path before backtracking. It is implemented using a stack or recursive calls. Conversely, BFS (Breadth-First Search) explores nodes level by level starting from the nearest, using a queue. DFS is used for cycle detection here because encountering an already-visited node during DFS means a cycle exists.
 
@@ -466,6 +493,8 @@ Group coins into pairs and compare each pair.
 - **Worst case:** n / 2 weighings
 - 1,024 coins: up to **512 weighings**
 - Better, but still linear
+
+Once an unbalanced pair is found, one additional weighing against a known-genuine coin identifies which of the two is counterfeit. This means the total worst case is actually ceil(n/2) + 1 weighings.
 
 **Approach C (Split in Half):**
 
