@@ -61,6 +61,8 @@
 
 ### 1.1 Divide and Conquer Paradigm
 
+Imagine you need to sort a shuffled deck of 52 cards. One natural approach is to split the deck in half, sort each half, and then merge them — this is exactly the divide-and-conquer strategy. This paradigm of breaking big problems into smaller ones turns out to be one of the most powerful ideas in computer science.
+
 An algorithm that **divides** the input of a given problem and **conquers (solves)** each part.
 
 **Three steps:**
@@ -122,6 +124,8 @@ Total number of divisions $= \log_2 n$
 
 The method of conquering depends on the specific problem.
 
+> **Concrete Examples of Combine:** In merge sort, combine means merging two sorted lists ($O(n)$). In binary search, combine is trivial (just return the result). In the closest pair problem, combine requires a careful strip analysis. The combine step often determines the overall complexity of the algorithm.
+
 ### 1.5 Classification of Divide and Conquer Algorithms
 
 General recurrence form:
@@ -135,8 +139,8 @@ $$T(n) = a \cdot T(n/b) + O(f(n))$$
 | $a$ | $b$ | Algorithm |
 |:-----|:-----|:-----------|
 | 2 | 2 | Merge Sort, Closest Pair |
-| 3 | 2 | Large Integer Multiplication |
-| 7 | 2 | Strassen Matrix Multiplication |
+| 3 | 2 | Large Integer Multiplication (covered in CLRS Ch. 4; not covered in this course) |
+| 7 | 2 | Strassen Matrix Multiplication (covered in CLRS Ch. 4; not covered in this course) |
 
 > **Key Idea:** In this recurrence, $a$, $b$, and $f(n)$ determine the time complexity of the algorithm. A larger $a$ means more subproblems and higher cost, while a larger $b$ means subproblem sizes decrease faster. $f(n)$ is the divide/combine overhead.
 
@@ -171,9 +175,13 @@ $$T(n) = \Theta(n^{\log_b a} \log n)$$
 **Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ — Combine cost dominates
 $$T(n) = \Theta(f(n))$$
 
+Here $\varepsilon > 0$ is any positive constant — the condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}$, not just slightly smaller.
+
 ![Recursion Tree Example: T(n)=3T(n/4)+cn²](../images/ch04_p025_006.png)
 
 > **Note (Case 3):** The *regularity condition* is also required: for some $c < 1$, $a \cdot f(n/b) \le c \cdot f(n)$ must hold.
+
+**Worked Example:** For $T(n) = 3T(n/4) + cn^2$: $a=3$, $b=4$, $f(n)=cn^2$. Compute $n^{\log_4 3} \approx n^{0.79}$. Since $f(n) = cn^2$ grows polynomially faster than $n^{0.79}$ (i.e., $f(n) = \Omega(n^{\log_4 3 + \varepsilon})$ for $\varepsilon \approx 1.21$), this is **Case 3**, giving $T(n) = \Theta(n^2)$.
 
 > **Exam Tip:** The procedure for applying the Master Theorem is as follows:
 > 1. Identify $a$, $b$, and $f(n)$ from the recurrence
@@ -222,6 +230,36 @@ MERGE-SORT(A, p, r)
 ![Merge Sort Operation Tree (CLRS Figure 2.4)](../images/ch02_fig2_4_1.png)
 
 > **[Data Structures]** The key to merge sort is the MERGE process. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
+
+**MERGE Procedure:**
+
+```
+MERGE(A, p, q, r)
+  n1 = q - p + 1          // size of left half
+  n2 = r - q              // size of right half
+  create arrays L[1..n1+1] and R[1..n2+1]
+  for i = 1 to n1: L[i] = A[p + i - 1]
+  for j = 1 to n2: R[j] = A[q + j]
+  L[n1+1] = ∞             // sentinel
+  R[n2+1] = ∞             // sentinel
+  i = 1, j = 1
+  for k = p to r:
+    if L[i] <= R[j]:
+      A[k] = L[i]; i++
+    else:
+      A[k] = R[j]; j++
+```
+
+**Merge Trace — merging [27, 38] and [3, 43]:**
+
+| Step | Compare | Action | Result so far | i | j |
+|------|---------|--------|--------------|---|---|
+| 1 | L[1]=27 vs R[1]=3 | 3 < 27, take R | [3] | 1 | 2 |
+| 2 | L[1]=27 vs R[2]=43 | 27 < 43, take L | [3, 27] | 2 | 2 |
+| 3 | L[2]=38 vs R[2]=43 | 38 < 43, take L | [3, 27, 38] | 3 | 2 |
+| 4 | L[3]=∞ vs R[2]=43 | 43 < ∞, take R | [3, 27, 38, 43] | 3 | 3 |
+
+> **[Data Structures]** The sentinel value ∞ eliminates the need for boundary checks. When one array is exhausted, the sentinel ensures the remaining elements of the other array are copied in order.
 
 ### 2.2 Merge Sort — Recurrence and Analysis
 
@@ -415,6 +453,8 @@ $$T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + \Theta(n) = \Theta(n \lo
 
 > **Exam Tip:** The worst case of quick sort occurs when selecting the last element as pivot on an already sorted (or reverse-sorted) array. To prevent this, in practice strategies such as **random pivot** and **median-of-three** are used.
 
+**Randomized Partition:** Pick a random index $r'$ in $[p..r]$, swap $A[r']$ with $A[r]$, then call PARTITION as before. This simple modification avoids worst-case behavior on sorted or nearly-sorted input.
+
 ---
 
 <br>
@@ -498,8 +538,37 @@ Step 1: PARTITION with pivot=15
   i=7 > k=4 → search right group [31, 48, 20, 29, 65, 73]
               for (7-4)=3rd smallest element
 
-Step 2: Recurse on [31, 48, 20, 29, 65, 73]
-  Find the 3rd smallest element...
+Step 2: Recurse on [31, 48, 20, 29, 65, 73], find 3rd smallest
+  PARTITION with pivot=73
+  Result: [31, 48, 20, 29, 65 | 73]
+  Pivot position k=6
+
+  i=3 < k=6 → search left group [31, 48, 20, 29, 65]
+
+Step 3: Recurse on [31, 48, 20, 29, 65], find 3rd smallest
+  PARTITION with pivot=65
+  Result: [31, 48, 20, 29 | 65]
+  Pivot position k=5
+
+  i=3 < k=5 → search left group [31, 48, 20, 29]
+
+Step 4: Recurse on [31, 48, 20, 29], find 3rd smallest
+  PARTITION with pivot=29
+  Result: [20 | 29 | 31, 48]
+  Pivot position k=2
+
+  i=3 > k=2 → search right group [31, 48] for (3-2)=1st smallest
+
+Step 5: Recurse on [31, 48], find 1st smallest
+  PARTITION with pivot=48
+  Result: [31 | 48]
+  Pivot position k=2
+
+  i=1 < k=2 → search left group [31]
+
+Step 6: Only one element → return 31
+
+Answer: The 7th smallest element is 31.
 ```
 
 ### 5.5 Selection — Average Time Analysis
@@ -507,6 +576,8 @@ Step 2: Recurse on [31, 48, 20, 29, 65, 73]
 Assuming the desired element is always in the **larger** partition (worst scenario for average):
 
 $$T(n) \le T(3n/4) + \Theta(n)$$
+
+On average, a random pivot falls in the middle 50% of the elements (between the 25th and 75th percentiles), so the larger partition is at most 3n/4 of the original.
 
 Expanding:
 $$T(n) \le cn + c \cdot \frac{3n}{4} + c \cdot \left(\frac{3}{4}\right)^2 n + \cdots$$
@@ -666,7 +737,7 @@ The key insight lies in the **combine** step:
 - Only points within distance $d$ from the dividing line need to be checked
 - Sort the points in the strip by y-coordinate
 - For each point, compare only the next few points (at most **6** neighbors)
-- This limits the strip check to $O(n)$ per point with a constant number of comparisons
+- This limits the strip check to $O(1)$ comparisons per point (at most 7 neighbors), yielding $O(n)$ total for the strip
 
 > **Key Idea:** "Why only compare at most 6?" is the core insight of this algorithm. In a $d \times 2d$ rectangle, at most 8 points can exist with pairwise distance ≥ $d$, so for each point, comparing only the nearest 6–7 points by y-coordinate is sufficient.
 
@@ -732,6 +803,8 @@ $$T(n) = O(n \log^2 n)$$
 ---
 
 <br>
+
+Having seen several successful applications of divide and conquer, we now examine when this paradigm fails — and what alternative approach (dynamic programming) to use instead.
 
 ## 7. When Divide and Conquer Is Inappropriate
 

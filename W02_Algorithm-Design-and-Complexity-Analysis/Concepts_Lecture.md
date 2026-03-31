@@ -1,6 +1,6 @@
 # Week 2 Lecture — Algorithm Design and Complexity Analysis
 
-> **Last Updated:** 2026-03-21
+> **Last Updated:** 2026-03-31
 
 ---
 
@@ -70,6 +70,8 @@ The **oldest known algorithm**, created around ~300 BCE.
 **Mathematical Basis:**
 
 Given $A > B$ and $A = a \cdot G$, $B = b \cdot G$ ($G$ = GCD):
+
+Here, $a = A/G$ and $b = B/G$ are integers (since $G$ divides both $A$ and $B$). Note that $a$ and $b$ are coprime (their GCD is 1).
 
 $$A \mod B = (a \mod b) \cdot G$$
 
@@ -214,16 +216,18 @@ Flowcharts are intuitive for simple algorithms but become complex for large prog
 
 ### 1.5 Algorithm Classification
 
+> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet -- they will each be covered in detail in later weeks.
+
 Six major types based on problem-solving strategy:
 
 | Type | Core Idea |
 |:-----|:----------|
-| **Divide and Conquer** | Split into subproblems -> solve each -> combine results |
-| **Greedy** | Make the locally optimal choice at each step |
-| **Dynamic Programming (DP)** | Solve subproblems and store results for reuse |
-| **Approximation** | Near-optimal solutions for NP-hard problems |
-| **Backtracking** | Explore all possibilities, pruning infeasible branches |
-| **Branch and Bound** | Similar to backtracking, but uses bounds for more aggressive pruning |
+| **Divide and Conquer** | Split into subproblems -> solve each -> combine results. *E.g., Merge Sort: split an array in half, sort each half, then merge the sorted halves.* |
+| **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm: always extend the shortest known path to reach all nodes in a graph.* |
+| **Dynamic Programming (DP)** | Solve subproblems and store results for reuse. *E.g., Knapsack Problem: given items with weights and values, find the most valuable combination that fits in a bag.* |
+| **Approximation** | Near-optimal solutions for NP-hard problems. *E.g., Traveling Salesman Problem (TSP): find a near-shortest route visiting all cities when the exact solution is too costly to compute.* |
+| **Backtracking** | Explore all possibilities, pruning infeasible branches. *E.g., N-Queens: place N queens on an N x N chessboard so that no two queens attack each other.* |
+| **Branch and Bound** | Similar to backtracking, but uses bounds for more aggressive pruning. *E.g., Knapsack (exact): find the optimal item selection by pruning branches that cannot beat the current best.* |
 
 > **Key Point:** These 6 categories form the core framework running through the entire course. Among them, **Divide and Conquer, Greedy, and Dynamic Programming** are the three most heavily covered strategies.
 
@@ -297,6 +301,8 @@ Examples: Fibonacci sequence, Longest Common Subsequence (LCS), Knapsack Problem
 
 **Time complexity** is the number of **basic operations** as a function of input size $n$. **Basic operations** are simple operations that take constant time, such as comparisons, reads, writes, and arithmetic operations.
 
+This counting assumes the RAM (Random Access Machine) model, where each basic operation (arithmetic, comparison, memory access) takes exactly one unit of time.
+
 **Example: Finding the maximum among $n$ cards**
 
 - Sequential scan: compare each card with the current maximum
@@ -347,7 +353,7 @@ Nested loops, each executing $n$ times → $n \times n$ = **quadratic time**.
 **Example 4 — O(n^2) (Triangular Loop):**
 
 ```
-sample5(A[], n)
+sample4(A[], n)
     sum = 0
     for i = 1 to n-1
         for j = i+1 to n
@@ -380,6 +386,8 @@ Recursion depth is $n$ → **linear time**.
 | **Best-case** | Fastest execution — used to find the optimal algorithm |
 | **Amortized** | Average cost per operation over a sequence of operations |
 
+Amortized analysis is different from average-case: it considers the worst-case total cost of a *sequence* of operations, then divides by the number of operations. For example, a dynamic array occasionally needs to resize (expensive), but most insertions are cheap, so the amortized cost per insertion is O(1).
+
 In practice, **worst-case analysis** is the most commonly used.
 
 > **Key Point:** The reason worst-case is primarily used is that it provides a **guarantee**. "This algorithm will never exceed n^2 time for any input" is a solid promise. Average analysis, on the other hand, is merely an estimate of "usually around this much." For example, quick sort averages O(n log n) but has a worst case of O(n^2).
@@ -406,6 +414,8 @@ Same way of thinking about algorithm analysis — the **worst case** provides a 
 
 ### 3.1 Why Asymptotic Notation?
 
+In Section 2, we computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$. But these exact counts depend on implementation details (does the loop start at 0 or 1? do we count the final comparison?). Asymptotic notation strips away these irrelevant details and lets us focus on what truly matters: how the running time *scales* as $n$ grows.
+
 ![Asymptotic Notation Graph](../images/ch03_p003_001.png)
 
 - Time complexity is a function of $n$ (usually a polynomial with multiple terms).
@@ -430,6 +440,8 @@ $$O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\,
 
 - $g(n)$ is the **asymptotic upper bound** of $f(n)$
 - Convention: Technically $f(n) \in O(g(n))$, but we write $f(n) = O(g(n))$
+
+> **Reading the definition:** "There exist constants $c > 0$ and $n_0 \geq 0$ such that for all $n \geq n_0$, $f(n) \leq c \cdot g(n)$." The symbol $\exists$ means "there exists," and $\forall$ means "for all."
 
 **Intuitive Meaning:** $f(n) = O(g(n))$ means $f$ **does not grow faster than** $g$ (ignoring constant factors).
 
@@ -494,6 +506,10 @@ $$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \for
 
 **Best Practice:** Write as tightly as possible. $n \log n + 5n = \Omega(n \log n)$, not $\Omega(n)$.
 
+**Proof Example:** $10n^2 + 4n + 2 = \Omega(n^2)$
+
+Choose $c = 10$, $n_0 = 1$. Then $10n^2 + 4n + 2 \geq 10n^2 \geq c \cdot n^2$ for all $n \geq 1$. $\square$
+
 ### 3.4 Theta Notation
 
 **Formal Definition:**
@@ -520,6 +536,10 @@ $$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}
 | $6 \cdot 2^n + n^2$ | $\Theta(2^n)$ |
 
 **Counterexample:** $2n^2 + 3n + 5 \neq \Theta(n^3)$ and $2n^2 + 3n + 5 \neq \Theta(n)$ — Theta requires **both** the upper and lower bounds to match.
+
+**Proof Example:** $3n + 2 = \Theta(n)$
+
+Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \geq 3n$ for $n \geq 0$ ($c_1 = 3$). So $c_1 = 3$, $c_2 = 5$, $n_0 = 1$. $\square$
 
 ### 3.5 Common Complexity Classes
 
@@ -569,6 +589,8 @@ The gap between polynomial and exponential is **enormous**.
 | $O(n \log n)$ (PC) | < 1 sec | < 1 sec | **~5 min** |
 | $O(n \log n)$ (Supercomputer) | < 1 sec | < 1 sec | < 1 sec |
 
+> *Assumes a PC performs ~10^8 operations/second and a supercomputer performs ~10^12 operations/second.*
+
 > An efficient algorithm is **worth more than a supercomputer**.
 >
 > Investing in a better algorithm is far more cost-effective than investing in better hardware.
@@ -582,6 +604,8 @@ The gap between polynomial and exponential is **enormous**.
 ## 4. Recurrence Relations
 
 ### 4.1 What Is a Recurrence Relation?
+
+When we analyze recursive algorithms, we cannot simply count loop iterations as we did in Section 2. Instead, the running time $T(n)$ is expressed in terms of $T$ on smaller inputs -- this is a recurrence relation. Our goal is to *solve* the recurrence to get a closed-form expression like $O(n \log n)$.
 
 A **recurrence relation** expresses a function in terms of its values on **smaller inputs**.
 
@@ -675,7 +699,7 @@ $$
 
 **Proof by Mathematical Induction:**
 
-*Base case:* $T(2) \leq c \cdot 2 \log 2$ — holds for sufficiently large $c$.
+*Base case:* $T(2) = 2T(1) + 2 = 2(1) + 2 = 4$. We need $4 \leq c \cdot 2 \cdot \log_2(2) = 2c$, so $c \geq 2$ suffices.
 
 *Inductive hypothesis:* Assume $T(n/2) \leq c(n/2)\log(n/2)$.
 
@@ -780,6 +804,8 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 > 4. Apply the corresponding Case
 >
 > Example 3 is precisely the recurrence for **merge sort**! Using the Master Theorem, you get O(n log n) immediately without repeated substitution or induction.
+
+> **Note:** The regularity condition ensures that $f(n)$ is "well-behaved" -- specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) satisfy this automatically.
 
 > **Exam Tip:** **Case 3 of the Master Theorem is rarely tested** because verifying the regularity condition ($af(n/b) \leq cf(n)$) is tricky. Most exam problems can be solved with Case 1 or Case 2. Focusing on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
 

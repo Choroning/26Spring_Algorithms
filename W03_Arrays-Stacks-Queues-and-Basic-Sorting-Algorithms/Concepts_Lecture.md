@@ -149,7 +149,7 @@ bottom → │  A  │
 
 ### 1.5 Heap
 
-- A **complete binary tree** satisfying the heap property.
+- A **complete binary tree** satisfying the heap property. The heap property ensures the root always holds the extreme value (max or min), enabling efficient extraction of the maximum or minimum element.
   - **Max Heap**: key(parent) >= key(child)
   - **Min Heap**: key(parent) <= key(child)
 - Heaps are stored in an **array** (no pointers needed).
@@ -190,9 +190,11 @@ bottom → │  A  │
 
 ### 2.1 Selection Sort — Idea
 
+Both directions work for selection sort: you can either find the **minimum** and place it at the front, or find the **maximum** and place it at the back. The core principle is the same — one element is fixed in its final position each round. The pseudocode below uses the **max variant** (find the largest and swap it to the end), while many textbooks and labs use the min variant.
+
 In each iteration:
 1. Find the **minimum** (or maximum) value in the unsorted portion
-2. **Swap** it with the leftmost element of the unsorted portion
+2. **Swap** it with the first (or last) element of the unsorted portion
 3. **Exclude** that element (it is now in its final position)
 4. Repeat until one element remains
 
@@ -397,6 +399,8 @@ insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
 
 ## 3. Advanced Sorting — O(n log n)
 
+As we saw in Section 2.10, elementary sorts reduce the problem by 1 element each step, leading to O(n^2). Advanced sorts achieve O(n log n) by splitting the problem in half each step -- this "divide and conquer" strategy is the key idea behind all algorithms in this section.
+
 ### 3.1 Merge Sort — Idea
 
 **Divide and Conquer**:
@@ -544,6 +548,8 @@ partition(A[], p, r)
 > `i` marks the boundary: all elements at index `i` or below are <= pivot.
 > `j` scans the array from left to right.
 
+**Partition Invariant**: At every point during the loop: elements A[p..i] <= pivot, elements A[i+1..j-1] > pivot, elements A[j..r-1] are unexamined.
+
 ![Partition Invariant](../images/ch07_p004_002.png)
 
 > **Note:** An intuitive way to understand the partition function: `i` points to "the end of the region <= pivot," and `j` points to "the start of the unexamined region." When A[j] <= pivot, i is incremented to expand the <= pivot region, and A[j] is swapped into that position. At the end, placing the pivot at position i+1 ensures everything to its left is <= pivot and everything to its right is > pivot.
@@ -613,6 +619,8 @@ T(n) = T(0) + T(n-1) + Theta(n) = T(n-1) + Theta(n)
 - Using integral approximation: T(n) <= c * n * log(n)
 - Therefore T(n) = **O(n log n)** (average)
 
+The full proof involves summing over all possible pivot positions and using integral approximation. The key takeaway is that random pivot selection makes the expected number of comparisons $O(n \log n)$, matching merge sort's guaranteed performance.
+
 > **Note:** Why an unbalanced split like 1:9 is acceptable: even when the problem size shrinks by 9/10 each time, solving $n \times (9/10)^k = 1$ gives $k = \log_{10/9}(n)$, which is $O(\log n)$ (only the base differs). What truly causes problems is when an **extreme imbalance** like 0:(n-1) repeats every time.
 
 ### 3.10 Heap Sort — Heap Review
@@ -655,6 +663,8 @@ heapSort(A[], n)              ▷ Sort A[1...n]
 > **Worst case**: O(n log n) — guaranteed, unlike quick sort!
 
 > **Note:** How heap sort works: (1) Turn the entire array into a heap (buildHeap), (2) Move the heap's root (min or max) to the end of the array, (3) Reduce the heap size by 1 and restore the heap property (heapify). Repeating this sorts the array.
+
+> **Note:** This implementation uses a **min heap** (producing descending order). For **ascending** sort, use a **max heap** instead -- replace min comparisons with max. The standard CLRS presentation uses a max heap for ascending sort.
 
 ### 3.12 Heap Sort — buildHeap and heapify
 
@@ -731,6 +741,8 @@ Result (descending): [9, 8, 7, 6, 4, 3]
 > Min heap → **descending** order.
 > Max heap → **ascending** order.
 
+> With a min heap, the smallest element is extracted first and placed at the end of the array. After all extractions, the array is in descending order because the smallest elements occupy the rightmost (last-extracted) positions.
+
 ![HEAPSORT Sorting Phase (CLRS)](../images/ch06_p011_004.png)
 
 ### 3.15 Heap Sort — Complexity
@@ -787,6 +799,8 @@ heapSort(A[], n)
 
 > **Key Point:** This lower bound theorem is proven using the **decision tree** model. A comparison-based sort asks "A[i] <= A[j]?" (yes/no) at each step. Since there are n! possible orderings of n elements, at least log_2(n!) comparisons are needed to distinguish them all. By Stirling's approximation, log_2(n!) = Theta(n log n). That is, **sorting using only comparisons can never be faster than O(n log n)**.
 
+> **Note:** Stirling's approximation states that $n! \approx (n/e)^n \cdot \sqrt{2\pi n}$, so $\log_2(n!) \approx n \cdot \log_2(n) - n \cdot \log_2(e)$, which is $\Theta(n \log n)$.
+
 > **Note:** Understanding the decision tree concretely: Consider sorting n=3 elements [a, b, c]. There are 3! = 6 possible orderings. Each comparison ("a <= b?") is an internal node of the tree, and each leaf is one permutation (sorting result). The minimum height of a binary tree with 6 leaves is ceil(log_2 6) = 3, so at least 3 comparisons are needed. In general, the height of a binary tree with n! leaves is at least log_2(n!) = Theta(n log n).
 
 ### 4.2 Radix Sort
@@ -805,6 +819,8 @@ radixSort(A[], n, k)           ▷ Elements have at most k digits
 **Stable Sort**: A sort that preserves the **original relative order** of elements with equal keys.
 
 > **Note:** Why stability is important in radix sort: After sorting by the 1's digit, when sorting by the 10's digit, elements with the same 10's digit must already be ordered by their 1's digit. If the sort is not stable, this order breaks and the final result becomes incorrect.
+
+> **Note:** Processing from LSD to MSD works because each round's stable sort preserves the ordering established by all previous rounds. After sorting by the i-th digit, elements are correctly ordered by the combination of digits 1 through i.
 
 ### 4.3 Radix Sort — Example
 

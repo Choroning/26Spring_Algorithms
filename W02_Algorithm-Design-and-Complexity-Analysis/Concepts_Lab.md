@@ -89,9 +89,24 @@ def measure_time(func, *args, repeat=3):
 
 > **Note:** Caution: if func modifies the array **in-place**, the second run receives an already-sorted array, which can distort the measurement. In such cases, you should copy the data (`data[:]`) at each iteration and pass the fresh copy for accurate benchmarking.
 
+```python
+# Wrong: data gets modified, second run is different
+# Right: use data[:] to make a fresh copy each time
+data_copy = data[:]
+```
+
 **Usage:**
 
 ```python
+import random
+
+def sum_list(lst):
+    """Simple O(n) function that sums all elements."""
+    total = 0
+    for x in lst:
+        total += x
+    return total
+
 for n in [1_000, 10_000, 100_000, 1_000_000]:
     data = [random.randint(1, 100) for _ in range(n)]
     elapsed, _ = measure_time(sum_list, data)
@@ -107,6 +122,8 @@ File: `examples/a1_timer_util.py`
 **Problem**
 
 **Problem**: Determine whether an integer array contains duplicates.
+
+Imagine checking for duplicate names in a classroom. The brute-force way is to compare every student with every other student -- tedious. The smart way is to call out each name and raise your hand if it's been called before -- one pass, instant lookup.
 
 **Two Approaches:**
 
@@ -181,6 +198,8 @@ Step 4: x=1  seen={3,1,4}   → 1 found! Return True
 
 Completed in just **4 steps** instead of 10 comparisons!
 
+> Think of a set like a guest list at a party -- when a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
+
 > **[Data Structures]** Python's `set` is internally implemented as a **hash table**. As learned in Data Structures, a hash table converts keys via a hash function and stores them at specific positions in an array. Thanks to this, **insertion (add) and lookup (in) are O(1) on average**. This is the key to reducing O(n^2) to O(n) — finding a specific value in an array is O(n), but in a hash table it is O(1). In the worst case (many hash collisions), it can degrade to O(n), but in practice it is almost always O(1).
 
 **Benchmark Results**
@@ -233,6 +252,8 @@ Time
  +-----------------------------------------> N
 ```
 
+O(n log n) is the complexity of efficient sorting algorithms like merge sort (Week 3). It appears here for reference so you can see where it falls between O(n) and O(n^2).
+
 **What to Observe:**
 
 - O(1) is flat — constant regardless of input size
@@ -248,6 +269,8 @@ Time
 
 ## 3. Type B — Web Code Analysis
 
+So far we have measured and visualized algorithm performance in isolation. Now let's see how these differences play out in a real-world scenario: a web API serving product search queries.
+
 ### 3.1 B-1: Product Search API Comparison
 
 **Setup**
@@ -259,6 +282,8 @@ cd examples/b1_web_search_api
 pip install flask
 python app.py
 ```
+
+Install Flask first: `pip install flask`. Once the server is running (typically at `http://127.0.0.1:5000`), test with your browser or `curl http://127.0.0.1:5000/search/linear?q=abc`.
 
 **Two Endpoints:**
 
@@ -279,6 +304,8 @@ python app.py
     |<---------------------------|  Found! (fast)
 ```
 
+> **Note:** Binary search works by repeatedly halving the search space: compare the target with the middle element, then search only the left or right half. This halving process takes at most log2(n) steps. See Week 4 Concepts for full details.
+
 > **Note:** Flask is Python's lightweight web framework. It is used here to **experience how algorithm choice affects response time in a real web service**. The `?q=name` in the GET request is a query parameter that passes the product name to search for. Linear search checks all products from beginning to end, while binary search halves the search space at each step on sorted data.
 
 **Measuring the Difference**
@@ -290,6 +317,8 @@ Test with increasing data sizes:
 | 100 | ~0.1 ms | ~0.01 ms | ~10x |
 | 10,000 | ~10 ms | ~0.02 ms | ~500x |
 | 1,000,000 | ~1,000 ms | ~0.03 ms | ~33,000x |
+
+*(Approximate values — actual results may vary by hardware)*
 
 **Discussion Question:**
 

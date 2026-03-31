@@ -42,13 +42,15 @@
 | 4 | Task 4 | RALPH technique |
 | 5 | Task 5 | Sorting benchmark |
 
+Why coding agents in an algorithms course? Understanding how to effectively use AI-powered coding tools is becoming an essential skill for software engineers. By learning to use these tools early, you can focus more on algorithmic thinking and problem-solving rather than syntax details.
+
 ---
 
 <br>
 
 ## 2. What Is a Coding Agent?
 
-An AI-based CLI tool that generates code by **understanding context**.
+An AI-based CLI (Command-Line Interface -- a text-based interface where you type commands instead of clicking buttons) tool that generates code by **understanding context**.
 
 **Workflow:**
 
@@ -109,6 +111,8 @@ gemini --version    # or: claude --version
 
 > **Note:** `npm` is Node.js's package manager. To run the commands above, Node.js must be installed first. The `-g` flag stands for "global," meaning it installs system-wide so the command can be used from anywhere.
 
+> **Note:** Node.js is required for some coding agents. Install it from https://nodejs.org (LTS version recommended). Verify installation with `node --version` in your terminal.
+
 ---
 
 <br>
@@ -129,6 +133,19 @@ Use the agent to **organize files** in a messy directory.
 - Does the agent **ask for confirmation** before moving files?
 - Does it create a reasonable folder structure?
 - How does it handle edge cases (e.g., files without extensions)?
+
+**Expected Output:**
+
+```
+I'll organize your ~/Downloads folder. Here's my plan:
+
+  images/    → .jpg, .png, .gif (12 files)
+  documents/ → .pdf, .docx, .txt (8 files)
+  code/      → .py, .js, .html (5 files)
+  other/     → files with no extension (2 files)
+
+Shall I proceed?
+```
 
 **Discussion:**
 
@@ -245,6 +262,7 @@ Result: 8/8 — All criteria met.
 - Each iteration: the agent evaluates -> finds issues -> fixes -> re-evaluates
 - You set the **goals and criteria**, and the agent iterates until complete
 - Same principle as the bash loop — **continuous iteration** is more effective than a one-shot prompt
+- Stop iterating when the output meets your quality criteria or when successive iterations produce diminishing improvements. Typically 2-3 rounds are sufficient.
 
 ---
 
