@@ -4,7 +4,7 @@
 >
 > **Prerequisites**: A computer with a terminal (macOS Terminal, Windows PowerShell, or Linux shell). Basic command-line usage (navigating directories, running commands). A GitHub account.
 >
-> **Learning Objectives**: After completing this lab, you should be able to:
+> **Learning Objectives**:
 > 1. Install and run at least one AI coding agent (Claude Code, GitHub Copilot CLI, or Codex CLI)
 > 2. Use a coding agent to automate file organization and documentation tasks
 > 3. Apply the Ralph Technique to iteratively improve AI-generated output

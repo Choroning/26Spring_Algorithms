@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Asymptotic notation — Big-O, Big-Omega, Big-Theta (Week 2). Sorting algorithms — merge sort, quick sort concepts (Week 3). Recurrence relations and mathematical induction (Discrete Mathematics). Understanding of recursion — base case, recursive call.
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. Describe the divide-and-conquer paradigm (divide, conquer, combine) and identify it in algorithms
 > 2. Apply the Master Theorem to determine the time complexity of D&C recurrences
 > 3. Trace through merge sort, binary search, quick sort, and selection algorithms step by step

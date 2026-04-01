@@ -4,7 +4,7 @@
 
 > **Prerequisites**: No formal prerequisites — this is the first week. Basic programming experience (any language) is helpful. Familiarity with simple math (arithmetic, basic algebra).
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. Explain what an algorithm is and describe its key properties (finiteness, correctness, unambiguity)
 > 2. Trace through classic problems (finding max, binary search, coin change) step by step
 > 3. Recognize the difference between brute-force and efficient approaches

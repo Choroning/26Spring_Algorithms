@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Week 2: Big-O notation, time complexity analysis. [Data Structures] Basic understanding of arrays, linked lists, stacks, queues. [Data Structures] Concept of recursion (function calling itself).
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. Review basic data structures: lists, stacks, queues, heaps
 > 2. Understand elementary sorting algorithms and O(n^2) behavior
 > 3. Understand advanced sorting algorithms and O(n log n) behavior

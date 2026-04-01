@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Week 3 Lecture: Sorting algorithms (selection, bubble, insertion, merge, quick, heap). Python 3 installed. Understanding of Big-O notation from Week 2.
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
 > 2. Implement advanced sorting algorithms (merge sort, quick sort) using recursion
 > 3. Measure and compare sorting algorithm performance with benchmarks

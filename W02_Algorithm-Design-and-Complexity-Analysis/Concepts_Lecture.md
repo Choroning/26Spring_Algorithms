@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Week 1: Introduction to Algorithms (understanding of what an algorithm is). Basic algebra (manipulating inequalities, logarithms). [Helpful] Discrete Mathematics: mathematical induction, summation notation.
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. State the formal properties of an algorithm and trace through the Euclidean GCD algorithm
 > 2. Count basic operations in iterative code and express the result as T(n)
 > 3. Distinguish between best-case, worst-case, and average-case analysis

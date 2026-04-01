@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Week 4 Lecture — divide and conquer, merge sort, quick sort, selection, closest pair. Python 3 installed. Understanding of recursion and the partition procedure.
 >
-> **Learning Objectives**: After completing this lab, you should be able to:
+> **Learning Objectives**:
 > 1. Implement merge sort and trace its recursive execution tree
 > 2. Implement randomized selection (k-th smallest) using the partition procedure
 > 3. Implement the closest pair of points algorithm using divide and conquer

@@ -4,7 +4,7 @@
 >
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 3: Sorting algorithms (used as subroutines in greedy algorithms). Week 4: Divide and conquer paradigm (for comparison with greedy). Basic graph theory: vertices, edges, weighted graphs, trees, cycles (for MST and Dijkstra sections).
 >
-> **Learning Objectives**: After studying this material, you should be able to:
+> **Learning Objectives**:
 > 1. Define the greedy paradigm and state the two conditions for greedy correctness (greedy-choice property, optimal substructure)
 > 2. Identify when greedy works and when it fails, with concrete counterexamples
 > 3. Solve the fractional knapsack problem using the greedy approach and explain why it fails for 0-1 knapsack

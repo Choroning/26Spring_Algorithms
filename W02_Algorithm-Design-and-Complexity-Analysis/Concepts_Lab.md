@@ -4,7 +4,7 @@
 
 > **Prerequisites**: Week 2 Lecture: Time complexity and Big-O notation. Python 3 installed. [Optional] `pip install flask` for the web API section.
 >
-> **Learning Objectives**: After completing this lab, you should be able to:
+> **Learning Objectives**:
 > 1. Build a reusable timer utility to measure algorithm execution time
 > 2. Implement and compare O(n^2) vs O(n) solutions for the duplicate-finding problem
 > 3. Visualize complexity growth curves and identify algorithm classes from empirical data

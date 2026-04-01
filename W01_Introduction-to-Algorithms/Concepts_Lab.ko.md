@@ -4,7 +4,7 @@
 >
 > **선수 지식**: 터미널이 있는 컴퓨터 (macOS Terminal, Windows PowerShell, 또는 Linux shell). 기초적인 명령줄 사용법 (디렉토리 이동, 명령어 실행). GitHub 계정.
 >
-> **학습 목표**: 이 실습을 완료한 후 다음을 할 수 있어야 한다:
+> **학습 목표**:
 > 1. AI 코딩 에이전트(Claude Code, GitHub Copilot CLI, Codex CLI 중 하나 이상)를 설치하고 실행할 수 있다
 > 2. 코딩 에이전트를 사용하여 파일 정리 및 문서화 작업을 자동화할 수 있다
 > 3. Ralph Technique을 적용하여 AI 생성 출력을 반복적으로 개선할 수 있다
