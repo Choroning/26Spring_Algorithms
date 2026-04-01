@@ -2,6 +2,16 @@
 
 > **Last Modified:** 2026-03-31
 
+> **Prerequisites**: No formal prerequisites — this is the first week. Basic programming experience (any language) is helpful. Familiarity with simple math (arithmetic, basic algebra).
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. Explain what an algorithm is and describe its key properties (finiteness, correctness, unambiguity)
+> 2. Trace through classic problems (finding max, binary search, coin change) step by step
+> 3. Recognize the difference between brute-force and efficient approaches
+> 4. Understand the Euler circuit condition and the basic strategy for traversal
+> 5. Explain how binary encoding solves the poisoned wine problem using only log₂(n) servants
+> 6. Identify the recurring theme of log₂(n) in "halving" algorithms
+
 ---
 
 ## Table of Contents
@@ -644,5 +654,19 @@ This is the power of **binary encoding** — a fundamentally different way of th
 - **Week 2:** Algorithm Analysis — Big-O notation, time complexity, asymptotic analysis
 - **Homework** starts from next week
 - No quiz, no homework this week (OT week)
+
+---
+
+## Self-Check Questions
+
+Test your understanding with these questions. Try answering before checking the notes.
+
+1. **What are the three essential properties of an algorithm?** How does an algorithm differ from a general "procedure"?
+2. **Binary Search:** If you have a sorted array of 1,000,000 elements, at most how many comparisons does binary search need? Why?
+3. **Coin Change:** Why does the greedy approach work for Korean won denominations (500, 100, 50, 10, 1) but fail if a 160-won coin is added?
+4. **Euler Circuit:** What condition must a graph satisfy for an Euler circuit to exist? Why should you avoid crossing bridges early?
+5. **Poisoned Wine:** With 1,000 barrels and the binary encoding strategy, what is the minimum number of servants needed? Show how barrel #37 would be encoded.
+6. **Counterfeit Coin:** Compare Approach B (pairwise comparison) and Approach C (divide in half). How many weighings does each need for 16 coins?
+7. **Log₂(n) Theme:** Three problems in this lecture involve log₂(n). Name them and explain why "halving" leads to logarithmic performance.
 
 ---

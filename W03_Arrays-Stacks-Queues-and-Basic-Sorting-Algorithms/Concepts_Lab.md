@@ -2,6 +2,14 @@
 
 > **Last Updated:** 2026-03-21
 
+> **Prerequisites**: Week 3 Lecture: Sorting algorithms (selection, bubble, insertion, merge, quick, heap). Python 3 installed. Understanding of Big-O notation from Week 2.
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
+> 2. Implement advanced sorting algorithms (merge sort, quick sort) using recursion
+> 3. Measure and compare sorting algorithm performance with benchmarks
+> 4. Predict which algorithm performs best for different input sizes and patterns
+
 ---
 
 ## Table of Contents
@@ -487,5 +495,16 @@ Every page load, every filter change, every "sort by price" click would make use
 
 - **Assignment 2** — See `../3_assignment/README.md` for assignment details.
 - **Next week (Week 4)**: Advanced Divide and Conquer — merge sort tracing, k-th smallest element, closest pair of points
+
+---
+
+<br>
+
+## Self-Check Questions
+
+1. In your benchmark, which elementary sort was fastest for nearly-sorted input? Why?
+2. The list comprehension version of quick sort uses extra memory. How much? Why is the in-place CLRS version preferred for large inputs?
+3. At what input size did you first notice a clear performance gap between O(n²) and O(n log n) algorithms?
+4. Why is insertion sort used as the base case in practical implementations like Timsort, even though its worst case is O(n²)?
 
 ---

@@ -1,6 +1,14 @@
 # Week 1 Lab — Coding Agents
 
 > **Last Updated:** 2026-03-21
+>
+> **Prerequisites**: A computer with a terminal (macOS Terminal, Windows PowerShell, or Linux shell). Basic command-line usage (navigating directories, running commands). A GitHub account.
+>
+> **Learning Objectives**: After completing this lab, you should be able to:
+> 1. Install and run at least one AI coding agent (Claude Code, GitHub Copilot CLI, or Codex CLI)
+> 2. Use a coding agent to automate file organization and documentation tasks
+> 3. Apply the Ralph Technique to iteratively improve AI-generated output
+> 4. Build and run a simple sorting benchmark program
 
 ---
 
@@ -358,3 +366,10 @@ A perfect benchmark is not the goal — the **process** is what matters.
 - **Week 2 Lab**: Complexity Analysis Lab (O(n^2) vs O(n) comparison)
 
 ---
+
+## Self-Check Questions
+
+1. What is the difference between a coding agent and a simple code autocomplete tool?
+2. In the Ralph Technique, why is specificity in the follow-up prompt important? What happens if you just say "make it better"?
+3. After running the sorting benchmark, which algorithm was fastest for large inputs? Why?
+4. What does the `--dangerously-skip-permissions` flag do in Claude Code, and why should you be cautious with it?

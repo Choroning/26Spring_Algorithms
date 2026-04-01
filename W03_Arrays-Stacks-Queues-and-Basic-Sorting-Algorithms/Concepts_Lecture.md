@@ -2,12 +2,21 @@
 
 > **Last Updated:** 2026-03-21
 
+> **Prerequisites**: Week 2: Big-O notation, time complexity analysis. [Data Structures] Basic understanding of arrays, linked lists, stacks, queues. [Data Structures] Concept of recursion (function calling itself).
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. Review basic data structures: lists, stacks, queues, heaps
+> 2. Understand elementary sorting algorithms and O(n^2) behavior
+> 3. Understand advanced sorting algorithms and O(n log n) behavior
+> 4. Understand linear-time sorting and the conditions that make it possible
+> 5. Identify the **recursive (inductive) structure** of sorting algorithms
+> 6. Compare sorting algorithm complexities
+
 ---
 
 ## Table of Contents
 
 - [1. Basic Data Structures and Elementary Sorting](#1-basic-data-structures-and-elementary-sorting)
-  - [1.1 Learning Objectives](#11-learning-objectives)
   - [1.2 Linked List](#12-linked-list)
   - [1.3 Stack](#13-stack)
   - [1.4 Queue](#14-queue)
@@ -55,15 +64,6 @@
 <br>
 
 ## 1. Basic Data Structures and Elementary Sorting
-
-### 1.1 Learning Objectives
-
-- Review basic data structures: lists, stacks, queues, heaps
-- Understand elementary sorting algorithms and O(n^2) behavior
-- Understand advanced sorting algorithms and O(n log n) behavior
-- Understand linear-time sorting and the conditions that make it possible
-- Identify the **recursive (inductive) structure** of sorting algorithms
-- Compare sorting algorithm complexities
 
 ### 1.2 Linked List
 
@@ -967,5 +967,20 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 ## Appendix
 
 - **Next week**: More advanced algorithm paradigms
+
+---
+
+<br>
+
+## Self-Check Questions
+
+1. **Selection Sort:** Why is selection sort always O(n²) regardless of the input? Why can't it have a better best case like bubble sort or insertion sort?
+2. **Stability:** Give a concrete example where sorting stability matters. (Hint: think about sorting a spreadsheet by two different columns.)
+3. **Merge Sort vs Quick Sort:** Both are O(n log n) on average, but quick sort is generally faster in practice. Why? What is quick sort's weakness?
+4. **Partition:** Given the array [3, 8, 2, 5, 1, 4, 7, 6] with pivot = 6 (last element), trace through the CLRS partition procedure. What is the final array state?
+5. **Heap Sort:** Why does building a max heap take O(n) instead of O(n log n)? (Hint: most nodes are near the bottom of the tree.)
+6. **Lower Bound:** Why can't any comparison-based sorting algorithm do better than O(n log n)? What does the decision tree model tell us?
+7. **Counting Sort:** Why does counting sort require the value range k to be small? What happens to its complexity when k = n²?
+8. **Radix Sort:** Why must radix sort process digits from LSD to MSD (not MSD to LSD)? What property of the sub-sort makes this work?
 
 ---

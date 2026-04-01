@@ -1,6 +1,18 @@
 # W05 Lecture — Greedy Algorithms
 
 > **Last Modified:** 2026-03-31
+>
+> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 3: Sorting algorithms (used as subroutines in greedy algorithms). Week 4: Divide and conquer paradigm (for comparison with greedy). Basic graph theory: vertices, edges, weighted graphs, trees, cycles (for MST and Dijkstra sections).
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. Define the greedy paradigm and state the two conditions for greedy correctness (greedy-choice property, optimal substructure)
+> 2. Identify when greedy works and when it fails, with concrete counterexamples
+> 3. Solve the fractional knapsack problem using the greedy approach and explain why it fails for 0-1 knapsack
+> 4. Apply the activity selection algorithm (earliest finish time) and the job scheduling algorithm (earliest start time)
+> 5. Construct a Huffman tree from character frequencies and compute the compression ratio
+> 6. Execute Kruskal's and Prim's MST algorithms and explain their differences
+> 7. Execute Dijkstra's shortest path algorithm using edge relaxation and explain why it fails with negative weights
+> 8. Compare greedy algorithms with dynamic programming and decide which approach to use for a given problem
 
 ---
 
@@ -706,3 +718,14 @@ Dijkstra(G, s):
 ---
 
 <br>
+
+## Self-Check Questions
+
+1. **Greedy-Choice Property:** In your own words, what does the greedy-choice property mean? Give an example of a problem where it holds and one where it doesn't.
+2. **Coin Change:** Prove (informally) that the greedy algorithm is optimal for denominations {1, 5, 10, 25}. Then show that adding a 12-cent coin breaks the greedy approach for making 15 cents.
+3. **Fractional vs 0-1 Knapsack:** Given items (weight, value): A(10, 60), B(20, 100), C(30, 120) and capacity 50: solve both the fractional and 0-1 versions. Why do the answers differ?
+4. **Activity Selection:** Given activities with (start, finish): (1,3), (2,5), (4,7), (1,8), (5,9), (8,10), apply the earliest-finish-time algorithm. How many activities are selected?
+5. **Huffman Coding:** Build a Huffman tree for characters with frequencies: E=40, A=30, B=15, C=10, D=5. What code is assigned to each character? What is the average bits per character?
+6. **Kruskal vs Prim:** For a graph with 6 vertices and 9 edges, trace both algorithms. Do they produce the same MST? Under what condition might they produce different MSTs?
+7. **Dijkstra's:** Given a graph with a negative edge, construct a specific example where Dijkstra produces a wrong answer. Then explain the greedy invariant that is violated.
+8. **Greedy vs DP Decision:** For each problem, decide greedy or DP and explain: (a) minimum coins for arbitrary denominations, (b) shortest path with non-negative weights, (c) longest common subsequence, (d) fractional knapsack.

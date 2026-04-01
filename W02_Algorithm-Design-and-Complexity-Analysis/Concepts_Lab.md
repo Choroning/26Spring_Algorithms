@@ -2,6 +2,14 @@
 
 > **Last Updated:** 2026-03-21
 
+> **Prerequisites**: Week 2 Lecture: Time complexity and Big-O notation. Python 3 installed. [Optional] `pip install flask` for the web API section.
+>
+> **Learning Objectives**: After completing this lab, you should be able to:
+> 1. Build a reusable timer utility to measure algorithm execution time
+> 2. Implement and compare O(n^2) vs O(n) solutions for the duplicate-finding problem
+> 3. Visualize complexity growth curves and identify algorithm classes from empirical data
+> 4. Explain how algorithm choice affects real-world web API response times
+
 ---
 
 ## Table of Contents
@@ -358,5 +366,14 @@ Test with increasing data sizes:
 
 - **Assignment 1**: See `../3_assignment/README.md` for assignment details
 - **Next week**: **Week 3** — Sorting Algorithm Implementation & Benchmarks
+
+---
+
+## Self-Check Questions
+
+1. Why does the hash-set approach for finding duplicates run in O(n) while the brute-force approach runs in O(n²)?
+2. In your benchmark results, at what input size did the O(n²) approach become noticeably slower? How does this relate to the theoretical analysis?
+3. Why is it important to use `data[:]` (a copy) when benchmarking in-place algorithms?
+4. In the Web API exercise, what was the response time difference between linear search and binary search at N=100,000? Why?
 
 ---

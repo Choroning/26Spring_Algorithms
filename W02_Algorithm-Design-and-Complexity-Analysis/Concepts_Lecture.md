@@ -2,6 +2,17 @@
 
 > **Last Updated:** 2026-03-31
 
+> **Prerequisites**: Week 1: Introduction to Algorithms (understanding of what an algorithm is). Basic algebra (manipulating inequalities, logarithms). [Helpful] Discrete Mathematics: mathematical induction, summation notation.
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. State the formal properties of an algorithm and trace through the Euclidean GCD algorithm
+> 2. Count basic operations in iterative code and express the result as T(n)
+> 3. Distinguish between best-case, worst-case, and average-case analysis
+> 4. Define Big-O, Big-Omega, and Big-Theta notation and prove membership using the formal definition
+> 5. Explain why asymptotic notation is preferred over exact operation counts
+> 6. Solve simple recurrence relations using repeated substitution and the guess-and-verify method
+> 7. Apply the Master Theorem to determine the time complexity of divide-and-conquer recurrences
+
 ---
 
 ## Table of Contents
@@ -845,5 +856,18 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 - **Assignment 1** has been posted — check the LMS for details
 - No quiz this week; quizzes start in **Week 3**
 - Next week: **Arrays, Sorting Algorithms** — basic and advanced sorting
+
+---
+
+## Self-Check Questions
+
+1. **Euclidean GCD:** Trace GCD(48, 18) step by step. How many iterations does it take?
+2. **Operation Counting:** Given the code `for i in range(n): for j in range(i, n): count += 1`, how many times does `count += 1` execute? Express as a function of n.
+3. **Big-O Proof:** Prove that 5n³ + 2n² + 7 = O(n³) by finding appropriate c and n₀.
+4. **Big-Omega vs Big-O:** Is it true that n² = O(n³)? Is it true that n² = Ω(n³)? Explain why or why not.
+5. **Theta:** If f(n) = Θ(g(n)), what does this tell you about the relationship between f and g? Can f(n) = Θ(n²) and f(n) = O(n³) both be true simultaneously?
+6. **Master Theorem:** Apply the Master Theorem to T(n) = 4T(n/2) + n. Identify a, b, f(n), compute n^(log_b a), determine the case, and state T(n).
+7. **Guess and Verify:** For T(n) = T(n/2) + 1, guess that T(n) = O(log n) and verify using induction. Don't forget the base case!
+8. **Why does it matter?** A PC running an O(n log n) algorithm vs a supercomputer running an O(n²) algorithm — at what input size does the PC win?
 
 ---

@@ -2,6 +2,17 @@
 
 > **Last Modified:** 2026-03-24
 
+> **Prerequisites**: Asymptotic notation — Big-O, Big-Omega, Big-Theta (Week 2). Sorting algorithms — merge sort, quick sort concepts (Week 3). Recurrence relations and mathematical induction (Discrete Mathematics). Understanding of recursion — base case, recursive call.
+>
+> **Learning Objectives**: After studying this material, you should be able to:
+> 1. Describe the divide-and-conquer paradigm (divide, conquer, combine) and identify it in algorithms
+> 2. Apply the Master Theorem to determine the time complexity of D&C recurrences
+> 3. Trace through merge sort, binary search, quick sort, and selection algorithms step by step
+> 4. Explain how the partition procedure works and analyze quick sort's best, average, and worst cases
+> 5. Describe the Median of Medians algorithm and why it guarantees O(n) worst-case selection
+> 6. Apply the closest pair algorithm and understand the strip analysis
+> 7. Recognize when divide and conquer is inappropriate (overlapping subproblems) and when DP should be used instead
+
 ---
 
 ## Table of Contents
@@ -885,3 +896,18 @@ FIB-NUMBER(n)
 <br>
 
 ## Appendix
+
+---
+
+<br>
+
+## Self-Check Questions
+
+1. **Divide and Conquer:** What are the three steps of D&C? Give an example where the "combine" step is trivial and one where it is expensive.
+2. **Master Theorem:** Apply the Master Theorem to: (a) T(n) = 2T(n/2) + n, (b) T(n) = 4T(n/2) + n, (c) T(n) = T(n/2) + n². State the case and result for each.
+3. **Merge Sort:** Why does merge sort always take Θ(n log n), regardless of input order? What is its space complexity and why?
+4. **Quick Sort Worst Case:** Give a specific input array where choosing the last element as pivot leads to O(n²) behavior. How does randomized pivot selection help?
+5. **Selection:** Why is the expected time of randomized selection O(n), not O(n log n)? How does it differ from sorting first and then indexing?
+6. **Median of Medians:** Why divide into groups of 5 specifically? What happens if you use groups of 3?
+7. **Closest Pair:** Why can we limit the strip check to at most 7 neighbors per point? What geometric argument justifies this?
+8. **D&C vs DP:** The Fibonacci sequence can be computed with D&C. Why is this a bad idea? What makes Fibonacci different from merge sort in terms of subproblem structure?

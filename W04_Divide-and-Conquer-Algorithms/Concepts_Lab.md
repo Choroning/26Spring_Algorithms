@@ -2,6 +2,14 @@
 
 > **Last Modified:** 2026-03-26
 
+> **Prerequisites**: Week 4 Lecture — divide and conquer, merge sort, quick sort, selection, closest pair. Python 3 installed. Understanding of recursion and the partition procedure.
+>
+> **Learning Objectives**: After completing this lab, you should be able to:
+> 1. Implement merge sort and trace its recursive execution tree
+> 2. Implement randomized selection (k-th smallest) using the partition procedure
+> 3. Implement the closest pair of points algorithm using divide and conquer
+> 4. Compare naive O(n^2) approaches with optimized D&C solutions empirically
+
 ---
 
 ## Table of Contents
@@ -484,3 +492,14 @@ Refer to `../3_assignment/README.md` for assignment details.
 ## Appendix
 
 > This document is based on the slide material `W04_LB_Advanced-Divide-and-Conquer.md`.
+
+---
+
+<br>
+
+## Self-Check Questions
+
+1. In your merge sort trace, how many times is the merge function called for an array of 8 elements? How does this relate to the recursion tree?
+2. If randomized select picks a bad pivot every time, what is the worst-case time complexity? How likely is this with random pivots?
+3. In the closest pair benchmark, at what input size did the D&C approach first outperform the brute-force approach? Why not at smaller sizes?
+4. What would happen to the closest pair algorithm's complexity if the strip check compared all pairs instead of limiting to 7 neighbors?
