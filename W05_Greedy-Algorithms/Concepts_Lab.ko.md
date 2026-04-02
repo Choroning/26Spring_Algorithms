@@ -119,7 +119,8 @@ python examples/solutions/a1_coin_change.py
 
 ```python
 def coin_change_greedy(amount, coins):
-    """그리디 접근법으로 거스름돈을 계산한다.
+    """
+    그리디 접근법으로 거스름돈을 계산한다.
 
     알고리즘: 가장 큰 동전을 먼저 최대한 많이 사용
     시간 복잡도: O(k * amount/min_coin) (k = 동전 종류 수)
@@ -144,7 +145,8 @@ def coin_change_greedy(amount, coins):
 
 ```python
 def coin_change_dp(amount, coins):
-    """DP로 최소 동전 수를 계산한다 (항상 최적해 보장).
+    """
+    DP로 최소 동전 수를 계산한다 (항상 최적해 보장).
 
     알고리즘: dp[i] = 금액 i를 만드는 최소 동전 수
     점화식: dp[i] = min(dp[i - c] + 1) (모든 동전 c에 대해)
@@ -224,29 +226,30 @@ def coin_change_dp(amount, coins):
 **문제**: 무게와 가치가 주어진 물건들을 제한된 용량의 배낭에 넣어 총 가치를 최대화하라. 물건을 **쪼갤 수 있다**.
 
 ```
-배낭 용량: 50 kg
+배낭 용량: 50kg
 
-물건      무게      가치     가치/kg
---------------------------------------
-A         10 kg     60       6.0
-B         20 kg     100      5.0
-C         30 kg     120      4.0
+물건      무게     가치   가치/kg
+-------------------------------
+ A      10kg     60     6.0
+ B      20kg    100     5.0
+ C      30kg    120     4.0
 ```
 
 **그리디 전략**: 무게 대비 가치 비율(내림차순)로 정렬한 후 그리디하게 채운다.
 
 ```
-단계 1: A 전부 담기  (10 kg, 가치 60)   남은 용량: 40 kg
-단계 2: B 전부 담기  (20 kg, 가치 100)  남은 용량: 20 kg
-단계 3: C의 2/3 담기 (20 kg, 가치 80)   남은 용량: 0 kg
-                                   총 가치: 240
+단계 1: A 전부 담기  (10kg, 가치 60)    남은 용량: 40kg
+단계 2: B 전부 담기  (20kg, 가치 100)   남은 용량: 20kg
+단계 3: C의 2/3 담기 (20kg, 가치 80)    남은 용량: 0kg
+                                     총 가치: 240
 ```
 
 #### 2.2.2 풀이
 
 ```python
 def fractional_knapsack(capacity, items):
-    """그리디 접근법으로 분할 가능 배낭 문제를 풀다.
+    """
+    그리디 접근법으로 분할 가능 배낭 문제를 풀다.
 
     Args:
         capacity: 배낭의 최대 무게
@@ -288,12 +291,12 @@ def fractional_knapsack(capacity, items):
 
 #### 2.2.3 확장 예제
 
-솔루션 파일은 용량 40 kg인 5개 물건 배낭도 시연한다:
+솔루션 파일은 용량 40kg인 5개 물건 배낭도 시연한다:
 
 ```
-배낭 용량: 40 kg
+배낭 용량: 40kg
 
-이름       무게     가치     비율
+ 이름        무게       가치      비율
 ------------------------------------
 Jewels      5.0kg     300    60.0/kg
 Gold       10.0kg     600    60.0/kg
@@ -303,10 +306,10 @@ Copper     30.0kg     400    13.3/kg
 ```
 
 그리디 선택 과정:
-1. Jewels: 전부 담기 5.0 kg (가치 300, 남은 35.0 kg)
-2. Gold: 전부 담기 10.0 kg (가치 600, 남은 25.0 kg)
-3. Silver: 전부 담기 20.0 kg (가치 500, 남은 5.0 kg)
-4. Ceramics: 33.3% (5.0 kg) 담기 (가치 67, 남은 0.0 kg) — **분할**
+1. Jewels: 전부 담기 5.0 kg (가치 300, 남은 35.0kg)
+2. Gold: 전부 담기 10.0 kg (가치 600, 남은 25.0kg)
+3. Silver: 전부 담기 20.0 kg (가치 500, 남은 5.0kg)
+4. Ceramics: 33.3% (5.0 kg) 담기 (가치 67, 남은 0.0kg) — **분할**
 
 **최대 가치: 1467**
 
@@ -316,8 +319,9 @@ Copper     30.0kg     400    13.3/kg
 
 ```python
 def knapsack_01_bruteforce(capacity, items):
-    """완전 탐색으로 0-1 배낭 문제를 풀다 (비교용).
-    시간 복잡도: O(2^n * n) -- 모든 부분집합 검사
+    """
+    완전 탐색으로 0-1 배낭 문제를 해결한다.(비교용)
+    시간 복잡도: O(2^n * n) - 모든 부분집합 검사
     """
     n = len(items)
     best_value = 0
@@ -341,17 +345,17 @@ def knapsack_01_bruteforce(capacity, items):
 ```
 
 ```
-                 분할 가능               0-1 배낭
-                 (쪼갤 수 있음)          (전부 아니면 포기)
-              +-----------------+     +-----------------+
-              | 그리디 작동!     |     | 그리디 실패      |
-              | O(n log n)      |     | DP 필요: O(nW)  |
-              +-----------------+     +-----------------+
-                  가치: 240               가치: 220
+       분할 가능                0-1 배낭
+     (쪼갤 수 있음)          (전부 아니면 포기)
++-----------------+     +-----------------+
+| 그리디 성공!       |     | 그리디 실패        |
+| O(n log n)      |     | DP 필요: O(nW)   |
++-----------------+     +-----------------+
+           가치: 240                가치: 220
 
 왜 차이가 나는가?
-  분할 가능: "얼마나 담을까?"  -> 연속적 선택
-  0-1:      "담을까 말까?"    -> 이산적 선택
+  분할 가능: "얼마나 담을까?" -> 연속적 선택
+      0-1: "담을까 말까?"  -> 이산적 선택
 ```
 
 **핵심 통찰**: 분할 가능 배낭은 항상 0-1 배낭 이상의 가치를 달성할 수 있다.
@@ -395,14 +399,14 @@ def knapsack_01_bruteforce(capacity, items):
 ```
               [11]
              /    \
-          (0)      (1)
-          /          \
+          (0)     (1)
+          /         \
        'a'(5)       [6]
                    /    \
-                (0)      (1)
-                /          \
-             [2]           [4]
-            /   \         /   \
+                 (0)    (1)
+                /         \
+             [2]          [4]
+           /   \         /   \
          (0)   (1)     (0)   (1)
          /       \     /       \
       'c'(1)  'd'(1) 'b'(2)  'r'(2)
@@ -427,7 +431,7 @@ import heapq
 from collections import Counter
 
 class HuffmanNode:
-    """허프만 트리의 노드."""
+    # 허프만 트리의 노드
     def __init__(self, char=None, freq=0, left=None, right=None):
         self.char, self.freq = char, freq
         self.left, self.right = left, right
@@ -437,13 +441,12 @@ class HuffmanNode:
         return self.left is None and self.right is None
 
 def build_frequency_table(text):
-    """텍스트의 문자 빈도를 계산한다."""
+    # 텍스트의 문자 빈도를 계산한다.
     return dict(Counter(text).most_common())
 
 def build_huffman_tree(freq_table):
-    """빈도 테이블로 허프만 트리를 구축한다.
-    그리디 선택: 각 단계에서 빈도가 가장 낮은 두 노드를 병합.
-    """
+    # 빈도 테이블로 허프만 트리를 구축한다.
+    # 그리디 선택: 각 단계에서 빈도가 가장 낮은 두 노드를 병합.
     heap = []
     for char, freq in freq_table.items():
         heapq.heappush(heap, HuffmanNode(char=char, freq=freq))
@@ -465,9 +468,8 @@ def build_huffman_tree(freq_table):
     return heapq.heappop(heap)
 
 def generate_codes(root, prefix="", codes=None):
-    """허프만 트리를 순회하여 각 문자의 코드를 생성한다.
-    왼쪽 간선 = '0', 오른쪽 간선 = '1'
-    """
+    # 허프만 트리를 순회하여 각 문자의 코드를 생성한다.
+    # 왼쪽 간선 = '0', 오른쪽 간선 = '1'
     if codes is None:
         codes = {}
     if root is None:
@@ -488,11 +490,11 @@ def generate_codes(root, prefix="", codes=None):
 
 ```python
 def encode(text, codes):
-    """허프만 코드를 사용하여 텍스트를 인코딩한다."""
+    # 허프만 코드를 사용하여 텍스트를 인코딩한다.
     return "".join(codes[char] for char in text)
 
 def decode(encoded_text, root):
-    """허프만 트리를 사용하여 인코딩된 비트 문자열을 디코딩한다."""
+    # 허프만 트리를 사용하여 인코딩된 비트 문자열을 디코딩한다.
     decoded = []
     current = root
     for bit in encoded_text:
@@ -511,7 +513,7 @@ def decode(encoded_text, root):
 ```
 텍스트:   "abracadabra"
 인코딩:   "01100111010001000110011101"  (23비트)
-디코딩:   "abracadabra"                (원본과 일치: PASS)
+디코딩:   "abracadabra"                 (원본과 일치: PASS)
 ```
 
 **접두사 코드 검증**: 솔루션은 어떤 코드도 다른 코드의 접두사가 아닌지 확인한다 — 이것은 구분자 없이도 명확한 디코딩을 보장한다.
@@ -521,12 +523,12 @@ def decode(encoded_text, root):
 ```
 텍스트: "abracadabra" (11글자)
 
-                           비트     비트/문자
+                  비트     비트/문자
 ----------------------------------------------
-ASCII (8비트):              88       8.000
-고정 길이 (3b):             33       3.000
-허프만:                     23       2.091
-이론적 하한:                21       1.927
+ASCII (8비트):      88       8.000
+고정 길이 (3b):      33       3.000
+허프만:              23       2.091
+이론적 하한:          21       1.927
 ```
 
 **솔루션의 추가 예제:**
@@ -574,13 +576,13 @@ python app.py
 타임라인:
   A: |===|
   B:   |==|
-  C: |======|
-  D:     |==|
-  E:   |======|
-  F:     |====|
-  G:      |==|
-  H:        |===|
-  I:        |====|
+  C:|======|
+  D:      |==|
+  E:   |=======|
+  F:      |====|
+  G:       |==|
+  H:          |===|
+  I:          |====|
 ```
 
 어떤 회의를 선택해야 수를 최대화할 수 있는가?
@@ -612,7 +614,8 @@ python app.py
 
 ```python
 def greedy_schedule(meetings):
-    """그리디를 사용하여 최대 수의 회의를 선택한다.
+    """
+    그리디를 사용하여 최대 수의 회의를 선택한다.
 
     활동 선택: 종료 시각 오름차순으로 정렬한 후,
     이전에 선택한 회의와 겹치지 않는 회의를 선택한다.
@@ -649,7 +652,8 @@ def greedy_schedule(meetings):
 
 ```python
 def bruteforce_schedule(meetings):
-    """완전 탐색으로 최대 수의 회의를 선택한다.
+    """
+    완전 탐색으로 최대 수의 회의를 선택한다.
     모든 부분집합을 검사하여 겹치지 않는 최대 회의 수를 찾는다.
     시간 복잡도: O(2^n * n) -- 모든 부분집합 검사
     """
@@ -698,27 +702,10 @@ def bruteforce_schedule(meetings):
 
 ```
 그리디가 작동하는 조건:
-  1. 그리디 선택 속성 -- 지역적 최적 선택이
-     전역적 최적 해의 일부이다
-  2. 최적 부분 구조 -- 그리디 선택을 한 후,
-     남은 부분 문제도 최적으로 풀 수 있다
+  1. 그리디 선택 속성 - 지역적 최적 선택이 전역적 최적 해의 일부이다
+  2. 최적 부분 구조 - 그리디 선택을 한 후, 남은 부분 문제도 최적으로 풀 수 있다
 ```
 
-### 과제 4
-
-과제 내용은 `../3_assignment/README.md`를 참고한다.
-
-### 다음 주
-
-**6주차**: 동적 프로그래밍 — 그리디로 부족할 때!
-
----
-
-<br>
-
-## 부록
-
-> 이 문서는 슬라이드 자료 `W05_LAB_Greedy-Algorithms.md`와 `examples/`의 예제 코드를 바탕으로 작성되었다.
 
 ---
 

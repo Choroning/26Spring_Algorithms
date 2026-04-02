@@ -104,12 +104,12 @@ For a greedy algorithm to produce an **optimal** solution, two properties must h
 **Binary Tree Maximum Path Sum:**
 
 ```
-           10
-         /    \
-       36      15
-      /  \    /  \
-    3   18  35    2
-   / \ / \ / \  / \
+             10
+          /      \
+      36           15
+     /  \         /  \
+    3    18     35    2
+   / \   / \   / \   / \
   30 45 55 50 32 67 38 33
 ```
 
@@ -698,7 +698,7 @@ Dijkstra(G, s):
 
 ## Summary
 
-| Algorithm | Problem | Time Complexity | Optimal? |
+| Algorithm | Problem | Time Complexity | Is It Optimal? |
 |-----------|---------|----------------|----------|
 | Coin Change (Greedy) | Min coins | O(k) for k denominations | Only for standard denominations |
 | Fractional Knapsack | Max value (divisible) | **O(n log n)** | Yes (always) |

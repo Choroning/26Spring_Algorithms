@@ -119,7 +119,8 @@ Optimal (DP):
 
 ```python
 def coin_change_greedy(amount, coins):
-    """Calculate change using the greedy approach.
+    """
+    Calculate change using the greedy approach.
 
     Algorithm: Use the largest coin as much as possible first
     Time complexity: O(k * amount/min_coin) (k = number of coin types)
@@ -144,7 +145,9 @@ Run: `python examples/solutions/a1_coin_change.py`
 
 ```python
 def coin_change_dp(amount, coins):
-    """Calculate minimum number of coins using DP (always guarantees optimal solution).
+    """
+    Calculate minimum number of coins using DP 
+    (always guarantees optimal solution).
 
     Algorithm: dp[i] = minimum number of coins to make amount i
     Recurrence: dp[i] = min(dp[i - c] + 1) (for all coins c)
@@ -224,13 +227,13 @@ Run: `python examples/solutions/a1_coin_change_greedy.py`
 **Problem**: Given items with weights and values, maximize total value in a knapsack of limited capacity. Items **can be split**.
 
 ```
-Knapsack capacity: 50 kg
+Knapsack capacity: 50kg
 
-Item      Weight    Value    Value/kg
---------------------------------------
-A         10 kg     60       6.0
-B         20 kg     100      5.0
-C         30 kg     120      4.0
+Item    Weight   Value   Value/kg
+----------------------------------
+A        10kg      60      6.0
+B        20kg     100      5.0
+C        30kg     120      4.0
 ```
 
 **Greedy strategy**: Sort by value-per-weight ratio (descending), then fill greedily.
@@ -246,7 +249,8 @@ Step 3: Take 2/3 of C  (20 kg, value 80)   remaining: 0 kg
 
 ```python
 def fractional_knapsack(capacity, items):
-    """Solve the fractional knapsack problem using a greedy approach.
+    """
+    Solve the fractional knapsack problem using a greedy approach.
 
     Args:
         capacity: Maximum weight of the knapsack
@@ -288,7 +292,7 @@ Run: `python examples/solutions/a2_fractional_knapsack.py`
 
 #### 2.2.3 Extended Example
 
-The solution file also demonstrates a 5-item knapsack with capacity 40 kg:
+The solution file also demonstrates a 5-item knapsack with capacity 40kg:
 
 ```
 Knapsack capacity: 40 kg
@@ -303,10 +307,10 @@ Copper     30.0kg     400    13.3/kg
 ```
 
 Greedy selection process:
-1. Jewels: added full 5.0 kg (value 300, remaining 35.0 kg)
-2. Gold: added full 10.0 kg (value 600, remaining 25.0 kg)
-3. Silver: added full 20.0 kg (value 500, remaining 5.0 kg)
-4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0 kg) — **split**
+1. Jewels: added full 5.0 kg (value 300, remaining 35.0kg)
+2. Gold: added full 10.0 kg (value 600, remaining 25.0kg)
+3. Silver: added full 20.0 kg (value 500, remaining 5.0kg)
+4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0kg) — **split**
 
 **Maximum value: 1467**
 
@@ -341,17 +345,17 @@ def knapsack_01_bruteforce(capacity, items):
 ```
 
 ```
-                 Fractional              0-1 Knapsack
-                 (can split)             (all or nothing)
-              +-----------------+     +-----------------+
-              | Greedy works!   |     | Greedy FAILS    |
-              | O(n log n)      |     | Need DP: O(nW)  |
-              +-----------------+     +-----------------+
-                  value: 240              value: 220
+     Fractional             0-1 Knapsack
+    (can split)           (all or nothing)
++-----------------+     +-----------------+
+| Greedy works!   |     | Greedy FAILS    |
+| O(n log n)      |     | Need DP: O(nW)  |
++-----------------+     +-----------------+
+         value: 240              value: 220
 
 Why the difference?
   Fractional: "How much to take?" -> continuous choice
-  0-1:        "Take or skip?"     -> discrete choice
+         0-1: "Take or skip?"     -> discrete choice
 ```
 
 **Key insight**: Fractional knapsack can always achieve value >= 0-1 knapsack.
@@ -395,14 +399,14 @@ Step 4: Merge 'a'(5) + [6]    = [11]
 ```
               [11]
              /    \
-          (0)      (1)
-          /          \
+          (0)     (1)
+          /         \
        'a'(5)       [6]
                    /    \
-                (0)      (1)
-                /          \
-             [2]           [4]
-            /   \         /   \
+                 (0)    (1)
+                /         \
+             [2]          [4]
+           /   \         /   \
          (0)   (1)     (0)   (1)
          /       \     /       \
       'c'(1)  'd'(1) 'b'(2)  'r'(2)
@@ -427,7 +431,7 @@ import heapq
 from collections import Counter
 
 class HuffmanNode:
-    """A node in the Huffman tree."""
+    # A node in the Huffman tree.
     def __init__(self, char=None, freq=0, left=None, right=None):
         self.char, self.freq = char, freq
         self.left, self.right = left, right
@@ -437,13 +441,12 @@ class HuffmanNode:
         return self.left is None and self.right is None
 
 def build_frequency_table(text):
-    """Calculate the character frequency of the text."""
+    # Calculate the character frequency of the text
     return dict(Counter(text).most_common())
 
 def build_huffman_tree(freq_table):
-    """Build a Huffman tree from the frequency table.
-    Greedy choice: Merge the two nodes with the lowest frequency at each step.
-    """
+    # Build a Huffman tree from the frequency table.
+    # Greedy choice: Merge the two nodes with the lowest frequency at each step.
     heap = []
     for char, freq in freq_table.items():
         heapq.heappush(heap, HuffmanNode(char=char, freq=freq))
@@ -465,9 +468,8 @@ def build_huffman_tree(freq_table):
     return heapq.heappop(heap)
 
 def generate_codes(root, prefix="", codes=None):
-    """Traverse the Huffman tree to generate the code for each character.
-    Left edge = '0', Right edge = '1'
-    """
+    # Traverse the Huffman tree to generate the code for each character.
+    # Left edge = '0', Right edge = '1'
     if codes is None:
         codes = {}
     if root is None:
@@ -488,11 +490,11 @@ The solution also implements full encoding and decoding:
 
 ```python
 def encode(text, codes):
-    """Encode the text using Huffman codes."""
+    # Encode the text using Huffman codes.
     return "".join(codes[char] for char in text)
 
 def decode(encoded_text, root):
-    """Decode an encoded bit string using the Huffman tree."""
+    # Decode an encoded bit string using the Huffman tree.
     decoded = []
     current = root
     for bit in encoded_text:
@@ -574,13 +576,13 @@ Meeting requests:
 Timeline:
   A: |===|
   B:   |==|
-  C: |======|
-  D:     |==|
-  E:   |======|
-  F:     |====|
-  G:      |==|
-  H:        |===|
-  I:        |====|
+  C:|======|
+  D:      |==|
+  E:   |=======|
+  F:      |====|
+  G:       |==|
+  H:          |===|
+  I:          |====|
 ```
 
 Which meetings should we select to maximize the count?
@@ -612,7 +614,8 @@ Result: {A, D, H} = 3 meetings
 
 ```python
 def greedy_schedule(meetings):
-    """Select the maximum number of meetings using greedy.
+    """
+    Select the maximum number of meetings using greedy.
 
     Activity Selection: Sort by end time in ascending order,
     then select meetings that do not overlap with the previously selected one.
@@ -649,7 +652,8 @@ The web app also provides a brute force algorithm for comparison (limited to N <
 
 ```python
 def bruteforce_schedule(meetings):
-    """Select the maximum number of meetings using brute force.
+    """
+    Select the maximum number of meetings using brute force.
     Checks all subsets to find the maximum number of non-overlapping meetings.
     Time complexity: O(2^n * n) -- checks all subsets
     """
@@ -698,27 +702,12 @@ def bruteforce_schedule(meetings):
 
 ```
 Greedy works when:
-  1. Greedy Choice Property -- a locally optimal choice
-     is part of a globally optimal solution
-  2. Optimal Substructure -- after making a greedy choice,
-     the remaining subproblem is also optimally solvable
+  1. Greedy Choice Property - a locally optimal choice is part
+                              of a globally optimal solution
+  2. Optimal Substructure - after making a greedy choice, the remaining
+                            subproblem is also optimally solvable
 ```
 
-### Homework 4
-
-See `../3_assignment/README.md` for assignment details.
-
-### Next Week
-
-**Week 6**: Dynamic Programming — when greedy is not enough!
-
----
-
-<br>
-
-## Appendix
-
-> This document is based on the slide material `W05_LAB_Greedy-Algorithms.md` and the example code in `examples/`.
 
 ---
 

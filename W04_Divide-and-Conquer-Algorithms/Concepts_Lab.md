@@ -261,14 +261,14 @@ Sort + Index            0.85s     O(n log n)
 **Problem**: Given n points on a 2D plane, find the two closest points.
 
 ```
-         50 |          o (12,30)
-            |                        o (40,50)
+         50 |        o (12,30)
+            |                 o (40,50)
          30 |
             |
-         10 |          o (12,10)
+         10 |        o (12,10)
             |
           4 |  o (3,4)
-          3 | o (2,3)     <-- closest pair: distance = sqrt(2) ~ 1.41
+          3 | o (2,3)   <-- closest pair: distance = sqrt(2) ~ 1.41
           1 |     o (5,1)
             +--+--+--+--+--+--+--+--+---> x
                2  5  12       40
@@ -289,12 +289,12 @@ Like finding the two people standing closest together in a crowd — splitting t
 1. Sort points by x-coordinate
 2. Split into left and right halves at the midpoint
 
-   LEFT            |  RIGHT
-   o    o          |     o       o
-      o            |        o
-         o         |  o
-                   |
-                 mid_x
+       LEFT   |   RIGHT
+   o    o     |     o       o
+      o       |        o
+         o    |  o
+              |
+            mid_x
 
 3. Recursively find closest pair in left  -> d_L
 4. Recursively find closest pair in right -> d_R
@@ -304,9 +304,9 @@ Like finding the two people standing closest together in a crowd — splitting t
    (the closest pair might span the two halves!)
 
         |<- d ->|<- d ->|
-        |  strip region  |
-        |   o        o   |  <- only check these points
-        |      o         |
+        |  strip region |
+        |   o        o  |  <- only check these points
+        |      o        |
 ```
 
 #### 2.3.3 Solution (Core Part)
@@ -417,16 +417,16 @@ Prefix search over a dictionary of **100,000 words**.
 
 ```
   User input: "pre"
-       |
-       v
+            |
+            v
   +-------------------+      +-------------------+
   | Linear Search     |      | Binary Search     |
   | Scan all 100K     |      | Jump to "pre"     |
   | words one by one  |      | region in O(log n)|
   | O(n) per query    |      |                   |
   +-------------------+      +-------------------+
-       |                           |
-       v                           v
+            |                          |
+            v                          v
   [predict, prefix,          [predict, prefix,
    prepare, present, ...]     prepare, present, ...]
 ```
@@ -476,22 +476,6 @@ Type characters in the search box and observe the response times:
 2. CONQUER   -- Solve each subproblem recursively
 3. COMBINE   -- Merge the subproblem solutions
 ```
-
-### Assignment 3
-
-Refer to `../3_assignment/README.md` for assignment details.
-
-### Next Week
-
-**Week 5**: New topic — keep practicing!
-
----
-
-<br>
-
-## Appendix
-
-> This document is based on the slide material `W04_LB_Advanced-Divide-and-Conquer.md`.
 
 ---
 
