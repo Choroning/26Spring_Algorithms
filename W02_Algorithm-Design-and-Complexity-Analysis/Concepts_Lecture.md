@@ -227,7 +227,7 @@ Flowcharts are intuitive for simple algorithms but become complex for large prog
 
 ### 1.5 Algorithm Classification
 
-> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet -- they will each be covered in detail in later weeks.
+> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet — they will each be covered in detail in later weeks.
 
 Six major types based on problem-solving strategy:
 
@@ -616,7 +616,7 @@ The gap between polynomial and exponential is **enormous**.
 
 ### 4.1 What Is a Recurrence Relation?
 
-When we analyze recursive algorithms, we cannot simply count loop iterations as we did in Section 2. Instead, the running time $T(n)$ is expressed in terms of $T$ on smaller inputs -- this is a recurrence relation. Our goal is to *solve* the recurrence to get a closed-form expression like $O(n \log n)$.
+When we analyze recursive algorithms, we cannot simply count loop iterations as we did in Section 2. Instead, the running time $T(n)$ is expressed in terms of $T$ on smaller inputs — this is a recurrence relation. Our goal is to *solve* the recurrence to get a closed-form expression like $O(n \log n)$.
 
 A **recurrence relation** expresses a function in terms of its values on **smaller inputs**.
 
@@ -816,7 +816,7 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 >
 > Example 3 is precisely the recurrence for **merge sort**! Using the Master Theorem, you get O(n log n) immediately without repeated substitution or induction.
 
-> **Note:** The regularity condition ensures that $f(n)$ is "well-behaved" -- specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) satisfy this automatically.
+> **Note:** The regularity condition ensures that $f(n)$ is "well-behaved" — specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) satisfy this automatically.
 
 > **Exam Tip:** **Case 3 of the Master Theorem is rarely tested** because verifying the regularity condition ($af(n/b) \leq cf(n)$) is tricky. Most exam problems can be solved with Case 1 or Case 2. Focusing on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
 
