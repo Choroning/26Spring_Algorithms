@@ -1,4 +1,4 @@
-# W04 Lecture — Divide and Conquer Algorithms
+# Week 4 Lecture — Divide and Conquer Algorithms
 
 > **Last Modified:** 2026-03-24
 

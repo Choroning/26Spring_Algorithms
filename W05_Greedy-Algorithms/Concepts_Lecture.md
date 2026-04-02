@@ -1,4 +1,4 @@
-# W05 Lecture — Greedy Algorithms
+# Week 5 Lecture — Greedy Algorithms
 
 > **Last Modified:** 2026-03-31
 >
