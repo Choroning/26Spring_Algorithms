@@ -1,4 +1,4 @@
-# W04 Lab — Advanced Divide and Conquer
+# Week 4 Lab — Advanced Divide and Conquer
 
 > **Last Modified:** 2026-03-26
 
