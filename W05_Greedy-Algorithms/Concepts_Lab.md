@@ -113,7 +113,7 @@ Optimal (DP):
   3 -> 3     = 2 coins  <-- fewer coins!
 ```
 
-**Why does greedy fail?** The coins are not in a divisor relationship -- picking the locally best coin can block a globally better combination.
+**Why does greedy fail?** The coins are not in a divisor relationship — picking the locally best coin can block a globally better combination.
 
 #### 2.1.2 Greedy Code
 
@@ -306,7 +306,7 @@ Greedy selection process:
 1. Jewels: added full 5.0 kg (value 300, remaining 35.0 kg)
 2. Gold: added full 10.0 kg (value 600, remaining 25.0 kg)
 3. Silver: added full 20.0 kg (value 500, remaining 5.0 kg)
-4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0 kg) -- **split**
+4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0 kg) — **split**
 
 **Maximum value: 1467**
 
@@ -360,7 +360,7 @@ Why the difference?
 
 - Prioritizing items with the highest value per unit weight maintains optimal selection for the remaining capacity
 - Since items can be split, the question is not "include or not" but "how much to include"
-- **Time complexity**: O(n log n) -- dominated by sorting
+- **Time complexity**: O(n log n) — dominated by sorting
 
 ---
 
@@ -388,7 +388,7 @@ Step 3: Merge [2]   + [4]     = [6]
 Step 4: Merge 'a'(5) + [6]    = [11]
 ```
 
-**Key property**: Prefix-free code -- no codeword is a prefix of another, so decoding is unambiguous without delimiters.
+**Key property**: Prefix-free code — no codeword is a prefix of another, so decoding is unambiguous without delimiters.
 
 #### 2.3.2 Huffman Tree
 
@@ -514,7 +514,7 @@ Encoded: "01100111010001000110011101"  (23 bits)
 Decoded: "abracadabra"                (matches original: PASS)
 ```
 
-**Prefix code verification**: The solution verifies that no code is a prefix of another -- this ensures unambiguous decoding without delimiters.
+**Prefix code verification**: The solution verifies that no code is a prefix of another — this ensures unambiguous decoding without delimiters.
 
 #### 2.3.5 Compression Results
 
@@ -543,7 +543,7 @@ Theoretical lower bound:    21       1.927
 - This locally optimal choice leads to a globally optimal prefix code
 - Proven optimal among all prefix-free codes
 
-**Time complexity**: O(n log n) -- n = number of distinct characters, each heap operation is O(log n), performed n-1 times.
+**Time complexity**: O(n log n) — n = number of distinct characters, each heap operation is O(log n), performed n-1 times.
 
 ---
 
@@ -710,7 +710,7 @@ See `../3_assignment/README.md` for assignment details.
 
 ### Next Week
 
-**Week 6**: Dynamic Programming -- when greedy is not enough!
+**Week 6**: Dynamic Programming — when greedy is not enough!
 
 ---
 

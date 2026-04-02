@@ -399,7 +399,7 @@ insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
 
 ## 3. Advanced Sorting — O(n log n)
 
-As we saw in Section 2.10, elementary sorts reduce the problem by 1 element each step, leading to O(n^2). Advanced sorts achieve O(n log n) by splitting the problem in half each step -- this "divide and conquer" strategy is the key idea behind all algorithms in this section.
+As we saw in Section 2.10, elementary sorts reduce the problem by 1 element each step, leading to O(n^2). Advanced sorts achieve O(n log n) by splitting the problem in half each step — this "divide and conquer" strategy is the key idea behind all algorithms in this section.
 
 ### 3.1 Merge Sort — Idea
 
@@ -664,7 +664,7 @@ heapSort(A[], n)              ▷ Sort A[1...n]
 
 > **Note:** How heap sort works: (1) Turn the entire array into a heap (buildHeap), (2) Move the heap's root (min or max) to the end of the array, (3) Reduce the heap size by 1 and restore the heap property (heapify). Repeating this sorts the array.
 
-> **Note:** This implementation uses a **min heap** (producing descending order). For **ascending** sort, use a **max heap** instead -- replace min comparisons with max. The standard CLRS presentation uses a max heap for ascending sort.
+> **Note:** This implementation uses a **min heap** (producing descending order). For **ascending** sort, use a **max heap** instead — replace min comparisons with max. The standard CLRS presentation uses a max heap for ascending sort.
 
 ### 3.12 Heap Sort — buildHeap and heapify
 

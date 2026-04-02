@@ -58,7 +58,7 @@ Why coding agents in an algorithms course? Understanding how to effectively use 
 
 ## 2. What Is a Coding Agent?
 
-An AI-based CLI (Command-Line Interface -- a text-based interface where you type commands instead of clicking buttons) tool that generates code by **understanding context**.
+An AI-based CLI (Command-Line Interface — a text-based interface where you type commands instead of clicking buttons) tool that generates code by **understanding context**.
 
 **Workflow:**
 

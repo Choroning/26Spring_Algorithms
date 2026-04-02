@@ -201,7 +201,7 @@ python examples/solutions/a1_basic_sorts.py
 
 ### 2.2 A-2: Advanced Sorting Algorithms
 
-> **Prerequisite:** The following algorithms use **recursion** -- a function calling itself with a smaller input until reaching a base case. If this concept is new, review the Data Structures course or Week 2 Lecture section on recursion.
+> **Prerequisite:** The following algorithms use **recursion** — a function calling itself with a smaller input until reaching a base case. If this concept is new, review the Data Structures course or Week 2 Lecture section on recursion.
 
 #### 2.2.1 Merge Sort
 
@@ -259,7 +259,7 @@ def _merge(left, right):
 
 > **Note:** In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
 
-**Merge trace -- merging [27, 38] and [3, 43]:** i=0, j=0: compare 27 vs 3 -> take 3. i=0, j=1: compare 27 vs 43 -> take 27. i=1, j=1: compare 38 vs 43 -> take 38. Take remaining 43. Result: [3, 27, 38, 43].
+**Merge trace — merging [27, 38] and [3, 43]:** i=0, j=0: compare 27 vs 3 -> take 3. i=0, j=1: compare 27 vs 43 -> take 27. i=1, j=1: compare 38 vs 43 -> take 38. Take remaining 43. Result: [3, 27, 38, 43].
 
 #### 2.2.2 Quick Sort
 

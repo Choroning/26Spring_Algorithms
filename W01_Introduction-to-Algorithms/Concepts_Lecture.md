@@ -258,7 +258,7 @@ Simple, finite, and correct — the hallmarks of a good algorithm.
 
 ## 3. Classical Problems
 
-Now that we understand what an algorithm is, let's explore several classical problems that illustrate fundamental algorithmic strategies. Each problem introduces a different way of thinking -- sequential scanning, divide and conquer, greedy choices, graph traversal, and information-theoretic encoding -- that will recur throughout this course.
+Now that we understand what an algorithm is, let's explore several classical problems that illustrate fundamental algorithmic strategies. Each problem introduces a different way of thinking — sequential scanning, divide and conquer, greedy choices, graph traversal, and information-theoretic encoding — that will recur throughout this course.
 
 ### 3.1 Finding the Maximum
 

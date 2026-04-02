@@ -281,7 +281,7 @@ Sort + Index            0.85s     O(n log n)
 | Brute force | O(n^2) | Check all n(n-1)/2 pairs |
 | **Divide and conquer** | **O(n log n)** | Divide, solve each half, check strip |
 
-Like finding the two people standing closest together in a crowd -- splitting the crowd in half and checking near the dividing line is much faster than comparing everyone.
+Like finding the two people standing closest together in a crowd — splitting the crowd in half and checking near the dividing line is much faster than comparing everyone.
 
 #### 2.3.2 Divide and Conquer Strategy
 

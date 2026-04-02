@@ -131,7 +131,7 @@ File: `examples/a1_timer_util.py`
 
 **Problem**: Determine whether an integer array contains duplicates.
 
-Imagine checking for duplicate names in a classroom. The brute-force way is to compare every student with every other student -- tedious. The smart way is to call out each name and raise your hand if it's been called before -- one pass, instant lookup.
+Imagine checking for duplicate names in a classroom. The brute-force way is to compare every student with every other student — tedious. The smart way is to call out each name and raise your hand if it's been called before — one pass, instant lookup.
 
 **Two Approaches:**
 
@@ -206,7 +206,7 @@ Step 4: x=1  seen={3,1,4}   → 1 found! Return True
 
 Completed in just **4 steps** instead of 10 comparisons!
 
-> Think of a set like a guest list at a party -- when a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
+> Think of a set like a guest list at a party — when a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
 
 > **[Data Structures]** Python's `set` is internally implemented as a **hash table**. As learned in Data Structures, a hash table converts keys via a hash function and stores them at specific positions in an array. Thanks to this, **insertion (add) and lookup (in) are O(1) on average**. This is the key to reducing O(n^2) to O(n) — finding a specific value in an array is O(n), but in a hash table it is O(1). In the worst case (many hash collisions), it can degrade to O(n), but in practice it is almost always O(1).
 
