@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Closest Pair of Points Visualizer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h1>Closest Pair of Points Visualizer</h1>
+
+  <div class="controls">
+    <label for="numPoints">Number of points (n):</label>
+    <input id="numPoints" type="number" value="100" min="2" max="50000" />
+    <button id="btnGenerate">Generate Random</button>
+    <button id="btnFind" disabled>Find Closest Pair</button>
+  </div>
+
+  <canvas id="canvas" width="800" height="600"></canvas>
+
+  <div id="results" class="results hidden">
+    <table>
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Distance</th>
+          <th>Time (ms)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Brute Force</td>
+          <td id="bfDist">—</td>
+          <td id="bfTime">—</td>
+        </tr>
+        <tr>
+          <td>Divide &amp; Conquer</td>
+          <td id="dcDist">—</td>
+          <td id="dcTime">—</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="speedup">Speedup ratio: <strong id="speedup">—</strong></p>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

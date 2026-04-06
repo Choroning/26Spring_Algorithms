@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Playlist Manager</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <header>
+        <h1>Music Playlist Manager</h1>
+        <p>Sort &amp; compare algorithms on a generated playlist</p>
+    </header>
+
+    <main class="container">
+        <!-- Controls -->
+        <section class="card controls">
+            <div class="control-row">
+                <div class="control-group">
+                    <label for="playlist-count">Number of Songs</label>
+                    <input type="number" id="playlist-count" value="100" min="1" max="10000" />
+                </div>
+                <button id="btn-generate" class="btn btn-primary">Generate Random</button>
+            </div>
+
+            <div class="control-row">
+                <div class="control-group">
+                    <label for="algorithm-select">Algorithm</label>
+                    <select id="algorithm-select">
+                        <option value="selection">Selection Sort</option>
+                        <option value="insertion">Insertion Sort</option>
+                        <option value="merge">Merge Sort</option>
+                        <option value="bubble">Bubble Sort</option>
+                        <option value="quick">Quick Sort</option>
+                        <option value="heap">Heap Sort</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="criterion-select">Sort By</label>
+                    <select id="criterion-select">
+                        <option value="title">Title</option>
+                        <option value="artist">Artist</option>
+                        <option value="duration">Duration</option>
+                        <option value="play_count">Play Count</option>
+                    </select>
+                </div>
+                <button id="btn-sort" class="btn btn-accent">Sort</button>
+                <button id="btn-compare" class="btn btn-compare">Compare All</button>
+            </div>
+        </section>
+
+        <!-- Playlist info -->
+        <div class="playlist-info">
+            <span id="playlist-size">No playlist generated</span>
+        </div>
+
+        <!-- Sort Results -->
+        <section id="sort-results" class="card results-card" style="display:none;"></section>
+
+        <!-- Comparison Results -->
+        <section id="comparison-results" class="card results-card" style="display:none;"></section>
+
+        <!-- Playlist Table -->
+        <section class="card table-card">
+            <div class="table-wrapper">
+                <table id="playlist-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Duration</th>
+                            <th>Play Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" class="empty-msg">Generate a playlist to get started</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display:none;">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

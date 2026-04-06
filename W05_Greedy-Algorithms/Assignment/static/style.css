@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-size: 1.6rem;
+}
+
+h3 {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.add-form,
+.generate-form {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+
+.add-form input,
+.generate-form input {
+  padding: 6px 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  width: 100px;
+}
+
+.add-form input[type="text"] {
+  width: 130px;
+}
+
+.controls button,
+.actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #fff;
+  transition: opacity 0.2s;
+}
+
+.controls button:hover,
+.actions button:hover {
+  opacity: 0.85;
+}
+
+#btnAdd {
+  background: #5cb85c;
+}
+
+#btnGenerate {
+  background: #4a90d9;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+#btnSchedule {
+  background: #e05d44;
+}
+
+#btnSchedule:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#btnClear {
+  background: #888;
+}
+
+.summary {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Timeline */
+.timeline {
+  width: 800px;
+  min-height: 60px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+}
+
+.timeline-row {
+  position: relative;
+  height: 28px;
+  margin-bottom: 4px;
+}
+
+.timeline-bar {
+  position: absolute;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.timeline-bar.rejected {
+  background: #ccc;
+  color: #666;
+}
+
+.timeline-bar.selected {
+  background: #4a90d9;
+}
+
+.timeline-axis {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Trace table */
+.trace-section {
+  margin-top: 20px;
+  width: 800px;
+}
+
+.trace-section.hidden {
+  display: none;
+}
+
+.trace-section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.trace-section th,
+.trace-section td {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  text-align: center;
+}
+
+.trace-section th {
+  background: #4a90d9;
+  color: #fff;
+}
+
+tr.row-select {
+  background: #dff0d8;
+}
+
+tr.row-reject {
+  background: #f9f9f9;
+}
