@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-size: 1.6rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controls label {
+  font-weight: 600;
+}
+
+.controls input {
+  width: 100px;
+  padding: 6px 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.controls button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #fff;
+  transition: opacity 0.2s;
+}
+
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#btnGenerate {
+  background: #4a90d9;
+}
+
+#btnFind {
+  background: #e05d44;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.results {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.results.hidden {
+  display: none;
+}
+
+.results table {
+  border-collapse: collapse;
+  margin: 0 auto 12px;
+}
+
+.results th,
+.results td {
+  border: 1px solid #ccc;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.results th {
+  background: #4a90d9;
+  color: #fff;
+}
+
+.speedup {
+  font-size: 1.05rem;
+  margin-top: 6px;
+}

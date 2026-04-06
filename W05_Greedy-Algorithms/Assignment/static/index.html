@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom Reservation System</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h1>Classroom Reservation System</h1>
+
+  <div class="controls">
+    <div class="add-form">
+      <h3>Add Reservation</h3>
+      <input id="eventName" type="text" placeholder="Event name" />
+      <input id="eventStart" type="number" placeholder="Start" min="0" />
+      <input id="eventEnd" type="number" placeholder="End" min="1" />
+      <button id="btnAdd">Add</button>
+    </div>
+    <div class="generate-form">
+      <h3>Generate Random</h3>
+      <label for="numEvents">Events:</label>
+      <input id="numEvents" type="number" value="15" min="1" max="100" />
+      <button id="btnGenerate">Generate</button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="btnSchedule" disabled>Schedule</button>
+    <button id="btnClear">Clear All</button>
+    <span id="summary" class="summary"></span>
+  </div>
+
+  <div id="timeline" class="timeline"></div>
+
+  <div id="traceSection" class="trace-section hidden">
+    <h3>Step-by-step Greedy Trace</h3>
+    <table id="traceTable">
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Event</th>
+          <th>Interval</th>
+          <th>Action</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
