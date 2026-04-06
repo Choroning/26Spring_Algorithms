@@ -207,7 +207,7 @@
 |:---|:---|:---|
 | **핵심 질문** | 정보를 **어떻게 저장** 할 것인가? | 문제를 **어떻게 해결** 할 것인가? |
 | **비유** | 자동차의 부품과 모듈 | 자동차를 만드는 방법 |
-| **선수과목** | — | 기초 프로그래밍, 자료구조 |
+| **선수과목** | — | 프로그래밍언어, 자료구조 |
 
 > **알고리즘 + 자료구조 = 프로그램**
 >
@@ -393,7 +393,7 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 **문제:** 한 꼭짓점에서 시작하여, **모든 간선을 정확히 한 번씩** 지나고 시작점으로 돌아와라. 꼭짓점은 재방문 가능하다.
 
-![Konigsberg 7개의 다리](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png)
+![Konigsberg 7개의 다리](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
 
 > **[자료구조]** 그래프(Graph)는 자료구조 수업에서 배운 핵심 개념이다. **꼭짓점(vertex/node)** 들의 집합과 이들을 연결하는 **간선(edge)** 들의 집합으로 구성된다. 오일러 경로 문제는 역사적으로 유명한 "Konigsberg 다리 문제"에서 유래하였다. 오일러는 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면, **홀수 차수(degree)를 가진 꼭짓점이 0개 또는 2개** 여야 한다는 것을 증명하였다. 차수란 한 꼭짓점에 연결된 간선의 수를 말한다.
 
@@ -438,9 +438,9 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 **그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래** 를 가져가 돌아오는 길을 찾았다.
 
-![Longleat 울타리 미로](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Longleat-maze.jpg/300px-Longleat-maze.jpg)
+![Longleat 울타리 미로](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
 
-![테세우스와 미노타우로스](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg/300px-Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg)
+![테세우스와 미노타우로스](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
 
 실이나 지도 없이 **확실하게** 출구를 찾는 방법은 무엇인가?
 
@@ -461,7 +461,7 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 **문제:** n개의 동전 중 **하나** 가 위조품(약간 가벼움)이다. **양팔 저울** 을 사용하여 최소한의 측정 횟수로 위조 동전을 찾아라.
 
-![양팔 저울](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Balance_%C3%A0_tabac_1850.JPG/350px-Balance_%C3%A0_tabac_1850.JPG)
+![양팔 저울](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
 
 **1,024개의 동전** 에 대해 측정 횟수를 최소화하는 전략은 무엇인가?
 
@@ -547,7 +547,7 @@ n = 1,024개 동전일 때:
 
 **이야기:** 왕에게 여러 와인 항아리가 있다. 스파이가 **정확히 하나** 의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망한다.
 
-![와인 배럴](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Oak-wine-barrel-at-toneleria-nacional-chile.jpg/350px-Oak-wine-barrel-at-toneleria-nacional-chile.jpg)
+![와인 배럴](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
 
 **왕의 명령:**
 - 정확히 **일주일 안에** 독이 든 항아리를 찾아라
@@ -647,15 +647,6 @@ n = 1,000,000     ->  log₂(1,000,000) = ~20명의 하인
 
 ---
 
-<br>
-
-## 부록
-
-- **2주차:** 알고리즘 분석 — Big-O 표기법, 시간 복잡도, 점근적 분석
-- 다음 주부터 **가정 과제** 시작
-- 이번 주는 퀴즈 없음, 과제 없음 (OT 주차)
-
----
 
 ## 점검 문제
 

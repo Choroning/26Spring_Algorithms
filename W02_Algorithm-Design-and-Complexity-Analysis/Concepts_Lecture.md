@@ -204,8 +204,8 @@ FindMax(A[], n)
   └────┬────┘
        ▼
   ◇ i < n ? ◇──No──► ┌────────────┐
-       │              │ return max │
-       Yes            └────────────┘
+       │             │ return max │
+       Yes           └────────────┘
        ▼
   ◇ A[i]>max? ◇
   │           │
@@ -232,7 +232,7 @@ Flowcharts are intuitive for simple algorithms but become complex for large prog
 Six major types based on problem-solving strategy:
 
 | Type | Core Idea |
-|:-----|:----------|
+|:-----:|:----------|
 | **Divide and Conquer** | Split into subproblems -> solve each -> combine results. *E.g., Merge Sort: split an array in half, sort each half, then merge the sorted halves.* |
 | **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm: always extend the shortest known path to reach all nodes in a graph.* |
 | **Dynamic Programming (DP)** | Solve subproblems and store results for reuse. *E.g., Knapsack Problem: given items with weights and values, find the most valuable combination that fits in a bag.* |
@@ -849,15 +849,6 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 
 ---
 
-<br>
-
-## Appendix
-
-- **Assignment 1** has been posted — check the LMS for details
-- No quiz this week; quizzes start in **Week 3**
-- Next week: **Arrays, Sorting Algorithms** — basic and advanced sorting
-
----
 
 ## Self-Check Questions
 

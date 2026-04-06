@@ -393,7 +393,7 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
-![Konigsberg's 7 Bridges](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png)
+![Konigsberg's 7 Bridges](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
 
 > **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous "Konigsberg bridge problem." Euler proved that for a path traversing every edge exactly once (Euler path) to exist, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
 
@@ -438,9 +438,9 @@ The key insight is that crossing a bridge prematurely can split the graph into d
 
 **Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back.
 
-![Longleat Hedge Maze](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Longleat-maze.jpg/300px-Longleat-maze.jpg)
+![Longleat Hedge Maze](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
 
-![Theseus and the Minotaur](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg/300px-Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg)
+![Theseus and the Minotaur](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
 
 How do you **reliably** find the exit without thread or a map?
 
@@ -461,7 +461,7 @@ No markings or thread needed — a simple and elegant algorithm.
 
 **Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale**, find the counterfeit coin with the minimum number of weighings.
 
-![Balance Scale](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Balance_%C3%A0_tabac_1850.JPG/350px-Balance_%C3%A0_tabac_1850.JPG)
+![Balance Scale](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
 
 What strategy minimizes the number of weighings for **1,024 coins**?
 
@@ -547,7 +547,7 @@ For n = 1,024 coins:
 
 **Story:** A king has several wine jars. A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
-![Wine Barrels](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Oak-wine-barrel-at-toneleria-nacional-chile.jpg/350px-Oak-wine-barrel-at-toneleria-nacional-chile.jpg)
+![Wine Barrels](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
 
 **The King's Command:**
 - Find the poisoned jar within exactly **one week**
@@ -647,15 +647,6 @@ This is the power of **binary encoding** — a fundamentally different way of th
 
 ---
 
-<br>
-
-## Appendix
-
-- **Week 2:** Algorithm Analysis — Big-O notation, time complexity, asymptotic analysis
-- **Homework** starts from next week
-- No quiz, no homework this week (OT week)
-
----
 
 ## Self-Check Questions
 
