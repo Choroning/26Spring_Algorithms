@@ -1,6 +1,6 @@
 # Week 6 Lecture — Dynamic Programming
 
-> **Last Modified:** 2026-04-07
+> **Last Modified:** 2026-04-08
 >
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 4: Divide and conquer paradigm (for comparison with DP). Week 5: Greedy algorithms (for comparison with DP). Recursion and recursive thinking. Basic matrix operations.
 >
