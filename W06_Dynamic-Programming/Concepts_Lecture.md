@@ -1,6 +1,6 @@
 # Week 6 Lecture — Dynamic Programming
 
-> **Last Modified:** 2026-04-07
+> **Last Modified:** 2026-04-08
 >
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 4: Divide and conquer paradigm (for comparison with DP). Week 5: Greedy algorithms (for comparison with DP). Recursion and recursive thinking. Basic matrix operations.
 >
@@ -83,13 +83,14 @@
 ### 1.3 DP vs Divide-and-Conquer
 
 ```
-DaC                    DP
-   A                    A
-  / \                  / \
- B   C                B   C
-/|   |\              /|\ /|\
-D E   F G            D  E F  G
-                       (shared!)
+Divide & Conquer           DP
+
+       A                    A
+      / \                  / \
+     B   C                B   C
+    /|   |\              /|\ /|\
+   D E   F G            D  E F  G
+                        (shared!)
 ```
 
 - **Divide-and-Conquer**: subproblems are **independent** — each is solved once
@@ -109,15 +110,15 @@ The recursive call tree in DaC is a **tree** (no repeated nodes), while in DP th
 - Systematic — solves all subproblems in order
 
 ```
-Top-Down (Memoization)              Bottom-Up (Tabulation)
-┌─────────────────────┐             ┌─────────────────────┐
-│ fib(n):             │             │ f[1] = f[2] = 1     │
-│   if memo[n] exists │             │ for i = 3 to n:     │
-│     return memo[n]  │             │   f[i] = f[i-1]     │
-│   memo[n] = fib(n-1)│             │        + f[i-2]     │
-│            +fib(n-2)│             │ return f[n]          │
-│   return memo[n]    │             │                     │
-└─────────────────────┘             └─────────────────────┘
+Top-Down (Memoization)          Bottom-Up (Tabulation)
+┌──────────────────────┐        ┌──────────────────────┐
+│ fib(n):              │        │ f[1] = f[2] = 1      │
+│   if memo[n] exists  │        │ for i = 3 to n:      │
+│     return memo[n]   │        │   f[i] = f[i-1]      │
+│   memo[n] = fib(n-1) │        │        + f[i-2]      │
+│            +fib(n-2) │        │ return f[n]          │
+│   return memo[n]     │        │                      │
+└──────────────────────┘        └──────────────────────┘
 ```
 
 > **When to use which?** Memoization is easier to implement (just add caching to recursion) and avoids solving unnecessary subproblems. Tabulation avoids recursion overhead and is typically faster in practice. Most DP problems can be solved either way.
