@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LCS Plagiarism Checker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h1>LCS Plagiarism Checker</h1>
+  <p class="subtitle">Longest Common Subsequence &middot; Dynamic Programming</p>
+
+  <div class="inputs">
+    <div class="doc-col">
+      <h3>Document A</h3>
+      <textarea id="textA" rows="8" placeholder="Paste the first document..."></textarea>
+      <span id="lenA" class="char-count">0 chars</span>
+    </div>
+    <div class="doc-col">
+      <h3>Document B</h3>
+      <textarea id="textB" rows="8" placeholder="Paste the second document..."></textarea>
+      <span id="lenB" class="char-count">0 chars</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="btnCheck">Check Plagiarism</button>
+    <button id="btnSample">Load Sample</button>
+    <button id="btnClear">Clear</button>
+  </div>
+
+  <div id="results" class="results hidden">
+    <div class="scoreboard">
+      <div class="metric">
+        <div class="metric-label">Similarity</div>
+        <div id="similarity" class="metric-value">0%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">LCS Length</div>
+        <div id="lcsLength" class="metric-value">0</div>
+      </div>
+      <div class="metric metric-wide">
+        <div class="metric-label">LCS String</div>
+        <div id="lcsString" class="metric-value metric-mono">&mdash;</div>
+      </div>
+    </div>
+
+    <h3>Diff View</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="swatch match"></span>matched</span>
+      <span class="legend-item"><span class="swatch removed"></span>removed (only in A)</span>
+      <span class="legend-item"><span class="swatch added"></span>added (only in B)</span>
+    </div>
+    <div id="diffView" class="diff-view"></div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
