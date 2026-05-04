@@ -62,12 +62,12 @@
 A **tree** is a root node together with zero or more **subtrees** — a recursive structure.
 
 ```
-            [A]                   "A tree of n nodes
-           / | \                   = root + subtrees"
+            [A]             "A tree of n nodes
+           / | \             = root + subtrees"
          /   |   \
-       [B]  [C]  [D]             Each subtree is itself
-       / \       / | \           a smaller tree.
-     [E] [F]   [G][H][I]
+       [B]  [C]  [D]        Each subtree is itself
+       / \      / | \       a smaller tree.
+     [E] [F]  [G][H][I]
 ```
 
 **Key insight:** the "repetition of partial structure" lets us implement tree algorithms with **recursion**.
@@ -137,11 +137,11 @@ TREE-SEARCH(x, k):
 **Example — search for 13:**
 
 ```
-              [15]          15: 13 < 15, go left
-             /    \
-          [6]      [18]     6: 13 > 6, go right
+             [15]         15: 13 < 15, go left
+            /    \
+          [6]    [18]     6: 13 > 6, go right
          /   \
-       [3]  [7]             7: 13 > 7, go right
+       [3]  [7]           7: 13 > 7, go right
               \
              [13]  <- found
 ```
@@ -161,9 +161,9 @@ TREE-INSERT(T, z):
         if z.key < x.key: x = x.left
         else:             x = x.right
     z.parent = y
-    if y = NIL:                T.root = z       // tree was empty
-    else if z.key < y.key:     y.left  = z
-    else:                      y.right = z
+    if y = NIL:               T.root = z     // tree was empty
+    else if z.key < y.key:    y.left  = z
+    else:                     y.right = z
 ```
 
 Insertion follows the same path as an unsuccessful search, then links the new node as a leaf — cost $O(h)$.
@@ -237,11 +237,11 @@ Deletion is more delicate than search or insert. Let $z$ be the node to delete.
 
 ```
 Delete 6:
-         [15]                    [15]
-        /    \                  /    \
-     [6]      [18]          [7]      [18]
-    /   \     /   \    =>   /  \     /   \
-  [3]  [7]  [17] [20]    [3] [13]  [17] [20]
+         [15]                     [15]
+        /    \                  /     \
+     [6]      [18]           [7]      [18]
+    /   \     /   \    =>   /  \      /   \
+  [3]  [7]  [17] [20]     [3] [13]  [17] [20]
   / \    \                / \  /
 [2] [4] [13]            [2][4][9]
          /
@@ -301,13 +301,13 @@ Every RBT must satisfy:
 | 5 | For every node, all paths from that node to descendant leaves contain the **same number of black nodes** |
 
 ```
-            [7:B]
-           /     \
-       [3:R]     [18:R]
-       /   \     /    \
+             [7:B]
+           /       \
+       [3:R]       [18:R]
+       /   \       /    \
     [1:B] [5:B] [10:B] [22:B]
-                  \
-                 [15:R]
+                   \
+                  [15:R]
 
 B = Black, R = Red
 Property 4: red 18 has black children 10, 22  ok
@@ -377,9 +377,9 @@ When $U$ is black, locally rotate $N$, $P$, $G$:
 ```
 Before (G=7, P=3, N=5):       After restructuring:
 
-      [7:B]                        [5:B]
-     /     \                      /     \
-   [3:R]  [8:B]    =>         [3:R]   [7:R]
+      [7:B]                       [5:B]
+     /     \                     /     \
+   [3:R]  [8:B]          =>   [3:R]   [7:R]
       \                                /
      [5:R]                          [8:B]
 
@@ -399,13 +399,13 @@ When $U$ is red, swap colors:
 3. If $G$ is the root, force it **black**. Otherwise, $G$ may now form a new Double Red with its own parent — repeat the fix-up at $G$.
 
 ```
-Before:                        After recoloring:
+Before:                   After recoloring:
 
-      [7:B]                        [7:R] <- may cause
-     /     \                      /     \    new Double Red
-   [3:R]  [8:R]    =>         [3:B]   [8:B]
-   /                           /
- [1:R]                       [1:R]
+      [7:B]                   [7:R] <- may cause
+     /     \                 /     \    new Double Red
+   [3:R]  [8:R]    =>     [3:B]   [8:B]
+   /                       /
+ [1:R]                  [1:R]
 
 P=3 and U=8 become black; G=7 becomes red.
 If 7 is the root, force it black.
@@ -419,18 +419,18 @@ If 7's parent is also red, repeat the fix-up upward.
 Insertion sequence: 7, 3, 8, 1, 5
 
 ```
-Step 1: insert 7        Step 2: insert 3       Step 3: insert 8
-   [7:B]                  [7:B]                   [7:B]
-                          /                       /     \
-                        [3:R]                  [3:R]   [8:R]
+Step 1: insert 7    Step 2: insert 3    Step 3: insert 8
+   [7:B]               [7:B]                [7:B]
+                       /                   /     \
+                    [3:R]               [3:R]   [8:R]
 
 Step 4: insert 1 -> Double Red (N=1, P=3, U=8)
 Uncle 8 is RED -> Recoloring
 
-      [7:B]                   [7:B]
-     /     \       =>        /     \
-   [3:R]  [8:R]           [3:B]  [8:B]
-   /                       /
+       [7:B]                   [7:B]
+      /     \       =>        /     \
+   [3:R]   [8:R]           [3:B]   [8:B]
+    /                       /
  [1:R]                   [1:R]
 
 Step 5: insert 5 -> Double Red (N=5, P=3, U=8)
@@ -441,11 +441,11 @@ Now U=8 is BLACK -> Restructuring
    [3:B]  [8:B]
       \
      [5:R]
-                          [5:B]
-                         /     \
-Result:               [3:R]   [7:R]
-                                \
-                               [8:B]
+                       [5:B]
+                      /     \
+Result:            [3:R]   [7:R]
+                              \
+                             [8:B]
 ```
 
 ### 3.9 RBT — Operation Complexities
@@ -480,8 +480,8 @@ When data is too large for main memory, it lives on **disk**, and disk access do
 Access times (typical):
   CPU register     ~0.3 ns
   Main memory      ~100 ns
-  SSD              ~50 us       (~500x slower than memory)
-  HDD              ~5 ms        (~50,000x slower than memory)
+  SSD              ~50 us   (~500x slower than memory)
+  HDD              ~5 ms    (~50,000x slower than memory)
 ```
 
 A Red-Black Tree with $n = 10^9$ nodes has height $\approx 30$. On HDD that is $30 \times 5\,\text{ms} = 150\,\text{ms}$ per operation — far too slow for a database. The bottleneck is **disk reads**, not comparisons.
@@ -495,12 +495,12 @@ A Red-Black Tree with $n = 10^9$ nodes has height $\approx 30$. On HDD that is $
 Make each node hold **many keys** so the tree is **wide and shallow**.
 
 ```
-BST (tall, narrow):         B-Tree (short, wide):
+BST (tall, narrow):     B-Tree (short, wide):
 
      [50]                  [20|40|60|80]
     /    \                / |  |  |  \
-  [25]  [75]           [..][..][..][..][..]
- / \    / \
+  [25]  [75]            [..][..][..][..][..]
+  / \    / \
 ......                  Height ~3 for 10^9 nodes
 Height ~30
 ```
@@ -571,7 +571,7 @@ Insert 28 (max 4 keys per node):
   Parent: [... | 20 | 40 | ...]
                   |
                   v
-  Leaf: [21 | 25 | 30 | 35]    <- FULL
+  Leaf:   [21 | 25 | 30 | 35]    <- FULL
 
 Step 1: insert 28, creating temporary overflow
   Temp: [21 | 25 | 28 | 30 | 35]
@@ -582,9 +582,9 @@ Step 2: split at median 28
 
 Step 3: promote median 28 to parent
   Parent: [... | 20 | 28 | 40 | ...]
-                  |    |
-                  v    v
-        [21 | 25]    [30 | 35]
+                 |     |
+                 v     v
+           [21 | 25] [30 | 35]
 ```
 
 If the parent is also full, the split **propagates upward**. In the extreme case the root splits and the tree grows one level taller — this is the **only way a B-Tree gains height**, and it keeps the tree perfectly balanced.
@@ -619,9 +619,9 @@ Delete 30:  [10 | 20 | 30 | 40]  =>  [10 | 20 | 40]   ok
 
 ```
 Delete 20:
-  Parent: [... | 25 | ...]        Parent: [... | 30 | ...]
-            |    |                           |    |
-          [20] [30 | 40]   =>            [25] [40]
+  Parent: [... | 25 | ...]      Parent: [... | 30 | ...]
+            |    |                        |    |
+          [20] [30 | 40]    =>          [25] [40]
 
 Borrow 30 from right sibling; 25 rotates down, 30 rotates up.
 ```
@@ -630,9 +630,9 @@ Borrow 30 from right sibling; 25 rotates down, 30 rotates up.
 
 ```
 Delete 20:
-  Parent: [... | 25 | ...]       Parent: [... | ...]
-            |    |                          |
-          [20] [30]        =>         [25 | 30]
+  Parent: [... | 25 | ...]      Parent: [... | ...]
+            |    |                        |
+          [20] [30]         =>      [25 | 30]
 
 Pull 25 down, combine with sibling.
 ```
