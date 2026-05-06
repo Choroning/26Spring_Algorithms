@@ -68,39 +68,97 @@ This repository contains bilingual study materials and code developed for a univ
 ```plaintext
 26Spring_Algorithms
 ├── W01_Introduction-to-Algorithms
-│   ├── Concepts-Lab.ko.md
-│   ├── Concepts-Lab.md
-│   ├── Concepts-Lecture.ko.md
-│   └── Concepts-Lecture.md
+│   ├── Lab-Materials
+│   │   ├── Binary-Search.py
+│   │   └── Coin-Change.py
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W02_Algorithm-Design-and-Complexity-Analysis
 │   ├── Assignment
+│   │   ├── static
+│   │   │   ├── app.js
+│   │   │   ├── index.html
+│   │   │   └── style.css
 │   │   ├── app.py
 │   │   ├── locustfile.py
-│   │   ├── requirements.txt
-│   │   └── static
-│   │       ├── app.js
-│   │       ├── index.html
-│   │       └── style.css
+│   │   └── requirements.txt
 │   ├── Assignment-Report.pdf
 │   ├── Concepts_Lab.ko.md
 │   ├── Concepts_Lab.md
 │   ├── Concepts_Lecture.ko.md
 │   └── Concepts_Lecture.md
 ├── W03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms
+│   ├── Assignment
+│   │   ├── static
+│   │   │   ├── app.js
+│   │   │   ├── index.html
+│   │   │   └── style.css
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── Assignment-Report.pdf
 │   ├── Concepts_Lab.ko.md
 │   ├── Concepts_Lab.md
 │   ├── Concepts_Lecture.ko.md
 │   └── Concepts_Lecture.md
 ├── W04_Divide-and-Conquer-Algorithms
+│   ├── Assignment
+│   │   ├── static
+│   │   │   ├── app.js
+│   │   │   ├── index.html
+│   │   │   └── style.css
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── Assignment-Report.pdf
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W05_Greedy-Algorithms
+│   ├── Assignment
+│   │   ├── static
+│   │   │   ├── app.js
+│   │   │   ├── index.html
+│   │   │   └── style.css
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── Assignment-Report.pdf
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W06_Dynamic-Programming
+│   ├── Assignment
+│   │   ├── static
+│   │   │   ├── app.js
+│   │   │   ├── index.html
+│   │   │   └── style.css
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── Assignment-Report.pdf
+│   ├── Concepts_Lab.ko.md
+│   ├── Concepts_Lab.md
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W07_Midterm-Review
+│   ├── Concepts.ko.md
+│   ├── Concepts.md
+│   ├── Concepts_Detailed.ko.md
+│   └── Concepts_Detailed.md
 ├── W09_Search-Trees
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W10_Hash-Tables-and-Set-Data-Structures
 ├── W11_Graph-Algorithms-I
 ├── W12_Graph-Algorithms-II
 ├── W13_NP-Completeness-and-Approximation-Algorithms
 ├── W14_Approximation-Algorithms
+├── Preparation
+│   ├── AL-Mid_SummarySheet.ko.md.pdf
+│   ├── AL-Mid_Total.ko.md.pdf
+│   ├── Mid_SummarySheet.ko.md
+│   └── Mid_Total.ko.md
 ├── images
 │   └── (lecture figure images)
 ├── LICENSE
