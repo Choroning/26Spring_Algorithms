@@ -1,7 +1,9 @@
 # Week 10 Lecture — Hash Tables and Set Data Structures
 
-> **Last Modified:** 2026-05-13
+> **Last Updated:** 2026-05-13
 >
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 11 (Hash Tables)
+
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (we will give average, amortized, and worst-case bounds in $O$, $\Theta$, $\Omega$). Week 3: Arrays as random-access storage (the hash table's backing structure). Week 4: Linked lists (used by separate chaining). Week 9: Balanced BSTs (the natural baseline we compare against). Basic modular arithmetic ($k \bmod m$) and elementary probability (uniform distributions, expected values) for the load-factor analysis.
 >
 > **Learning Objectives**:
@@ -454,16 +456,45 @@ These are among the most heavily used data structures in coding interviews and c
 ## Self-Check Questions
 
 1. **Division method:** Why is choosing $m = 2^p$ usually a bad idea for $h(k) = k \bmod m$? Construct a key set that exposes the weakness.
+
+   > **Answer:** $k \bmod 2^p$ depends only on the **lower $p$ bits** of $k$ — any structure in the higher bits is thrown away. If keys share a common low-bit pattern they all collide into a tiny subset of slots. **Example with $m = 8$:** keys $\{8, 16, 24, 32, 40, 48, \ldots\}$ are all $\equiv 0 \pmod 8$, so every key collides at slot 0 regardless of how many slots remain. A **prime $m$** not close to a power of 2 mixes high and low bits and avoids this trap (CLRS §11.3).
+
 2. **Pigeonhole / Birthday:** Suppose $m = 365$ and we insert random keys one at a time. How many insertions before the probability of *some* collision exceeds 1/2? Why is this much smaller than $m$?
+
+   > **Answer:** The classic **birthday paradox** answer is $n \approx 23$ — far smaller than $m = 365$. The reason is combinatorial: with $n$ insertions there are $\binom{n}{2} \approx n^2/2$ **pairs** of keys, and each pair collides with probability $1/m$. Expected collisions reach 1 around $n \approx \sqrt{2m \ln 2} \approx \sqrt{m}$. The "1/2 probability" threshold scales as $\Theta(\sqrt{m})$, not $\Theta(m)$ — collisions arise *much* earlier than naive intuition suggests.
+
 3. **Chaining complexity:** A chained hash table holds $n = 10^6$ keys in $m = 250{,}000$ slots. Under SUHA, what is the expected time for an unsuccessful search? For a successful one?
+
+   > **Answer:** Load factor $\alpha = n/m = 10^6 / 250{,}000 = 4$. Under **SUHA**, expected chain length equals $\alpha$, so an **unsuccessful search** scans an entire chain on average: $\Theta(1 + \alpha) = \Theta(5)$ comparisons — i.e., compute the hash plus 4 list-node visits. A **successful search** scans on average half the chain it lands in, giving $\Theta(1 + \alpha/2) = \Theta(3)$ comparisons. Both are $O(1)$ in $\alpha$-terms but with a noticeable constant — typically $\alpha \leq 1$ is preferred.
+
 4. **Linear probing trace:** Insert $\{4, 14, 24, 25, 35\}$ into a table of size $m = 10$ with $h(k) = k \bmod 10$ using linear probing. Draw the final table and report the probe count for each insertion.
+
+   > **Answer:** $h(4) = 4$ → place at slot 4 (**1 probe**). $h(14) = 4$ → slot 4 taken, try 5 → place at slot 5 (**2 probes**). $h(24) = 4$ → 4,5 taken, try 6 → place at slot 6 (**3 probes**). $h(25) = 5$ → 5,6 taken, try 7 → place at slot 7 (**3 probes**). $h(35) = 5$ → 5,6,7 taken, try 8 → place at slot 8 (**4 probes**). Final: slot 4=4, 5=14, 6=24, 7=25, 8=35 — a single **primary cluster** of length 5 forms, demonstrating clustering.
+
 5. **Double hashing path:** With $m = 11$, $h_1(k) = k \bmod 11$, $h_2(k) = 1 + (k \bmod 9)$, list the first four probe positions for the keys $k = 22$ and $k = 33$. Do they ever revisit the same slot?
+
+   > **Answer:** For $k = 22$: $h_1 = 0$, $h_2 = 1 + 4 = 5$ → probes **0, 5, 10, 4** (each step `+5 mod 11`). For $k = 33$: $h_1 = 0$, $h_2 = 1 + 6 = 7$ → probes **0, 7, 3, 10**. They **collide at slot 0** initially and **revisit slot 10** at different probe indices ($i=2$ for 22, $i=3$ for 33), but their full probe sequences are otherwise different — the two **step sizes** (5 and 7) decorrelate the paths after the initial collision, which is exactly what eliminates clustering.
+
 6. **Load factor and probe length:** Derive (or look up) the expected number of probes for an unsuccessful search under uniform hashing with open addressing: $E[\text{probes}] \leq \dfrac{1}{1-\alpha}$. What happens as $\alpha \to 1$? What does this imply about resize thresholds?
+
+   > **Answer:** Under **uniform hashing**, the first probe finds an occupied slot with probability $\alpha = n/m$. Conditioning on that, the second probe is occupied with probability $\approx (n-1)/(m-1) \leq \alpha$, and so on. The expected probe count is $\sum_{i \geq 0} \alpha^i = \dfrac{1}{1 - \alpha}$ (geometric series). As $\alpha \to 1$ this **diverges to infinity** — at $\alpha = 0.9$ expected probes is 10, at $\alpha = 0.99$ it is 100. Practical rule: **resize before $\alpha \approx 0.7$** for open addressing to keep expected probes ≤ 3.3.
+
 7. **Rehashing amortization:** Show that if we double the table whenever $\alpha > 0.75$, the total cost of $n$ insertions is $O(n)$. State the implicit amortized argument explicitly.
+
+   > **Answer:** Rehashes occur at sizes roughly $m_0, 2m_0, 4m_0, \ldots$, each costing $\Theta(m_i)$ to reinsert all keys. Total rehash cost is $\Theta(m_0 + 2m_0 + 4m_0 + \cdots + n) = \Theta(2n) = O(n)$ — a **geometric series** dominated by its last term. Combined with $n$ trivial $O(1)$ insertions, total work is $O(n)$, giving **amortized $O(1)$ per insertion**. The **accounting argument**: charge each insertion $O(1)$ extra "credit"; when the table doubles, the accumulated credit pays for the bulk reinsertion. Same trick used by `std::vector::push_back` and Python `list.append`.
+
 8. **Hash table vs BST:** For each workload below, choose between a hash table and a balanced BST, and justify in one sentence.
    (a) A spell-checker that asks "is this word in the dictionary?".
    (b) An autocomplete service that returns all words starting with a given prefix.
    (c) A leaderboard that must always be iterable in score order.
    (d) A real-time controller that requires $O(\log n)$ worst-case lookup.
+
+   > **Answer:** **(a) Hash table** — only exact-match membership is queried, so average $O(1)$ wins. **(b) BST (or trie)** — prefix queries need **ordered traversal** which a hash table cannot do efficiently. **(c) BST** — in-order iteration must yield score order, exactly the operation hash tables sacrifice. **(d) BST (RBT)** — real-time systems demand **worst-case $O(\log n)$**, but hash tables degrade to $O(n)$ on bad inputs.
+
 9. **Adversarial inputs:** A web framework hashes user-supplied strings into a fixed table. Explain how an attacker could degrade performance to $O(n)$ per request, and how randomized (seeded) hashing mitigates the attack.
+
+   > **Answer:** If the hash function is **deterministic and public** (e.g., a fixed seed), an attacker can pre-compute many strings that hash to the **same slot** and submit them as POST parameters. All keys land in one chain, turning each insertion into $O(n)$ list traversal — known as **hash-flooding DoS** (PHP, Java, Python were all vulnerable c. 2011). **Randomized hashing** chooses a **secret seed at process startup**, so the attacker cannot precompute colliders for a specific server; SipHash with a random key is the modern standard adopted by Python, Ruby, and Rust.
+
 10. **Open addressing deletion:** Why is naïvely "clearing" a slot dangerous in open addressing, and how is the **tombstone** (deletion marker) trick used to preserve probe-chain correctness?
+
+    > **Answer:** Open addressing's search rule **stops at the first empty slot**, assuming "if the key existed it would have been placed earlier in the probe sequence." If you clear a slot in the middle of a probe chain, any key inserted *after* it via probing becomes **unreachable** — search terminates at the gap before finding it. The **tombstone** trick marks the slot as "deleted but previously occupied": search treats it as **occupied** (keep probing), while insert treats it as **empty** (may reuse). Tombstones accumulate over time, so periodic rehashing is needed to flush them.

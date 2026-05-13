@@ -1,6 +1,8 @@
 # Week 1 Lecture — Introduction to Algorithms
 
-> **Last Modified:** 2026-03-31
+> **Last Updated:** 2026-05-13
+>
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 1 (The Role of Algorithms in Computing), Ch 2 (Getting Started)
 
 > **Prerequisites**: No formal prerequisites — this is the first week. Basic programming experience (any language) is helpful. Familiarity with simple math (arithmetic, basic algebra).
 >
@@ -653,11 +655,31 @@ This is the power of **binary encoding** — a fundamentally different way of th
 Test your understanding with these questions. Try answering before checking the notes.
 
 1. **What are the three essential properties of an algorithm?** How does an algorithm differ from a general "procedure"?
+
+   > **Answer:** Every algorithm must be **finite** (it terminates after a bounded number of steps), **correct** (for every valid input it produces the right output), and **unambiguous** (each step prescribes exactly one well-defined action). A general "procedure" may be vague — e.g., "handle appropriately according to the situation" — or may never terminate. An algorithm rules this out: each step must be mechanically executable, and the whole process must finish.
+
 2. **Binary Search:** If you have a sorted array of 1,000,000 elements, at most how many comparisons does binary search need? Why?
+
+   > **Answer:** At most **⌈log₂(1,000,000)⌉ = 20** comparisons. Each comparison halves the remaining search range, so after `k` comparisons the range has size `n / 2^k`; we stop when this reaches 1, giving `k = log₂(n)`. Since `2^19 = 524,288 < 1,000,000 ≤ 2^20 = 1,048,576`, 20 comparisons suffice — versus up to 1,000,000 for sequential search.
+
 3. **Coin Change:** Why does the greedy approach work for Korean won denominations (500, 100, 50, 10, 1) but fail if a 160-won coin is added?
+
+   > **Answer:** Greedy works on **(500, 100, 50, 10, 1)** because the denominations satisfy the **greedy choice property** — each coin is a multiple of (or "covers") the smaller ones, so picking the largest never blocks an optimal completion. Adding **160** breaks this: to make 320 won, greedy picks `160 + 100 + 50 + 10` (4 coins) instead of the optimal `160 + 160` (2 coins). Greedy is only optimal when the coin system has the **canonical / matroid-like** structure formalized in Chapter 4.
+
 4. **Euler Circuit:** What condition must a graph satisfy for an Euler circuit to exist? Why should you avoid crossing bridges early?
+
+   > **Answer:** A connected graph has an **Euler circuit** iff **every vertex has even degree** — each visit to a vertex must use one edge in and one edge out, so degrees must pair up. (An Euler **path**, which need not return, requires exactly 0 or 2 odd-degree vertices.) A **bridge** is an edge whose removal disconnects the graph; crossing it prematurely strands you on one side with edges on the other side you can no longer reach. Always prefer an edge that lies on a **cycle** back to the current vertex — verifiable via **DFS**.
+
 5. **Poisoned Wine:** With 1,000 barrels and the binary encoding strategy, what is the minimum number of servants needed? Show how barrel #37 would be encoded.
+
+   > **Answer:** **⌈log₂(1000)⌉ = 10** servants suffice — 10 bits encode 2^10 = 1024 ≥ 1000 distinct death patterns. Barrel **#37** in binary is `0000100101` (32 + 4 + 1 = 37), so it is tasted by servants at bit positions **0, 2, and 5**. After one week, exactly those three servants die — their death pattern reads back as `37`. Each servant contributes one bit of information (alive / dead), and `log₂(n)` bits are information-theoretically necessary.
+
 6. **Counterfeit Coin:** Compare Approach B (pairwise comparison) and Approach C (divide in half). How many weighings does each need for 16 coins?
+
+   > **Answer:** **Approach B** weighs coins in pairs and uses `n/2` weighings to locate the bad pair, plus 1 final weighing against a known-good coin → `16/2 + 1 = 9` weighings worst case. **Approach C** splits the pile in half and keeps only the lighter side, halving the candidate set each time: `log₂(16) = 4` weighings. B is linear in `n`, C is logarithmic — the same gap as sequential search vs binary search. C is the **divide-and-conquer** strategy formalized in Chapter 3.
+
 7. **Log₂(n) Theme:** Three problems in this lecture involve log₂(n). Name them and explain why "halving" leads to logarithmic performance.
+
+   > **Answer:** **(1) Binary Search** — halves the sorted range per comparison. **(2) Counterfeit Coin (Approach C)** — halves the candidate pile per weighing. **(3) Poisoned Wine** — `log₂(n)` servants encode `n` barrels in binary. In each case, one step **multiplies progress by a factor of 2**, so the number of steps to reduce `n` items to 1 is `log₂(n)` — the inverse of repeated doubling. This is the recurrence `T(n) = T(n/2) + O(1)`, which solves to `T(n) = O(log n)` — a pattern that recurs throughout the course.
 
 ---

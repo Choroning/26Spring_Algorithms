@@ -1,6 +1,6 @@
 # Week 6 Lab — Dynamic Programming
 
-> **Last Modified:** 2026-04-09
+> **Last Updated:** 2026-05-13
 
 > **Prerequisites**: Week 6 Lecture — dynamic programming, optimal substructure, overlapping subproblems. Python 3 installed. Understanding of recursion and basic algorithm analysis.
 >
@@ -477,8 +477,25 @@ This is the same principle behind **GitHub's diff feature**.
 ## Self-Check Questions
 
 1. Why does naive recursion for Fibonacci have O(2^n) time complexity? Draw the recursion tree for F(5) and count how many times F(2) is computed.
+
+   > **Answer:** Each call branches into two recursive calls of nearly the same depth — the recursion tree is **binary and balanced** with depth $n$, giving roughly $2^n$ leaves. The same subproblem is recomputed across many branches: in `F(5)` the call tree has `F(5) → F(4), F(3)`; `F(4) → F(3), F(2)`; both copies of `F(3) → F(2), F(1)`. Counting all leaves under those branches, **F(2) is computed 3 times** (and F(1) 5 times, F(0) 3 times). The redundancy grows exponentially with $n$ — that's the $O(2^n)$.
+
 2. In the LCS problem, what is the role of the backtracking step? Why can't we determine the actual subsequence from just the final value dp[m][n]?
+
+   > **Answer:** The DP table stores only the **length** of the LCS at each cell, not which characters were chosen. Many different subsequences can produce the same length, so `dp[m][n] = 4` tells us the LCS is 4 characters but not *which* 4. **Backtracking** walks the table from `dp[m][n]` back to `dp[0][0]`, replaying the decision at each cell: on a match (`X[i] == Y[j]`) emit the character and move diagonally; otherwise step in the direction of the larger neighbor. Each step is $O(1)$, so reconstruction adds only $O(m+n)$ to the algorithm.
+
 3. For the 0-1 Knapsack example, why is the Book (value 40, weight 5) not selected even though it has the best value/weight ratio (8.0/kg)?
+
+   > **Answer:** **0-1 Knapsack is not solved by greedy ratio selection** because items are indivisible. With capacity 50 and Camera (100, 20) + Painting (120, 30) already filling the bag exactly to 50 with value **220**, there is no remaining room for the Book even though its ratio is highest. Swapping Book in would force dropping a larger-value item; the swap loses more value than the Book contributes. DP enumerates all subset combinations implicitly, so it recognizes that the **combined value of two items** beats any greedy ratio-first choice.
+
 4. How does the text diff viewer use LCS? Explain why this approach is O(m × n) and what happens when texts are very long.
+
+   > **Answer:** The two texts are tokenized (by word or line), and **LCS over the token sequences** identifies the longest aligned common run. Tokens inside the LCS are unchanged, tokens only in A are **deletions**, tokens only in B are **insertions**. Building the LCS table is $O(m \times n)$ because every cell is filled in $O(1)$ time. For very long texts this becomes problematic — a 10,000-line vs 10,000-line diff requires $10^8$ cells and as much memory. Production tools (like `git diff`) use **Myers' diff algorithm** ($O((m+n)D)$ where $D$ is edit distance) and Hunt-McIlroy-style optimizations to do much better in practice.
+
 5. Compare memoization and tabulation: when would you prefer one over the other? Consider stack depth, ease of implementation, and cache efficiency.
+
+   > **Answer:** **Memoization** is easier to write — you add a cache check to the natural recursive definition — and only solves subproblems actually reached, which helps when state space is sparse. Its downsides are **recursion overhead** and **stack depth** limits (Python defaults to ~1000 frames; deep DP recurrences blow up without `sys.setrecursionlimit`). **Tabulation** iterates in dependency order, avoiding recursion entirely; it has lower constant factors, better **cache locality** (sequential memory access), and can be space-optimized to $O(1)$ rows. Prefer memoization for sparsely-needed states or complex recurrences; prefer tabulation for performance and when most states are needed.
+
 6. In the DP recipe, why does fill order matter? What would happen if you tried to fill the LCS table from bottom-right to top-left?
+
+   > **Answer:** Fill order must respect the **dependency direction** of the recurrence — every cell needs its inputs already computed. The LCS recurrence reads `dp[i-1][j-1]`, `dp[i-1][j]`, and `dp[i][j-1]`, so filling left-to-right and top-to-bottom guarantees those are ready. Reversing to **bottom-right → top-left** reads cells that have not yet been computed — they still hold initialization values (0), producing garbage. To go in reverse, you would need to redefine `dp[i][j]` as "LCS of *suffixes* `X[i..m]` and `Y[j..n]`" with the dependencies flipped accordingly.

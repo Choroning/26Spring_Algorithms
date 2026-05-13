@@ -1,6 +1,6 @@
 # Week 7 — Midterm Review (Detailed Edition)
 
-> **Last Updated:** 2026-04-14
+> **Last Updated:** 2026-05-13
 >
 > **Exam:** Week 8 Midterm | Handwritten, 1 hour | No digital devices | Covers W01–W06 | CLRS Ch. 1–4, 6–10, 15, 16
 >

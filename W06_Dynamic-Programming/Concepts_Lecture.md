@@ -1,7 +1,9 @@
 # Week 6 Lecture — Dynamic Programming
 
-> **Last Modified:** 2026-04-08
+> **Last Updated:** 2026-05-13
 >
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 14 (Dynamic Programming), Ch 23 (All-Pairs Shortest Paths — Floyd-Warshall)
+
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 4: Divide and conquer paradigm (for comparison with DP). Week 5: Greedy algorithms (for comparison with DP). Recursion and recursive thinking. Basic matrix operations.
 >
 > **Learning Objectives**:
@@ -543,10 +545,33 @@ Transform "**kitten**" to "**sitting**" (m=6, n=7):
 ## Self-Check Questions
 
 1. **Optimal Substructure:** In your own words, explain what "optimal substructure" means. Give an example of a problem that has it and one that does not.
+
+   > **Answer:** A problem has **optimal substructure** when its optimal solution can be assembled from optimal solutions to its subproblems. **Shortest path** has it — any prefix of a shortest $s \to t$ path is itself a shortest path between its endpoints, which is why both Floyd-Warshall and Dijkstra work. **Longest simple path** does **not** — a longest simple $s \to t$ path may revisit vertices used by a longest simple $s \to u$ subpath, so combining locally optimal subpaths does not yield a globally optimal simple path.
+
 2. **Memoization vs Tabulation:** What are the trade-offs between top-down (memoization) and bottom-up (tabulation) DP? When might you prefer one over the other?
+
+   > **Answer:** **Memoization** keeps the natural recursive form and only solves subproblems that are actually reached — useful when the reachable subset is sparse (e.g., many states unreachable from the root call). Its downsides are **recursion overhead** and **stack depth** limits, which can blow up for deep recurrences. **Tabulation** iterates over all states in dependency order, avoiding recursion and giving better **cache locality** and constant factors, but may waste work on states the answer never needs. Prefer memoization when the state space is large but sparsely visited; prefer tabulation when most states are needed or when stack depth is a concern.
+
 3. **Fibonacci:** Draw the call tree for `fib(6)` using naive recursion. How many times is `fib(3)` computed? Then show how memoization eliminates the redundancy.
+
+   > **Answer:** The tree for `fib(6)` expands as `fib(6) -> fib(5) + fib(4)`, then `fib(5) -> fib(4) + fib(3)`, and so on down to the base cases. `fib(3)` is computed **3 times** — once under each `fib(4)` (there are two) and once directly under `fib(5)`. **Memoization** stores `f[n]` the first time it is computed, so every subsequent call returns in $O(1)$. The number of *distinct* subproblems is just $n$, collapsing the call tree from $O(2^n)$ exponential work to $O(n)$ linear work.
+
 4. **LCS:** Compute the LCS table for X = `ABCB` and Y = `BDCB`. What is the LCS length? Trace back to find the actual LCS.
+
+   > **Answer:** Filling $c[i,j]$ using $c[i-1,j-1]+1$ on match and $\max(c[i-1,j],c[i,j-1])$ otherwise yields the final row/column with $c[4,4] = 3$. **LCS length = 3.** Traceback from $c[4,4]$: $X_4 = B = Y_4$ → take `B`, move diagonal; $X_3 = C = Y_3$ → take `C`, move diagonal; $X_2 = B = Y_1$ after a horizontal step → take `B`. Reversing gives **LCS = `BCB`**.
+
 5. **0-1 Knapsack:** Given items (weight, value): (2, 12), (1, 10), (3, 20), (2, 15) and capacity 5, fill the DP table. What is the optimal value and which items are selected?
+
+   > **Answer:** Applying $K[i,w] = \max(K[i-1,w],\ K[i-1, w-w_i]+v_i)$ row by row gives $K[1,5]=12$, $K[2,5]=22$, $K[3,5]=32$, and **$K[4,5] = 37$**. Traceback: $K[4,5] \neq K[3,5]$ → take item 4 (w=2, v=15), capacity drops to 3; $K[3,3] = K[2,3] = 22$ → skip item 3; $K[2,3] \neq K[1,3]$ → take item 2 (w=1, v=10), capacity 2; $K[1,2] \neq K[0,2]$ → take item 1 (w=2, v=12). **Selected items: {1, 2, 4}** with total weight $2+1+2 = 5$ and total value $12+10+15 = $ **37**.
+
 6. **Coin Change:** With denominations {25, 10, 6, 1}, find the minimum coins for amount 30 using DP. Show why the greedy approach (largest coin first) gives a suboptimal answer.
+
+   > **Answer:** **Greedy** picks 25 first, leaving 5 → then 1+1+1+1+1, totaling **6 coins**. **DP** computes $C[j] = \min_{d_i \leq j}(C[j-d_i] + 1)$ and at $j=30$ tries each denomination: $C[30-10]+1 = C[20]+1 = 3$, since $C[20] = 2$ via two 10-coins. So $C[30] = $ **3 coins** (10+10+10). Greedy fails because committing to 25 strands the remainder on a denomination set with no efficient way to make 5; DP considers **all** coin choices at each amount, so it finds the better global combination that avoids 25 entirely.
+
 7. **Floyd-Warshall:** Given a 4-vertex graph, trace through the algorithm for one iteration (k=2). Which cells change and why?
+
+   > **Answer:** Iteration $k=2$ updates $D[i,j] \gets \min(D[i,j],\ D[i,2] + D[2,j])$ for every pair $(i,j)$. Using the textbook example, $D^{(1)}[3,4] = 1$ stays, but $D^{(1)}[1,3] = \infty$ becomes $\min(\infty, D[1,2]+D[2,3]) = \min(\infty, 3+2) = 5$, and $D[1,4] = 7$ becomes $\min(7, 3 + D[2,4])$ — unchanged since $D[2,4] = \infty$ at this step. **Cells that change are exactly those whose shortest path can now route through vertex 2**; cells whose current best already bypasses or beats that route stay the same.
+
 8. **Edit Distance:** Compute the edit distance between "sunday" and "saturday". Show the DP table and identify the three operations needed.
+
+   > **Answer:** With $X$ = `sunday` (m=6), $Y$ = `saturday` (n=8), the recurrence gives **$E[6,8] = 3$**. Aligning the strings: `s` matches, then `a` and `t` must be **inserted** before `u` (2 inserts), then `u-n-d-a-y` aligns with `u-r-d-a-y` requiring one **replace** of `n → r`. So the three operations are **insert `a`**, **insert `t`**, and **replace `n` with `r`** — exactly the minimum 3 single-character edits.

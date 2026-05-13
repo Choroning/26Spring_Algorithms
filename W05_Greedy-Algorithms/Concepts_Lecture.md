@@ -1,7 +1,9 @@
 # Week 5 Lecture — Greedy Algorithms
 
-> **Last Modified:** 2026-03-31
+> **Last Updated:** 2026-05-13
 >
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 15 (Greedy Algorithms), Ch 16.3 (Huffman Codes), Ch 21 (Minimum Spanning Trees), Ch 22 (Single-Source Shortest Paths — Dijkstra)
+
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 3: Sorting algorithms (used as subroutines in greedy algorithms). Week 4: Divide and conquer paradigm (for comparison with greedy). Basic graph theory: vertices, edges, weighted graphs, trees, cycles (for MST and Dijkstra sections).
 >
 > **Learning Objectives**:
@@ -722,10 +724,33 @@ Dijkstra(G, s):
 ## Self-Check Questions
 
 1. **Greedy-Choice Property:** In your own words, what does the greedy-choice property mean? Give an example of a problem where it holds and one where it doesn't.
+
+   > **Answer:** The **greedy-choice property** says that a globally optimal solution can be assembled by making the **locally optimal choice** at each step — we never need to look ahead or reconsider. Formally, at least one optimal solution must contain the greedy choice, so committing to it cannot cost us the optimum. **Holds**: Fractional Knapsack — taking as much as possible of the highest value-per-weight item is always part of some optimum. **Fails**: the binary-tree max-path-sum example — picking the larger child (36 over 15) locks out the truly optimal path through the smaller child.
+
 2. **Coin Change:** Prove (informally) that the greedy algorithm is optimal for denominations {1, 5, 10, 25}. Then show that adding a 12-cent coin breaks the greedy approach for making 15 cents.
+
+   > **Answer:** For {1, 5, 10, 25}, each denomination is a multiple (or near-multiple) of smaller ones, so using a larger coin can never be replaced by an equal-or-fewer count of smaller coins — e.g., one 25 replaces at least three 10-or-5s. Formally, any optimal solution using fewer of the largest coin than greedy does can be rewritten without increasing the total count. **With a 12-cent coin** making 15: greedy picks **12 + 1 + 1 + 1 = 4 coins**, but the optimum is **10 + 5 = 2 coins**. The 12-coin destroys the divisor structure, so the greedy-choice property fails.
+
 3. **Fractional vs 0-1 Knapsack:** Given items (weight, value): A(10, 60), B(20, 100), C(30, 120) and capacity 50: solve both the fractional and 0-1 versions. Why do the answers differ?
+
+   > **Answer:** Ratios are 6, 5, 4 $/lb. **Fractional**: take A (10 lb, $60), B (20 lb, $100), then 2/3 of C (20 lb, $80) → **$240**. **0-1**: greedy gets A + B = **$160** wasting 20 lb of capacity; the true 0-1 optimum is B + C = **$220**. The answers differ because in **0-1** you cannot fill the leftover capacity with a fraction of a low-ratio item, so a high-ratio item can actually be a *trap* that strands capacity — exactly where the greedy-choice property breaks.
+
 4. **Activity Selection:** Given activities with (start, finish): (1,3), (2,5), (4,7), (1,8), (5,9), (8,10), apply the earliest-finish-time algorithm. How many activities are selected?
+
+   > **Answer:** Sorted by finish time: (1,3), (2,5), (4,7), (1,8), (5,9), (8,10). Pick (1,3) → `last_finish = 3`. Skip (2,5) since 2 < 3. Pick (4,7) since 4 ≥ 3 → `last_finish = 7`. Skip (1,8), (5,9) since 1, 5 < 7. Pick (8,10) since 8 ≥ 7 → `last_finish = 10`. **Selected: {(1,3), (4,7), (8,10)} — 3 activities.** Choosing the earliest-finishing compatible activity at each step maximizes the remaining time available for subsequent picks.
+
 5. **Huffman Coding:** Build a Huffman tree for characters with frequencies: E=40, A=30, B=15, C=10, D=5. What code is assigned to each character? What is the average bits per character?
+
+   > **Answer:** Merge order: D(5)+C(10)=15; then B(15)+15=30; then A(30)+30=60; then E(40)+60=100. Reading left=0, right=1 from the root: **E = `0`, A = `10`, B = `110`, C = `1111`, D = `1110`** (1, 2, 3, 4, 4 bits respectively). Total bits = 40·1 + 30·2 + 15·3 + 10·4 + 5·4 = 40+60+45+40+20 = **205 bits over 100 characters → 2.05 bits/char average**, far below the 8-bit ASCII baseline.
+
 6. **Kruskal vs Prim:** For a graph with 6 vertices and 9 edges, trace both algorithms. Do they produce the same MST? Under what condition might they produce different MSTs?
+
+   > **Answer:** Both are correct greedy MST algorithms and produce a tree of **identical total weight**. When **all edge weights are distinct**, the MST is **unique**, so Kruskal and Prim produce the *exact same* edge set even though the construction order differs (Kruskal merges a forest globally; Prim grows one tree from a start vertex). With **tied edge weights**, multiple MSTs may exist — both algorithms still find a minimum-weight one, but tie-breaking (and Prim's start vertex) can select different edges.
+
 7. **Dijkstra's:** Given a graph with a negative edge, construct a specific example where Dijkstra produces a wrong answer. Then explain the greedy invariant that is violated.
+
+   > **Answer:** Vertices A, B, C with edges A→B = 2, A→C = 4, B→C = -3. Source A. Dijkstra finalizes A (D=0), then picks the minimum unfinalized D — `D[B] = 2 < D[C] = 4` — and **finalizes B**. Next it finalizes C with D[C] = 4 (since 4 < 2 + (-3) = -1, but the check happens *before* finalization in the wrong order: actually D[C] gets updated to -1, but B is already done). The bug surfaces when a negative edge from a *later-finalized* vertex would improve an *earlier-finalized* one. **Invariant violated**: "when vmin is selected, no future path can be shorter" — with non-negative weights, adding edges can only increase distance; a negative edge breaks this monotonicity.
+
 8. **Greedy vs DP Decision:** For each problem, decide greedy or DP and explain: (a) minimum coins for arbitrary denominations, (b) shortest path with non-negative weights, (c) longest common subsequence, (d) fractional knapsack.
+
+   > **Answer:** **(a) DP** — arbitrary denominations break the divisor structure (e.g., {1, 3, 4} for amount 6), so greedy can pick a locally best coin that strands the remainder; `dp[i] = min(dp[i-c] + 1)`. **(b) Greedy** — Dijkstra's algorithm, justified because non-negative weights preserve the "finalized distance is optimal" invariant. **(c) DP** — LCS has overlapping subproblems and no clear local choice (any character match might or might not belong to the LCS); standard `dp[i][j]` table is O(mn). **(d) Greedy** — sort by value-per-weight; the greedy-choice property holds because fractions let us use every unit of capacity at the best available rate.

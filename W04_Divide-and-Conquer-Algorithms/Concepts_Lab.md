@@ -1,6 +1,6 @@
 # Week 4 Lab — Advanced Divide and Conquer
 
-> **Last Modified:** 2026-03-26
+> **Last Updated:** 2026-05-13
 
 > **Prerequisites**: Week 4 Lecture — divide and conquer, merge sort, quick sort, selection, closest pair. Python 3 installed. Understanding of recursion and the partition procedure.
 >
@@ -484,6 +484,17 @@ Type characters in the search box and observe the response times:
 ## Self-Check Questions
 
 1. In your merge sort trace, how many times is the merge function called for an array of 8 elements? How does this relate to the recursion tree?
+
+   > **Answer:** For 8 elements, merge is called **7 times** — once at each internal node of the recursion tree. A merge sort of $n$ elements produces a balanced binary tree with $n$ leaves (size-1 base cases) and $n-1$ internal nodes; each internal node corresponds to one `MERGE` invocation that combines two sorted halves. More generally, $n$ leaves → $n-1$ merges, which is why the total merge work is $\Theta(n)$ per level × $\log_2 n$ levels = $\Theta(n \log n)$.
+
 2. If randomized select picks a bad pivot every time, what is the worst-case time complexity? How likely is this with random pivots?
+
+   > **Answer:** If every pivot is the smallest or largest, the partition produces sizes $0$ and $n-1$, giving $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. With **uniform random** pivot selection, the probability of choosing an extreme value at each level is $2/n$, and the probability that this happens for **every** recursive call is roughly $(2/n)(2/(n-1)) \cdots \approx 2^n / n!$ — astronomically small. The expected time is $\Theta(n)$; the $\Theta(n^2)$ worst case is essentially impossible in practice with random pivots.
+
 3. In the closest pair benchmark, at what input size did the D&C approach first outperform the brute-force approach? Why not at smaller sizes?
+
+   > **Answer:** Per the benchmark table, D&C is already faster at **N = 100** (1.5× speedup) and the gap widens dramatically — 30× at N = 1,000 and 125× at N = 5,000. At very small $n$, the **constant factors** of D&C (recursion overhead, sorting the strip by y, list slicing) dominate the savings from the asymptotic improvement. Brute force's tight $O(n^2)$ loop is faster than $O(n \log^2 n)$ with bookkeeping when $n$ is in single digits — which is precisely why the base case `n <= 3` falls back to brute force.
+
 4. What would happen to the closest pair algorithm's complexity if the strip check compared all pairs instead of limiting to 7 neighbors?
+
+   > **Answer:** The strip can contain up to all $n$ points in the worst case — e.g., all points clustered near the dividing line — so comparing all pairs in the strip costs $\Theta(n^2)$ at the top level. The recurrence becomes $T(n) = 2T(n/2) + \Theta(n^2)$, which by **Case 3** of the Master Theorem yields $T(n) = \Theta(n^2)$ — no better than brute force. The 7-neighbor bound (from the geometric packing argument) is exactly what reduces the strip step to $O(n)$ and preserves the $O(n \log^2 n)$ overall bound.
