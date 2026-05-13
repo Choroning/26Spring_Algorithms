@@ -1,6 +1,8 @@
 # Week 2 Lecture — Algorithm Design and Complexity Analysis
 
-> **Last Updated:** 2026-03-31
+> **Last Updated:** 2026-05-13
+>
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 2 (Getting Started), Ch 3 (Characterizing Running Times), Ch 4 (Divide-and-Conquer, Master Theorem)
 
 > **Prerequisites**: Week 1: Introduction to Algorithms (understanding of what an algorithm is). Basic algebra (manipulating inequalities, logarithms). [Helpful] Discrete Mathematics: mathematical induction, summation notation.
 >
@@ -853,12 +855,35 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 ## Self-Check Questions
 
 1. **Euclidean GCD:** Trace GCD(48, 18) step by step. How many iterations does it take?
+
+   > **Answer:** Apply `GCD(A, B) = GCD(B, A mod B)` repeatedly: `GCD(48, 18) → GCD(18, 12) → GCD(12, 6) → GCD(6, 0) = 6`. The recursion stops when `b == 0`, returning the other argument as the GCD. It takes **3 iterations** (or 4 calls if you count the terminating call). The algorithm is fast because `b` shrinks quickly — by a result of Lamé, the number of steps is `O(log min(a, b))`.
+
 2. **Operation Counting:** Given the code `for i in range(n): for j in range(i, n): count += 1`, how many times does `count += 1` execute? Express as a function of n.
+
+   > **Answer:** This is the **triangular double loop** pattern. The inner loop runs `n - i` times for each `i` from `0` to `n-1`, so the total is `n + (n-1) + (n-2) + ... + 1 = n(n+1)/2`. Asymptotically this is **Θ(n²)** — keeping only the highest-order term and dropping the constant factor `1/2`. The triangular structure does not save an order of growth, only a constant factor.
+
 3. **Big-O Proof:** Prove that 5n³ + 2n² + 7 = O(n³) by finding appropriate c and n₀.
+
+   > **Answer:** We need `c > 0` and `n₀ ≥ 0` such that `5n³ + 2n² + 7 ≤ c · n³` for all `n ≥ n₀`. Using the **sum-of-absolute-coefficients trick**, choose `c = 5 + 2 + 7 = 14` and `n₀ = 1`. For `n ≥ 1`: `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³`. Therefore `5n³ + 2n² + 7 = O(n³)` with `c = 14`, `n₀ = 1`. (Tighter values like `c = 6`, `n₀ = 3` also work.)
+
 4. **Big-Omega vs Big-O:** Is it true that n² = O(n³)? Is it true that n² = Ω(n³)? Explain why or why not.
+
+   > **Answer:** **`n² = O(n³)` is true** — `n²` does not grow faster than `n³`, since `n² ≤ 1 · n³` for all `n ≥ 1` (`c = 1`, `n₀ = 1`). **`n² = Ω(n³)` is false** — Big-Omega requires `n² ≥ c · n³` for some `c > 0` and large `n`, but `n²/n³ = 1/n → 0`, so no such constant exists. The lesson: Big-O gives an **upper bound** that can be loose, while Big-Omega demands a genuine lower bound.
+
 5. **Theta:** If f(n) = Θ(g(n)), what does this tell you about the relationship between f and g? Can f(n) = Θ(n²) and f(n) = O(n³) both be true simultaneously?
+
+   > **Answer:** `f(n) = Θ(g(n))` means `f` and `g` grow at **exactly the same rate** up to constant factors — formally, `f = O(g)` *and* `f = Ω(g)`. **Yes**, `f(n) = Θ(n²)` and `f(n) = O(n³)` can both be true: a Θ-bound implies the matching O-bound, and any function that is `Θ(n²)` is also (loosely) `O(n³)`. Θ is the tightest statement; the corresponding O statement is always weaker but not contradictory.
+
 6. **Master Theorem:** Apply the Master Theorem to T(n) = 4T(n/2) + n. Identify a, b, f(n), compute n^(log_b a), determine the case, and state T(n).
+
+   > **Answer:** Here `a = 4`, `b = 2`, `f(n) = n`, so `n^(log_b a) = n^(log₂ 4) = n²`. Compare `f(n) = n` with `n²`: `n` is polynomially smaller than `n²` (use `ε = 1`, since `n = O(n^(2-1))`). This is **Case 1**, so `T(n) = Θ(n^(log_b a)) = Θ(n²)`. Intuitively, the leaves of the recursion tree dominate — there are `n²` of them and each does constant work.
+
 7. **Guess and Verify:** For T(n) = T(n/2) + 1, guess that T(n) = O(log n) and verify using induction. Don't forget the base case!
+
+   > **Answer:** **Guess:** `T(n) ≤ c · log n` for some `c > 0`. **Base case** (`n = 2`): `T(2) = T(1) + 1`. Assuming `T(1) = 1`, `T(2) = 2`, and we need `2 ≤ c · log₂ 2 = c`, so `c ≥ 2`. **Inductive step:** Assume `T(n/2) ≤ c · log(n/2)`. Then `T(n) = T(n/2) + 1 ≤ c · log(n/2) + 1 = c · log n - c · log 2 + 1 ≤ c · log n` whenever `c · log 2 ≥ 1`, i.e., `c ≥ 1/log 2 ≈ 1.44`. Taking `c = 2` satisfies both, so `T(n) = O(log n)`.
+
 8. **Why does it matter?** A PC running an O(n log n) algorithm vs a supercomputer running an O(n²) algorithm — at what input size does the PC win?
+
+   > **Answer:** Assume the PC does `10⁸` ops/sec and the supercomputer does `10¹²` ops/sec — a **10,000×** hardware gap. The PC wins when `n log n / 10⁸ < n² / 10¹²`, i.e., when `log n / n < 10⁻⁴`, roughly `n > 200,000`. Beyond a few hundred thousand inputs, the PC's better **algorithmic order** beats the supercomputer's raw speed. This illustrates the central message: **a better algorithm dominates a faster machine** — hardware gives a constant-factor improvement, while algorithmic order changes the growth class itself.
 
 ---

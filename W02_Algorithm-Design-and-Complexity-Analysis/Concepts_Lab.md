@@ -1,6 +1,6 @@
 # Week 2 Lab — Complexity Analysis Practice
 
-> **Last Updated:** 2026-03-21
+> **Last Updated:** 2026-05-13
 
 > **Prerequisites**: Week 2 Lecture: Time complexity and Big-O notation. Python 3 installed. [Optional] `pip install flask` for the web API section.
 >
@@ -372,8 +372,19 @@ Test with increasing data sizes:
 ## Self-Check Questions
 
 1. Why does the hash-set approach for finding duplicates run in O(n) while the brute-force approach runs in O(n²)?
+
+   > **Answer:** Brute force compares **every pair** `(i, j)` with `j > i`, performing `n(n-1)/2 = Θ(n²)` comparisons. The hash-set approach makes a **single pass** over the array (`n` iterations), and on each iteration performs an **O(1)-average** `in` check and `add` against a hash table. Total work: `n × O(1) = O(n)`. The asymptotic speedup comes from replacing an O(n) array lookup with an O(1) hash lookup — that is the fundamental role of `set` in this problem.
+
 2. In your benchmark results, at what input size did the O(n²) approach become noticeably slower? How does this relate to the theoretical analysis?
+
+   > **Answer:** The gap becomes clearly visible around **N = 10,000**, where the brute-force version takes ~1.5 seconds while the hash-set version finishes in under a millisecond — a roughly **3,000×** speedup. This matches the theoretical prediction that `Speedup ≈ O(n²)/O(n) = n`, so the ratio grows **linearly** with N. At N = 1,000 the speedup is ~300×; at N = 50,000 it reaches ~15,000×. Trend agrees with theory; the exact multiplier differs due to constant factors (C-implemented `set`, CPU cache effects).
+
 3. Why is it important to use `data[:]` (a copy) when benchmarking in-place algorithms?
+
+   > **Answer:** Many algorithms — sorting in particular — **mutate** their input. On the second run the array is already sorted, so the function does much less work and the measurement is **distorted** (often dramatically faster than a true cold run). Passing `data[:]` makes a **fresh copy** each iteration, so every run starts from the same unsorted state. This isolates the algorithm's cost from accidental state reuse, giving a fair average across the `repeat` runs.
+
 4. In the Web API exercise, what was the response time difference between linear search and binary search at N=100,000? Why?
+
+   > **Answer:** Roughly **linear ~100 ms vs binary ~0.025 ms**, a difference of about **4,000×**. Linear search is `O(n)`, scanning all 100,000 products, while binary search is `O(log n)`, taking only `log₂(100,000) ≈ 17` comparisons on the sorted list. The practical implication: at this scale, linear search already approaches the boundary of acceptable web latency, while binary search remains instant. This is precisely why databases build **indexes** — to enable logarithmic-time lookups on large tables.
 
 ---

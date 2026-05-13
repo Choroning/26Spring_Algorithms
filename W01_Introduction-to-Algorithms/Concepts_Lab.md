@@ -1,6 +1,6 @@
 # Week 1 Lab — Coding Agents
 
-> **Last Updated:** 2026-03-21
+> **Last Updated:** 2026-05-13
 >
 > **Prerequisites**: A computer with a terminal (macOS Terminal, Windows PowerShell, or Linux shell). Basic command-line usage (navigating directories, running commands). A GitHub account.
 >
@@ -370,6 +370,17 @@ A perfect benchmark is not the goal — the **process** is what matters.
 ## Self-Check Questions
 
 1. What is the difference between a coding agent and a simple code autocomplete tool?
+
+   > **Answer:** A code autocomplete tool (e.g., classic IntelliSense) suggests the **next token or line** based on local context — the developer still drives every action. A **coding agent** operates at a higher level: it can **read the file system**, **plan multi-step tasks**, **execute shell commands**, and **edit multiple files autonomously** in a Read → Plan → Act → Verify loop. Where autocomplete answers "what comes next?", an agent answers "achieve this goal" — closing the loop between writing, running, and verifying code without copy-paste.
+
 2. In the Ralph Technique, why is specificity in the follow-up prompt important? What happens if you just say "make it better"?
+
+   > **Answer:** The Ralph loop relies on the agent **comparing the current state against explicit criteria** at each iteration. A vague prompt like "make it better" gives the agent no rubric, so it drifts — rewriting things that were already fine, oscillating between styles, or stopping at a subjectively "good enough" state. Specific prompts ("score against this 8-item rubric and fix every failing criterion") turn the loop into **harness engineering**: the agent can verify its own output and converge to a measurable target — the same principle that lets the Ralphton hackathon agents run 133 loops overnight.
+
 3. After running the sorting benchmark, which algorithm was fastest for large inputs? Why?
+
+   > **Answer:** **Python's built-in `sorted()`** wins for large inputs. It uses **Timsort** — a hybrid of merge sort and insertion sort — which runs in `O(n log n)` and is implemented in optimized C, exploiting already-sorted runs in real-world data. **Merge sort** is also `O(n log n)` but runs in pure Python with extra allocation overhead, so it is slower in practice. **Bubble sort** is `O(n²)` and quickly becomes untenable — at `n = 100,000` it is roughly `n / log₂(n) ≈ 6,000×` slower than the `O(n log n)` algorithms.
+
 4. What does the `--dangerously-skip-permissions` flag do in Claude Code, and why should you be cautious with it?
+
+   > **Answer:** The flag bypasses Claude Code's **per-action confirmation prompts** — file edits, shell commands, network calls — so the agent acts autonomously without asking. This is convenient inside the Ralph loop or sandboxed CI, where confirmation prompts would block the loop. But it removes the **human checkpoint** that catches destructive actions like `rm -rf`, force-pushes, or leaking secrets. Use it only inside an isolated environment (container, ephemeral VM, or a sandbox with no production credentials) — never on a system where a mistake cannot be reverted.

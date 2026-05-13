@@ -1,7 +1,9 @@
 # Week 11 Lecture — Graph Algorithms I
 
-> **Last Modified:** 2026-05-13
+> **Last Updated:** 2026-05-13
 >
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 20 (Elementary Graph Algorithms), Ch 21 (Minimum Spanning Trees)
+
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (operation costs are reported in $O(V+E)$, $O(E \log V)$, etc.). Week 3: Arrays, stacks, queues (BFS uses a queue, DFS uses a stack or recursion). Week 5: Greedy algorithms (Prim's and Kruskal's are both greedy MSTs — revisited here in depth). Week 9: Trees (a spanning tree is a tree; MST proofs use tree properties). Basic discrete-math vocabulary: set, relation, ordered/unordered pair.
 >
 > **Learning Objectives**:
@@ -769,12 +771,41 @@ Both are **greedy** algorithms that produce a **provably optimal** MST.
 ## Self-Check Questions
 
 1. **Representation choice:** For a road network of $10^7$ intersections with average degree 4, which representation should you use and why? Estimate the space requirement for each.
+
+   > **Answer:** Total edges $E \approx V \cdot \bar{d}/2 = 10^7 \cdot 4 / 2 = 2 \cdot 10^7$ — very **sparse** ($E \ll V^2$). **Adjacency matrix** needs $V^2 = 10^{14}$ entries (~100 TB) — completely infeasible. **Adjacency list/array** needs $O(V + E) = O(3 \cdot 10^7)$ entries (~250 MB with 8-byte pointers) — easily fits in memory. The right choice is an **adjacency list** (or packed adjacency array for cache friendliness); road networks are canonical sparse graphs.
+
 2. **DFS vs BFS traces:** Given the graph from §2.3, run BFS and DFS starting at vertex 6. Report the visitation order for both.
+
+   > **Answer:** Adjacency lists from §2.3: 1:[2,3,4,6], 2:[1,3], 3:[1,2,5], 4:[1,6], 5:[3,6], 6:[1,4,5]. **BFS from 6:** Queue starts with 6. Dequeue 6 → enqueue 1, 4, 5. Dequeue 1 → enqueue 2, 3. Dequeue 4 (neighbors visited). Dequeue 5 (visited). Dequeue 2, then 3. Order: **6 → 1 → 4 → 5 → 2 → 3**. **DFS from 6:** Visit 6 → recurse 1 → recurse 2 → recurse 3 → recurse 5 (5's only unvisited neighbor was through 6, already visited) → backtrack → 4. Order: **6 → 1 → 2 → 3 → 5 → 4**.
+
 3. **BFS shortest path proof:** Prove that when BFS first dequeues vertex $v$, the recorded distance $d[v]$ equals the shortest hop distance from $s$ to $v$. Where exactly does the FIFO discipline enter the argument?
+
+   > **Answer:** Induct on $d[v]$. **Base case** $d[s] = 0$ is trivially the shortest. **Inductive step:** Suppose all vertices at true distance $< \ell$ have been dequeued with the correct $d$-value. When BFS dequeues $u$ at distance $\ell - 1$ and visits neighbor $v$ (first discovery), it sets $d[v] = \ell$. Suppose for contradiction $v$ had a shorter true distance $\ell' < \ell$; then $v$'s actual BFS parent would have been at distance $\ell' - 1 < \ell - 1$ and would already have been dequeued before $u$ — contradicting "first discovery." The **FIFO discipline** is essential here: it guarantees that all vertices at distance $\ell - 1$ are dequeued *before* any at distance $\ell$, so no shorter path can sneak in late.
+
 4. **DFS on a directed graph:** Apply DFS to the directed graph with edges $\{(A,B), (B,C), (C,A), (A,D)\}$ starting at $A$. Identify the back edge — what does its presence imply about the graph?
+
+   > **Answer:** DFS from A: enter A → enter B → enter C → C's neighbor A is **on the DFS stack** (still in-progress, not yet finished) → this is a **back edge** $(C, A)$. After C returns, B returns, A then visits D. The back edge implies the directed graph contains a **cycle** $A \to B \to C \to A$. In general, a directed graph has a cycle **if and only if** DFS encounters at least one back edge — this is the basis of DFS-based cycle detection and means the graph is **not a DAG**, so no topological order exists.
+
 5. **Topological sort:** Apply both topological-sort algorithms to the DAG with edges $\{(1,2), (1,3), (3,4), (2,4), (4,5)\}$. Show that every valid topological order respects all edge constraints.
+
+   > **Answer:** **In-degree method:** initial in-degrees are 1:0, 2:1, 3:1, 4:2, 5:1. Pick 1 (in-deg 0), remove → 2:0, 3:0. Pick 2 → 4:1. Pick 3 → 4:0. Pick 4 → 5:0. Pick 5. Order: **1, 2, 3, 4, 5**. **DFS method** from 1: visit 1 → 2 → 4 → 5; 5 finishes, prepend → R=[5]; 4 finishes → R=[4,5]; 2 finishes → R=[2,4,5]; visit 3 → 4 already done; 3 finishes → R=[3,2,4,5]; 1 finishes → R=[**1,3,2,4,5**]. Both orders are valid because for each edge $(x,y)$, $x$ precedes $y$ — e.g., 1 before 2,3; 2 before 4; 3 before 4; 4 before 5.
+
 6. **Topological sort vs cycles:** Run the in-degree algorithm on a graph that secretly contains a cycle. What goes wrong? How can you *detect* the cycle from the algorithm's failure mode?
+
+   > **Answer:** Every vertex in a cycle has **at least one incoming edge from another cycle member**, so its in-degree can never reach 0 just by removing non-cycle vertices. The algorithm processes all vertices reachable from in-degree-0 sources, then **halts with cycle vertices still unplaced**. **Detection rule:** after the algorithm terminates, if `|placed vertices| < |V|`, the remaining vertices form (or feed into) a **cycle**. This is the standard linear-time DAG check — Kahn's algorithm doubles as both topological sort and cycle detection in $O(V+E)$.
+
 7. **MST cut property:** State and prove the cut property: for any cut $(S, V \setminus S)$, the minimum-weight edge crossing the cut belongs to *some* MST. Why is the qualifier "some" important when edge weights tie?
+
+   > **Answer:** **Cut property:** Let $(S, V \setminus S)$ be any non-trivial cut and let $e = (u, v)$ be a minimum-weight edge with $u \in S$, $v \in V \setminus S$. **Proof (exchange argument):** Take any MST $T$. If $e \in T$, done. Otherwise, adding $e$ to $T$ creates a cycle; this cycle must contain some other edge $e'$ crossing the same cut. Since $w(e) \leq w(e')$, swapping $e'$ for $e$ produces a new spanning tree $T' = T \cup \{e\} \setminus \{e'\}$ with $w(T') \leq w(T)$, so $T'$ is also an MST containing $e$. The qualifier "**some**" matters when edge weights tie: if multiple edges cross the cut at the same minimum weight, **different MSTs may include different ones** — Prim's and Kruskal's might produce distinct MSTs both of which are optimal.
+
 8. **Prim's vs Kruskal's:** On the graph of §4.4, run Kruskal's from scratch and compare the edges selected at each step with Prim's. Where do the two algorithms make *different* choices, and do they still produce the same MST?
+
+   > **Answer:** **Kruskal's order** (by weight): pick (C,D,2), (A,C,3), (C,E,4), skip (A,D,5) [cycle], skip (D,E,6) [cycle], pick (B,E,7). MST = {(C,D), (A,C), (C,E), (B,E)} weight 16. **Prim's from A** picked: (A,C,3), (C,D,2), (C,E,4), (E,B,7). The **selected edges are identical** — only the **order of selection differs**: Prim's picks (A,C) first because it extends from A, Kruskal's picks (C,D) first because it has lowest weight globally. The MST is unique here (no tied weights), so both algorithms reach the same tree.
+
 9. **Union-Find:** Trace `Find` and `Union` operations during Kruskal's on the §4.6 example using union-by-rank with path compression. Draw the parent-pointer forest after each step.
+
+   > **Answer:** Initial: each vertex its own root, all ranks 0. (1) **(C,D,2)**: `Find(C)=C`, `Find(D)=D`, ranks tie → make D's parent C, rank(C)=1. Forest: {A}, {B}, {C←D}, {E}. (2) **(A,C,3)**: `Find(A)=A` (rank 0), `Find(C)=C` (rank 1), attach A under C. Forest: {C←D, A}, {B}, {E}. (3) **(C,E,4)**: `Find(C)=C`, `Find(E)=E`, attach E under C. Forest: {C←D, A, E}, {B}. (4) **(A,D,5)**: `Find(A)`: A→C (root, path-compress A's parent to C). `Find(D)`: D→C. Same root → **skip**. (5) **(D,E,6)**: both point to C → skip. (6) **(B,E,7)**: `Find(B)=B` (rank 0), `Find(E)=C` (rank 1), attach B under C. Final forest: single tree rooted at C with children A, B, D, E.
+
 10. **Density-based choice:** For a graph with $V = 1000$ and $E = 999$ (almost a tree) vs $V = 1000$ and $E = 400{,}000$ (dense), which MST algorithm would you prefer in each case, and why?
+
+    > **Answer:** **Sparse case ($E = 999$): Kruskal's.** With $E \approx V$, sorting $E$ edges costs $O(E \log E) \approx 10^4$ comparisons and Union-Find adds a near-constant factor — very fast in practice and trivially parallelizable. **Dense case ($E = 400{,}000$, $E \approx V^2/2.5$): Prim's** with a binary heap or array. Prim's $O(V^2)$ array implementation beats Kruskal's $O(E \log V) \approx 4 \cdot 10^5 \cdot 10 = 4 \cdot 10^6$ on dense graphs because Prim's revisits only $V = 1000$ extractions; with a Fibonacci heap Prim's hits $O(E + V \log V)$ — asymptotically optimal for dense.

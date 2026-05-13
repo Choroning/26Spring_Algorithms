@@ -1,6 +1,8 @@
 # Week 4 Lecture — Divide and Conquer Algorithms
 
-> **Last Modified:** 2026-03-24
+> **Last Updated:** 2026-05-13
+>
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 4 (Divide-and-Conquer, Master Theorem), Ch 7 (Quicksort), Ch 9 (Medians and Order Statistics), Ch 33 (Computational Geometry — Closest Pair)
 
 > **Prerequisites**: Asymptotic notation — Big-O, Big-Omega, Big-Theta (Week 2). Sorting algorithms — merge sort, quick sort concepts (Week 3). Recurrence relations and mathematical induction (Discrete Mathematics). Understanding of recursion — base case, recursive call.
 >
@@ -904,10 +906,33 @@ FIB-NUMBER(n)
 ## Self-Check Questions
 
 1. **Divide and Conquer:** What are the three steps of D&C? Give an example where the "combine" step is trivial and one where it is expensive.
+
+   > **Answer:** **Divide** the problem into smaller subproblems, **Conquer** each subproblem recursively, and **Combine** the subsolutions into a solution for the original. In **binary search** and **quick sort**, combine is trivial — binary search just returns the result, and quick sort's in-place partition leaves the array already in order. In **merge sort** the combine step is the expensive part — merging two sorted halves takes $\Theta(n)$, which is what makes the overall recurrence $T(n) = 2T(n/2) + \Theta(n)$.
+
 2. **Master Theorem:** Apply the Master Theorem to: (a) T(n) = 2T(n/2) + n, (b) T(n) = 4T(n/2) + n, (c) T(n) = T(n/2) + n². State the case and result for each.
+
+   > **Answer:** Compare $f(n)$ against $n^{\log_b a}$. **(a)** $a=2, b=2$ so $n^{\log_2 2} = n$, and $f(n) = n$ — **Case 2**, giving $T(n) = \Theta(n \log n)$ (merge sort). **(b)** $a=4, b=2$ so $n^{\log_2 4} = n^2$, and $f(n) = n$ is polynomially smaller — **Case 1**, giving $T(n) = \Theta(n^2)$. **(c)** $a=1, b=2$ so $n^{\log_2 1} = 1$, and $f(n) = n^2$ is polynomially larger — **Case 3**, giving $T(n) = \Theta(n^2)$.
+
 3. **Merge Sort:** Why does merge sort always take Θ(n log n), regardless of input order? What is its space complexity and why?
+
+   > **Answer:** Merge sort **unconditionally** halves the array and merges — neither step depends on element values. The recursion tree has $\log_2 n$ levels, each doing $\Theta(n)$ merge work, so $T(n) = \Theta(n \log n)$ always (best, average, and worst case). **Space** is $\Theta(n)$ because the `MERGE` procedure requires auxiliary arrays `L` and `R` to hold copies of the two halves — this is merge sort's main disadvantage versus quick sort's in-place partition.
+
 4. **Quick Sort Worst Case:** Give a specific input array where choosing the last element as pivot leads to O(n²) behavior. How does randomized pivot selection help?
+
+   > **Answer:** Any **already-sorted** (or reverse-sorted) array such as `[1, 2, 3, 4, 5]` does it: the pivot `5` is the largest, so the partition produces sizes $n-1$ and $0$, yielding the recurrence $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. **Randomized partition** swaps a random index into position `r` before partitioning, so the adversarial input no longer correlates with the pivot choice — the **expected** running time becomes $\Theta(n \log n)$ regardless of input order.
+
 5. **Selection:** Why is the expected time of randomized selection O(n), not O(n log n)? How does it differ from sorting first and then indexing?
+
+   > **Answer:** Selection **recurses on only one side** of the partition — the side containing the desired rank — while quick sort recurses on both. With a random pivot, the larger side has expected size $\le 3n/4$, giving the recurrence $T(n) \le T(3n/4) + \Theta(n)$ which sums to $4cn = \Theta(n)$ via the geometric series $\sum (3/4)^k$. Sorting first wastes work ordering elements you never query — $\Theta(n \log n)$ instead of $\Theta(n)$.
+
 6. **Median of Medians:** Why divide into groups of 5 specifically? What happens if you use groups of 3?
+
+   > **Answer:** Group size 5 makes the recurrence $T(n) = T(n/5) + T(7n/10) + \Theta(n)$, and since $1/5 + 7/10 = 9/10 < 1$ the work decreases geometrically and sums to $\Theta(n)$. **Groups of 3** give $T(n) = T(n/3) + T(2n/3) + \Theta(n)$, but $1/3 + 2/3 = 1$ — the work no longer geometrically decreases, and the recurrence solves to $\Theta(n \log n)$, losing the linear-time guarantee. Group size 5 is the smallest odd size that satisfies the $<1$ condition.
+
 7. **Closest Pair:** Why can we limit the strip check to at most 7 neighbors per point? What geometric argument justifies this?
+
+   > **Answer:** Within the strip of width $2d$, points on each side are pairwise at distance $\ge d$ (otherwise the recursive call would have found a closer pair). For a given point $p$, only points within a $2d \times d$ rectangle (the $d$-tall window below $p$, spanning both sides) can be closer than $d$. By a packing argument, **at most 8 points** can sit in such a rectangle with mutual distance $\ge d$ — so once strip points are sorted by y, comparing $p$ to its **next 7 neighbors** suffices.
+
 8. **D&C vs DP:** The Fibonacci sequence can be computed with D&C. Why is this a bad idea? What makes Fibonacci different from merge sort in terms of subproblem structure?
+
+   > **Answer:** The recursion $F(n) = F(n-1) + F(n-2)$ has **overlapping subproblems** — `F(n-2)` is computed by both `F(n-1)` and the direct call from `F(n)`, and this duplication compounds exponentially, yielding $\Theta(\varphi^n)$ time. In merge sort the two halves are **disjoint** — no element appears in both — so no work is repeated. When subproblems overlap, **dynamic programming** (memoization or bottom-up tabulation) reduces Fibonacci to $\Theta(n)$ by computing each value exactly once.

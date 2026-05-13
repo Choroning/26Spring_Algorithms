@@ -1,6 +1,6 @@
 # Week 3 Lab — Sorting Algorithm Implementation & Benchmarks
 
-> **Last Updated:** 2026-03-21
+> **Last Updated:** 2026-05-13
 
 > **Prerequisites**: Week 3 Lecture: Sorting algorithms (selection, bubble, insertion, merge, quick, heap). Python 3 installed. Understanding of Big-O notation from Week 2.
 >
@@ -503,8 +503,19 @@ Every page load, every filter change, every "sort by price" click would make use
 ## Self-Check Questions
 
 1. In your benchmark, which elementary sort was fastest for nearly-sorted input? Why?
+
+   > **Answer:** **Insertion sort** wins by a wide margin. Each element's `while j >= 0 and a[j] > key` loop exits **almost immediately** when the prefix is already in order — the key is compared with just one neighbor, found to be in place, and skipped. The total work degenerates to $\Theta(n)$, the best case. **Selection sort** still does its full $n(n-1)/2$ comparisons regardless of input order. **Bubble sort** with the `swapped` flag can also reach $\Theta(n)$ on fully-sorted input but is slower on nearly-sorted data because each remaining out-of-place element triggers a full pass.
+
 2. The list comprehension version of quick sort uses extra memory. How much? Why is the in-place CLRS version preferred for large inputs?
+
+   > **Answer:** Each `quick_sort` call builds three **new lists** (`left`, `middle`, `right`) totaling $O(n)$ at every recursion level. Across $O(\log n)$ average depth this is $O(n \log n)$ total allocations, peaking at $O(n)$ live extra memory simultaneously. The **in-place CLRS** version only swaps within the original array, using $O(\log n)$ stack frames and $O(1)$ auxiliary data. For large inputs this matters enormously — allocations stress the **garbage collector**, blow out CPU caches, and on memory-constrained systems can exhaust RAM. The in-place version also has better cache locality because it touches contiguous memory.
+
 3. At what input size did you first notice a clear performance gap between O(n²) and O(n log n) algorithms?
+
+   > **Answer:** Around **N = 10,000** the gap becomes dramatic. At N=100 all algorithms finish in ~1 ms — the asymptotic difference is hidden by constant factors and timer noise. At N=1,000 the gap appears (tens of ms vs a few ms) but feels acceptable. At **N = 10,000** the ratio explodes to **roughly 100×** — seconds vs tens of milliseconds — which is the threshold where a real user would notice lag. By N=100,000 the $O(n^2)$ algorithms take minutes while $O(n \log n)$ finishes in under a second.
+
 4. Why is insertion sort used as the base case in practical implementations like Timsort, even though its worst case is O(n²)?
+
+   > **Answer:** Asymptotic $O(n^2)$ is irrelevant for **tiny subarrays** (typically size ≤ 32 or 64) — at that scale, insertion sort's tiny **constant factor**, lack of recursion overhead, and excellent **cache behavior** beat merge/quick sort handily. Real data also tends to have **locally-sorted runs**, on which insertion sort runs in near-$\Theta(n)$. Timsort exploits both effects: it identifies natural runs, extends short ones using insertion sort, and only invokes merge sort to combine larger runs. So the worst-case $O(n^2)$ never materializes — insertion sort is only used where $n$ is bounded by a small constant.
 
 ---

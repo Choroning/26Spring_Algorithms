@@ -1,6 +1,8 @@
 # Week 3 Lecture — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-> **Last Updated:** 2026-03-21
+> **Last Updated:** 2026-05-13
+>
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 6 (Heapsort), Ch 7 (Quicksort), Ch 8 (Sorting in Linear Time), Ch 10 (Elementary Data Structures)
 
 > **Prerequisites**: Week 2: Big-O notation, time complexity analysis. [Data Structures] Basic understanding of arrays, linked lists, stacks, queues. [Data Structures] Concept of recursion (function calling itself).
 >
@@ -975,12 +977,35 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 ## Self-Check Questions
 
 1. **Selection Sort:** Why is selection sort always O(n²) regardless of the input? Why can't it have a better best case like bubble sort or insertion sort?
+
+   > **Answer:** Each pass must find the extreme value in the unsorted suffix, which forces a **full scan** regardless of how the data is arranged — there is no shortcut that an already-sorted input could exploit. The recurrence is $T(n) = T(n-1) + \Theta(n)$, summing to $\Theta(n^2)$ for **best, average, and worst** alike. Bubble and insertion sort can short-circuit (no swaps in a pass, or `a[j] > key` immediately false), but selection sort has no such early-exit signal — the comparison count is always exactly $n(n-1)/2$.
+
 2. **Stability:** Give a concrete example where sorting stability matters. (Hint: think about sorting a spreadsheet by two different columns.)
+
+   > **Answer:** Sort a spreadsheet of students first by **name** (alphabetical), then by **grade**. With a **stable** sort, students sharing the same grade remain alphabetized within their grade group — you end up with a list grouped by grade and sub-sorted by name. With an **unstable** sort, the second pass scrambles the name ordering inside each grade. **Radix sort** depends critically on this property: each digit pass must preserve the order from previous digits, otherwise the multi-digit result is wrong.
+
 3. **Merge Sort vs Quick Sort:** Both are O(n log n) on average, but quick sort is generally faster in practice. Why? What is quick sort's weakness?
+
+   > **Answer:** Quick sort works **in-place** with small constant factors and **excellent cache locality** — the partition scans memory sequentially, hitting CPU caches efficiently. Merge sort allocates and copies into a temporary array, paying $O(n)$ extra space plus memory bandwidth. Quick sort's **weakness** is its $\Theta(n^2)$ worst case when partitions are extremely unbalanced (e.g., sorted input with first/last as pivot). Mitigations — **randomized pivot**, **median-of-three**, or **introsort** (fall back to heap sort on deep recursion) — make the worst case astronomically unlikely.
+
 4. **Partition:** Given the array [3, 8, 2, 5, 1, 4, 7, 6] with pivot = 6 (last element), trace through the CLRS partition procedure. What is the final array state?
+
+   > **Answer:** With `pivot = 6`, `i = 0` initially. Scanning `j = 1..7`: `A[1]=3 ≤ 6` → i=1, swap A[1]↔A[1]; `A[2]=8 > 6` skip; `A[3]=2 ≤ 6` → i=2, swap A[2]↔A[3] → `[3,2,8,5,1,4,7,6]`; `A[4]=5 ≤ 6` → i=3, swap A[3]↔A[4] → `[3,2,5,8,1,4,7,6]`; `A[5]=1 ≤ 6` → i=4, swap A[4]↔A[5] → `[3,2,5,1,8,4,7,6]`; `A[6]=4 ≤ 6` → i=5, swap A[5]↔A[6] → `[3,2,5,1,4,8,7,6]`; `A[7]=7 > 6` skip. Final swap A[i+1]↔A[r] = A[6]↔A[8] → **`[3, 2, 5, 1, 4, 6, 7, 8]`**, pivot returns at index **6**.
+
 5. **Heap Sort:** Why does building a max heap take O(n) instead of O(n log n)? (Hint: most nodes are near the bottom of the tree.)
+
+   > **Answer:** A naive bound says $n$ calls to `heapify` × $O(\log n)$ each = $O(n \log n)$, but this is loose because **`heapify` cost is proportional to the node's height, not the tree's height**. Half the nodes are leaves (height 0, zero work), a quarter have height 1, an eighth have height 2, etc. The total work is $\sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h$, and the series $\sum h/2^h$ converges to a constant — yielding $\Theta(n)$. Most nodes do almost no work; only the few near the root do $O(\log n)$.
+
 6. **Lower Bound:** Why can't any comparison-based sorting algorithm do better than O(n log n)? What does the decision tree model tell us?
+
+   > **Answer:** Any comparison-based sort can be modeled as a **binary decision tree** where each internal node is a comparison "A[i] ≤ A[j]?" and each leaf is one of the $n!$ possible output permutations. The algorithm's worst-case comparison count equals the tree's **height**. A binary tree with $n!$ leaves must have height at least $\lceil \log_2(n!) \rceil$, and by **Stirling's approximation** $\log_2(n!) = \Theta(n \log n)$. Therefore no algorithm that learns about its input only through comparisons can avoid $\Omega(n \log n)$ comparisons in the worst case.
+
 7. **Counting Sort:** Why does counting sort require the value range k to be small? What happens to its complexity when k = n²?
+
+   > **Answer:** Counting sort allocates a count array `C[1..k]` and runs three loops of length $k$ or $n$, giving $\Theta(n + k)$ time and $\Theta(k)$ space. When $k = O(n)$, both reduce to $\Theta(n)$ — beating the comparison lower bound. But when **$k = n^2$**, the complexity becomes $\Theta(n + n^2) = \Theta(n^2)$ — worse than merge sort — and the count array alone wastes $\Theta(n^2)$ memory. This is why counting sort only wins when values fit in a **small, dense range**.
+
 8. **Radix Sort:** Why must radix sort process digits from LSD to MSD (not MSD to LSD)? What property of the sub-sort makes this work?
+
+   > **Answer:** Processing from **LSD to MSD** with a **stable** per-digit sort means each pass refines the previous ordering: after sorting by digit $i$, elements are correctly ordered by digits $1..i$ combined, because **stability preserves the lower-digit order** among elements tied on the current digit. Going MSD to LSD would have the opposite effect — the lower-digit sort would scramble the higher-digit ordering already established, requiring complex bucket-recursion to fix. The whole scheme relies on the inner sort (typically **counting sort**) being stable.
 
 ---

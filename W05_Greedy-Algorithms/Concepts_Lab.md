@@ -1,6 +1,6 @@
 # Week 5 Lab — Greedy Algorithms
 
-> **Last Modified:** 2026-04-02
+> **Last Updated:** 2026-05-13
 
 > **Prerequisites**: Week 5 Lecture — greedy algorithms, greedy choice property, optimal substructure. Python 3 installed. Understanding of sorting and basic dynamic programming concepts.
 >
@@ -716,8 +716,25 @@ Greedy works when:
 ## Self-Check Questions
 
 1. Why does the greedy coin change algorithm fail for coins [1, 3, 4] with amount 6? What property must coin denominations have for greedy to always work?
+
+   > **Answer:** Greedy picks the largest coin first: `4 → 1 → 1 = 3 coins`, but optimal is `3 + 3 = 2 coins`. The greedy choice of `4` strands a remainder of `2` that cannot be made with one coin, while picking the smaller `3` aligns perfectly with the remaining amount. For greedy to always work, denominations need the **divisor property** — each coin must be a multiple of (or align cleanly with) the next smaller one, like {1, 5, 10, 25} or {1, 10, 50, 100, 500}. This structure guarantees that committing to the biggest coin never blocks a globally better combination.
+
 2. If items cannot be split (0-1 knapsack), why does the greedy value/weight ratio strategy fail? Give a concrete example.
+
+   > **Answer:** In 0-1 knapsack a high-ratio item can **strand capacity** that cannot be filled with a fraction of another item. With items A(10, $60), B(20, $100), C(30, $120) and capacity 50: greedy picks A then B → $160 with 20 lb left empty. The 0-1 optimum is **B + C = $220** — it gives up the best ratio item to use the capacity fully. The greedy-choice property fails because "include or skip" is a discrete choice; you cannot top off the leftover with `2/3` of C as you would in the fractional case.
+
 3. In the Huffman coding example, how close is the average bits per character to the theoretical entropy lower bound? What does this gap tell us?
+
+   > **Answer:** For "abracadabra", Huffman achieves **2.091 bits/char** versus the entropy lower bound of **1.927 bits/char** — a gap of ~0.164 bits/char (~8.5%). The gap exists because Huffman codes must use **integer bit lengths** for each symbol, while Shannon entropy assumes fractional bit allocations. Huffman is provably optimal **among prefix-free codes**, but to approach entropy you need techniques like **arithmetic coding** that effectively encode fractional bits. The gap shrinks as alphabet size grows and frequencies become more skewed.
+
 4. In activity selection, what would happen if you sorted by start time instead of end time? Would the greedy algorithm still produce an optimal solution?
+
+   > **Answer:** **No.** Sorting by start time can pick a long-running activity that blocks many shorter, compatible ones. Counterexample: activities `[0, 10), [1, 2), [3, 4), [5, 6)`. Earliest-start-first picks `[0, 10)` and stops there — **1 activity**. Earliest-finish-first picks `[1, 2), [3, 4), [5, 6)` — **3 activities**. The earliest-finish heuristic works because finishing early **leaves maximum remaining time** for future picks; earliest-start gives no such guarantee since the chosen activity may run arbitrarily long.
+
 5. For coin set {12, 9, 1} with amount 18, greedy uses 7 coins while optimal uses 2. Explain why this is the worst ratio among the test cases, and what makes this coin set particularly bad for greedy.
+
+   > **Answer:** Greedy takes `12` first, leaving `6` — but `9` no longer fits, so it falls back to six `1`s → **7 coins**. Optimal: `9 + 9 = 2 coins`, exactly **3.5×** worse. This is the worst ratio because the **gap between 12 and 9 is small** (so picking 12 only saves *one* coin compared to picking 9), but **picking 12 destroys the ability to use 9 at all** for the remainder. The denominations are pairwise close yet non-divisible — there is no fallback coin between 9 and 1, so any stranded remainder collapses into a long tail of pennies.
+
 6. The brute force knapsack and meeting scheduler both examine all subsets. Why is brute force limited to small N, and how does greedy avoid this?
+
+   > **Answer:** Brute force enumerates all `2^n` subsets — at N=20 that is ~10⁶ (manageable), at N=30 it is ~10⁹ (seconds to minutes), and at N=50 it is ~10¹⁵ (intractable). The exponential blowup makes brute force infeasible for real-world inputs. **Greedy** runs in **O(n log n)** (dominated by sorting) and makes exactly one pass over the items, never enumerating subsets. It avoids the explosion by committing to a single locally optimal choice at each step rather than exploring alternatives — trading the guaranteed correctness of exhaustive search for dramatic speed, justified when the greedy-choice property holds.

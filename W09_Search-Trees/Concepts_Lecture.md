@@ -1,7 +1,9 @@
 # Week 9 Lecture — Search Trees
 
-> **Last Modified:** 2026-05-04
+> **Last Updated:** 2026-05-13
 >
+> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 12 (Binary Search Trees), Ch 13 (Red-Black Trees), Ch 18 (B-Trees)
+
 > **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (used to bound tree heights). Week 3: Binary search on sorted arrays (BST is its tree-shaped analogue). Week 4: Master Theorem and recursive complexity (used to derive traversal and search costs). Basic recursion and pointer-based data structures.
 >
 > **Learning Objectives**:
@@ -684,13 +686,39 @@ Pull 25 down, combine with sibling.
 ## Self-Check Questions
 
 1. **Recursive Traversal:** Write a recurrence for in-order traversal of a balanced binary tree, and use the Master Theorem to derive its complexity. Why can no traversal beat $\Omega(n)$?
+
+   > **Answer:** In-order traversal visits the left subtree, the root, then the right subtree, giving $T(n) = 2T(n/2) + O(1)$. With $a = 2$, $b = 2$, $f(n) = O(1) = O(n^0)$ and $n^{\log_b a} = n^1$, this is **Master Theorem Case 1**, so $T(n) = \Theta(n)$. The $\Omega(n)$ lower bound is unavoidable because any "traversal" by definition must inspect every one of the $n$ nodes at least once — visiting fewer would leave a node unprocessed.
+
 2. **BST Average vs Worst:** Insert the keys $1, 2, 3, 4, 5$ in that order into an empty BST. Draw the result and give the search cost for key $5$. Then insert the same keys in the order $3, 1, 5, 2, 4$ and compare.
+
+   > **Answer:** Sorted insertion $1,2,3,4,5$ produces a right-leaning chain (height 4); finding 5 requires walking through all 5 nodes — cost **5 comparisons, $O(n)$**. Inserting in order $3,1,5,2,4$ gives a balanced tree with 3 as root, 1 and 5 as children, and 2, 4 as grandchildren (height 2); finding 5 takes **only 2 comparisons, $O(\log n)$**. Same keys, dramatically different cost — demonstrating that plain BSTs have no worst-case guarantee.
+
 3. **BST Deletion:** In a BST, delete the node with key $6$ from the tree shown in §2.6 using the in-order **predecessor** instead of the successor. Show the resulting tree.
+
+   > **Answer:** The **in-order predecessor** of 6 is the **largest key in 6's left subtree**, which is 4. Replace 6's key with 4, then delete the original node 4 (a leaf, so just remove it). The result keeps 15 at the root with 18 on the right; on the left, 4 replaces 6, its left child is still 3 (with grandchild 2), and its right child is the unchanged subtree rooted at 7 containing 13 and 9. The BST property holds because every key in 4's left subtree ($2,3$) is less than 4 and every key in its right subtree ($7,9,13$) is greater than 4.
+
 4. **RBT Property 5:** Explain why coloring a newly inserted node **red** (rather than black) preserves Property 5. What would go wrong if we colored it black?
+
+   > **Answer:** Property 5 requires that every root-to-leaf path has the **same number of black nodes**. A new node is inserted in place of a NIL leaf (which is black) and inherits its position; coloring the new node **red** adds zero black nodes to any path, so black-heights are unchanged. If we colored it black instead, the path through the new node would gain one black node while sibling paths keep the old count — **Property 5 breaks immediately** and the fix would have to propagate black-height adjustments throughout the tree, which is much more expensive than the local Double-Red fix.
+
 5. **Restructuring vs Recoloring:** For each of the following Double-Red situations, decide which strategy applies and give the resulting tree.
    (a) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(B),\ N = 7\,(R)$
    (b) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(R),\ N = 3\,(R)$
+
+   > **Answer:** **(a)** Uncle $U = 15$ is **black** → **Restructuring**. Sort $\{N=7, P=5, G=10\}$ → median is **7**, which becomes the new local root (black) with 5 and 10 as red children: `7(B)` → `5(R)` left, `10(R)` right; $U = 15$ reattaches as a child of 10. **(b)** Uncle $U = 15$ is **red** → **Recoloring**. Flip $P = 5$ and $U = 15$ to black, and $G = 10$ to red. If 10 is the root, force it back to black; otherwise the fix may propagate upward to 10's parent.
+
 6. **RBT Height Bound:** Prove that an RBT with $n$ internal nodes has height at most $2\log_2(n+1)$, using the black-height inequality $n \geq 2^{\text{bh}(\text{root})} - 1$.
+
+   > **Answer:** By **Property 4** (no two consecutive reds), at least half the nodes on any root-to-leaf path are black, so $\text{bh}(\text{root}) \geq h/2$. Combined with $n \geq 2^{\text{bh}(\text{root})} - 1$, we get $n \geq 2^{h/2} - 1$, hence $n + 1 \geq 2^{h/2}$. Taking $\log_2$ of both sides yields $\log_2(n+1) \geq h/2$, i.e., $h \leq 2\log_2(n+1) = O(\log n)$. This is the formal reason RBT operations are guaranteed $O(\log n)$ in the worst case.
+
 7. **B-Tree Disk I/O:** A B-Tree of order $M = 100$ stores $n = 10^8$ keys. Estimate the height. How many disk reads does a search require? Compare with a Red-Black Tree on the same data.
+
+   > **Answer:** Height is $h \leq \log_M n = \log_{100} 10^8 = 8/2 = 4$. A search needs at most **4 disk reads** (one per level). A Red-Black Tree on the same data has height $\leq 2\log_2(10^8 + 1) \approx 2 \cdot 26.6 \approx 53$, requiring up to **~53 disk reads** if the tree is disk-resident. On a 5 ms HDD: B-Tree ≈ 20 ms vs RBT ≈ 265 ms per query — over **10× faster**, which is why every relational database index is a B-Tree variant, not a binary tree.
+
 8. **B-Tree Insertion with Split:** Starting from an empty B-Tree of order 4 (max 3 keys per node), insert the sequence $10, 20, 30, 40, 50, 60, 70$ and draw the tree after each split.
+
+   > **Answer:** Insert 10, 20, 30 → single node `[10|20|30]` (full, no split yet). Insert 40 → overflow `[10|20|30|40]`, **split** at median 30: promote 30 as new root, leaves `[10|20]` and `[40]`. Insert 50, 60 into right leaf → `[40|50|60]`. Insert 70 → overflow `[40|50|60|70]`, **split** at median 60: promote 60 into root, giving root `[30|60]` with children `[10|20]`, `[40|50]`, `[70]`. Tree height is 2, perfectly balanced — every leaf is at the same depth.
+
 9. **Choosing a Structure:** You are designing (a) the symbol table of a compiler, (b) the index of a 1 TB relational database, (c) an ordered map for a small embedded device with 32 KB of RAM. Which structure (BST, RBT, B-Tree) fits each, and why?
+
+   > **Answer:** **(a) Compiler symbol table → hash table or RBT.** Lookups are by exact name with no need for range queries; if scope-ordered traversal matters, an **RBT** gives worst-case $O(\log n)$. **(b) 1 TB database index → B-Tree.** Data lives on disk, so the cost model is disk reads — wide nodes (one disk block) keep the height near 3–4 even at $10^9+$ keys. **(c) Embedded ordered map → RBT.** 32 KB RAM is too small for B-Tree overhead but fits a compact pointer-based balanced tree; an RBT guarantees $O(\log n)$ without disk concerns, and the constant factor beats a B-Tree at small $n$.
