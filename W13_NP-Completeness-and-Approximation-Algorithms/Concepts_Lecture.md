@@ -1,6 +1,6 @@
 # Week 13 Lecture — NP-Completeness & Approximation Algorithms
 
-> **Last Updated:** 2026-05-26
+> **Last Updated:** 2026-06-04
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 34 (NP-Completeness), Ch 35 (Approximation Algorithms)
 
@@ -183,7 +183,7 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 - **TSP.** Given a weighted complete graph, find the shortest Hamiltonian cycle.
 - **Hamiltonian Cycle.** Does the graph have *any* Hamiltonian cycle? — TSP reduces to it by setting all edge weights to 1.
 - **Bin Packing.** Pack $n$ items into the fewest bins of capacity $C$.
-- **Job Scheduling.** Assign $n$ jobs to $m$ identical machines to minimize makespan.
+- **Job Scheduling.** Assign $n$ jobs to $m$ identical machines to minimize the **makespan** — the completion time of the last-finishing machine (equivalently, the last-finishing job).
 
 ### 1.5 Decision vs Optimization Problems
 
@@ -227,6 +227,8 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 A decision problem is in NP if, given a **"Yes" certificate** (a proposed solution), we can **verify** in polynomial time whether the certificate is valid.
 
 > **Important — common confusion:** NP does **not** stand for "non-polynomial." It stands for *nondeterministic polynomial*, the class of problems solvable in polynomial time by an idealized **nondeterministic** machine — equivalently, problems whose Yes-answer admits a polynomial-time **verification**.
+
+> **What "nondeterministic" means here:** the historical definition imagines a machine that, at each step, may "guess" one of several next moves and is said to accept if *some* sequence of guesses leads to a Yes — effectively trying all certificates in parallel. This lecture uses the **equivalent verifier/certificate definition** throughout (given a certificate, check it in polynomial time); the two are provably the same class, so "nondeterministic" here is just **historical naming** and you can read NP as "polynomially verifiable."
 
 **Intuitive characterization:**
 
@@ -597,7 +599,7 @@ Let $M$ = total weight of MST, $\text{OPT}$ = optimal TSP tour length, $\text{AP
 
 **Step 1.** $\text{OPT} > M$.
 
-*Why:* the optimal tour visits every vertex and returns to the start. Remove any one edge from the tour — what remains is a spanning tree (it touches every vertex, is connected, has $|V| - 1$ edges). Since $M$ is the *minimum* spanning tree weight, $M \leq (\text{tour minus one edge}) < \text{OPT}$.
+*Why:* the optimal tour visits every vertex and returns to the start. Remove any one edge from the tour — what remains is a spanning tree (it touches every vertex, is connected, has $|V| - 1$ edges). Since $M$ is the *minimum* spanning tree weight, $M \leq (\text{tour minus one edge})$. Assuming the removed edge has **strictly positive weight**, $(\text{tour minus one edge}) < \text{OPT}$, so $M < \text{OPT}$. (If all edge weights are positive — the usual case — the ratio is strictly $< 2$; with zero-weight edges allowed we only get $M \leq \text{OPT}$, and the bound weakens to $\leq 2$.)
 
 **Step 2.** $\text{APX} \leq 2M$.
 
@@ -725,10 +727,10 @@ $C = 10$, items $= [7, 5, 6, 4, 2, 3, 7, 5]$.
 
 | Method      | Bin contents                          | Bins used |
 |-------------|---------------------------------------|-----------|
-| First Fit   | {7,3}, {5,4}, {6,2}, {7}, {5}         | 5         |
+| First Fit   | {7,2}, {5,4}, {6,3}, {7}, {5}         | 5         |
 | Next Fit    | {7}, {5}, {6,4}, {2,3}, {7}, {5}      | 6         |
-| Best Fit    | {7,3}, {5,4}, {6,2}, {7}, {5}         | 5         |
-| Worst Fit   | {7,2}, {5,4}, {6,3}, {7}, {5}         | 5         |
+| Best Fit    | {7,2}, {5,3}, {6,4}, {7}, {5}         | 5         |
+| Worst Fit   | {7,3}, {5,4}, {6,2}, {7}, {5}         | 5         |
 | **Optimal** | {7,3}, {5,5}, {6,4}, {7,2}            | **4**     |
 
 ### 6.4 Approximation Ratio Proofs
@@ -1006,7 +1008,7 @@ All five problems achieve **2-approximation** — solutions at most twice the op
 
 11. **Job Scheduling LPT improvement:** Sketch why scheduling jobs in **longest processing time first** order achieves a $4/3$ approximation instead of $2$.
 
-    > **Answer:** With LPT, by the time we get to the "last" job that determines the makespan, that job has processing time $\leq t_n$ where $t_n$ is the *smallest* job time. The previous proof bounded $T + t_i$ by $\text{OPT} + \text{OPT}$, treating $t_i$ as possibly the largest job. But with LPT, $t_i$ (the job that triggers the makespan) is *small* — at most $\text{OPT}/3$ if at least 3 jobs total exceed $\text{OPT}/3$ would have to be placed earlier, contradiction. Detailed case analysis gives $\text{APX} \leq (4/3) \cdot \text{OPT}$. Conceptually: putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
+    > **Answer:** With LPT, the job $i$ that determines the makespan was assigned *after* all larger jobs, so it is among the smaller jobs. There are two cases. **Case A:** $t_i \leq \text{OPT}/3$. Then, reusing the volume bound $T \leq \text{OPT}$ from the 2-approximation proof, $\text{APX} = T + t_i \leq \text{OPT} + \text{OPT}/3 = (4/3)\,\text{OPT}$. **Case B:** $t_i > \text{OPT}/3$. Then every job processed up to and including job $i$ also has size $> \text{OPT}/3$ (LPT processed them earlier, so they are at least as large). Each optimal machine can hold at most two such jobs (three would exceed $\text{OPT}$), so the number of jobs of size $> \text{OPT}/3$ is at most $2m$, meaning these jobs alone never force a machine to run more than two of them — the greedy makespan is already optimal, $\text{APX} = \text{OPT} \leq (4/3)\,\text{OPT}$. Either way $\text{APX} \leq (4/3)\cdot\text{OPT}$. Conceptually: putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
 
 12. **k-Clustering pigeonhole:** Spell out the pigeonhole step in the $\text{OPT} \geq d$ argument with $k = 3$ and 4 hypothetical centers.
 
