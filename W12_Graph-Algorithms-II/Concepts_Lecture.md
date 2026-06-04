@@ -1,6 +1,6 @@
 # Week 12 Lecture — Graph Algorithms II
 
-> **Last Updated:** 2026-05-26
+> **Last Updated:** 2026-06-04
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 22 (Single-Source Shortest Paths), Ch 23 (All-Pairs Shortest Paths), Ch 20 (Elementary Graph Algorithms — SCC)
 
@@ -159,12 +159,22 @@ Dijkstra(G, r):
 
 **Running time with a binary min-heap (priority queue):**
 - Each vertex is extracted exactly once: $|V|$ extractions, each $O(\log V)$ → $O(V \log V)$.
-- Each edge triggers at most one decrease-key: $|E|$ updates, each $O(\log V)$ → $O(E \log V)$.
+- Each edge triggers at most one **decrease-key** — the heap operation that lowers a vertex's stored key (its $d$-value) after a successful relaxation and re-sifts it toward the root to restore the heap order: $|E|$ updates, each $O(\log V)$ → $O(E \log V)$.
 - **Total: $O((V + E) \log V) = O(E \log V)$** for connected graphs where $E \geq V - 1$.
 
 (With a Fibonacci heap the bound improves to $O(E + V \log V)$ — better for dense graphs in theory.)
 
 ### 2.3 Dijkstra — Step-by-Step Example
+
+**Graph** (5 vertices $s, t, x, y, z$; all weights non-negative). Edge list:
+
+```
+  s --10--> t        t --1--> x        y --9--> x        z --7--> s
+  s -- 5--> y        t --2--> y        y --2--> z        z --6--> x
+                     y --3--> t        x --4--> z
+```
+
+i.e. $s \to t\,(10)$, $s \to y\,(5)$, $t \to x\,(1)$, $t \to y\,(2)$, $y \to t\,(3)$, $y \to x\,(9)$, $y \to z\,(2)$, $z \to s\,(7)$, $z \to x\,(6)$, $x \to z\,(4)$. (CLRS Fig. 24.6.)
 
 Source $s$. After each iteration, the **bolded** $d$-value identifies the vertex just extracted from the priority queue.
 
@@ -225,7 +235,17 @@ BellmanFord(G, r):
 
 ### 2.6 Bellman-Ford — Step-by-Step Example
 
-Graph with negative edges, source $= s$:
+**Graph** (5 vertices $s, t, x, y, z$; some negative edges), source $= s$. Edge list:
+
+```
+  s --6--> t        t -- 5--> x        x --(-2)--> t        z --7--> x
+  s --7--> y        t -- 8--> y        y --(-3)--> x        z --2--> s
+                    t --(-4)-> z        y -- 9 --> z
+```
+
+i.e. $s \to t\,(6)$, $s \to y\,(7)$, $t \to x\,(5)$, $t \to y\,(8)$, $t \to z\,(-4)$, $x \to t\,(-2)$, $y \to x\,(-3)$, $y \to z\,(9)$, $z \to x\,(7)$, $z \to s\,(2)$. (CLRS Fig. 24.4.)
+
+The trace below relaxes the edges in the order $(x,t), (t,x), (t,y), (t,z), (y,x), (y,z), (s,t), (s,y), (z,x), (z,s)$ — one fixed order reused every pass:
 
 | Pass    | $d[s]$ | $d[t]$ | $d[x]$ | $d[y]$ | $d[z]$ |
 |---------|--------|--------|--------|--------|--------|
@@ -235,7 +255,7 @@ Graph with negative edges, source $= s$:
 | (d) i=3 | 0      | 2      | 4      | 7      | -2     |
 | (e) i=4 | 0      | 2      | 4      | 7      | -2     |
 
-After Phase 2 no value tightens further → **no negative cycle**. The recorded `prev[]` defines the shortest-path tree.
+After Phase 2 no value tightens further → **no negative cycle**. The recorded `prev[]` defines the shortest-path tree. (Final distances are independent of the relaxation order; only the per-pass progression depends on it.)
 
 ### 2.7 Bellman-Ford as Dynamic Programming
 
@@ -410,6 +430,8 @@ In practice the three matrices $D^{(k-1)}$, $D^{(k)}$ can be collapsed into a si
 | **4** | 2   | **-1** | -5  | 0   | -2  |
 | **5** | ∞   | ∞      | ∞   | 6   | 0   |
 
+> **In-place computation is safe** (cf. §3.4). At iteration $k$ the only entries read are $d_{ik}$ and $d_{kj}$ — those in row $k$ and column $k$. But $d_{kk}^{(k)} = d_{kk}^{(k-1)} = 0$ (no negative cycle), so $d_{ik}^{(k)} = d_{ik}^{(k-1)}$ and $d_{kj}^{(k)} = d_{kj}^{(k-1)}$: row $k$ and column $k$ are *unchanged* by the $k$-th pass. Overwriting $d_{ij}$ in place therefore reads the same values whether or not it has already been updated this pass — a single matrix suffices. Re-running the $D^{(0)} \to D^{(5)}$ example with one in-place array reproduces the matrix in §3.6 exactly.
+
 ### 3.6 Final Distance Matrix and Path Reconstruction
 
 After computing $D^{(4)}$ and $D^{(5)}$, the **all-pairs shortest distances** are:
@@ -465,6 +487,10 @@ This is structurally identical to **matrix multiplication** where:
 - "multiply" becomes addition: $\ell_{ik} + w_{kj}$
 - "add" becomes minimum.
 
+We write this **min-plus (tropical) product** as $\boxtimes$: for matrices $A, B$,
+$$(A \boxtimes B)_{ij} = \min_{1 \leq k \leq n} \bigl\{\, A_{ik} + B_{kj} \,\bigr\}.$$
+It is exactly ordinary matrix multiplication with $(+, \times)$ replaced by $(\min, +)$. The recurrence above is then simply $L^{(m)} = L^{(m-1)} \boxtimes W$.
+
 **Computation:** $L^{(1)} = W$, $L^{(2)} = L^{(1)} \boxtimes W$, $\dots$, $L^{(n-1)}$ is the final answer (any simple shortest path uses at most $n - 1$ edges).
 
 **Time**: $\Theta(n^4)$ naïvely, or $\Theta(n^3 \log n)$ with **repeated squaring** (since the operation is associative, $L^{(2k)} = L^{(k)} \boxtimes L^{(k)}$).
@@ -506,19 +532,29 @@ This is **much faster than Dijkstra ($O(E \log V)$) and Bellman-Ford ($\Theta(VE
 
 ### 4.2 Worked Example
 
+**DAG** (6 vertices; every edge points forward in the topological order $v_0, v_1, v_2, v_3, v_4, v_5$). Edge list:
+
+```
+  v0 --(-5)--> v1        v1 --2--> v2        v2 --4--> v5
+  v0 --(-4)--> v4        v1 --5--> v3        v3 --(-1)--> v5
+                         v4 --6--> v2
+```
+
+i.e. $v_0 \to v_1\,(-5)$, $v_0 \to v_4\,(-4)$, $v_1 \to v_2\,(2)$, $v_1 \to v_3\,(5)$, $v_2 \to v_5\,(4)$, $v_3 \to v_5\,(-1)$, $v_4 \to v_2\,(6)$.
+
 Source $= v_0$, processed in topological order $v_0, v_1, v_2, v_3, v_4, v_5$:
 
 | Step | Process | $d[v_0]$ | $d[v_1]$ | $d[v_2]$ | $d[v_3]$ | $d[v_4]$ | $d[v_5]$ |
 |------|---------|----------|----------|----------|----------|----------|----------|
 | Init | —       | **0**    | ∞        | ∞        | ∞        | ∞        | ∞        |
-| (a)  | $v_0$   | 0        | ∞        | ∞        | ∞        | **-4**   | ∞        |
-| (b)  | $v_1$   | 0        | ∞        | ∞        | ∞        | -4       | **-1**   |
-| (c)  | $v_2$   | 0        | **-5**   | ∞        | **0**    | -4       | -1       |
-| (d)  | $v_3$   | 0        | -5       | **-3**   | 0        | -4       | -1       |
+| (a)  | $v_0$   | 0        | **-5**   | ∞        | ∞        | **-4**   | ∞        |
+| (b)  | $v_1$   | 0        | -5       | **-3**   | **0**    | -4       | ∞        |
+| (c)  | $v_2$   | 0        | -5       | -3       | 0        | -4       | **1**    |
+| (d)  | $v_3$   | 0        | -5       | -3       | 0        | -4       | **-1**   |
 | (e)  | $v_4$   | 0        | -5       | -3       | 0        | -4       | -1       |
 | (f)  | $v_5$   | 0        | -5       | -3       | 0        | -4       | -1       |
 
-Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded `d`-values mark when a finalized distance changed.
+Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded `d`-values mark each relaxation that improved a distance. Note $d[v_5]$ is first set to $1$ via $v_2 \to v_5$ at step (c), then improved to $-1$ via $v_3 \to v_5$ at step (d) — the topological order guarantees both contributors ($v_2, v_3$) are processed before $v_5$.
 
 ---
 
@@ -571,6 +607,8 @@ Every directed graph "condenses" into a DAG whose nodes are its SCCs — a treme
 StronglyConnectedComponents(G):
 
 1. Run DFS on G and compute finish times f[v] for every vertex v.
+   (Recall from Week 11: f[v] is the time at which DFS finishes exploring v
+    — i.e., when v is colored black after all its descendants are done.)
 
 2. Construct G^R (reverse every edge in G).
 
@@ -592,25 +630,31 @@ Two DFS passes, one edge reversal — that's it.
 **Step 1:** DFS on $G$, recording finish times.
 
 ```
-Graph G:
-  1 --> 2    5 --> 6
-  ^     |    ^     |
-  |     v    |     v
-  4 <-- 3    8 <-- 7
+Graph G — three cycles joined by ONE-WAY bridges (a clean condensation DAG):
 
-  Plus: 3 --> 5,  6 --> 4,  8 --> 9,  9 --> 10,  10 --> 8
+  Component A {1,2,3,4}:   1 --> 2 --> 3 --> 4 --> 1   (a directed 4-cycle)
+  Component B {5,6,7,8}:   5 --> 6 --> 7 --> 8 --> 5   (a directed 4-cycle)
+  Component C {9,10}:      9 <--> 10                    (a 2-cycle: 9->10, 10->9)
+
+  Bridges (one-directional, NO return path):
+       3 --> 5    (A → B)
+       7 --> 9    (B → C)
 ```
 
-DFS starting at vertex 1 produces (one valid) finish-time order:
-$$f[10]=1,\; f[9]=2,\; f[8]=3,\; f[7]=4,\; f[6]=5,\; f[5]=6,\; f[3]=7,\; f[2]=8,\; f[4]=9,\; f[1]=10.$$
+These bridges go *only* A → B → C, so no vertex in B or C can return to A, and none in C can return to B. The condensation is the DAG $A \to B \to C$, giving exactly three SCCs.
 
-**Step 2:** reverse all edges to obtain $G^R$.
+DFS starting at vertex 1 (visiting neighbors in ascending order) produces the finish-time order:
+$$f[4]=1,\; f[8]=2,\; f[10]=3,\; f[9]=4,\; f[7]=5,\; f[6]=6,\; f[5]=7,\; f[3]=8,\; f[2]=9,\; f[1]=10.$$
 
-**Step 3:** DFS on $G^R$ in **decreasing** finish-time order, i.e., processing roots $1, 4, 2, 3, 5, \dots$
+The DFS path is $1 \to 2 \to 3 \to 4$ (back-edge $4 \to 1$, so 4 finishes first), then $3 \to 5 \to 6 \to 7 \to 8$ (back-edge $8 \to 5$), then $7 \to 9 \to 10$ (back-edge $10 \to 9$). Vertices in component A finish *last* because the bridges keep the recursion descending into B and C before unwinding back up through A.
 
-- Start DFS from vertex **1** in $G^R$: reaches $\{1, 4, 3, 2\}$ → **SCC 1**.
-- Start DFS from vertex **5** in $G^R$: reaches $\{5, 6, 7, 8\}$ → **SCC 2**.
-- Start DFS from vertex **9** in $G^R$: reaches $\{9, 10\}$ → **SCC 3**.
+**Step 2:** reverse all edges to obtain $G^R$ (the bridges become $5 \to 3$ and $9 \to 7$).
+
+**Step 3:** DFS on $G^R$ in **decreasing** finish-time order, i.e., processing roots $1, 2, 3, 5, 6, 7, 9, 10, 8, 4$.
+
+- Start DFS from vertex **1** ($f=10$) in $G^R$: reaches $\{1, 4, 3, 2\}$ → **SCC 1**. (In $G^R$, $1 \to 4 \to 3 \to 2 \to 1$; the reversed bridge $5 \to 3$ points *into* this set, not out, so DFS cannot escape.)
+- Next unvisited root by decreasing $f$ is **5** ($f=7$): reaches $\{5, 8, 7, 6\}$ → **SCC 2**. (The reversed bridge $9 \to 7$ points into this set.)
+- Next unvisited root is **9** ($f=4$): reaches $\{9, 10\}$ → **SCC 3**.
 
 **Result: 3 SCCs** = $\{1, 2, 3, 4\}$, $\{5, 6, 7, 8\}$, $\{9, 10\}$.
 
@@ -691,7 +735,7 @@ This is the textbook **two-pass DFS** trick — a beautifully economical use of 
 
 7. **Floyd-Warshall trace:** Continue the §3.5 example, compute $D^{(4)}$ and $D^{(5)}$, and verify the final matrix in §3.6.
 
-   > **Answer:** **$D^{(4)}$**: allow $\{1,2,3,4\}$. Use the recurrence with $k = 4$. Notable updates: $d_{15}^{(4)} = \min(-4, 4 + (-2)) = -4$ (no change). $d_{25}^{(4)} = \min(7, 1 + (-2)) = -1$. $d_{35}^{(4)} = \min(11, 5 + (-2)) = 3$. $d_{21}^{(4)} = \min(\infty, 1 + 2) = 3$. $d_{23}^{(4)} = \min(\infty, 1 + (-5)) = -4$. $d_{31}^{(4)} = \min(\infty, 5 + 2) = 7$. $d_{33}^{(4)} = \min(0, 5 + (-5)) = 0$ (no change). **$D^{(5)}$**: allow $\{1,2,3,4,5\}$. Notable: $d_{12}^{(5)} = \min(3, -4 + 5) = 1$. $d_{13}^{(5)} = \min(8, -4 + 1) = -3$. $d_{14}^{(5)} = \min(4, -4 + 6) = 2$. $d_{52}^{(5)} = \min(\infty, 6 + (-1)) = 5$. $d_{51}^{(5)} = \min(\infty, 6 + 2) = 8$. $d_{53}^{(5)} = \min(\infty, 6 + (-5)) = 1$. Final matches §3.6. ✓
+   > **Answer:** **$D^{(4)}$**: allow $\{1,2,3,4\}$. Use the recurrence with $k = 4$. Notable updates: $d_{15}^{(4)} = \min(-4, 4 + (-2)) = -4$ (no change). $d_{25}^{(4)} = \min(7, 1 + (-2)) = -1$. $d_{35}^{(4)} = \min(11, 5 + (-2)) = 3$. $d_{21}^{(4)} = \min(\infty, 1 + 2) = 3$. $d_{23}^{(4)} = \min(\infty, 1 + (-5)) = -4$. $d_{31}^{(4)} = \min(\infty, 5 + 2) = 7$. $d_{33}^{(4)} = \min(0, 5 + (-5)) = 0$ (no change). **$D^{(5)}$**: allow $\{1,2,3,4,5\}$. Notable: $d_{12}^{(5)} = \min(3, -4 + 5) = 1$. $d_{13}^{(5)} = \min(-1, -4 + 1) = -3$. $d_{14}^{(5)} = \min(4, -4 + 6) = 2$. $d_{52}^{(5)} = \min(\infty, 6 + (-1)) = 5$. $d_{51}^{(5)} = \min(\infty, 6 + 2) = 8$. $d_{53}^{(5)} = \min(\infty, 6 + (-5)) = 1$. Final matches §3.6. ✓
 
 8. **Edge-based formulation:** Show why $L^{(2k)} = L^{(k)} \boxtimes L^{(k)}$ in the min-plus semiring, and conclude the $\Theta(n^3 \log n)$ bound via repeated squaring.
 

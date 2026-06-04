@@ -1,6 +1,6 @@
 # Week 11 Lecture — Graph Algorithms I
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-04
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 20 (Elementary Graph Algorithms), Ch 21 (Minimum Spanning Trees)
 
@@ -208,6 +208,8 @@ Per-vertex arrays:        Packed array form:
    3: [1, 2, 4]
    4: [2, 3]
 ```
+
+Reading the packed form: the `Index` array is an **offset table** (0-based positions). The neighbor block of vertex $i$ occupies `A[Index[i] .. Index[i+1]-1]` — e.g. the 2nd vertex sits at `A[Index[1]..Index[2]-1] = A[2..4] = [1, 3, 4]`. The block length `Count[i] = Index[i+1] - Index[i]` is exactly $\deg(i)$, so `Index` and `Count` are two views of the same boundaries. (`Index` carries one extra trailing entry, $|E|$ counted with direction $= 10$, so the last vertex's block has a defined end.)
 
 **Advantages over linked-list adjacency:**
 - No pointer overhead — better cache behavior.
@@ -497,7 +499,7 @@ DAG:
    v         /
    C -------
 
-DFS-TS from A:
+DFS-TS from A (assume adjacency order L(A) = [B, C], so B is explored before C):
    Visit A → Visit B → Visit D
      D done  → R = [D]
      B done  → R = [B, D]
@@ -580,9 +582,12 @@ Prim(G, r)                            // G = (V, E), r = start vertex
                 tree[v] ← u           // remember parent in MST
 ```
 
+- A **fringe vertex** is one *not yet in the tree* ($v \in V - S$) but adjacent to some vertex already in $S$ — i.e. a candidate sitting on the boundary of the growing MST, with a finite $d[v]$.
 - **extractMin** uses a heap → $O(\log V)$ per extraction, $V$ extractions total → $O(V \log V)$.
-- **Relaxation** (line 7) — updates $d[v]$ if a cheaper edge from $S$ to $v$ is found. Across all neighbors over all iterations this is $O(E \log V)$ (each edge contributes at most one decrease-key).
+- **Relaxation** (line 7) — updates $d[v]$ if a cheaper edge from $S$ to $v$ is found. Across all neighbors over all iterations this is $O(E \log V)$ (each edge contributes at most one **decrease-key** — the priority-queue operation that lowers a key already stored in the heap, costing $O(\log V)$).
 - **Total: $O(E \log V)$.**
+
+> **Array variant:** if `extractMin` is a plain linear scan of $d[]$ over the unvisited vertices (no heap), each of the $V$ extractions costs $O(V)$, giving **$O(V^2)$** overall. This is *faster* than the heap version on **dense** graphs (where $E$ approaches $V^2$), since $V^2 \leq E \log V$ there — the trade-off referenced in Self-Check Q10.
 
 ### 4.4 Prim's Algorithm — Worked Example
 
@@ -733,7 +738,7 @@ The MST is the **same** as Prim's result (when the MST is unique, both algorithm
 
 Both are **greedy** algorithms that produce a **provably optimal** MST.
 
-> **5주차와의 연결 (Week 5 callback):** Greedy algorithms are *correct* exactly when the greedy-choice property holds. For MST, the cut property *is* that justification — it is one of the rare optimization settings where the greedy heuristic happens to be a theorem.
+> **Week 5 callback:** Greedy algorithms are *correct* exactly when the greedy-choice property holds. For MST, the cut property *is* that justification — it is one of the rare optimization settings where the greedy heuristic happens to be a theorem.
 
 ---
 

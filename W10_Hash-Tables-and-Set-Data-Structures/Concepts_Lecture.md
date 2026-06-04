@@ -1,6 +1,6 @@
 # Week 10 Lecture — Hash Tables and Set Data Structures
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-04
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 11 (Hash Tables)
 
@@ -220,6 +220,10 @@ All elements are stored **directly in the table** — no linked lists. When a co
 
 Here $h'(k)$ is the underlying (single) hash function.
 
+Because all entries live in **one contiguous array** (no per-element nodes), probing walks adjacent memory and benefits from **memory locality** — consecutive slots usually share a cache line, so open addressing avoids the pointer-chasing that makes separate chaining cache-unfriendly. This is why open addressing is described as **cache-friendly**.
+
+> **Deletion needs care:** naively clearing a slot breaks probe chains — search stops at the first empty slot, so any key placed *after* the cleared slot via probing becomes unreachable. Deleted slots are therefore marked with a **tombstone** (a "deleted" marker): search keeps probing past it, while insert may reuse it (revisited in Self-Check Q10).
+
 ### 2.4 Linear Probing — Example
 
 Insert keys $\{25, 37, 42, 55, 73\}$ into a table of size $m = 10$ using $h(k) = k \bmod 10$:
@@ -275,6 +279,17 @@ Step 5: Insert 73 → h(73)=3
 - **Quadratic probing** reduces primary clustering but introduces **secondary clustering** — keys with the same initial hash still follow identical probe sequences.
 - **Double hashing** produces the best distribution and nearly eliminates clustering.
 
+**Quadratic-probing trace** — take $h(k, i) = (h'(k) + i^2) \bmod m$ with $m = 11$ and $h'(k) = k \bmod 11$. Insert a key $k$ that hashes to slot 3 while slots 3, 4, and 7 are already occupied:
+
+| $i$ | $h(k,i) = (3 + i^2) \bmod 11$ | Slot | Result |
+|-----|-------------------------------|------|--------|
+| 0 | $3 + 0 = 3$ | 3 | occupied → next |
+| 1 | $3 + 1 = 4$ | 4 | occupied → next |
+| 2 | $3 + 4 = 7$ | 7 | occupied → next |
+| 3 | $3 + 9 = 12 \bmod 11 = 1$ | 1 | empty → place here |
+
+The gaps $0, 1, 4, 9, \ldots$ jump away from the start, so the probe path does **not** pile up into one contiguous block — that is how quadratic probing avoids **primary** clustering. But every key that also starts at slot 3 would follow the *same* sequence $3, 4, 7, 1, \ldots$, which is **secondary clustering**.
+
 > **Intuition:** clustering is what happens when probe paths are *correlated*. Linear probing makes every nearby key share a path; double hashing decorrelates probe sequences by using a per-key step size.
 
 ### 2.6 Double Hashing
@@ -290,7 +305,7 @@ $$h(k, i) = (h_1(k) + i \cdot h_2(k)) \bmod m$$
 - $h_2(k) \neq 0$ for every key $k$ (otherwise we loop in place).
 - $h_2(k)$ should be **relatively prime to $m$** so the probe sequence visits every slot before repeating.
 
-A standard recipe: pick $m$ prime and use $h_2(k) = 1 + (k \bmod m')$ where $m' = m - 1$.
+A standard recipe: pick $m$ prime and use $h_2(k) = 1 + (k \bmod m')$ for some $m' < m$ (any $m' < m$ keeps $1 \le h_2 \le m' < m$, so $h_2 \neq 0$; a prime $m$ then guarantees $\gcd(h_2, m) = 1$, so the probe sequence visits every slot before repeating).
 
 **Example** — $m = 7$, $h_1(k) = k \bmod 7$, $h_2(k) = 1 + (k \bmod 5)$:
 
@@ -409,7 +424,7 @@ These are among the most heavily used data structures in coding interviews and c
 |-----------|------------|-----------------------------------|
 | Average search | **$O(1)$** | $O(\log n)$ |
 | Worst-case search | $O(n)$ | **$O(\log n)$** guaranteed |
-| Ordered iteration | Not supported (or $O(n \log n)$) | **$O(n)$** in-order |
+| Ordered iteration | Not supported (or $O(n \log n)$ — must collect all keys, then sort) | **$O(n)$** in-order (ascending key order) |
 | Range queries | Not supported | **$O(\log n + k)$** |
 | Memory overhead | Array + chains/probes | Pointers per node |
 | Implementation | Needs a good hash function | Self-balancing logic |
