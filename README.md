@@ -150,9 +150,17 @@ This repository contains bilingual study materials and code developed for a univ
 │   ├── Concepts_Lecture.ko.md
 │   └── Concepts_Lecture.md
 ├── W10_Hash-Tables-and-Set-Data-Structures
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W11_Graph-Algorithms-I
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W12_Graph-Algorithms-II
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W13_NP-Completeness-and-Approximation-Algorithms
+│   ├── Concepts_Lecture.ko.md
+│   └── Concepts_Lecture.md
 ├── W14_Approximation-Algorithms
 ├── Preparation
 │   ├── AL-Mid_SummarySheet.ko.md.pdf
