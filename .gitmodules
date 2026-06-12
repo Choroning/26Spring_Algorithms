@@ -1,0 +1,3 @@
+[submodule "CLI_AL"]
+	path = CLI_AL
+	url = https://github.com/Choroning/CLI_AL.git
