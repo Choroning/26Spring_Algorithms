@@ -1,6 +1,6 @@
 # Week 10 Lecture — Hash Tables and Set Data Structures
 
-> **Last Updated:** 2026-06-04
+> **Last Updated:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 11 (Hash Tables)
 
@@ -69,6 +69,8 @@
 
 A hash table is built from three components:
 
+![Hash table structure (CLRS)](../images/ch11_p002_001.png)
+
 | Component | Role |
 |-----------|------|
 | **Key** | Unique identifier of each item |
@@ -132,6 +134,8 @@ A well-designed hash function should satisfy:
 
 A **collision** occurs when two different keys produce the same hash value.
 
+![Hash collision (CLRS)](../images/ch11_p004_002.png)
+
 ```
    Key: 25  ──►  h(25) = 5  ──┐
                               ├──►  Index 5  (Collision!)
@@ -158,6 +162,8 @@ The practical question is therefore not "how do we avoid collisions?" but "**how
 ### 2.1 Separate Chaining (Open Hashing)
 
 Each table slot holds a **linked list** of all key-value pairs that hash to that index.
+
+![Separate chaining (CLRS)](../images/ch11_p005_003.png)
 
 ```
    Hash Table
@@ -260,6 +266,8 @@ Step 5: Insert 73 → h(73)=3
 - Occupied slots tend to form **long contiguous blocks**.
 - A new key that hashes anywhere into a cluster must probe to the end of it.
 - Clusters absorb new keys faster than empty regions — they grow super-linearly and worsen performance.
+
+![Open addressing example (CLRS)](../images/ch11_p021_005.png)
 
 ```
    ┌───┬────┐

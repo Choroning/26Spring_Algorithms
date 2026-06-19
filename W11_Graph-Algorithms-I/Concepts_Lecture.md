@@ -1,6 +1,6 @@
 # Week 11 Lecture — Graph Algorithms I
 
-> **Last Updated:** 2026-06-04
+> **Last Updated:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 20 (Elementary Graph Algorithms), Ch 21 (Minimum Spanning Trees)
 
@@ -107,6 +107,8 @@ Use an $N \times N$ matrix where $N = |V|$:
 - Entry $(i, j)$ = **1** if edge exists, **0** if not.
 - For a **directed graph**, entry $(i, j)$ means edge from $i$ to $j$ — so the matrix is generally **asymmetric**.
 - For a **weighted graph**, store the **weight** at $(i, j)$ instead of 1.
+
+![Graph with adjacency list and matrix (CLRS)](../images/ch22_p002_001.png)
 
 ```
 Graph:             Adjacency Matrix:
@@ -281,6 +283,8 @@ aDFS(v)
 > **Why "linear in $V+E$" is the right yardstick:** any algorithm that touches all vertices and edges at least once must pay $\Omega(V + E)$. DFS hits this lower bound, so it is asymptotically optimal for "look at every vertex".
 
 ### 2.3 DFS — Step-by-Step Example
+
+![DFS step-by-step with discovery/finish times](../images/ch22_p017_004.png)
 
 ```
 Graph:                    Adjacency Lists:
@@ -491,6 +495,8 @@ DFS-TS(v)
 > **Why prepend on finish?** A vertex is "done" only when every descendant it can reach is already in $R$. Putting the just-finished vertex at the front guarantees that it precedes everything reachable from it — exactly the topological-order requirement.
 
 ### 3.4 DFS Topological Sort — Example
+
+![Topological sort DFS example — getting dressed](../images/ch22_p025_007.png)
 
 ```
 DAG:

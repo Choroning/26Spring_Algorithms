@@ -1,6 +1,6 @@
 # Week 13 Lecture — NP-Completeness & Approximation Algorithms
 
-> **Last Updated:** 2026-06-04
+> **Last Updated:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 34 (NP-Completeness), Ch 35 (Approximation Algorithms)
 
@@ -270,6 +270,8 @@ A decision problem is in NP if, given a **"Yes" certificate** (a proposed soluti
 
 The single most important construction in this lecture.
 
+![Polynomial-time reduction diagram](../images/ch34_p005_001.png)
+
 **Definition.** Problem $A$ **reduces to** problem $B$ (written $A \leq_P B$) if there is a function $f$ such that:
 
 1. $f$ transforms every instance $\alpha$ of $A$ into an instance $f(\alpha) = \beta$ of $B$ **in polynomial time**, and
@@ -320,6 +322,8 @@ So $\text{HAM-CYCLE} \leq_P \text{TSP}$. Since HAM-CYCLE is known to be NP-Compl
 $$\text{For every } L \in NP: \quad L \leq_P A.$$
 
 In words, $A$ is **at least as hard as every problem in NP**. Crucially, $A$ does **not** need to be in NP itself — the Halting Problem is NP-Hard but is outside NP (it is undecidable).
+
+![P, NP, NPC Venn diagram](../images/ch34_p023_006.png)
 
 **NP-Complete.** $A$ is NP-Complete if:
 
@@ -429,6 +433,8 @@ The transformation is $O(|E|)$. Therefore $\text{LONGEST-PATH}$ is NP-Hard. Comb
   - they are **contradictory** (e.g., $x_i$ and $\overline{x_i}$).
 - Set $k = m$ (the number of clauses).
 
+![3-SAT to CLIQUE reduction graph construction](../images/ch34_p041_014.png)
+
 **Why it works.** A clique of size $m$ in $G_\phi$ selects one literal per clause (since no two same-clause vertices are connected) without contradictions (since no $x_i / \overline{x_i}$ pair is connected). Set every literal in the clique to True — every clause is satisfied. Conversely, a satisfying assignment chooses one true literal per clause, and any such choice forms a clique.
 
 The construction is polynomial. So $\text{3-SAT} \leq_P \text{CLIQUE}$, and CLIQUE is NP-Hard.
@@ -436,6 +442,8 @@ The construction is polynomial. So $\text{3-SAT} \leq_P \text{CLIQUE}$, and CLIQ
 ### 2.10 The Reduction Chain
 
 The first NP-Complete proof was for **SAT** by Cook (1971), proved *directly* from the definition of NP (showing a polynomial-time nondeterministic Turing machine can be simulated by a Boolean formula).
+
+![NP-Completeness reduction chain](../images/ch34_p040_013.png)
 
 Every subsequent NP-Completeness proof reuses Cook's result by **reducing from a known NP-Complete problem**:
 
@@ -633,6 +641,8 @@ $$
 **Vertex Cover** of $G = (V, E)$: a subset $S \subseteq V$ such that every edge has at least one endpoint in $S$. **Goal:** find a minimum-size vertex cover.
 
 **Real-world analogy:** place the fewest CCTV cameras at intersections so that every corridor (edge) is monitored.
+
+![Vertex cover example](../images/ch34_p043_015.png)
 
 ### 5.2 Algorithm
 

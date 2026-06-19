@@ -1,6 +1,6 @@
 # 13주차 이론 — NP-완비성과 근사 알고리즘
 
-> **최종 수정일:** 2026-06-04
+> **최종 수정일:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 34 (NP-Completeness), Ch 35 (Approximation Algorithms)
 
@@ -269,6 +269,8 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 
 이번 강의에서 가장 중요한 구성.
 
+![다항 시간 환원 다이어그램](../images/ch34_p005_001.png)
+
 **정의.** 문제 $A$ 가 문제 $B$ **로 환원** ($A \leq_P B$ 로 표기) 됨은 다음을 만족하는 함수 $f$ 가 존재함:
 
 1. $f$ 가 $A$ 의 모든 인스턴스 $\alpha$ 를 $B$ 의 인스턴스 $f(\alpha) = \beta$ 로 **다항 시간에** 변환, 그리고
@@ -319,6 +321,8 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 $$\text{모든 } L \in NP \text{ 에 대해: } \quad L \leq_P A.$$
 
 말로 하면, $A$ 는 **NP의 모든 문제만큼 어렵다**. 결정적으로, $A$ 자체가 NP에 속할 필요는 **없음** — 정지 문제는 NP-Hard지만 NP 밖 (결정 불가능).
+
+![P, NP, NPC 벤 다이어그램](../images/ch34_p023_006.png)
 
 **NP-Complete.** $A$ 가 NP-Complete:
 
@@ -428,6 +432,8 @@ $\leq_P$ 의 추이성에 의해, *모든* NP 문제가 $C$ 로 환원되고 $C$
   - 그들이 **모순적** ($x_i$ 와 $\overline{x_i}$ 같이) 이면 안 됨.
 - $k = m$ (절의 수) 설정.
 
+![3-SAT에서 CLIQUE로의 환원 그래프 구성](../images/ch34_p041_014.png)
+
 **왜 동작하는가.** $G_\phi$ 의 크기 $m$ clique은 절마다 리터럴 하나를 (같은 절 정점은 연결되지 않으므로) 모순 없이 (모순 쌍은 연결되지 않으므로) 선택. clique의 모든 리터럴을 True로 설정 — 모든 절이 만족됨. 역도 마찬가지로 만족 할당이 절당 참 리터럴을 고르고, 그런 선택은 clique을 이룸.
 
 구성은 다항. 따라서 $\text{3-SAT} \leq_P \text{CLIQUE}$ 이고 CLIQUE은 NP-Hard.
@@ -435,6 +441,8 @@ $\leq_P$ 의 추이성에 의해, *모든* NP 문제가 $C$ 로 환원되고 $C$
 ### 2.10 환원의 사슬
 
 최초의 NP-완비 증명은 Cook(1971)의 **SAT** 에 대한 것 — NP의 정의로부터 *직접* 증명 (다항 시간 비결정 튜링 기계를 Boolean 식으로 시뮬레이션할 수 있음을 보임).
+
+![NP-완비성 환원의 사슬](../images/ch34_p040_013.png)
 
 이후 모든 NP-완비성 증명은 Cook의 결과를 재사용하며 **알려진 NP-Complete 문제로부터 환원**:
 
@@ -632,6 +640,8 @@ $$
 **Vertex Cover** of $G = (V, E)$: 모든 간선이 적어도 한 끝점을 가지는 부분집합 $S \subseteq V$. **목표:** 최소 크기 vertex cover.
 
 **실세계 비유:** 모든 복도(간선)가 감시되도록 교차로에 최소 CCTV 카메라 설치.
+
+![Vertex cover 예시](../images/ch34_p043_015.png)
 
 ### 5.2 알고리즘
 

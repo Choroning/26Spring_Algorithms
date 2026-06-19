@@ -1,6 +1,6 @@
 # Week 9 Lecture — Search Trees
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 12 (Binary Search Trees), Ch 13 (Red-Black Trees), Ch 18 (B-Trees)
 
@@ -202,6 +202,8 @@ Insert: 1, 2, 3, 4, 5
 
 The tree degenerates into a **linked list**:
 
+![Balanced vs degenerate BST](../images/ch12_p002_001.png)
+
 $$T(n) = T(n-1) + O(1) \implies T(n) = O(n)$$
 
 | Case             | Height   | Search/Insert |
@@ -294,6 +296,8 @@ so search, insert, and delete are all **guaranteed** $O(\log n)$ in the worst ca
 
 Every RBT must satisfy:
 
+![Red-Black Tree example (CLRS)](../images/ch13_p003_001.png)
+
 | # | Property |
 |---|----------|
 | 1 | Every node is either **red** or **black** |
@@ -371,6 +375,8 @@ The fix-up branches on the **uncle's color**:
 ### 3.6 Case 1 — Restructuring (Uncle is Black)
 
 When $U$ is black, locally rotate $N$, $P$, $G$:
+
+![Left-Rotate and Right-Rotate (CLRS)](../images/ch13_p006_002.png)
 
 1. **Sort** $N, P, G$ by key.
 2. The **median** becomes the new local root (colored **black**); the other two become its children (colored **red**).
@@ -495,6 +501,8 @@ A Red-Black Tree with $n = 10^9$ nodes has height $\approx 30$. On HDD that is $
 ### 4.2 B-Tree — The Idea
 
 Make each node hold **many keys** so the tree is **wide and shallow**.
+
+![B-Tree example (CLRS)](../images/ch13_p027_011.png)
 
 ```
 BST (tall, narrow):     B-Tree (short, wide):

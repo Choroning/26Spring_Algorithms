@@ -1,6 +1,6 @@
 # Week 12 Lecture — Graph Algorithms II
 
-> **Last Updated:** 2026-06-04
+> **Last Updated:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 22 (Single-Source Shortest Paths), Ch 23 (All-Pairs Shortest Paths), Ch 20 (Elementary Graph Algorithms — SCC)
 
@@ -106,6 +106,8 @@ This property is the reason **dynamic programming** (Bellman-Ford, Floyd-Warshal
 
 **Relaxation** = updating the current best-known distance estimate when a shorter path is discovered.
 
+![Relaxation: before and after](../images/ch24_p007_003.png)
+
 ```
 RELAX(u, v, w):
     if d[u] + w(u, v) < d[v] then
@@ -189,6 +191,8 @@ Source $s$. After each iteration, the **bolded** $d$-value identifies the vertex
 
 The `prev[]` array records each vertex's predecessor on the shortest-path tree, allowing the actual path to be reconstructed by walking backwards from any destination.
 
+![Dijkstra step-by-step execution](../images/ch24_p017_006.png)
+
 ### 2.4 Why Dijkstra Fails with Negative Weights
 
 ```
@@ -256,6 +260,8 @@ The trace below relaxes the edges in the order $(x,t), (t,x), (t,y), (t,z), (y,x
 | (e) i=4 | 0      | 2      | 4      | 7      | -2     |
 
 After Phase 2 no value tightens further → **no negative cycle**. The recorded `prev[]` defines the shortest-path tree. (Final distances are independent of the relaxation order; only the per-pass progression depends on it.)
+
+![Bellman-Ford step-by-step iterations](../images/ch24_p010_004.png)
 
 ### 2.7 Bellman-Ford as Dynamic Programming
 
@@ -555,6 +561,8 @@ Source $= v_0$, processed in topological order $v_0, v_1, v_2, v_3, v_4, v_5$:
 | (f)  | $v_5$   | 0        | -5       | -3       | 0        | -4       | -1       |
 
 Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded `d`-values mark each relaxation that improved a distance. Note $d[v_5]$ is first set to $1$ via $v_2 \to v_5$ at step (c), then improved to $-1$ via $v_3 \to v_5$ at step (d) — the topological order guarantees both contributors ($v_2, v_3$) are processed before $v_5$.
+
+![DAG shortest paths example](../images/ch24_p025_008.png)
 
 ---
 

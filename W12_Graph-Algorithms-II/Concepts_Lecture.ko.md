@@ -1,6 +1,6 @@
 # 12주차 이론 — 그래프 알고리즘 II
 
-> **최종 수정일:** 2026-06-04
+> **최종 수정일:** 2026-06-19
 >
 > Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 22 (Single-Source Shortest Paths), Ch 23 (All-Pairs Shortest Paths), Ch 20 (Elementary Graph Algorithms — SCC)
 
@@ -106,6 +106,8 @@ $S \to G$ 최단 경로가 중간 노드 $M$ 을 통과해 총 비용이 $5 + 3 
 
 **이완** = 더 짧은 경로를 발견했을 때 현재 추정 거리를 갱신하는 연산.
 
+![이완: 전과 후](../images/ch24_p007_003.png)
+
 ```
 RELAX(u, v, w):
     if d[u] + w(u, v) < d[v] then
@@ -189,6 +191,8 @@ Dijkstra(G, r):
 
 `prev[]` 배열은 최단 경로 트리 위에서 각 정점의 선행자를 기록하므로, 임의의 도착점에서 거꾸로 따라가며 실제 경로를 복원할 수 있다.
 
+![Dijkstra 단계별 실행](../images/ch24_p017_006.png)
+
 ### 2.4 Dijkstra가 음수 가중치에서 실패하는 이유
 
 ```
@@ -256,6 +260,8 @@ BellmanFord(G, r):
 | (e) i=4 | 0      | 2      | 4      | 7      | -2     |
 
 Phase 2 후 어떤 값도 더 줄어들지 않음 → **음수 사이클 없음**. 기록된 `prev[]` 가 최단 경로 트리를 정의. (최종 거리는 이완 순서와 무관하며, 패스별 진행만 순서에 의존.)
+
+![Bellman-Ford 단계별 반복](../images/ch24_p010_004.png)
 
 ### 2.7 Bellman-Ford를 동적 계획법으로 보기
 
@@ -555,6 +561,8 @@ PERT 차트, 의존성 그래프, 일회성 결정 다이어그램 같은 DAG에
 | (f)  | $v_5$     | 0        | -5       | -3       | 0        | -4       | -1       |
 
 각 정점은 정확히 한 번 처리되고, 모든 나가는 간선이 정확히 한 번 이완된다. 굵게 표시된 $d$ 값은 거리를 개선한 각 이완을 표시. $d[v_5]$ 는 step (c) 에서 $v_2 \to v_5$ 로 먼저 $1$ 이 되었다가 step (d) 에서 $v_3 \to v_5$ 로 $-1$ 로 개선됨에 주목 — 위상 순서가 두 기여 정점($v_2, v_3$)이 $v_5$ 보다 먼저 처리됨을 보장.
+
+![DAG 최단 경로 예시](../images/ch24_p025_008.png)
 
 ---
 
