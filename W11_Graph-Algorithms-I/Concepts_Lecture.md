@@ -1,11 +1,9 @@
 # Week 11 Lecture — Graph Algorithms I
 
-> **Last Updated:** 2026-06-04
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 20 (Elementary Graph Algorithms), Ch 21 (Minimum Spanning Trees)
+> Introduction to Algorithms, CLRS - Ch 20, 21
 
-> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (operation costs are reported in $O(V+E)$, $O(E \log V)$, etc.). Week 3: Arrays, stacks, queues (BFS uses a queue, DFS uses a stack or recursion). Week 5: Greedy algorithms (Prim's and Kruskal's are both greedy MSTs — revisited here in depth). Week 9: Trees (a spanning tree is a tree; MST proofs use tree properties). Basic discrete-math vocabulary: set, relation, ordered/unordered pair.
->
 > **Learning Objectives**:
 > 1. Define a graph $G = (V, E)$ and distinguish directed/undirected, weighted/unweighted variants
 > 2. Compare **adjacency matrix**, **adjacency list**, and **adjacency array** representations on space and edge-lookup cost
@@ -107,6 +105,10 @@ Use an $N \times N$ matrix where $N = |V|$:
 - Entry $(i, j)$ = **1** if edge exists, **0** if not.
 - For a **directed graph**, entry $(i, j)$ means edge from $i$ to $j$ — so the matrix is generally **asymmetric**.
 - For a **weighted graph**, store the **weight** at $(i, j)$ instead of 1.
+
+![Graph with adjacency list and matrix (CLRS)](../images/ch22_p002_001.png)
+
+*Graph with adjacency list and matrix (CLRS)*
 
 ```
 Graph:             Adjacency Matrix:
@@ -281,6 +283,10 @@ aDFS(v)
 > **Why "linear in $V+E$" is the right yardstick:** any algorithm that touches all vertices and edges at least once must pay $\Omega(V + E)$. DFS hits this lower bound, so it is asymptotically optimal for "look at every vertex".
 
 ### 2.3 DFS — Step-by-Step Example
+
+![DFS step-by-step with discovery/finish times](../images/ch22_p017_004.png)
+
+*DFS step-by-step with discovery/finish times*
 
 ```
 Graph:                    Adjacency Lists:
@@ -491,6 +497,10 @@ DFS-TS(v)
 > **Why prepend on finish?** A vertex is "done" only when every descendant it can reach is already in $R$. Putting the just-finished vertex at the front guarantees that it precedes everything reachable from it — exactly the topological-order requirement.
 
 ### 3.4 DFS Topological Sort — Example
+
+![Topological sort DFS example — getting dressed](../images/ch22_p025_007.png)
+
+*Topological sort DFS example — getting dressed*
 
 ```
 DAG:

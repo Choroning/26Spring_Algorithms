@@ -1,11 +1,9 @@
 # Week 4 Lecture — Divide and Conquer Algorithms
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 4 (Divide-and-Conquer, Master Theorem), Ch 7 (Quicksort), Ch 9 (Medians and Order Statistics), Ch 33 (Computational Geometry — Closest Pair)
+> Introduction to Algorithms, CLRS - Ch 4, 7, 9, 33
 
-> **Prerequisites**: Asymptotic notation — Big-O, Big-Omega, Big-Theta (Week 2). Sorting algorithms — merge sort, quick sort concepts (Week 3). Recurrence relations and mathematical induction (Discrete Mathematics). Understanding of recursion — base case, recursive call.
->
 > **Learning Objectives**:
 > 1. Describe the divide-and-conquer paradigm (divide, conquer, combine) and identify it in algorithms
 > 2. Apply the Master Theorem to determine the time complexity of D&C recurrences
@@ -173,6 +171,8 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 ![Master Theorem Recursion Tree](../images/ch04_p035_008.png)
 
+*Master Theorem Recursion Tree*
+
 > **Note:** The recursion tree is a key tool for visually understanding divide and conquer recurrences. Summing the costs from root to leaves across all levels gives the total time complexity. The Master Theorem simplifies this summation into a comparison between $f(n)$ and $n^{\log_b a}$.
 
 ### 1.7 Master Theorem — Three Cases
@@ -191,6 +191,8 @@ $$T(n) = \Theta(f(n))$$
 Here $\varepsilon > 0$ is any positive constant — the condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}$, not just slightly smaller.
 
 ![Recursion Tree Example: T(n)=3T(n/4)+cn²](../images/ch04_p025_006.png)
+
+*Recursion Tree Example: T(n)=3T(n/4)+cn²*
 
 > **Note (Case 3):** The *regularity condition* is also required: for some $c < 1$, $a \cdot f(n/b) \le c \cdot f(n)$ must hold.
 
@@ -214,6 +216,8 @@ Here $\varepsilon > 0$ is any positive constant — the condition means $f(n)$ m
 | $T(n) = T(n-1) + O(?)$ | Size decreases by 1 | Insertion Sort, Fibonacci |
 
 ![Unequal Partition Recursion Tree](../images/ch04_p027_007.png)
+
+*Unequal Partition Recursion Tree*
 
 > **Key Idea:** The Master Theorem can only be directly applied to recurrences of the form $T(n) = aT(n/b) + f(n)$. For cases like Quick Sort where the partition is unequal, or Insertion Sort where the size decreases by only 1, separate analysis is required.
 
@@ -241,6 +245,8 @@ MERGE-SORT(A, p, r)
 ```
 
 ![Merge Sort Operation Tree (CLRS Figure 2.4)](../images/ch02_fig2_4_1.png)
+
+*Merge Sort Operation Tree (CLRS Figure 2.4)*
 
 > **[Data Structures]** The key to merge sort is the MERGE process. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
 
@@ -420,7 +426,11 @@ Returns the final index of the pivot.
 
 ![Partition Regions (CLRS Figure 7.2)](../images/ch07_partition_1.png)
 
+*Partition Regions (CLRS Figure 7.2)*
+
 ![Partition Iteration Cases (CLRS Figure 7.3)](../images/ch07_partition_2.png)
+
+*Partition Iteration Cases (CLRS Figure 7.3)*
 
 > **Note:** Variable `i` tracks the "last index of elements ≤ pivot." As `j` scans the array, whenever an element ≤ pivot is found, `i` is incremented and `A[i]` and `A[j]` are swapped to include that element in the left region.
 
@@ -679,6 +689,8 @@ $$M = 18$$
 Each column = a group of 5. White circles = medians. Shaded region = elements guaranteed to be $\ge x$.
 
 ![Median of Medians Analysis (CLRS Figure 9.1)](../images/ch09_fig9_1_1.png)
+
+*Median of Medians Analysis (CLRS Figure 9.1)*
 
 ### 5.10 Linear Selection — Time Complexity
 

@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 35 (Approximation Algorithms)
+> Introduction to Algorithms, CLRS - Ch 35
 
-> **Prerequisites**: Week 13: NP-Completeness — every problem this week (TSP, Vertex Cover, Bin Packing, Job Scheduling, Clustering) is NP-Complete, which is *why* we turn to approximation instead of an exact polynomial algorithm. The **indirect-optimal technique** from Week 13 is the engine behind every ratio proof. Week 5: Greedy algorithms — all five approximation algorithms are greedy with a *proof of approximation ratio* bolted on. Week 11: Graphs and MST — the TSP approximation uses MST (Kruskal/Prim) directly as a subroutine and a DFS traversal (Week 11) to build the tour. Week 12: Shortest path — used for comparison. Basic discrete-math vocabulary: set, pigeonhole principle, triangle inequality.
->
 > **Learning Objectives**:
 > 1. State, among the **three things** one can give up when facing an NP-Complete problem (polynomial time / all inputs / optimality), which one an approximation algorithm gives up
 > 2. Define the **approximation ratio** and explain the chicken-and-egg problem: computing it requires the optimal value we cannot find

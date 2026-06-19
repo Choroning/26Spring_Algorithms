@@ -1,11 +1,9 @@
 # Week 3 Lecture — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 6 (Heapsort), Ch 7 (Quicksort), Ch 8 (Sorting in Linear Time), Ch 10 (Elementary Data Structures)
+> Introduction to Algorithms, CLRS - Ch 6, 7, 8, 10
 
-> **Prerequisites**: Week 2: Big-O notation, time complexity analysis. [Data Structures] Basic understanding of arrays, linked lists, stacks, queues. [Data Structures] Concept of recursion (function calling itself).
->
 > **Learning Objectives**:
 > 1. Review basic data structures: lists, stacks, queues, heaps
 > 2. Understand elementary sorting algorithms and O(n^2) behavior
@@ -161,6 +159,8 @@ bottom → │  A  │
 - Visualization: [visualgo.net/en/heap](https://visualgo.net/en/heap)
 
 ![Heap: Tree and Array Representation](../images/ch06_p002_001.png)
+
+*Heap: Tree and Array Representation*
 
 > **[Data Structures]** Reviewing complete binary trees and heaps from Data Structures:
 > - **Complete binary tree**: All levels except the last are completely filled, and the last level is filled from left to right
@@ -554,6 +554,8 @@ partition(A[], p, r)
 
 ![Partition Invariant](../images/ch07_p004_002.png)
 
+*Partition Invariant*
+
 > **Note:** An intuitive way to understand the partition function: `i` points to "the end of the region <= pivot," and `j` points to "the start of the unexamined region." When A[j] <= pivot, i is incremented to expand the <= pivot region, and A[j] is swapped into that position. At the end, placing the pivot at position i+1 ensures everything to its left is <= pivot and everything to its right is > pivot.
 
 > **Note:** The reason `i = p - 1` for initialization: i tracks "the last index of the <= pivot region." Initially, no elements have been identified as <= pivot, so the end of the region is placed **just before** the array start (p-1). When the first element with A[j] <= pivot is found, i increases to p, finally pointing to a valid index.
@@ -579,6 +581,8 @@ Final: swap A[4]↔A[10]
 
 ![PARTITION Step-by-Step (CLRS)](../images/ch07_p003_001.png)
 
+*PARTITION Step-by-Step (CLRS)*
+
 > Animation: [visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
 ### 3.8 Quick Sort — Complexity Analysis
@@ -600,6 +604,8 @@ T(n) = T(0) + T(n-1) + Theta(n) = T(n-1) + Theta(n)
 
 ![Quick Sort Worst vs Best](../images/ch07_p008_006.png)
 
+*Quick Sort Worst vs Best*
+
 > **Note:** Practical techniques to avoid quick sort's worst-case O(n^2):
 > 1. **Randomized Pivot**: Choosing the pivot randomly makes the probability of worst-case occurrence extremely low
 > 2. **Median-of-Three**: Choose the median of the first/middle/last elements as the pivot
@@ -614,6 +620,8 @@ T(n) = T(0) + T(n-1) + Theta(n) = T(n-1) + Theta(n)
 - Total work at each level is still O(n)
 
 ![1/10 : 9/10 Recursion Tree](../images/ch07_p007_004.png)
+
+*1/10 : 9/10 Recursion Tree*
 
 **Average Analysis Proof** (using induction):
 - Assume T(i) <= c * i * log(i) for all i < n
@@ -644,6 +652,8 @@ The full proof involves summing over all possible pivot positions and using inte
 - Sibling of A[i]: **A[i-1]** (when i is odd)
 
 ![MAX-HEAPIFY Operation](../images/ch06_p005_002.png)
+
+*MAX-HEAPIFY Operation*
 
 ### 3.11 Heap Sort — Algorithm
 
@@ -726,6 +736,8 @@ Building a min heap from `A = [7, 9, 4, 8, 6, 3]`:
 
 ![BUILD-MAX-HEAP (CLRS)](../images/ch06_p008_003.png)
 
+*BUILD-MAX-HEAP (CLRS)*
+
 ### 3.14 Heap Sort — Sorting Phase
 
 After buildHeap, repeatedly extract the minimum:
@@ -746,6 +758,8 @@ Result (descending): [9, 8, 7, 6, 4, 3]
 > With a min heap, the smallest element is extracted first and placed at the end of the array. After all extractions, the array is in descending order because the smallest elements occupy the rightmost (last-extracted) positions.
 
 ![HEAPSORT Sorting Phase (CLRS)](../images/ch06_p011_004.png)
+
+*HEAPSORT Sorting Phase (CLRS)*
 
 ### 3.15 Heap Sort — Complexity
 
