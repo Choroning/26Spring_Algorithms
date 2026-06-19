@@ -1,11 +1,9 @@
 # Week 5 Lecture — Greedy Algorithms
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 15 (Greedy Algorithms), Ch 16.3 (Huffman Codes), Ch 21 (Minimum Spanning Trees), Ch 22 (Single-Source Shortest Paths — Dijkstra)
+> Introduction to Algorithms, CLRS - Ch 15, 16.3, 21, 22
 
-> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 3: Sorting algorithms (used as subroutines in greedy algorithms). Week 4: Divide and conquer paradigm (for comparison with greedy). Basic graph theory: vertices, edges, weighted graphs, trees, cycles (for MST and Dijkstra sections).
->
 > **Learning Objectives**:
 > 1. Define the greedy paradigm and state the two conditions for greedy correctness (greedy-choice property, optimal substructure)
 > 2. Identify when greedy works and when it fails, with concrete counterexamples
@@ -246,6 +244,8 @@ FractionalKnapsack(items, C):
 
 ![Fractional knapsack (CLRS)](../images/ch16_p014_003.png)
 
+*Fractional knapsack (CLRS)*
+
 ### 3.4 0-1 vs Fractional Knapsack — Why Greedy Fails for 0-1
 
 **Items (CLRS Figure 16.2) — Knapsack capacity = 50 lbs:**
@@ -353,6 +353,8 @@ ActivitySelection(jobs):
 
 ![Activity selection (CLRS)](../images/ch16_p007_001.png)
 
+*Activity selection (CLRS)*
+
 > **Key Idea:** Selecting the activity that finishes earliest leaves as much remaining time as possible for subsequent activities. This is the greedy-choice property: choosing the earliest-finishing compatible activity always belongs to some optimal solution.
 
 ### 5.2 Activity Selection — Worked Example
@@ -406,6 +408,8 @@ ActivitySelection(jobs):
 > Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
 
 ![Huffman tree: fixed vs variable length codes](../images/ch16_p017_004.png)
+
+*Huffman tree: fixed vs variable length codes*
 
 ### 6.2 Huffman Coding — Algorithm
 
@@ -463,6 +467,8 @@ Step 3: Q = [A:450, 480]
 ```
 
 ![Huffman tree construction steps](../images/ch16_p019_005.png)
+
+*Huffman tree construction steps*
 
 ### 6.4 Huffman Coding — Compression Ratio
 
@@ -668,6 +674,8 @@ Dijkstra(G, s):
 ### 8.3 Dijkstra's — Execution Trace
 
 ![Dijkstra execution (CLRS Figure 24.6)](../images/ch24_p017_197.jpg)
+
+*Dijkstra execution (CLRS Figure 24.6)*
 
 - Source *s* is the leftmost vertex. **Black** = finalized (in S), **white** = in priority queue Q.
 - **(a)** Initial state -> **(b)** s finalized -> **(c)** y finalized -> ... -> **(f)** all finalized.

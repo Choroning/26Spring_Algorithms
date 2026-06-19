@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 35 (Approximation Algorithms)
+> Introduction to Algorithms, CLRS - Ch 35
 
-> **선수 지식**: 13주차: NP-완비성 — 이번 주의 모든 문제(TSP, Vertex Cover, Bin Packing, Job Scheduling, Clustering)가 NP-완비이며, *그래서* 정확한 다항 알고리즘 대신 근사로 선회한다. 13주차의 **간접 최적해 기법** 이 모든 비율 증명의 엔진. 5주차: 그리디 알고리즘 — 다섯 근사 알고리즘 모두 *근사 비율 증명* 이 덧붙은 그리디. 11주차: 그래프와 MST — TSP 근사가 MST(Kruskal/Prim)를 부 루틴으로 직접 사용하고, DFS 순회(11주차)로 투어를 만든다. 12주차: 최단 경로 — 비교용. 기본 이산수학 어휘: 집합, 비둘기집 원리, 삼각 부등식.
->
 > **학습 목표**:
 > 1. NP-완비 문제를 다룰 때 포기할 수 있는 **세 가지** (다항 시간 / 모든 입력 / 최적성) 중 근사 알고리즘이 무엇을 포기하는지 진술할 수 있다
 > 2. **근사 비율(approximation ratio)** 을 정의하고, 그것을 계산하려면 (못 구하는) 최적값이 필요하다는 닭-달걀 문제를 설명할 수 있다

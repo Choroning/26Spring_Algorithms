@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 34 (NP-Completeness), Ch 35 (Approximation Algorithms)
+> Introduction to Algorithms, CLRS - Ch 34, 35
 
-> **선수 지식**: 2주차: 점근적 표기법 — P/NP 구분 자체가 "다항식 vs 초다항식" 경계 위에 산다. 5주차: 그리디 알고리즘 — §6–§10의 근사 알고리즘들은 *근사 비율의 증명* 이 덧붙여진 그리디. 6주차: 동적 계획법 — 0-1 Knapsack의 DP가 *유사 다항(pseudo-polynomial)* 이고 따라서 NP-완비성과 모순되지 않는 이유 이해에 필요. 11주차: 그래프와 MST — TSP 근사가 MST를 부 루틴으로 직접 사용. 12주차: 최단 경로 — 비교용 ("Shortest Path는 P, Longest Path는 NP-Complete"). 기본 이산수학 어휘: 집합, 결정 문제, certificate.
->
 > **학습 목표**:
 > 1. **다루기 쉬운(tractable, 다항 시간)** 문제와 **다루기 어려운(intractable)** 문제, **결정 가능(decidable)** 과 **결정 불가능(undecidable)** 을 구분할 수 있다
 > 2. **P** 와 **NP** 의 정의를 진술하고 *풀기 vs 검증* 직관을 설명할 수 있다
@@ -271,6 +269,8 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 
 ![다항 시간 환원 다이어그램](../images/ch34_p005_001.png)
 
+*다항 시간 환원 다이어그램*
+
 **정의.** 문제 $A$ 가 문제 $B$ **로 환원** ($A \leq_P B$ 로 표기) 됨은 다음을 만족하는 함수 $f$ 가 존재함:
 
 1. $f$ 가 $A$ 의 모든 인스턴스 $\alpha$ 를 $B$ 의 인스턴스 $f(\alpha) = \beta$ 로 **다항 시간에** 변환, 그리고
@@ -323,6 +323,8 @@ $$\text{모든 } L \in NP \text{ 에 대해: } \quad L \leq_P A.$$
 말로 하면, $A$ 는 **NP의 모든 문제만큼 어렵다**. 결정적으로, $A$ 자체가 NP에 속할 필요는 **없음** — 정지 문제는 NP-Hard지만 NP 밖 (결정 불가능).
 
 ![P, NP, NPC 벤 다이어그램](../images/ch34_p023_006.png)
+
+*P, NP, NPC 벤 다이어그램*
 
 **NP-Complete.** $A$ 가 NP-Complete:
 
@@ -434,6 +436,8 @@ $\leq_P$ 의 추이성에 의해, *모든* NP 문제가 $C$ 로 환원되고 $C$
 
 ![3-SAT에서 CLIQUE로의 환원 그래프 구성](../images/ch34_p041_014.png)
 
+*3-SAT에서 CLIQUE로의 환원 그래프 구성*
+
 **왜 동작하는가.** $G_\phi$ 의 크기 $m$ clique은 절마다 리터럴 하나를 (같은 절 정점은 연결되지 않으므로) 모순 없이 (모순 쌍은 연결되지 않으므로) 선택. clique의 모든 리터럴을 True로 설정 — 모든 절이 만족됨. 역도 마찬가지로 만족 할당이 절당 참 리터럴을 고르고, 그런 선택은 clique을 이룸.
 
 구성은 다항. 따라서 $\text{3-SAT} \leq_P \text{CLIQUE}$ 이고 CLIQUE은 NP-Hard.
@@ -443,6 +447,8 @@ $\leq_P$ 의 추이성에 의해, *모든* NP 문제가 $C$ 로 환원되고 $C$
 최초의 NP-완비 증명은 Cook(1971)의 **SAT** 에 대한 것 — NP의 정의로부터 *직접* 증명 (다항 시간 비결정 튜링 기계를 Boolean 식으로 시뮬레이션할 수 있음을 보임).
 
 ![NP-완비성 환원의 사슬](../images/ch34_p040_013.png)
+
+*NP-완비성 환원의 사슬*
 
 이후 모든 NP-완비성 증명은 Cook의 결과를 재사용하며 **알려진 NP-Complete 문제로부터 환원**:
 
@@ -642,6 +648,8 @@ $$
 **실세계 비유:** 모든 복도(간선)가 감시되도록 교차로에 최소 CCTV 카메라 설치.
 
 ![Vertex cover 예시](../images/ch34_p043_015.png)
+
+*Vertex cover 예시*
 
 ### 5.2 알고리즘
 

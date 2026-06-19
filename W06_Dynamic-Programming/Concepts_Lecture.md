@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 14 (Dynamic Programming), Ch 23 (All-Pairs Shortest Paths — Floyd-Warshall)
+> Introduction to Algorithms, CLRS - Ch 14, 23
 
-> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis. Week 4: Divide and conquer paradigm (for comparison with DP). Week 5: Greedy algorithms (for comparison with DP). Recursion and recursive thinking. Basic matrix operations.
->
 > **Learning Objectives**:
 > 1. Define dynamic programming and state its two required properties (optimal substructure, overlapping subproblems)
 > 2. Distinguish DP from divide-and-conquer and explain when each is appropriate
@@ -103,7 +101,11 @@ The recursive call tree in DaC is a **tree** (no repeated nodes), while in DP th
 
 ![Recursive call tree](../images/ch15_p006_002.png)
 
+*Recursive call tree*
+
 ![Subproblem DAG (DP)](../images/ch15_p009_003.png)
+
+*Subproblem DAG (DP)*
 
 ### 1.4 Two DP Implementation Strategies
 
@@ -306,6 +308,8 @@ X = `ABCBDAB`, Y = `BDCABA`
 
 ![LCS table with traceback arrows (CLRS)](../images/ch15_p037_007.png)
 
+*LCS table with traceback arrows (CLRS)*
+
 > **Traceback:** To recover the actual LCS (not just its length), trace back from $c[m,n]$: if $x_i = y_j$, include that character and move diagonally; otherwise, move in the direction of the larger value.
 
 ### 2.5 0-1 Knapsack Problem
@@ -456,6 +460,8 @@ Initial D^(0):            After k=1,2,3,4: D^(4):
 Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
 
 ![Graph example (CLRS)](../images/ch15_p024_005.png)
+
+*Graph example (CLRS)*
 
 ### 2.13 Edit Distance (Levenshtein Distance)
 

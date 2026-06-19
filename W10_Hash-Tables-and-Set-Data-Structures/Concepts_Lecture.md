@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 11 (Hash Tables)
+> Introduction to Algorithms, CLRS - Ch 11
 
-> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (we will give average, amortized, and worst-case bounds in $O$, $\Theta$, $\Omega$). Week 3: Arrays as random-access storage (the hash table's backing structure). Week 4: Linked lists (used by separate chaining). Week 9: Balanced BSTs (the natural baseline we compare against). Basic modular arithmetic ($k \bmod m$) and elementary probability (uniform distributions, expected values) for the load-factor analysis.
->
 > **Learning Objectives**:
 > 1. Define a hash function and explain the goal of $O(1)$ average-case search/insert/delete
 > 2. Explain why collisions are unavoidable using the pigeonhole principle
@@ -70,6 +68,8 @@
 A hash table is built from three components:
 
 ![Hash table structure (CLRS)](../images/ch11_p002_001.png)
+
+*Hash table structure (CLRS)*
 
 | Component | Role |
 |-----------|------|
@@ -136,6 +136,8 @@ A **collision** occurs when two different keys produce the same hash value.
 
 ![Hash collision (CLRS)](../images/ch11_p004_002.png)
 
+*Hash collision (CLRS)*
+
 ```
    Key: 25  ──►  h(25) = 5  ──┐
                               ├──►  Index 5  (Collision!)
@@ -164,6 +166,8 @@ The practical question is therefore not "how do we avoid collisions?" but "**how
 Each table slot holds a **linked list** of all key-value pairs that hash to that index.
 
 ![Separate chaining (CLRS)](../images/ch11_p005_003.png)
+
+*Separate chaining (CLRS)*
 
 ```
    Hash Table
@@ -268,6 +272,8 @@ Step 5: Insert 73 → h(73)=3
 - Clusters absorb new keys faster than empty regions — they grow super-linearly and worsen performance.
 
 ![Open addressing example (CLRS)](../images/ch11_p021_005.png)
+
+*Open addressing example (CLRS)*
 
 ```
    ┌───┬────┐

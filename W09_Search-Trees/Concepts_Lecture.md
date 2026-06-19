@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 12 (Binary Search Trees), Ch 13 (Red-Black Trees), Ch 18 (B-Trees)
+> Introduction to Algorithms, CLRS - Ch 12, 13, 18
 
-> **Prerequisites**: Week 2: Asymptotic notation and complexity analysis (used to bound tree heights). Week 3: Binary search on sorted arrays (BST is its tree-shaped analogue). Week 4: Master Theorem and recursive complexity (used to derive traversal and search costs). Basic recursion and pointer-based data structures.
->
 > **Learning Objectives**:
 > 1. Define a tree recursively and derive tree traversal complexity using the Master Theorem
 > 2. Implement search, insert, and delete on a Binary Search Tree (BST) and analyze average and worst case
@@ -204,6 +202,8 @@ The tree degenerates into a **linked list**:
 
 ![Balanced vs degenerate BST](../images/ch12_p002_001.png)
 
+*Balanced vs degenerate BST*
+
 $$T(n) = T(n-1) + O(1) \implies T(n) = O(n)$$
 
 | Case             | Height   | Search/Insert |
@@ -298,6 +298,8 @@ Every RBT must satisfy:
 
 ![Red-Black Tree example (CLRS)](../images/ch13_p003_001.png)
 
+*Red-Black Tree example (CLRS)*
+
 | # | Property |
 |---|----------|
 | 1 | Every node is either **red** or **black** |
@@ -377,6 +379,8 @@ The fix-up branches on the **uncle's color**:
 When $U$ is black, locally rotate $N$, $P$, $G$:
 
 ![Left-Rotate and Right-Rotate (CLRS)](../images/ch13_p006_002.png)
+
+*Left-Rotate and Right-Rotate (CLRS)*
 
 1. **Sort** $N, P, G$ by key.
 2. The **median** becomes the new local root (colored **black**); the other two become its children (colored **red**).
@@ -503,6 +507,8 @@ A Red-Black Tree with $n = 10^9$ nodes has height $\approx 30$. On HDD that is $
 Make each node hold **many keys** so the tree is **wide and shallow**.
 
 ![B-Tree example (CLRS)](../images/ch13_p027_011.png)
+
+*B-Tree example (CLRS)*
 
 ```
 BST (tall, narrow):     B-Tree (short, wide):

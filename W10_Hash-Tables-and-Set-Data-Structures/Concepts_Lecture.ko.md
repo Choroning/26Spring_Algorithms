@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 11 (Hash Tables)
+> Introduction to Algorithms, CLRS - Ch 11
 
-> **선수 지식**: 2주차: 점근적 표기법과 복잡도 분석 (평균, 분할상환(amortized), 최악 사례를 $O$, $\Theta$, $\Omega$로 표현). 3주차: 임의 접근 저장소로서의 배열 (해시 테이블의 기반 자료구조). 4주차: 연결 리스트 (분리 연쇄법에서 사용). 9주차: 균형 BST (비교 대상 자료구조). 기본적인 모듈러 연산 ($k \bmod m$)과 부하율 분석을 위한 초등 확률 (균등 분포, 기댓값).
->
 > **학습 목표**:
 > 1. 해시 함수를 정의하고, 탐색·삽입·삭제의 평균 $O(1)$이라는 목표를 설명할 수 있다
 > 2. 비둘기집 원리(pigeonhole principle)로 충돌이 불가피함을 설명할 수 있다
@@ -70,6 +68,8 @@
 해시 테이블은 세 가지 구성 요소로 이루어진다:
 
 ![해시 테이블 구조 (CLRS)](../images/ch11_p002_001.png)
+
+*해시 테이블 구조 (CLRS)*
 
 | 구성 요소 | 역할 |
 |----------|------|
@@ -136,6 +136,8 @@ $$h(k) = \lfloor m \cdot (k \cdot A \bmod 1) \rfloor, \quad 0 < A < 1$$
 
 ![해시 충돌 (CLRS)](../images/ch11_p004_002.png)
 
+*해시 충돌 (CLRS)*
+
 ```
    Key: 25  ──►  h(25) = 5  ──┐
                               ├──►  Index 5  (충돌!)
@@ -164,6 +166,8 @@ $$h(k) = \lfloor m \cdot (k \cdot A \bmod 1) \rfloor, \quad 0 < A < 1$$
 각 테이블 슬롯이 해당 인덱스로 해시된 모든 키-값 쌍의 **연결 리스트** 를 보관한다.
 
 ![분리 연쇄법 (CLRS)](../images/ch11_p005_003.png)
+
+*분리 연쇄법 (CLRS)*
 
 ```
    Hash Table
@@ -268,6 +272,8 @@ Step 5: Insert 73 → h(73)=3
 - 군집은 빈 영역보다 새 키를 더 빠르게 흡수한다 — 군집은 초선형적으로 자라며 성능을 악화시킨다.
 
 ![개방 주소법 예시 (CLRS)](../images/ch11_p021_005.png)
+
+*개방 주소법 예시 (CLRS)*
 
 ```
    ┌───┬────┐

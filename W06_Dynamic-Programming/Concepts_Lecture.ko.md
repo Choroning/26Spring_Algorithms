@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 14 (Dynamic Programming), Ch 23 (All-Pairs Shortest Paths — Floyd-Warshall)
+> Introduction to Algorithms, CLRS - Ch 14, 23
 
-> **선수 지식**: 2주차: 점근적 표기법과 복잡도 분석. 4주차: 분할 정복 패러다임 (DP와 비교를 위해). 5주차: 그리디 알고리즘 (DP와 비교를 위해). 재귀와 재귀적 사고. 기본적인 행렬 연산.
->
 > **학습 목표**:
 > 1. 동적 프로그래밍을 정의하고, DP에 필요한 두 가지 성질(최적 부분 구조, 중복 부분 문제)을 기술할 수 있다
 > 2. DP와 분할 정복을 구별하고, 각각 언제 적합한지 설명할 수 있다
@@ -103,7 +101,11 @@
 
 ![재귀 호출 트리](../images/ch15_p006_002.png)
 
+*재귀 호출 트리*
+
 ![부분 문제 DAG (DP)](../images/ch15_p009_003.png)
+
+*부분 문제 DAG (DP)*
 
 ### 1.4 두 가지 DP 구현 전략
 
@@ -306,6 +308,8 @@ X = `ABCBDAB`, Y = `BDCABA`
 
 ![역추적 화살표가 있는 LCS 테이블 (CLRS)](../images/ch15_p037_007.png)
 
+*역추적 화살표가 있는 LCS 테이블 (CLRS)*
+
 > **역추적:** 실제 LCS를 복원하려면(길이뿐 아니라) $c[m,n]$에서 역추적한다: $x_i = y_j$이면 해당 문자를 포함하고 대각선으로 이동; 그렇지 않으면 더 큰 값 방향으로 이동한다.
 
 ### 2.5 0-1 배낭 문제
@@ -456,6 +460,8 @@ FloydWarshall(W, n):
 각 셀 $D[i,j]$에는 이제 $i$에서 $j$까지의 최단 거리가 담겨 있다.
 
 ![그래프 예시 (CLRS)](../images/ch15_p024_005.png)
+
+*그래프 예시 (CLRS)*
 
 ### 2.13 편집 거리 (레벤슈타인 거리)
 

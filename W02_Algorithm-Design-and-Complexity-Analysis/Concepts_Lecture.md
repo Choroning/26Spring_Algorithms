@@ -1,11 +1,9 @@
 # Week 2 Lecture — Algorithm Design and Complexity Analysis
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 2 (Getting Started), Ch 3 (Characterizing Running Times), Ch 4 (Divide-and-Conquer, Master Theorem)
+> Introduction to Algorithms, CLRS - Ch 2, 3, 4
 
-> **Prerequisites**: Week 1: Introduction to Algorithms (understanding of what an algorithm is). Basic algebra (manipulating inequalities, logarithms). [Helpful] Discrete Mathematics: mathematical induction, summation notation.
->
 > **Learning Objectives**:
 > 1. State the formal properties of an algorithm and trace through the Euclidean GCD algorithm
 > 2. Count basic operations in iterative code and express the result as T(n)
@@ -172,6 +170,8 @@ Problem: Find the largest number among $n$ number cards.
 
 ![Card Comparison](../images/ch02_p002_001.png)
 
+*Card Comparison*
+
 **Natural Language:**
 
 1. Read the first card's number and remember it
@@ -249,6 +249,8 @@ Six major types based on problem-solving strategy:
 Divide a large problem into smaller subproblems, solve each recursively, then combine the results. **Advantage:** Effective when the problem structure is naturally recursive. Examples: Merge Sort, Quick Sort, Binary Search.
 
 ![Merge Sort Tree](../images/ch02_p020_006.png)
+
+*Merge Sort Tree*
 
 > **[Data Structures]** Divide and conquer always consists of 3 stages:
 > 1. **Divide**: Split the problem into smaller subproblems
@@ -409,6 +411,8 @@ In practice, **worst-case analysis** is the most commonly used.
 
 ![Seoul Metro](../images/seoul-metro.jpg)
 
+*Seoul Metro*
+
 Scenario: Home -> Station (6 min) -> Subway (20 min) -> Classroom (10 min)
 
 | Case | Time | Description |
@@ -430,6 +434,8 @@ Same way of thinking about algorithm analysis — the **worst case** provides a 
 In Section 2, we computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$. But these exact counts depend on implementation details (does the loop start at 0 or 1? do we count the final comparison?). Asymptotic notation strips away these irrelevant details and lets us focus on what truly matters: how the running time *scales* as $n$ grows.
 
 ![Asymptotic Notation Graph](../images/ch03_p003_001.png)
+
+*Asymptotic Notation Graph*
 
 - Time complexity is a function of $n$ (usually a polynomial with multiple terms).
 - As $n$ grows, only the **dominant term** matters.
@@ -779,6 +785,8 @@ $$T(n) = aT(n/b) + f(n)$$
 Each level of the recursion tree does work. **Who dominates?**
 
 ![Recursion Tree with Level Costs](../images/recursion-tree-costs.png)
+
+*Recursion Tree with Level Costs*
 
 | Scenario | Winner | Result |
 |:---------|:-------|:-------|

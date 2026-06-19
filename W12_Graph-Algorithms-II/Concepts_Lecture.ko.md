@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 22 (Single-Source Shortest Paths), Ch 23 (All-Pairs Shortest Paths), Ch 20 (Elementary Graph Algorithms — SCC)
+> Introduction to Algorithms, CLRS - Ch 22, 23, 20
 
-> **선수 지식**: 2주차: 점근적 표기법 (수행 시간을 $O(E \log V)$, $\Theta(VE)$, $\Theta(V^3)$ 로 보고). 5주차: 그리디 알고리즘 — Dijkstra는 "컷을 건너는 최소 간선을 매번 그리디로 선택하는" 정석적 알고리즘. 6주차: 동적 계획법 — Bellman-Ford와 Floyd-Warshall은 교과서적 DP (최적 부분구조 + 중첩 부분문제). 11주차: 그래프 기초, 인접 리스트/행렬, DFS/BFS, 위상 순서 — 이번 강의의 모든 알고리즘은 이 기초 위에 세워진다. 기본 이산수학 어휘: 방향/무방향, 가중치, 사이클, 경로.
->
 > **학습 목표**:
 > 1. 가중 (방향) 그래프에서 **최단 경로 문제**를 정의하고 잘 정의되는 조건(시작점에서 도달 가능한 음수 가중치 사이클이 없음)을 설명할 수 있다
 > 2. 최단 경로의 **최적 부분구조(optimal substructure)** 를 증명하고 활용할 수 있다
@@ -108,6 +106,8 @@ $S \to G$ 최단 경로가 중간 노드 $M$ 을 통과해 총 비용이 $5 + 3 
 
 ![이완: 전과 후](../images/ch24_p007_003.png)
 
+*이완: 전과 후*
+
 ```
 RELAX(u, v, w):
     if d[u] + w(u, v) < d[v] then
@@ -193,6 +193,8 @@ Dijkstra(G, r):
 
 ![Dijkstra 단계별 실행](../images/ch24_p017_006.png)
 
+*Dijkstra 단계별 실행*
+
 ### 2.4 Dijkstra가 음수 가중치에서 실패하는 이유
 
 ```
@@ -262,6 +264,8 @@ BellmanFord(G, r):
 Phase 2 후 어떤 값도 더 줄어들지 않음 → **음수 사이클 없음**. 기록된 `prev[]` 가 최단 경로 트리를 정의. (최종 거리는 이완 순서와 무관하며, 패스별 진행만 순서에 의존.)
 
 ![Bellman-Ford 단계별 반복](../images/ch24_p010_004.png)
+
+*Bellman-Ford 단계별 반복*
 
 ### 2.7 Bellman-Ford를 동적 계획법으로 보기
 
@@ -563,6 +567,8 @@ PERT 차트, 의존성 그래프, 일회성 결정 다이어그램 같은 DAG에
 각 정점은 정확히 한 번 처리되고, 모든 나가는 간선이 정확히 한 번 이완된다. 굵게 표시된 $d$ 값은 거리를 개선한 각 이완을 표시. $d[v_5]$ 는 step (c) 에서 $v_2 \to v_5$ 로 먼저 $1$ 이 되었다가 step (d) 에서 $v_3 \to v_5$ 로 $-1$ 로 개선됨에 주목 — 위상 순서가 두 기여 정점($v_2, v_3$)이 $v_5$ 보다 먼저 처리됨을 보장.
 
 ![DAG 최단 경로 예시](../images/ch24_p025_008.png)
+
+*DAG 최단 경로 예시*
 
 ---
 

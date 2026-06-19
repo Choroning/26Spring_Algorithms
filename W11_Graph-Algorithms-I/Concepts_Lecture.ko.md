@@ -2,10 +2,8 @@
 
 > **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 20 (Elementary Graph Algorithms), Ch 21 (Minimum Spanning Trees)
+> Introduction to Algorithms, CLRS - Ch 20, 21
 
-> **선수 지식**: 2주차: 점근적 표기법과 복잡도 분석 (연산 비용은 $O(V+E)$, $O(E \log V)$ 등으로 보고). 3주차: 배열, 스택, 큐 (BFS는 큐, DFS는 스택/재귀를 사용). 5주차: 그리디 알고리즘 (Prim과 Kruskal은 둘 다 그리디 MST — 이번 주에 다시 깊이 다룬다). 9주차: 트리 (신장 트리는 트리이고, MST 증명은 트리의 성질을 사용). 기본 이산 수학 어휘: 집합, 관계, 순서쌍/무순서쌍.
->
 > **학습 목표**:
 > 1. 그래프 $G = (V, E)$를 정의하고, 방향/무방향, 가중치/무가중치 변형을 구분할 수 있다
 > 2. **인접 행렬(Adjacency Matrix)**, **인접 리스트(Adjacency List)**, **인접 배열(Adjacency Array)** 표현을 공간과 간선 조회 비용 측면에서 비교할 수 있다
@@ -109,6 +107,8 @@ $N \times N$ 행렬 사용 ($N = |V|$):
 - **가중치 그래프** 의 경우 1 대신 **가중치** 를 저장한다.
 
 ![인접 리스트와 행렬로 표현한 그래프 (CLRS)](../images/ch22_p002_001.png)
+
+*인접 리스트와 행렬로 표현한 그래프 (CLRS)*
 
 ```
 Graph:             인접 행렬:
@@ -285,6 +285,8 @@ aDFS(v)
 ### 2.3 DFS — 단계별 예시
 
 ![DFS 단계별 진행: 발견/종료 시각](../images/ch22_p017_004.png)
+
+*DFS 단계별 진행: 발견/종료 시각*
 
 ```
 Graph:                    인접 리스트:
@@ -497,6 +499,8 @@ DFS-TS(v)
 ### 3.4 DFS 위상 정렬 — 예시
 
 ![위상 정렬 DFS 예시 — 옷 입기](../images/ch22_p025_007.png)
+
+*위상 정렬 DFS 예시 — 옷 입기*
 
 ```
 DAG:

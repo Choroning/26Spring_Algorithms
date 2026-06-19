@@ -1,11 +1,9 @@
 # 1주차 이론 — 알고리즘 소개
 
-> **최종 수정일:** 2026-05-13
+> **최종 수정일:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 1 (The Role of Algorithms in Computing), Ch 2 (Getting Started)
+> Introduction to Algorithms, CLRS - Ch 1, 2
 
-> **선수 지식**: 공식적인 선수 과목 없음 — 첫 주차 수업. 기초적인 프로그래밍 경험(언어 무관)이 있으면 도움이 됨. 간단한 수학(산술, 기초 대수)에 대한 친숙함.
->
 > **학습 목표**:
 > 1. 알고리즘이 무엇인지 설명하고, 핵심 성질(유한성, 정확성, 명확성)을 기술할 수 있다
 > 2. 고전 문제(최댓값 찾기, 이진 탐색, 동전 거스름돈)를 단계별로 추적할 수 있다
@@ -104,16 +102,16 @@
 | **2교시** | 이론 강의 (Part 2) |
 | **3교시** | 실습 |
 
-- 교재: **Introduction to Algorithms, 3rd Edition** (CLRS)
+- 교재: Introduction to Algorithms, CLRS
 - 퀴즈는 **지난주** 내용이며, 1교시 **시작 시** 실시한다
 
 ### 1.7 교재
 
 ![CLRS 교재 표지](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
 
-**주 교재:**
-- *Introduction to Algorithms*, 3rd Edition (CLRS)
-  - Cormen, Leiserson, Rivest, Stein 저
+*CLRS 교재 표지*
+
+**주 교재:** Introduction to Algorithms, CLRS
 
 **본 과목 전체를 관통하는 핵심 사고:**
 
@@ -228,6 +226,8 @@
 
 ![알-콰리즈미 기념비, 마드리드](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
 
+*알-콰리즈미 기념비, 마드리드*
+
 - **"algorithm"** 이라는 단어는 9세기 페르시아 수학자 **알-콰리즈미(al-Khwarizmi)** 에서 유래하였다
 - **최초의 알려진 알고리즘**: 유클리드의 GCD 알고리즘 (기원전 ~300년)
 - 알고리즘은 컴퓨터가 존재하기 **2,300년 이상** 전부터 있었다
@@ -268,6 +268,8 @@ def gcd(a, b):
 
 ![Playing cards](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
 
+*Playing cards*
+
 **접근법:**
 1. 첫 번째 카드를 보고 그 숫자를 기억한다
 2. 다음 카드를 본다 — 더 크면 기억하는 숫자를 갱신한다
@@ -294,6 +296,8 @@ def find_max(cards):
 **문제:** 정렬된 카드들 중에서 숫자 **85** 를 찾아라.
 
 ![Binary Search 시각화](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
+
+*Binary Search 시각화*
 
 **순차 탐색** 은 하나씩 확인한다: 15 → 20 → 25 → ... → 85. **9번** 의 비교가 필요하다.
 
@@ -354,9 +358,13 @@ n = 1,000,000일 때: 순차 = 1,000,000 vs 이진 = ~20
 
 ![대한민국 동전](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
 
+*대한민국 동전*
+
 **탐욕적 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다.
 
 ![탐욕적 동전 선택](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
+
+*탐욕적 동전 선택*
 
 ```
 남은 금액: 730
@@ -396,6 +404,8 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 **문제:** 한 꼭짓점에서 시작하여, **모든 간선을 정확히 한 번씩** 지나고 시작점으로 돌아와라. 꼭짓점은 재방문 가능하다.
 
 ![Konigsberg 7개의 다리](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
+
+*Konigsberg 7개의 다리*
 
 > **[자료구조]** 그래프(Graph)는 자료구조 수업에서 배운 핵심 개념이다. **꼭짓점(vertex/node)** 들의 집합과 이들을 연결하는 **간선(edge)** 들의 집합으로 구성된다. 오일러 경로 문제는 역사적으로 유명한 "Konigsberg 다리 문제"에서 유래하였다. 오일러는 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면, **홀수 차수(degree)를 가진 꼭짓점이 0개 또는 2개** 여야 한다는 것을 증명하였다. 차수란 한 꼭짓점에 연결된 간선의 수를 말한다.
 
@@ -442,7 +452,11 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 ![Longleat 울타리 미로](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
 
+*Longleat 울타리 미로*
+
 ![테세우스와 미노타우로스](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
+
+*테세우스와 미노타우로스*
 
 실이나 지도 없이 **확실하게** 출구를 찾는 방법은 무엇인가?
 
@@ -464,6 +478,8 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 **문제:** n개의 동전 중 **하나** 가 위조품(약간 가벼움)이다. **양팔 저울** 을 사용하여 최소한의 측정 횟수로 위조 동전을 찾아라.
 
 ![양팔 저울](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
+
+*양팔 저울*
 
 **1,024개의 동전** 에 대해 측정 횟수를 최소화하는 전략은 무엇인가?
 
@@ -550,6 +566,8 @@ n = 1,024개 동전일 때:
 **이야기:** 왕에게 여러 와인 항아리가 있다. 스파이가 **정확히 하나** 의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망한다.
 
 ![와인 배럴](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
+
+*와인 배럴*
 
 **왕의 명령:**
 - 정확히 **일주일 안에** 독이 든 항아리를 찾아라

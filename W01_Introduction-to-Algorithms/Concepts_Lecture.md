@@ -1,11 +1,9 @@
 # Week 1 Lecture — Introduction to Algorithms
 
-> **Last Updated:** 2026-05-13
+> **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 1 (The Role of Algorithms in Computing), Ch 2 (Getting Started)
+> Introduction to Algorithms, CLRS - Ch 1, 2
 
-> **Prerequisites**: No formal prerequisites — this is the first week. Basic programming experience (any language) is helpful. Familiarity with simple math (arithmetic, basic algebra).
->
 > **Learning Objectives**:
 > 1. Explain what an algorithm is and describe its key properties (finiteness, correctness, unambiguity)
 > 2. Trace through classic problems (finding max, binary search, coin change) step by step
@@ -104,16 +102,16 @@
 | **2nd Period** | Lecture (Part 2) |
 | **3rd Period** | Lab |
 
-- Textbook: **Introduction to Algorithms, 3rd Edition** (CLRS)
+- Textbook: Introduction to Algorithms, CLRS
 - Quizzes cover the **previous week's** content and are given at the **start** of the 1st period
 
 ### 1.7 Textbook
 
 ![CLRS Textbook Cover](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
 
-**Primary Textbook:**
-- *Introduction to Algorithms*, 3rd Edition (CLRS)
-  - By Cormen, Leiserson, Rivest, Stein
+*CLRS Textbook Cover*
+
+**Primary Textbook:** Introduction to Algorithms, CLRS
 
 **Core thinking pattern that runs through the entire course:**
 
@@ -228,6 +226,8 @@ Algorithms are the core of technical interviews and coding tests.
 
 ![al-Khwarizmi Monument, Madrid](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
 
+*al-Khwarizmi Monument, Madrid*
+
 - The word **"algorithm"** derives from the 9th-century Persian mathematician **al-Khwarizmi**
 - **Earliest known algorithm**: Euclid's GCD algorithm (~300 BCE)
 - Algorithms have existed for more than **2,300 years** before computers
@@ -268,6 +268,8 @@ Now that we understand what an algorithm is, let's explore several classical pro
 
 ![Playing cards](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
 
+*Playing cards*
+
 **Approach:**
 1. Look at the first card and remember its number
 2. Look at the next card — if it is larger, update the remembered number
@@ -294,6 +296,8 @@ This is **Sequential Search** — reading cards one by one in order.
 **Problem:** Among sorted cards, find the number **85**.
 
 ![Binary Search Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
+
+*Binary Search Visualization*
 
 **Sequential search** checks one by one: 15 -> 20 -> 25 -> ... -> 85. **9 comparisons** are needed.
 
@@ -354,9 +358,13 @@ For n = 1,000,000: sequential = 1,000,000 vs binary = ~20
 
 ![South Korean Coins](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
 
+*South Korean Coins*
+
 **Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount.
 
 ![Greedy Coin Selection](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
+
+*Greedy Coin Selection*
 
 ```
 Remaining amount: 730
@@ -396,6 +404,8 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
 ![Konigsberg's 7 Bridges](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
+
+*Konigsberg's 7 Bridges*
 
 > **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous "Konigsberg bridge problem." Euler proved that for a path traversing every edge exactly once (Euler path) to exist, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
 
@@ -442,7 +452,11 @@ The key insight is that crossing a bridge prematurely can split the graph into d
 
 ![Longleat Hedge Maze](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
 
+*Longleat Hedge Maze*
+
 ![Theseus and the Minotaur](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
+
+*Theseus and the Minotaur*
 
 How do you **reliably** find the exit without thread or a map?
 
@@ -464,6 +478,8 @@ No markings or thread needed — a simple and elegant algorithm.
 **Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale**, find the counterfeit coin with the minimum number of weighings.
 
 ![Balance Scale](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
+
+*Balance Scale*
 
 What strategy minimizes the number of weighings for **1,024 coins**?
 
@@ -550,6 +566,8 @@ For n = 1,024 coins:
 **Story:** A king has several wine jars. A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
 ![Wine Barrels](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
+
+*Wine Barrels*
 
 **The King's Command:**
 - Find the poisoned jar within exactly **one week**

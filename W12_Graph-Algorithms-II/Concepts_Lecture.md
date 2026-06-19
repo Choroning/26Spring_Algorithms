@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 22 (Single-Source Shortest Paths), Ch 23 (All-Pairs Shortest Paths), Ch 20 (Elementary Graph Algorithms — SCC)
+> Introduction to Algorithms, CLRS - Ch 22, 23, 20
 
-> **Prerequisites**: Week 2: Asymptotic notation (running times are reported as $O(E \log V)$, $\Theta(VE)$, $\Theta(V^3)$). Week 5: Greedy algorithms — Dijkstra is the canonical "greedy chooses the cut-crossing minimum" algorithm. Week 6: Dynamic programming — Bellman-Ford and Floyd-Warshall are textbook DPs (optimal substructure + overlapping subproblems). Week 11: Graph basics, adjacency list/matrix, DFS/BFS, topological order — every algorithm in this lecture is built on top of those primitives. Basic discrete-math vocabulary: directed/undirected, weighted, cycle, path.
->
 > **Learning Objectives**:
 > 1. State the **shortest-path problem** on weighted (di)graphs and explain when it is well-defined (no negative-weight cycle reachable from the source)
 > 2. Prove and apply **optimal substructure** of shortest paths
@@ -108,6 +106,8 @@ This property is the reason **dynamic programming** (Bellman-Ford, Floyd-Warshal
 
 ![Relaxation: before and after](../images/ch24_p007_003.png)
 
+*Relaxation: before and after*
+
 ```
 RELAX(u, v, w):
     if d[u] + w(u, v) < d[v] then
@@ -193,6 +193,8 @@ The `prev[]` array records each vertex's predecessor on the shortest-path tree, 
 
 ![Dijkstra step-by-step execution](../images/ch24_p017_006.png)
 
+*Dijkstra step-by-step execution*
+
 ### 2.4 Why Dijkstra Fails with Negative Weights
 
 ```
@@ -262,6 +264,8 @@ The trace below relaxes the edges in the order $(x,t), (t,x), (t,y), (t,z), (y,x
 After Phase 2 no value tightens further → **no negative cycle**. The recorded `prev[]` defines the shortest-path tree. (Final distances are independent of the relaxation order; only the per-pass progression depends on it.)
 
 ![Bellman-Ford step-by-step iterations](../images/ch24_p010_004.png)
+
+*Bellman-Ford step-by-step iterations*
 
 ### 2.7 Bellman-Ford as Dynamic Programming
 
@@ -563,6 +567,8 @@ Source $= v_0$, processed in topological order $v_0, v_1, v_2, v_3, v_4, v_5$:
 Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded `d`-values mark each relaxation that improved a distance. Note $d[v_5]$ is first set to $1$ via $v_2 \to v_5$ at step (c), then improved to $-1$ via $v_3 \to v_5$ at step (d) — the topological order guarantees both contributors ($v_2, v_3$) are processed before $v_5$.
 
 ![DAG shortest paths example](../images/ch24_p025_008.png)
+
+*DAG shortest paths example*
 
 ---
 

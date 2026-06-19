@@ -2,10 +2,8 @@
 
 > **Last Updated:** 2026-06-19
 >
-> Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms (CLRS) Ch 34 (NP-Completeness), Ch 35 (Approximation Algorithms)
+> Introduction to Algorithms, CLRS - Ch 34, 35
 
-> **Prerequisites**: Week 2: Asymptotic notation — the entire P/NP distinction lives on the line "polynomial vs super-polynomial." Week 5: Greedy algorithms — approximation algorithms in §6–§10 are greedy with a *proof of approximation ratio* bolted on. Week 6: Dynamic programming — to understand why the DP for 0-1 Knapsack is *pseudo-polynomial* (and therefore does not contradict NP-Completeness). Week 11: Graphs and MST — TSP approximation uses MST directly as a subroutine. Week 12: Shortest path — used as a comparison ("Shortest Path is in P, Longest Path is NP-Complete"). Basic discrete-math vocabulary: set, decision problem, certificate.
->
 > **Learning Objectives**:
 > 1. Distinguish **tractable** (polynomial time) from **intractable** problems, and **decidable** from **undecidable**
 > 2. State the definitions of **P** and **NP** and articulate the *verify vs solve* intuition
@@ -272,6 +270,8 @@ The single most important construction in this lecture.
 
 ![Polynomial-time reduction diagram](../images/ch34_p005_001.png)
 
+*Polynomial-time reduction diagram*
+
 **Definition.** Problem $A$ **reduces to** problem $B$ (written $A \leq_P B$) if there is a function $f$ such that:
 
 1. $f$ transforms every instance $\alpha$ of $A$ into an instance $f(\alpha) = \beta$ of $B$ **in polynomial time**, and
@@ -324,6 +324,8 @@ $$\text{For every } L \in NP: \quad L \leq_P A.$$
 In words, $A$ is **at least as hard as every problem in NP**. Crucially, $A$ does **not** need to be in NP itself — the Halting Problem is NP-Hard but is outside NP (it is undecidable).
 
 ![P, NP, NPC Venn diagram](../images/ch34_p023_006.png)
+
+*P, NP, NPC Venn diagram*
 
 **NP-Complete.** $A$ is NP-Complete if:
 
@@ -435,6 +437,8 @@ The transformation is $O(|E|)$. Therefore $\text{LONGEST-PATH}$ is NP-Hard. Comb
 
 ![3-SAT to CLIQUE reduction graph construction](../images/ch34_p041_014.png)
 
+*3-SAT to CLIQUE reduction graph construction*
+
 **Why it works.** A clique of size $m$ in $G_\phi$ selects one literal per clause (since no two same-clause vertices are connected) without contradictions (since no $x_i / \overline{x_i}$ pair is connected). Set every literal in the clique to True — every clause is satisfied. Conversely, a satisfying assignment chooses one true literal per clause, and any such choice forms a clique.
 
 The construction is polynomial. So $\text{3-SAT} \leq_P \text{CLIQUE}$, and CLIQUE is NP-Hard.
@@ -444,6 +448,8 @@ The construction is polynomial. So $\text{3-SAT} \leq_P \text{CLIQUE}$, and CLIQ
 The first NP-Complete proof was for **SAT** by Cook (1971), proved *directly* from the definition of NP (showing a polynomial-time nondeterministic Turing machine can be simulated by a Boolean formula).
 
 ![NP-Completeness reduction chain](../images/ch34_p040_013.png)
+
+*NP-Completeness reduction chain*
 
 Every subsequent NP-Completeness proof reuses Cook's result by **reducing from a known NP-Complete problem**:
 
@@ -643,6 +649,8 @@ $$
 **Real-world analogy:** place the fewest CCTV cameras at intersections so that every corridor (edge) is monitored.
 
 ![Vertex cover example](../images/ch34_p043_015.png)
+
+*Vertex cover example*
 
 ### 5.2 Algorithm
 
