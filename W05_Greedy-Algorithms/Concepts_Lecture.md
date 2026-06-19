@@ -268,6 +268,8 @@ FractionalKnapsack(items, C):
 - **(b) 0-1**: Greedy picks item 1 first (6 $/lb), but this wastes 20 lbs of capacity -> suboptimal
 - **(c) Fractional**: Greedy fills remaining space with 2/3 of item 3 -> **optimal**
 
+![0-1 vs fractional knapsack (CLRS Figure 16.2)](../images/ch16_p014_003.png)
+
 *The figure above (CLRS Figure 16.2) shows all three scenarios: (a) items with weights and values, (b) 0-1 knapsack greedy result, (c) fractional knapsack greedy result.*
 
 > **Key Insight:** In 0-1 knapsack, greedy can waste capacity. The "empty space cost" makes greedy suboptimal. Use **DP** for 0-1 knapsack.

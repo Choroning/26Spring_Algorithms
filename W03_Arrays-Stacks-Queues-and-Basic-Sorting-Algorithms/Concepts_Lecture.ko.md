@@ -734,9 +734,9 @@ heapify(A[], k, n)                   ▷ A[k]를 루트로 하는 힙 수정
 
 > buildHeap은 노드를 **아래에서 위로** (floor(n/2)에서 1까지) 처리한다.
 
-![BUILD-MAX-HEAP (CLRS)](../images/ch06_p008_003.png)
+![BUILD-MAX-HEAP 동작 (CLRS)](../images/ch06_p008_003.png)
 
-*BUILD-MAX-HEAP (CLRS)*
+*BUILD-MAX-HEAP 동작 (CLRS)*
 
 ### 3.14 힙 정렬 — 정렬 단계
 

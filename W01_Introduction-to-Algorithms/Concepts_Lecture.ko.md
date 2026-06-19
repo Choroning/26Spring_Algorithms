@@ -266,9 +266,9 @@ def gcd(a, b):
 
 **문제:** 뒤집어진 숫자 카드들 중에서 가장 큰 숫자의 카드를 찾아라.
 
-![Playing cards](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
+![트럼프 카드](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
 
-*Playing cards*
+*트럼프 카드*
 
 **접근법:**
 1. 첫 번째 카드를 보고 그 숫자를 기억한다
