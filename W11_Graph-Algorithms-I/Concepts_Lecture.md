@@ -787,7 +787,7 @@ Both are **greedy** algorithms that produce a **provably optimal** MST.
 
 1. **Representation choice:** For a road network of $10^7$ intersections with average degree 4, which representation should you use and why? Estimate the space requirement for each.
 
-   > **Answer:** Total edges $E \approx V \cdot \bar{d}/2 = 10^7 \cdot 4 / 2 = 2 \cdot 10^7$ — very **sparse** ($E \ll V^2$). **Adjacency matrix** needs $V^2 = 10^{14}$ entries (~100 TB) — completely infeasible. **Adjacency list/array** needs $O(V + E) = O(3 \cdot 10^7)$ entries (~250 MB with 8-byte pointers) — easily fits in memory. The right choice is an **adjacency list** (or packed adjacency array for cache friendliness); road networks are canonical sparse graphs.
+   > **Answer:** The graph has about $E \approx V \cdot \bar{d}/2 = 10^7 \cdot 4 / 2 = 2 \cdot 10^7$ edges, so it is **sparse** ($E \ll V^2$). An **adjacency matrix** needs $V^2 = 10^{14}$ entries, about 100 TB, and is infeasible. An **adjacency list or array** needs $O(V + E) = O(3 \cdot 10^7)$ entries, about 250 MB with 8-byte pointers. Choose an adjacency list, or a packed adjacency array for better cache locality. Road networks are a typical sparse graph.
 
 2. **DFS vs BFS traces:** Given the graph from §2.3, run BFS and DFS starting at vertex 6. Report the visitation order for both.
 

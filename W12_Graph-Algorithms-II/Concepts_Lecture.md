@@ -761,7 +761,7 @@ This is the textbook **two-pass DFS** trick — a beautifully economical use of 
 
 10. **Kosaraju trace:** Run Kosaraju on the directed graph with edges $\{(1,2), (2,3), (3,1), (3,4), (4,5), (5,4)\}$. Report the SCCs and the finish times that drive the second pass.
 
-    > **Answer:** **Step 1** — DFS on $G$ starting at 1: visit 1 → 2 → 3 → 1 (back edge) → 3 visits 4 → 4 → 5 → 4 (back edge), 5 finishes ($f=1$), 4 finishes ($f=2$), 3 finishes ($f=3$), 2 finishes ($f=4$), 1 finishes ($f=5$). **Step 2** — reverse all edges: $G^R$ has $\{(2,1), (3,2), (1,3), (4,3), (5,4), (4,5)\}$. **Step 3** — DFS on $G^R$ in decreasing $f$ order: start at 1 ($f=5$) → in $G^R$, 1 → 3 → 2; reaches $\{1, 2, 3\}$ = **SCC 1**. Next unprocessed by decreasing $f$ is 4 ($f=2$) → in $G^R$, 4 → 5; reaches $\{4, 5\}$ = **SCC 2**. **Result:** SCCs = $\{1, 2, 3\}$ and $\{4, 5\}$.
+    > **Answer:** Run DFS on $G$ from vertex 1. The traversal visits 1 → 2 → 3 → 1 (back edge), then 4 → 5 → 4 (back edge). Finish times are $f(5)=1$, $f(4)=2$, $f(3)=3$, $f(2)=4$, and $f(1)=5$. Reverse all edges to form $G^R = \{(2,1), (3,2), (1,3), (4,3), (5,4), (4,5)\}$. Then run DFS on $G^R$ in decreasing finish-time order. Starting from 1 reaches $\{1,2,3\}$, the first SCC. The next unprocessed vertex is 4, and its search reaches $\{4,5\}$, the second SCC.
 
 11. **Why finish-time ordering?** Why does Kosaraju require *decreasing* finish-time order in step 3? What would go wrong with arbitrary order, or with *increasing* finish-time order?
 
@@ -776,4 +776,4 @@ This is the textbook **two-pass DFS** trick — a beautifully economical use of 
     | (c) Precompute all city-to-city distances in a country atlas | ? |
     | (d) Build-system dependency graph, compute earliest finish time | ? |
 
-    > **Answer:** **(a)** Dijkstra — single-source, non-negative weights, $O(E \log V)$. **(b)** Bellman-Ford — negative weights are possible (an arbitrage opportunity is exactly a negative-weight cycle, and Phase 2 detects it). **(c)** Floyd-Warshall — all-pairs query is the entire point; $\Theta(V^3)$ is acceptable because a country has thousands of cities, not millions, and the matrix is precomputed once. **(d)** DAG-ShortestPath (more precisely, the longest-path variant on the DAG of tasks, but the algorithm template is the same) — dependency graph is acyclic, $\Theta(V + E)$.
+    > **Answer:** **(a) Dijkstra:** Use for a single source with non-negative weights; it runs in $O(E \log V)$. **(b) Bellman-Ford:** Use when negative weights may occur; its second phase detects negative-weight cycles such as arbitrage opportunities. **(c) Floyd-Warshall:** Use for all-pairs queries. Its $\Theta(V^3)$ cost is reasonable for a country with thousands of cities, and the matrix can be precomputed once. **(d) DAG-ShortestPath:** For task dependencies, use its longest-path variant on the acyclic graph, which runs in $\Theta(V + E)$.

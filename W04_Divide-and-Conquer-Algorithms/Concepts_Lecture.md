@@ -62,7 +62,7 @@
   - [7.2 Fibonacci — Bottom-Up Solution](#72-fibonacci--bottom-up-solution)
   - [7.3 Considerations When Applying Divide and Conquer](#73-considerations-when-applying-divide-and-conquer)
 - [Summary](#summary)
-- [Appendix](#appendix)
+- [Self-Check Questions](#self-check-questions)
 
 ---
 
@@ -904,12 +904,6 @@ FIB-NUMBER(n)
 - Divide and Conquer = Divide + Conquer + Combine
 - The Master Theorem connects recurrences to time complexities
 - If subproblem sizes grow, divide and conquer is inappropriate (use DP instead)
-
----
-
-<br>
-
-## Appendix
 
 ---
 

@@ -518,7 +518,7 @@ These are among the most heavily used data structures in coding interviews and c
    (c) A leaderboard that must always be iterable in score order.
    (d) A real-time controller that requires $O(\log n)$ worst-case lookup.
 
-   > **Answer:** **(a) Hash table** — only exact-match membership is queried, so average $O(1)$ wins. **(b) BST (or trie)** — prefix queries need **ordered traversal** which a hash table cannot do efficiently. **(c) BST** — in-order iteration must yield score order, exactly the operation hash tables sacrifice. **(d) BST (RBT)** — real-time systems demand **worst-case $O(\log n)$**, but hash tables degrade to $O(n)$ on bad inputs.
+   > **Answer:** **(a) Hash table:** Only exact-match membership is queried, so average $O(1)$ lookup is best. **(b) BST (or trie):** Prefix queries require ordered traversal, which hash tables do not support efficiently. **(c) BST:** In-order iteration must yield scores in order. **(d) BST (RBT):** Real-time systems require **worst-case $O(\log n)$**, while hash tables can degrade to $O(n)$ on bad inputs.
 
 9. **Adversarial inputs:** A web framework hashes user-supplied strings into a fixed table. Explain how an attacker could degrade performance to $O(n)$ per request, and how randomized (seeded) hashing mitigates the attack.
 
