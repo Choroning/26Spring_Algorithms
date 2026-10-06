@@ -17,15 +17,14 @@
 ## Table of Contents
 
 - [1. OT (Orientation)](#1-ot-orientation)
-  - [1.1 Instructor](#11-instructor)
-  - [1.2 Syllabus](#12-syllabus)
-  - [1.3 Grading](#13-grading)
-  - [1.4 Assignments](#14-assignments)
-  - [1.5 Midterm & Final Exam](#15-midterm--final-exam)
-  - [1.6 Class Format](#16-class-format)
-  - [1.7 Textbook](#17-textbook)
-  - [1.8 Course Roadmap](#18-course-roadmap)
-  - [1.9 Coding Test Environment](#19-coding-test-environment)
+  - [1.1 Syllabus](#11-syllabus)
+  - [1.2 Grading](#12-grading)
+  - [1.3 Assignments](#13-assignments)
+  - [1.4 Midterm & Final Exam](#14-midterm--final-exam)
+  - [1.5 Class Format](#15-class-format)
+  - [1.6 Textbook](#16-textbook)
+  - [1.7 Course Roadmap](#17-course-roadmap)
+  - [1.8 Coding Test Environment](#18-coding-test-environment)
 - [2. What Is an Algorithm?](#2-what-is-an-algorithm)
   - [2.1 Why Study Algorithms?](#21-why-study-algorithms)
   - [2.2 What Do We Learn?](#22-what-do-we-learn)
@@ -50,18 +49,14 @@
 
 ## 1. OT (Orientation)
 
-### 1.1 Instructor
-
-> *Redacted for privacy.*
-
-### 1.2 Syllabus
+### 1.1 Syllabus
 
 - The syllabus is available on the **LMS**.
 - Total **15 weeks**
   - Week 8 — **Midterm Exam**
   - Week 15 — **Final Exam**
 
-### 1.3 Grading
+### 1.2 Grading
 
 | Item | Weight |
 |:-----|:-------|
@@ -73,7 +68,7 @@
 
 > **Key Point:** A grade will not be awarded if you miss more than **1/3** of the total class hours.
 
-### 1.4 Assignments
+### 1.3 Assignments
 
 **In-Class Quizzes: 5%**
 
@@ -88,13 +83,13 @@
 - **5** assignments → **1%** each
 - Weeks 2, 3, 4, 5, 6
 
-### 1.5 Midterm & Final Exam
+### 1.4 Midterm & Final Exam
 
 - Midterm: **30%** — Handwritten (no digital devices), 1 hour
 - Final — Written: **30%** — Handwritten, 1 hour
 - Final — Project: **30%** — Team project (Weeks 9–13), refer to the project guidelines
 
-### 1.6 Class Format
+### 1.5 Class Format
 
 | Period | Content |
 |:-------|:--------|
@@ -105,7 +100,7 @@
 - Textbook: Introduction to Algorithms, CLRS
 - Quizzes cover the **previous week's** content and are given at the **start** of the 1st period
 
-### 1.7 Textbook
+### 1.6 Textbook
 
 ![CLRS Textbook Cover](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
 
@@ -123,7 +118,7 @@ Problem Solving <-> Divide and Conquer <-> Recursive Thinking <-> Recurrence Rel
 
 > **Note:** Recursive thinking means breaking a problem into smaller versions of itself; recurrence relations are mathematical equations that describe this breakdown. These concepts will be defined formally in Weeks 3-4.
 
-### 1.8 Course Roadmap
+### 1.7 Course Roadmap
 
 | Week | Topic | Week | Topic |
 |:-----|:------|:-----|:------|
@@ -136,7 +131,7 @@ Problem Solving <-> Divide and Conquer <-> Recursive Thinking <-> Recurrence Rel
 | **7** | Sorting & Selection | **15** | *Final Exam* |
 | **8** | *Midterm Exam* | | |
 
-### 1.9 Coding Test Environment
+### 1.8 Coding Test Environment
 
 Algorithms are the core of technical interviews and coding tests.
 
