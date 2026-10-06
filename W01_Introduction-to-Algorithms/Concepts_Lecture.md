@@ -578,6 +578,6 @@ Test your understanding with these questions. Try answering before checking the 
 
 7. **Log₂(n) Theme:** Three problems in this lecture involve log₂(n). Name them and explain why "halving" leads to logarithmic performance.
 
-   > **Answer:** **(1) Binary Search** — halves the sorted range per comparison. **(2) Counterfeit Coin (Approach C)** — halves the candidate pile per weighing. **(3) Poisoned Wine** — `log₂(n)` servants encode `n` barrels in binary. In each case, one step **multiplies progress by a factor of 2**, so the number of steps to reduce `n` items to 1 is `log₂(n)` — the inverse of repeated doubling. This is the recurrence `T(n) = T(n/2) + O(1)`, which solves to `T(n) = O(log n)` — a pattern that recurs throughout the course.
+   > **Answer:** **(1) Binary Search** halves the sorted range at each comparison. **(2) Counterfeit Coin (Approach C)** halves the candidate pile at each weighing. **(3) Poisoned Wine** uses `log₂(n)` servants to encode `n` barrels in binary. In all three cases, each step doubles progress, so reducing `n` items to one takes `log₂(n)` steps. This is the inverse of repeated doubling and follows the recurrence `T(n) = T(n/2) + O(1)`, which solves to `T(n) = O(log n)`. The same pattern recurs throughout the course.
 
 ---

@@ -1000,7 +1000,7 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 3. **Merge Sort vs Quick Sort:** Both are O(n log n) on average, but quick sort is generally faster in practice. Why? What is quick sort's weakness?
 
-   > **Answer:** Quick sort works **in-place** with small constant factors and **excellent cache locality** — the partition scans memory sequentially, hitting CPU caches efficiently. Merge sort allocates and copies into a temporary array, paying $O(n)$ extra space plus memory bandwidth. Quick sort's **weakness** is its $\Theta(n^2)$ worst case when partitions are extremely unbalanced (e.g., sorted input with first/last as pivot). Mitigations — **randomized pivot**, **median-of-three**, or **introsort** (fall back to heap sort on deep recursion) — make the worst case astronomically unlikely.
+   > **Answer:** Quick sort works **in-place**, has small constant factors, and offers **excellent cache locality** because partitioning scans memory sequentially. Merge sort allocates and copies to a temporary array, using $O(n)$ extra space and memory bandwidth. Quick sort's **weakness** is its $\Theta(n^2)$ worst case when partitions are highly unbalanced, as with sorted input and a first- or last-element pivot. Randomized pivots, median-of-three selection, and introsort (which falls back to heap sort at deep recursion) make that worst case extremely unlikely.
 
 4. **Partition:** Given the array [3, 8, 2, 5, 1, 4, 7, 6] with pivot = 6 (last element), trace through the CLRS partition procedure. What is the final array state?
 
@@ -1016,7 +1016,7 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 7. **Counting Sort:** Why does counting sort require the value range k to be small? What happens to its complexity when k = n²?
 
-   > **Answer:** Counting sort allocates a count array `C[1..k]` and runs three loops of length $k$ or $n$, giving $\Theta(n + k)$ time and $\Theta(k)$ space. When $k = O(n)$, both reduce to $\Theta(n)$ — beating the comparison lower bound. But when **$k = n^2$**, the complexity becomes $\Theta(n + n^2) = \Theta(n^2)$ — worse than merge sort — and the count array alone wastes $\Theta(n^2)$ memory. This is why counting sort only wins when values fit in a **small, dense range**.
+   > **Answer:** Counting sort allocates a count array `C[1..k]` and runs three loops of length $k$ or $n$, giving $\Theta(n + k)$ time and $\Theta(k)$ space. When $k = O(n)$, both become $\Theta(n)$, beating the comparison lower bound. When **$k = n^2$**, time becomes $\Theta(n^2)$, worse than merge sort, and the count array alone uses $\Theta(n^2)$ memory. Counting sort is therefore most useful when values fit in a **small, dense range**.
 
 8. **Radix Sort:** Why must radix sort process digits from LSD to MSD (not MSD to LSD)? What property of the sub-sort makes this work?
 

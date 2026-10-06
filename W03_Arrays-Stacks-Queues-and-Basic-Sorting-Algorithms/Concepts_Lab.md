@@ -512,7 +512,7 @@ Every page load, every filter change, every "sort by price" click would make use
 
 3. At what input size did you first notice a clear performance gap between O(n²) and O(n log n) algorithms?
 
-   > **Answer:** Around **N = 10,000** the gap becomes dramatic. At N=100 all algorithms finish in ~1 ms — the asymptotic difference is hidden by constant factors and timer noise. At N=1,000 the gap appears (tens of ms vs a few ms) but feels acceptable. At **N = 10,000** the ratio explodes to **roughly 100×** — seconds vs tens of milliseconds — which is the threshold where a real user would notice lag. By N=100,000 the $O(n^2)$ algorithms take minutes while $O(n \log n)$ finishes in under a second.
+   > **Answer:** The gap becomes dramatic around **N = 10,000**. At N=100, all algorithms finish in about 1 ms, so constant factors and timer noise hide the asymptotic difference. At N=1,000 the gap appears, with tens of milliseconds versus a few milliseconds, but still feels acceptable. At N=10,000, the ratio reaches **roughly 100×**: seconds versus tens of milliseconds, which is noticeable to users. By N=100,000, the $O(n^2)$ algorithms take minutes while $O(n \log n)$ finishes in under a second.
 
 4. Why is insertion sort used as the base case in practical implementations like Timsort, even though its worst case is O(n²)?
 
