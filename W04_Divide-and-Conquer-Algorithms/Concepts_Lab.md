@@ -493,7 +493,7 @@ Type characters in the search box and observe the response times:
 
 3. In the closest pair benchmark, at what input size did the D&C approach first outperform the brute-force approach? Why not at smaller sizes?
 
-   > **Answer:** Per the benchmark table, D&C is already faster at **N = 100** (1.5× speedup). The gap widens to 30× at N = 1,000 and 125× at N = 5,000. At very small $n$, the **constant factors** of D&C (recursion overhead, sorting the strip by y, list slicing) dominate the asymptotic improvement. When $n$ is in single digits, brute force's tight $O(n^2)$ loop is faster than $O(n \log^2 n)$ with bookkeeping. That is why the base case `n <= 3` falls back to brute force.
+   > **Answer:** Per the benchmark table, D&C is already faster at **N = 100** (1.5× speedup). The gap widens to 30× at N = 1,000 and 125× at N = 5,000. At very small $n$, the **constant factors** of D&C (recursion overhead, sorting the strip by y, list slicing) dominate the asymptotic improvement. For very small $n$ (for example, $n \leq 3$), brute force's tight $O(n^2)$ loop is faster than $O(n \log^2 n)$ with bookkeeping. That is why the base case `n <= 3` falls back to brute force.
 
 4. What would happen to the closest pair algorithm's complexity if the strip check compared all pairs instead of limiting to 7 neighbors?
 
