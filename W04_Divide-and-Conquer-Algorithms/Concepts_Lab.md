@@ -281,7 +281,7 @@ Sort + Index            0.85s     O(n log n)
 | Brute force | O(n^2) | Check all n(n-1)/2 pairs |
 | **Divide and conquer** | **O(n log n)** | Divide, solve each half, check strip |
 
-Like finding the two people standing closest together in a crowd — splitting the crowd in half and checking near the dividing line is much faster than comparing everyone.
+This is like finding the closest pair of people in a crowd. Split the crowd in half and check near the dividing line; this is much faster than comparing everyone.
 
 #### 2.3.2 Divide and Conquer Strategy
 
@@ -369,7 +369,7 @@ N       Brute Force     Divide & Conquer  Speedup
 5,000   7.5000s         0.0600s           125x
 ```
 
-*(Approximate values — actual results may vary)*
+*(Approximate values. Actual results may vary.)*
 
 Brute force quickly becomes impractical, while divide and conquer scales gracefully.
 
@@ -447,14 +447,14 @@ Type characters in the search box and observe the response times:
 
 **Key observations:**
 
-- Linear search time is **constant** regardless of the query — it always scans everything
-- Binary search is **fast** for all queries — it jumps directly to the correct region
+- Linear search time is **constant** regardless of the query. It always scans everything.
+- Binary search is **fast** for all queries. It jumps directly to the correct region.
 - The difference is already noticeable with 100K words
 - Imagine a real search engine with millions of entries!
 
 **Discussion:**
 
-> Real-world autocomplete systems use more advanced data structures like **tries** and **inverted indexes** — but binary search over sorted data is an excellent starting point.
+> Real-world autocomplete systems use more advanced data structures like **tries** and **inverted indexes**. Even so, binary search over sorted data is an excellent starting point.
 
 ---
 
@@ -465,7 +465,7 @@ Type characters in the search box and observe the response times:
 ### What We Learned Today
 
 - **Traced** the recursive call tree of merge sort to understand divide and conquer
-- Implemented **Randomized Select** — finding the k-th smallest element in average O(n)
+- Implemented **Randomized Select** to find the k-th smallest element in average O(n)
 - Solved the **closest pair of points** problem: brute force O(n^2) vs divide and conquer O(n log n)
 - Compared **linear search vs binary search** in a web autocomplete API
 
@@ -485,16 +485,16 @@ Type characters in the search box and observe the response times:
 
 1. In your merge sort trace, how many times is the merge function called for an array of 8 elements? How does this relate to the recursion tree?
 
-   > **Answer:** For 8 elements, merge is called **7 times** — once at each internal node of the recursion tree. A merge sort of $n$ elements produces a balanced binary tree with $n$ leaves (size-1 base cases) and $n-1$ internal nodes; each internal node corresponds to one `MERGE` invocation that combines two sorted halves. More generally, $n$ leaves → $n-1$ merges, which is why the total merge work is $\Theta(n)$ per level × $\log_2 n$ levels = $\Theta(n \log n)$.
+   > **Answer:** For 8 elements, merge is called **7 times**, once at each internal node of the recursion tree. A merge sort of $n$ elements produces a balanced binary tree with $n$ leaves (size-1 base cases) and $n-1$ internal nodes. Each internal node corresponds to one `MERGE` invocation that combines two sorted halves. Thus $n$ leaves require $n-1$ merges, and the total work is $\Theta(n)$ per level across $\log_2 n$ levels, or $\Theta(n \log n)$.
 
 2. If randomized select picks a bad pivot every time, what is the worst-case time complexity? How likely is this with random pivots?
 
-   > **Answer:** If every pivot is the smallest or largest, the partition produces sizes $0$ and $n-1$, giving $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. With **uniform random** pivot selection, the probability of choosing an extreme value at each level is $2/n$, and the probability that this happens for **every** recursive call is roughly $(2/n)(2/(n-1)) \cdots \approx 2^n / n!$ — astronomically small. The expected time is $\Theta(n)$; the $\Theta(n^2)$ worst case is essentially impossible in practice with random pivots.
+   > **Answer:** If every pivot is the smallest or largest, the partition produces sizes $0$ and $n-1$, giving $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. With **uniform random** pivot selection, the chance of choosing an extreme value at each level is $2/n$. The probability that this happens at **every** recursive call is roughly $(2/n)(2/(n-1)) \cdots \approx 2^n / n!$, which is astronomically small. The expected time is $\Theta(n)$; in practice, random pivots make the $\Theta(n^2)$ worst case vanishingly unlikely.
 
 3. In the closest pair benchmark, at what input size did the D&C approach first outperform the brute-force approach? Why not at smaller sizes?
 
-   > **Answer:** Per the benchmark table, D&C is already faster at **N = 100** (1.5× speedup) and the gap widens dramatically — 30× at N = 1,000 and 125× at N = 5,000. At very small $n$, the **constant factors** of D&C (recursion overhead, sorting the strip by y, list slicing) dominate the savings from the asymptotic improvement. Brute force's tight $O(n^2)$ loop is faster than $O(n \log^2 n)$ with bookkeeping when $n$ is in single digits — which is precisely why the base case `n <= 3` falls back to brute force.
+   > **Answer:** Per the benchmark table, D&C is already faster at **N = 100** (1.5× speedup). The gap widens to 30× at N = 1,000 and 125× at N = 5,000. At very small $n$, the **constant factors** of D&C (recursion overhead, sorting the strip by y, list slicing) dominate the asymptotic improvement. When $n$ is in single digits, brute force's tight $O(n^2)$ loop is faster than $O(n \log^2 n)$ with bookkeeping. That is why the base case `n <= 3` falls back to brute force.
 
 4. What would happen to the closest pair algorithm's complexity if the strip check compared all pairs instead of limiting to 7 neighbors?
 
-   > **Answer:** The strip can contain up to all $n$ points in the worst case — e.g., all points clustered near the dividing line — so comparing all pairs in the strip costs $\Theta(n^2)$ at the top level. The recurrence becomes $T(n) = 2T(n/2) + \Theta(n^2)$, which by **Case 3** of the Master Theorem yields $T(n) = \Theta(n^2)$ — no better than brute force. The 7-neighbor bound (from the geometric packing argument) is exactly what reduces the strip step to $O(n)$ and preserves the $O(n \log^2 n)$ overall bound.
+   > **Answer:** In the worst case, all $n$ points could lie in the strip, for example if they cluster near the dividing line. Comparing all pairs would then cost $\Theta(n^2)$ at the top level. The recurrence becomes $T(n) = 2T(n/2) + \Theta(n^2)$, which by **Case 3** of the Master Theorem yields $T(n) = \Theta(n^2)$. That is no better than brute force. The 7-neighbor bound from the geometric packing argument reduces the strip step to $O(n)$ and preserves the overall $O(n \log^2 n)$ bound.
