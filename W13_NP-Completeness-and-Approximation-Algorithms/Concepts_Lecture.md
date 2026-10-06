@@ -123,7 +123,7 @@ Your boss gives you a problem that no efficient algorithm seems to crack. You ha
 
 ### 1.3 Tractable Time = Polynomial Time
 
-**Polynomial time** — input size $n$, running time bounded by $O(n^k)$ for some constant $k$.
+**Polynomial time:** for input size $n$, the running time is bounded by $O(n^k)$ for some constant $k$.
 
 | Tractable (Polynomial) | Intractable (Super-polynomial)  |
 |------------------------|---------------------------------|
@@ -132,7 +132,7 @@ Your boss gives you a problem that no efficient algorithm seems to crack. You ha
 | $O(n \log n)$          | $O(n^n)$                        |
 | $O(n^2), O(n^3)$       |                                 |
 
-> **Convention:** a problem is "efficiently solvable" **if and only if** a polynomial-time algorithm exists for it. This is the Cobham–Edmonds thesis — a deliberately coarse line, but the right one for theoretical purposes, because the polynomial class is robust to changes in the computational model.
+> **Convention:** a problem is "efficiently solvable" **if and only if** a polynomial-time algorithm exists for it. This is the Cobham–Edmonds thesis. The boundary is deliberately coarse, but it works for theoretical purposes because the polynomial class is robust to changes in the computational model.
 
 ### 1.4 Famous NP-Complete Problems
 
@@ -162,8 +162,8 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 | 3    | 6 kg   | 15    |
 | 4    | 5 kg   | 25    |
 
-- For $C = 20$: items $\{2, 3, 4\}$ — weight 19, value 50.
-- **Why NP-Complete?** The Week 6 DP solution runs in $O(nC)$; but $C$ can be encoded in $\log C$ bits, so the DP is *pseudo-polynomial* — polynomial in the *value* of $C$, exponential in the *bit-length* of $C$.
+- For $C = 20$: items $\{2, 3, 4\}$ weigh 19 and have value 50.
+- **Why NP-Complete?** The Week 6 DP solution runs in $O(nC)$. But $C$ can be encoded in $\log C$ bits, so the DP is *pseudo-polynomial*: polynomial in the *value* of $C$, but exponential in its *bit-length*.
 
 **Graph problems:**
 
@@ -171,7 +171,7 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 - **Independent Set.** Largest set of pairwise non-adjacent vertices.
 - **Clique.** Largest complete subgraph.
 - **Graph Coloring.** Fewest colours so adjacent vertices differ.
-- **Longest Path.** A simple $s \to t$ path of length $\geq K$? — surprisingly NP-Complete (compare Shortest Path in P).
+- **Longest Path.** Is there a simple $s \to t$ path of length $\geq K$? This problem is surprisingly NP-Complete (compare with Shortest Path in P).
 - **Set Cover.** Fewest subsets whose union equals the universe.
 
 > **Beautiful relationship:** in graph $G = (V, E)$, $S$ is a vertex cover **iff** $V \setminus S$ is an independent set. A clique in $G$ corresponds to an independent set in the complement graph $\overline{G}$. Many NP-Complete problems sit on opposite sides of trivial dualities like this.
@@ -179,9 +179,9 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 **Tour-style problems:**
 
 - **TSP.** Given a weighted complete graph, find the shortest Hamiltonian cycle.
-- **Hamiltonian Cycle.** Does the graph have *any* Hamiltonian cycle? — TSP reduces to it by setting all edge weights to 1.
+- **Hamiltonian Cycle.** Does the graph have *any* Hamiltonian cycle? TSP reduces to this problem by setting all edge weights to 1.
 - **Bin Packing.** Pack $n$ items into the fewest bins of capacity $C$.
-- **Job Scheduling.** Assign $n$ jobs to $m$ identical machines to minimize the **makespan** — the completion time of the last-finishing machine (equivalently, the last-finishing job).
+- **Job Scheduling.** Assign $n$ jobs to $m$ identical machines to minimize the **makespan**. This is the completion time of the last-finishing machine, equivalently the last-finishing job.
 
 ### 1.5 Decision vs Optimization Problems
 
@@ -224,9 +224,9 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 
 A decision problem is in NP if, given a **"Yes" certificate** (a proposed solution), we can **verify** in polynomial time whether the certificate is valid.
 
-> **Important — common confusion:** NP does **not** stand for "non-polynomial." It stands for *nondeterministic polynomial*, the class of problems solvable in polynomial time by an idealized **nondeterministic** machine — equivalently, problems whose Yes-answer admits a polynomial-time **verification**.
+> **Important: common confusion.** NP does **not** stand for "non-polynomial." It stands for *nondeterministic polynomial*, the class of problems solvable in polynomial time by an idealized **nondeterministic** machine. Equivalently, these are problems whose Yes-answer admits polynomial-time **verification**.
 
-> **What "nondeterministic" means here:** the historical definition imagines a machine that, at each step, may "guess" one of several next moves and is said to accept if *some* sequence of guesses leads to a Yes — effectively trying all certificates in parallel. This lecture uses the **equivalent verifier/certificate definition** throughout (given a certificate, check it in polynomial time); the two are provably the same class, so "nondeterministic" here is just **historical naming** and you can read NP as "polynomially verifiable."
+> **What "nondeterministic" means here:** the historical definition imagines a machine that, at each step, may "guess" one of several next moves and accepts if *some* sequence of guesses leads to a Yes. This is effectively trying all certificates in parallel. This lecture uses the **equivalent verifier/certificate definition** throughout: given a certificate, check it in polynomial time. The two definitions describe the same class, so "nondeterministic" is just **historical naming**. You can read NP as "polynomially verifiable."
 
 **Intuitive characterization:**
 
@@ -279,7 +279,7 @@ The single most important construction in this lecture.
 
 **Consequence:** if $A \leq_P B$ and $B$ is solvable in polynomial time, then $A$ is also solvable in polynomial time (solve $A$ by transforming to $B$ and asking $B$'s algorithm).
 
-The **contrapositive** is the engine of NP-Completeness: if $A$ is *hard* and $A \leq_P B$, then $B$ is also *hard* — solving $B$ efficiently would solve $A$ efficiently, contradiction.
+The **contrapositive** drives NP-Completeness: if $A$ is *hard* and $A \leq_P B$, then $B$ is also *hard*. Otherwise, solving $B$ efficiently would solve $A$ efficiently, a contradiction.
 
 ### 2.5 Reduction Examples
 
@@ -613,7 +613,7 @@ Let $M$ = total weight of MST, $\text{OPT}$ = optimal TSP tour length, $\text{AP
 
 **Step 1.** $\text{OPT} > M$.
 
-*Why:* the optimal tour visits every vertex and returns to the start. Remove any one edge from the tour — what remains is a spanning tree (it touches every vertex, is connected, has $|V| - 1$ edges). Since $M$ is the *minimum* spanning tree weight, $M \leq (\text{tour minus one edge})$. Assuming the removed edge has **strictly positive weight**, $(\text{tour minus one edge}) < \text{OPT}$, so $M < \text{OPT}$. (If all edge weights are positive — the usual case — the ratio is strictly $< 2$; with zero-weight edges allowed we only get $M \leq \text{OPT}$, and the bound weakens to $\leq 2$.)
+*Why:* the optimal tour visits every vertex and returns to the start. Removing one edge leaves a spanning tree: it touches every vertex, is connected, and has $|V| - 1$ edges. Since $M$ is the *minimum* spanning-tree weight, $M \leq (\text{tour minus one edge})$. If the removed edge has **strictly positive weight**, then $(\text{tour minus one edge}) < \text{OPT}$, so $M < \text{OPT}$. When all edge weights are positive, the usual case, the ratio is strictly $< 2$. If zero-weight edges are allowed, we only get $M \leq \text{OPT}$ and the bound weakens to $\leq 2$.
 
 **Step 2.** $\text{APX} \leq 2M$.
 
@@ -870,7 +870,7 @@ $$
 
 **Complexity:** for each of $n$ jobs we scan $m$ machine loads to find the minimum → **$O(nm)$**.
 
-> **In practice**, a **Longest Processing Time First (LPT)** variant — sort jobs in decreasing order of $t_i$ before applying the same greedy assignment — achieves a $4/3$ approximation ratio and behaves much better empirically.
+> **In practice**, a **Longest Processing Time First (LPT)** variant sorts jobs in decreasing order of $t_i$ before applying the same greedy assignment. It achieves a $4/3$ approximation ratio and behaves much better empirically.
 
 ---
 
@@ -972,11 +972,11 @@ All five problems achieve **2-approximation** — solutions at most twice the op
 3. **Two-step recipe for NP-Completeness proofs:** (a) show problem is in NP; (b) reduce a known NP-Complete problem to it.
 4. Once a problem is NP-Complete, switch to **heuristics**, **approximations**, or **special-case algorithms**.
 5. **Approximation ratio** is the gold standard for measuring quality, and the **indirect-optimal technique** is the universal proof template — every 2-approximation proof in this lecture sandwiches OPT between a computable bound and the algorithm's output.
-6. All five canonical approximation algorithms (TSP / Vertex Cover / Bin Packing / Job Scheduling / Clustering) achieve **factor-2 guarantees** with simple greedy strategies and clean proofs.
+6. All five canonical approximation algorithms (TSP / Vertex Cover / Bin Packing / Job Scheduling / Clustering) achieve **factor-2 guarantees** using simple greedy strategies and clean proofs.
 
-> "If you can't solve it exactly, prove it's hard. If it's hard, approximate it — and prove the approximation."
+> "If you can't solve it exactly, prove it's hard. If it's hard, approximate it and prove the approximation."
 
-**Next week:** Approximation Algorithms continued — more refined approximation strategies and PTAS / FPTAS frameworks.
+**Next week:** We continue with Approximation Algorithms, covering more refined approximation strategies and PTAS / FPTAS frameworks.
 
 ---
 
@@ -986,35 +986,35 @@ All five problems achieve **2-approximation** — solutions at most twice the op
 
 1. **P vs NP intuition:** Explain in plain English the difference between "P" and "NP" using the words *solve* and *verify*. Why is every problem in P automatically in NP?
 
-   > **Answer:** **P** is the class of decision problems where we can produce the correct Yes/No answer from scratch in polynomial time — we can **solve** them quickly. **NP** is the class where, given a candidate Yes-certificate (a proposed solution), we can **verify** its validity in polynomial time. Every problem in P is in NP because the trivial verifier *ignores the certificate and just re-solves the problem*: if you have a polynomial-time solver, you have a (very lazy) polynomial-time verifier. The reverse inclusion — does fast verification imply fast solving? — is the $P = NP$ question.
+   > **Answer:** **P** is the class of decision problems where we can produce the correct Yes/No answer from scratch in polynomial time. We can **solve** them quickly. **NP** is the class where a candidate Yes-certificate (a proposed solution) can be **verified** in polynomial time. Every problem in P is in NP because a verifier can ignore the certificate and solve the problem again. The reverse question, whether fast verification implies fast solving, is the $P = NP$ question.
 
 2. **Decision vs optimization:** TSP has both forms. State each clearly and explain why NP-Completeness is proved on the decision version, yet hardness still transfers to the optimization version.
 
-   > **Answer:** **Decision version:** "Given weighted complete graph $G$ and bound $K$, does $G$ have a tour of total weight $\leq K$?" — Yes/No. **Optimization version:** "What is the minimum tour weight in $G$?" — a number. NP-Completeness is defined on decision problems because the reduction machinery $A \leq_P B$ requires Yes/No preservation. **Hardness transfers** because solving the optimization version solves the decision version trivially (compute the minimum, compare to $K$) — so the optimization version is *at least as hard* as the decision version. If the decision version is NP-Complete (no polynomial-time algorithm assuming $P \neq NP$), then neither is the optimization version.
+   > **Answer:** The **decision version** asks, "Given a weighted complete graph $G$ and bound $K$, does $G$ have a tour of total weight $\leq K$?" Its answer is Yes or No. The **optimization version** asks for the minimum tour weight in $G$. NP-Completeness is defined for decision problems because reductions $A \leq_P B$ must preserve Yes/No answers. **Hardness transfers** because solving the optimization problem lets us compare the minimum with $K$ and answer the decision problem. Thus the optimization version is at least as hard. If the decision version is NP-Complete, the optimization version has no polynomial-time algorithm assuming $P \neq NP$.
 
 3. **Reduction direction:** A student says "Hamiltonian Cycle reduces to TSP, so TSP must be easier than Hamiltonian Cycle." Correct or wrong, and why?
 
-   > **Answer:** **Wrong.** $A \leq_P B$ means $A$ can be solved by transforming to $B$ and using $B$'s algorithm — therefore $B$ is **at least as hard as** $A$. The direction of $\leq_P$ is the same as "no harder than" — *A* is no harder than *B*, equivalently *B* is at least as hard as *A*. Since Hamiltonian Cycle is NP-Complete and reduces to TSP, **TSP is also NP-Hard** (at least as hard as Hamiltonian Cycle). The student inverted the intuition.
+   > **Answer:** **Wrong.** $A \leq_P B$ means we can solve $A$ by transforming it to $B$ and using an algorithm for $B$. Therefore, $B$ is **at least as hard as** $A$. The reduction direction also says that $A$ is no harder than $B$. Since Hamiltonian Cycle is NP-Complete and reduces to TSP, **TSP is NP-Hard**. The student reversed the relationship.
 
 4. **LONGEST-PATH proof:** Reproduce the two key directions of the LONGEST-PATH NP-Completeness proof. In particular, why does the reverse direction need the weight-1 trick?
 
-   > **Answer:** **Forward (HAM-PATH-2-POINTS → LONGEST-PATH):** if $G$ has a Hamiltonian path from $s$ to $t$, then in the transformed graph (every edge weight 1, $K = |V| - 1$) that same path has $|V| - 1$ edges of weight 1 = total weight $|V| - 1 \geq K$ — Yes-instance of LONGEST-PATH. **Reverse (LONGEST-PATH → HAM-PATH-2-POINTS):** a simple $s \to t$ path in the transformed graph of weight $\geq |V| - 1$ has $\geq |V| - 1$ edges. A *simple* path can have at most $|V| - 1$ edges (it visits each vertex at most once). So it has *exactly* $|V| - 1$ edges and visits all $|V|$ vertices — a Hamiltonian path. **The weight-1 trick** is what links "path length" (a weight sum) to "number of edges" (a count), so $K = |V| - 1$ forces *every* vertex to be visited. Without uniform weights, the reverse direction would fail — a long path could just be a heavy short path.
+   > **Answer:** **Forward (HAM-PATH-2-POINTS → LONGEST-PATH):** if $G$ has a Hamiltonian path from $s$ to $t$, then in the transformed graph every edge has weight 1 and $K = |V| - 1$. That path has $|V| - 1$ edges, so its total weight is $|V| - 1 \geq K$; it is a Yes-instance of LONGEST-PATH. **Reverse (LONGEST-PATH → HAM-PATH-2-POINTS):** a simple $s \to t$ path in the transformed graph with weight $\geq |V| - 1$ has at least $|V| - 1$ edges. A *simple* path has at most $|V| - 1$ edges because it visits each vertex at most once. It therefore has exactly $|V| - 1$ edges and visits every vertex, making it a Hamiltonian path. **The weight-1 trick** equates path weight with edge count, so $K = |V| - 1$ forces every vertex to be visited. Without uniform weights, a short path with heavy edges could meet the threshold, and the reverse direction would fail.
 
 5. **Pseudo-polynomial paradox:** 0-1 Knapsack has a DP solution in $O(nC)$, yet is NP-Complete. Resolve the apparent contradiction.
 
-   > **Answer:** "Polynomial time" in NP-Completeness theory means polynomial in the **bit-length of the input**, not polynomial in the numerical values. The capacity $C$ is encoded in $\log_2 C$ bits in the input, so $O(nC)$ is exponential in the input bit-length: $O(n \cdot 2^{\log_2 C})$. This is called **pseudo-polynomial** — polynomial in the *value* of $C$, exponential in the *encoding* of $C$. Real-world instances with small $C$ (say $C \leq 10^6$) are solvable fast by the DP, but instances with $C \approx 2^{100}$ are not — and the NP-Completeness proof works by constructing instances with exponentially large $C$. NP-Completeness is about the worst case over all input bit-lengths.
+   > **Answer:** In NP-Completeness theory, "polynomial time" means polynomial in the **bit-length of the input**, not in its numeric values. Capacity $C$ is encoded in $\log_2 C$ bits, so $O(nC) = O(n \cdot 2^{\log_2 C})$ is exponential in input bit-length. This is called **pseudo-polynomial**: polynomial in the *value* of $C$, exponential in its *encoding length*. Small capacities (say $C \leq 10^6$) can make the DP practical, but $C \approx 2^{100}$ is not. The NP-Completeness proof constructs instances with exponentially large $C$, and NP-Completeness concerns the worst case over all input lengths.
 
 6. **2-SAT vs 3-SAT:** Why is 2-SAT in P but 3-SAT NP-Complete? What property changes between the two?
 
-   > **Answer:** **2-SAT** can be expressed as an implication graph: a clause $(a \lor b)$ is equivalent to $\overline{a} \implies b$ and $\overline{b} \implies a$. Building this graph and finding **strongly connected components** (Week 12, Kosaraju!) gives a poly-time algorithm — the formula is satisfiable iff no variable and its negation lie in the same SCC. **3-SAT** has no such reduction: a 3-clause $(a \lor b \lor c)$ encodes a *choice* with three options, not a binary implication. That extra degree of freedom is exactly the **nondeterminism** that NP captures — once each clause has $\geq 3$ literals, the problem becomes capable of encoding arbitrary NP computation. The boundary is razor-thin, and identifying *why* extra freedom makes problems NP-Hard is a deep theme in complexity theory.
+   > **Answer:** **2-SAT** can be expressed as an implication graph: a clause $(a \lor b)$ is equivalent to $\overline{a} \implies b$ and $\overline{b} \implies a$. Building this graph and finding **strongly connected components** (Week 12, Kosaraju!) gives a polynomial-time algorithm. The formula is satisfiable iff no variable and its negation lie in the same SCC. **3-SAT** has no such reduction: a 3-clause $(a \lor b \lor c)$ encodes a *choice* among three options, not a binary implication. That extra freedom is exactly the **nondeterminism** NP captures. Once each clause has $\geq 3$ literals, the problem can encode arbitrary NP computation. The boundary is razor-thin, and understanding *why* this extra freedom makes problems NP-Hard is a deep theme in complexity theory.
 
 7. **Approximation ratio via indirect optimal:** State why the proof "$\text{APX} \leq 2 \cdot \text{OPT}$" never directly compares APX with OPT, and how the indirect bound $L$ acts as a substitute.
 
-   > **Answer:** OPT is what we cannot compute — the whole point of approximation is to *avoid* computing it. So the proof sandwiches OPT between two quantities we *can* control: (1) a polynomial-time computable bound $L$ that we can prove satisfies $L \leq \text{OPT}$ (for minimization); and (2) the algorithm's output APX, for which we can prove $\text{APX} \leq c \cdot L$. Combining gives $\text{APX} \leq c \cdot L \leq c \cdot \text{OPT}$ — without ever computing OPT. The indirect bound $L$ is the workhorse: every 2-approximation proof in §4–§8 plugs in a different choice of $L$ (MST weight, matching size, volume bound, average load, virtual $(k+1)$-th center distance).
+   > **Answer:** The point of approximation is that we cannot compute OPT directly. The proof places OPT between two quantities we can control: (1) a polynomial-time computable lower bound $L$ with $L \leq \text{OPT}$ for minimization, and (2) the algorithm output APX, with $\text{APX} \leq c \cdot L$. Combining them gives $\text{APX} \leq c \cdot L \leq c \cdot \text{OPT}$ without computing OPT. The indirect bound $L$ is the key tool. Each 2-approximation proof in §4–§8 uses a different choice, such as MST weight, matching size, volume bound, average load, or the distance to a virtual $(k+1)$-th center.
 
 8. **TSP triangle inequality:** Where exactly in the Approx_MST_TSP proof do we use the triangle inequality? What goes wrong without it?
 
-   > **Answer:** The triangle inequality is used in **Step 2 of the algorithm** (shortcutting) and in **Step 2 of the proof** ($\text{APX} \leq 2M$). When we replace a sub-path "$x \to y \to z$" in the DFS traversal with the direct edge "$x \to z$", we need $d(x, z) \leq d(x, y) + d(y, z)$ — otherwise the shortcut might be *longer* than the path it replaces, and the $\text{APX} \leq 2M$ bound fails. **Without triangle inequality:** General TSP cannot be approximated within any constant factor unless $P = NP$ — you can construct instances where the gap between MST-shortcut and optimal is arbitrarily bad. Metric TSP is the "nice" case where the triangle inequality makes the shortcut safe.
+   > **Answer:** The triangle inequality is used in **Step 2 of the algorithm** (shortcutting) and **Step 2 of the proof** ($\text{APX} \leq 2M$). Replacing the DFS subpath "$x \to y \to z$" with the direct edge "$x \to z$" requires $d(x, z) \leq d(x, y) + d(y, z)$. Without it, the shortcut could be *longer* than the original path and the $\text{APX} \leq 2M$ bound could fail. **Without the triangle inequality**, general TSP cannot be approximated within any constant factor unless $P = NP$. Instances can make the gap between the MST shortcut and the optimum arbitrarily large. Metric TSP is the tractable case because the triangle inequality makes shortcutting safe.
 
 9. **Vertex Cover ratio is tight:** Show that the maximal-matching algorithm can actually return a vertex cover *exactly* twice the size of the optimum (so the 2-bound cannot be improved by this algorithm).
 

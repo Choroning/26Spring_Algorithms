@@ -4,7 +4,7 @@
 >
 > **Exam Info:** Week 8 Midterm | Handwritten, 1 hour | No digital devices | Covers Weeks 01–06 | CLRS Ch. 1–4, 6–10, 15, 16
 >
-> **Purpose:** Everything you need for the midterm — definitions, recurrences, algorithms, worked examples, common pitfalls, and a final checklist. Self-contained synthesis of W01–W06 lectures plus the W07 review.
+> **Purpose:** Everything you need for the midterm: definitions, recurrences, algorithms, worked examples, common pitfalls, and a final checklist. This is a self-contained synthesis of W01–W06 lectures and the W07 review.
 
 ---
 
@@ -88,7 +88,7 @@ Worst-case iterations ≈ `log(min(a,b))` (not obvious — consecutive Fibonacci
 | Counterfeit coin (1,024 coins) | Split pile in half | **10 weighings** (log₂ 1024) |
 | Poisoned wine (n jars) | Binary encoding | `⌈log₂(n)⌉` servants |
 
-> **The log₂(n) motif:** Halving the problem at each step gives logarithmic performance. Appears in binary search, the counterfeit coin problem, and the poisoned wine problem — and underlies every efficient D&C algorithm.
+> **The log₂(n) motif:** Halving the problem at each step gives logarithmic performance. This appears in binary search, the counterfeit coin problem, and the poisoned wine problem, and underlies every efficient D&C algorithm.
 
 ### 1.5 Euler Circuit Condition
 
@@ -251,8 +251,8 @@ PARTITION(A, p, r):
 
 ### 3.6 Heap Sort — Two Subroutines
 
-- `buildHeap`: O(n) (not O(n log n) — tighter analysis, leaves need no work).
-- `heapify(A, k, n)`: O(log n) — sift down.
+- `buildHeap`: O(n). Leaves need no work, which is why the bound is tighter than O(n log n).
+- `heapify(A, k, n)`: O(log n). Sift down to restore the heap property.
 - `heapSort`: `buildHeap` + `(n−1) × heapify` = **O(n log n) worst case**, in-place.
 
 ### 3.7 Counting Sort Key Insight
@@ -301,7 +301,7 @@ DivideAndConquer(P):
 
 **Problem:** Find the i-th smallest element in an unsorted array.
 
-**Randomized Select** — partition by a pivot, recurse on only the side containing rank `i`:
+**Randomized Select:** partition by a pivot, then recurse only on the side containing rank `i`.
 ```
 SELECT(A, p, r, i):
     if p == r: return A[p]
@@ -355,8 +355,8 @@ Greedy(C):
 
 ### 5.2 Two Conditions for Correctness
 
-1. **Greedy-choice property** — Some optimal solution contains the greedy (locally best) choice.
-2. **Optimal substructure** — After making the greedy choice, the remaining subproblem has the same structure, and an optimal solution to the whole contains an optimal solution to the subproblem.
+1. **Greedy-choice property:** Some optimal solution contains the greedy (locally best) choice.
+2. **Optimal substructure:** After making the greedy choice, the remaining subproblem has the same structure, and an optimal solution to the whole contains an optimal solution to the subproblem.
 
 > **Rule of thumb:** Try greedy first; if you can find a counterexample, switch to DP.
 
@@ -420,7 +420,7 @@ Dijkstra(G, s):
                 D[w] = D[vmin] + weight(vmin, w)
 ```
 
-**Greedy invariant:** once `vmin` is finalized, `D[vmin]` is its true shortest distance — valid only when all edge weights are **non-negative**.
+**Greedy invariant:** once `vmin` is finalized, `D[vmin]` is its true shortest distance. This is valid only when all edge weights are **non-negative**.
 
 ---
 
@@ -437,7 +437,7 @@ Dijkstra(G, s):
 - **Optimal substructure:** optimal solution contains optimal solutions to subproblems.
 - **Overlapping subproblems:** same subproblems recur many times.
 
-> "Programming" here means *tabulation* (filling a table) — a term from mathematical optimization, not from computer programming.
+> "Programming" here means *tabulation* (filling a table). The term comes from mathematical optimization, not computer programming.
 
 ### 6.2 Memoization vs Tabulation
 
@@ -451,12 +451,12 @@ Dijkstra(G, s):
 
 ### 6.3 The DP Recipe (6 steps)
 
-1. **Define the subproblem** — what does `OPT[i, j, ...]` represent?
-2. **Write the recurrence** — how does it relate to smaller subproblems?
-3. **Identify base cases** — trivial/boundary values.
-4. **Determine the computation order** — fill small → large so dependencies are ready.
-5. **Extract the answer** — which cell holds the final value?
-6. **(Optional) Traceback** — reconstruct the actual solution, not just its value.
+1. **Define the subproblem:** what does `OPT[i, j, ...]` represent?
+2. **Write the recurrence:** how does it relate to smaller subproblems?
+3. **Identify base cases:** what are the trivial or boundary values?
+4. **Determine the computation order:** fill from small to large so dependencies are ready.
+5. **Extract the answer:** which cell holds the final value?
+6. **(Optional) Traceback:** reconstruct the actual solution, not just its value.
 
 ### 6.4 Classic DP Problems — Full Table
 

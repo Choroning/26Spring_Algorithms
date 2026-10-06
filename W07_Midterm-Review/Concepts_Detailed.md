@@ -4,7 +4,7 @@
 >
 > **Exam:** Week 8 Midterm | Handwritten, 1 hour | No digital devices | Covers W01–W06 | CLRS Ch. 1–4, 6–10, 15, 16
 >
-> **Purpose:** The *detailed* companion to `Concepts.md`. Same scope, but every concept is unpacked with intuitions, derivations, proof sketches, step-by-step traces, and discussion of why things work the way they do. Read this when you want to *understand*, not just memorize.
+> **Purpose:** The *detailed* companion to `Concepts.md`. It covers the same scope and develops each concept through intuition, derivation, proof sketches, step-by-step traces, and explanations of why it works. Read this when you want to *understand*, not just memorize.
 >
 > **How to use this document:** Read the corresponding section of `Concepts.md` first for the bird's-eye view, then come here for depth. Each section includes worked examples and "why this matters" commentary.
 
@@ -135,7 +135,7 @@ The introductory lecture presents seven problems precisely because they span the
 | Counterfeit coin among 1,024 | Divide pile in half | **10 weighings** |
 | Poisoned wine, `n` jars | Binary encoding | **⌈log₂(n)⌉** servants |
 
-**The log₂(n) refrain.** Three different problems in W01 — binary search, counterfeit coin, poisoned wine — all collapse from `O(n)` or `O(n/2)` down to `O(log n)` because each step cuts the unknown information **in half**. This is the same mathematical phenomenon that makes merge sort `n log n` instead of `n²`: halving × halving × ... × halving (once) until you hit 1 takes `log₂ n` rounds. Every efficient divide-and-conquer algorithm rides on this fact.
+**The log₂(n) refrain.** Three W01 problems, binary search, counterfeit coin, and poisoned wine, all shrink from `O(n)` or `O(n/2)` to `O(log n)` because each step cuts the unknown information **in half**. The same principle makes merge sort `n log n` instead of `n²`. Repeatedly halving a problem until it reaches 1 takes `log₂ n` rounds. Every efficient divide-and-conquer algorithm uses this fact.
 
 #### 1.4.1 Finding the maximum (worked trace)
 
@@ -387,7 +387,7 @@ For recurrences of the form `T(n) = a · T(n/b) + f(n)` with `a ≥ 1, b > 1`, l
 | **Case 2** | `f(n) = Θ(n^(log_b a))` | `T(n) = Θ(n^(log_b a) · log n)` |
 | **Case 3** | `f(n) = Ω(n^(log_b a + ε))` for some `ε > 0`, **and** regularity `a · f(n/b) ≤ c · f(n)` for some `c < 1` and all large `n` | `T(n) = Θ(f(n))` |
 
-**Intuition — the recursion tree.** Imagine the recursion tree for `T(n) = aT(n/b) + f(n)`. Level 0 does `f(n)` work. Level 1 has `a` subproblems, each doing `f(n/b)` work — total `a · f(n/b)`. Level `k` has `aᵏ` subproblems each doing `f(n/bᵏ)` work — total `aᵏ · f(n/bᵏ)`. The tree has depth `log_b n`, and the number of leaves is `a^(log_b n) = n^(log_b a)` — this is where the mysterious `n^(log_b a)` comes from (the total leaf cost if leaves do constant work).
+**Intuition: the recursion tree.** Imagine the recursion tree for `T(n) = aT(n/b) + f(n)`. Level 0 does `f(n)` work. Level 1 has `a` subproblems, each doing `f(n/b)` work, for a total of `a · f(n/b)`. Level `k` has `aᵏ` subproblems, each doing `f(n/bᵏ)` work, for a total of `aᵏ · f(n/bᵏ)`. The tree has depth `log_b n` and `a^(log_b n) = n^(log_b a)` leaves. This is the total leaf cost when each leaf does constant work.
 
 - **Case 1.** The combine cost shrinks geometrically from root to leaf; **leaves dominate**. Total = `Θ(#leaves)` = `Θ(n^(log_b a))`.
 - **Case 2.** Every level does the same work `Θ(n^(log_b a))`; with `log n` levels, **total = Θ(n^(log_b a) · log n)**.
@@ -786,7 +786,7 @@ Given `n` points in the plane, find the pair with minimum Euclidean distance.
 4. **Combine:** let `d = min(d_L, d_R)`. Check the **strip** of width `2d` around the dividing line for any cross-strip pair closer than `d`.
 5. **Return** the minimum of `d_L`, `d_R`, and the best strip distance.
 
-**The strip check — the clever part.** Sort strip points by y-coordinate. For each point `P` in the strip, only points within y-distance `d` above `P` can be closer than `d`. Furthermore, in a rectangle of width `2d` and height `d` above `P`, at most 7 other points can live — so only check the next 7 y-neighbors for each point.
+**The strip check: the key idea.** Sort strip points by y-coordinate. For each point `P`, only points within y-distance `d` above it can be closer than `d`. A rectangle of width `2d` and height `d` above `P` can contain at most 7 other points. Therefore, checking only the next 7 points in y-order is sufficient.
 
 **Why at most 7 other points?** Subdivide the `2d × d` rectangle into 8 cells of size `(d/2) × (d/2)`. Any two points in the same cell are at distance `≤ (d/2) · √2 < d`, contradicting `d_L, d_R ≥ d`. So each cell holds at most 1 point → at most 8 points in the rectangle, meaning the point itself plus at most 7 others.
 

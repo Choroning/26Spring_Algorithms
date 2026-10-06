@@ -72,14 +72,14 @@
 
 ### 1.1 Divide and Conquer Paradigm
 
-Imagine you need to sort a shuffled deck of 52 cards. One natural approach is to split the deck in half, sort each half, and then merge them — this is exactly the divide-and-conquer strategy. This paradigm of breaking big problems into smaller ones turns out to be one of the most powerful ideas in computer science.
+Imagine you need to sort a shuffled deck of 52 cards. One natural approach is to split the deck in half, sort each half, and then merge them. This is the divide-and-conquer strategy, one of the most powerful ideas in computer science.
 
 An algorithm that **divides** the input of a given problem and **conquers (solves)** each part.
 
 **Three steps:**
-1. **Divide** — Split the problem into smaller subproblems
-2. **Conquer** — Solve each subproblem recursively
-3. **Combine** — Merge the subsolutions to obtain the solution to the original problem
+1. **Divide:** Split the problem into smaller subproblems
+2. **Conquer:** Solve each subproblem recursively
+3. **Combine:** Merge the subsolutions to obtain the solution to the original problem
 
 **Key terms:**
 - **Subproblem**: A problem defined on the divided input
@@ -179,16 +179,16 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 For $T(n) = a \cdot T(n/b) + O(f(n))$, compare $f(n)$ with $n^{\log_b a}$:
 
-**Case 1:** $f(n) = O(n^{\log_b a - \varepsilon})$ — Leaf cost dominates
+**Case 1:** $f(n) = O(n^{\log_b a - \varepsilon})$. Leaf cost dominates.
 $$T(n) = \Theta(n^{\log_b a})$$
 
-**Case 2:** $f(n) = \Theta(n^{\log_b a})$ — Balanced cost
+**Case 2:** $f(n) = \Theta(n^{\log_b a})$. The costs are balanced.
 $$T(n) = \Theta(n^{\log_b a} \log n)$$
 
-**Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ — Combine cost dominates
+**Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$. Combine cost dominates.
 $$T(n) = \Theta(f(n))$$
 
-Here $\varepsilon > 0$ is any positive constant — the condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}$, not just slightly smaller.
+Here $\varepsilon > 0$ is any positive constant. The condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}, not just slightly smaller.
 
 ![Recursion Tree Example: T(n)=3T(n/4)+cn²](../images/ch04_p025_006.png)
 
@@ -269,7 +269,7 @@ MERGE(A, p, q, r)
       A[k] = R[j]; j++
 ```
 
-**Merge Trace — merging [27, 38] and [3, 43]:**
+**Merge Trace: merging [27, 38] and [3, 43]**
 
 | Step | Compare | Action | Result so far | i | j |
 |------|---------|--------|--------------|---|---|
@@ -285,9 +285,9 @@ MERGE(A, p, q, r)
 **Recurrence:**
 $$T(n) = 2T(n/2) + \Theta(n)$$
 
-- Divide: $O(1)$ — only compute the midpoint
-- Conquer: $2T(n/2)$ — two recursive calls on halves
-- Combine: $\Theta(n)$ — merge two sorted arrays
+- Divide: $O(1)$ (compute the midpoint only)
+- Conquer: $2T(n/2)$ (two recursive calls, one on each half)
+- Combine: $\Theta(n)$ (merge the two sorted arrays)
 
 **Applying the Master Theorem:** $a=2, b=2, f(n)=\Theta(n)$
 $$n^{\log_b a} = n^{\log_2 2} = n^1 = n$$
@@ -638,7 +638,7 @@ LINEAR-SELECT(A, p, r, i)
   6. Recurse on the appropriate side
 ```
 
-**Key insight:** M is **guaranteed to be a balanced pivot** — at least $3n/10$ elements are smaller than M, and at least $3n/10$ are larger.
+**Key insight:** M is **guaranteed to be a balanced pivot**. At least $3n/10$ elements are smaller than M, and at least $3n/10$ are larger.
 
 > **Note:** The reason for grouping by 5 is that grouping by 3 yields a recurrence $T(n) = T(n/3) + T(2n/3) + \Theta(n)$, which does not achieve linear time, while 7 or more unnecessarily increases the within-group sorting cost. 5 is the smallest group size that guarantees linear time.
 
@@ -730,7 +730,7 @@ Can we do better with divide and conquer?
 
 ### 6.2 Closest Pair — Divide and Conquer Approach
 
-**Preprocessing:** Sort all points by x-coordinate — $O(n \log n)$
+**Preprocessing:** Sort all points by x-coordinate in $O(n \log n)$ time.
 
 **Divide:** Split point set $S$ into left half $S_L$ and right half $S_R$
 
@@ -869,7 +869,7 @@ FIB-NUMBER(n)
   return F[n]
 ```
 
-**Time:** $\Theta(n)$ — each value is computed exactly once
+**Time:** $\Theta(n)$. Each value is computed exactly once.
 
 **Lesson:** When subproblems overlap significantly, **Dynamic Programming** (bottom-up or memoization) is more appropriate than naive divide and conquer.
 
@@ -919,15 +919,15 @@ FIB-NUMBER(n)
 
 1. **Divide and Conquer:** What are the three steps of D&C? Give an example where the "combine" step is trivial and one where it is expensive.
 
-   > **Answer:** **Divide** the problem into smaller subproblems, **Conquer** each subproblem recursively, and **Combine** the subsolutions into a solution for the original. In **binary search** and **quick sort**, combine is trivial — binary search just returns the result, and quick sort's in-place partition leaves the array already in order. In **merge sort** the combine step is the expensive part — merging two sorted halves takes $\Theta(n)$, which is what makes the overall recurrence $T(n) = 2T(n/2) + \Theta(n)$.
+   > **Answer:** **Divide** the problem into smaller subproblems, **Conquer** each one recursively, and **Combine** the subsolutions into a solution to the original problem. In **binary search** and **quick sort**, combining is trivial: binary search returns the result, and quick sort's in-place partition leaves the array in order. In **merge sort**, combining takes more work. Merging two sorted halves takes $\Theta(n)$, which is what makes the overall recurrence $T(n) = 2T(n/2) + \Theta(n)$.
 
 2. **Master Theorem:** Apply the Master Theorem to: (a) T(n) = 2T(n/2) + n, (b) T(n) = 4T(n/2) + n, (c) T(n) = T(n/2) + n². State the case and result for each.
 
-   > **Answer:** Compare $f(n)$ against $n^{\log_b a}$. **(a)** $a=2, b=2$ so $n^{\log_2 2} = n$, and $f(n) = n$ — **Case 2**, giving $T(n) = \Theta(n \log n)$ (merge sort). **(b)** $a=4, b=2$ so $n^{\log_2 4} = n^2$, and $f(n) = n$ is polynomially smaller — **Case 1**, giving $T(n) = \Theta(n^2)$. **(c)** $a=1, b=2$ so $n^{\log_2 1} = 1$, and $f(n) = n^2$ is polynomially larger — **Case 3**, giving $T(n) = \Theta(n^2)$.
+   > **Answer:** Compare $f(n)$ against $n^{\log_b a}$. **(a)** $a=2, b=2$, so $n^{\log_2 2} = n$ and $f(n) = n$. This is **Case 2**, giving $T(n) = \Theta(n \log n)$ (merge sort). **(b)** $a=4, b=2$, so $n^{\log_2 4} = n^2$ and $f(n) = n$ is polynomially smaller. This is **Case 1**, giving $T(n) = \Theta(n^2)$. **(c)** $a=1, b=2$, so $n^{\log_2 1} = 1$ and $f(n) = n^2$ is polynomially larger. This is **Case 3**, giving $T(n) = \Theta(n^2)$.
 
 3. **Merge Sort:** Why does merge sort always take Θ(n log n), regardless of input order? What is its space complexity and why?
 
-   > **Answer:** Merge sort **unconditionally** halves the array and merges — neither step depends on element values. The recursion tree has $\log_2 n$ levels, each doing $\Theta(n)$ merge work, so $T(n) = \Theta(n \log n)$ always (best, average, and worst case). **Space** is $\Theta(n)$ because the `MERGE` procedure requires auxiliary arrays `L` and `R` to hold copies of the two halves — this is merge sort's main disadvantage versus quick sort's in-place partition.
+   > **Answer:** Merge sort **always** halves and merges the array, regardless of element values. The recursion tree has $\log_2 n$ levels, each doing $\Theta(n)$ merge work, so $T(n) = \Theta(n \log n)$ in the best, average, and worst cases. **Space** is $\Theta(n)$ because `MERGE` needs auxiliary arrays `L` and `R` to copy the halves. This is merge sort's main disadvantage compared with quick sort's in-place partition.
 
 4. **Quick Sort Worst Case:** Give a specific input array where choosing the last element as pivot leads to O(n²) behavior. How does randomized pivot selection help?
 
@@ -935,7 +935,7 @@ FIB-NUMBER(n)
 
 5. **Selection:** Why is the expected time of randomized selection O(n), not O(n log n)? How does it differ from sorting first and then indexing?
 
-   > **Answer:** Selection **recurses on only one side** of the partition — the side containing the desired rank — while quick sort recurses on both. With a random pivot, the larger side has expected size $\le 3n/4$, giving the recurrence $T(n) \le T(3n/4) + \Theta(n)$ which sums to $4cn = \Theta(n)$ via the geometric series $\sum (3/4)^k$. Sorting first wastes work ordering elements you never query — $\Theta(n \log n)$ instead of $\Theta(n)$.
+   > **Answer:** Selection recurses on **only one side** of the partition, the side containing the desired rank; quick sort recurses on both. With a random pivot, the larger side has expected size $\le 3n/4$, giving the recurrence $T(n) \le T(3n/4) + \Theta(n)$. The geometric series $\sum (3/4)^k$ sums this to $4cn = \Theta(n)$. Sorting first takes $\Theta(n \log n)$ and orders elements that are never queried, while selection takes $\Theta(n)$.
 
 6. **Median of Medians:** Why divide into groups of 5 specifically? What happens if you use groups of 3?
 
@@ -947,4 +947,4 @@ FIB-NUMBER(n)
 
 8. **D&C vs DP:** The Fibonacci sequence can be computed with D&C. Why is this a bad idea? What makes Fibonacci different from merge sort in terms of subproblem structure?
 
-   > **Answer:** The recursion $F(n) = F(n-1) + F(n-2)$ has **overlapping subproblems** — `F(n-2)` is computed by both `F(n-1)` and the direct call from `F(n)`, and this duplication compounds exponentially, yielding $\Theta(\varphi^n)$ time. In merge sort the two halves are **disjoint** — no element appears in both — so no work is repeated. When subproblems overlap, **dynamic programming** (memoization or bottom-up tabulation) reduces Fibonacci to $\Theta(n)$ by computing each value exactly once.
+   > **Answer:** The recursion $F(n) = F(n-1) + F(n-2)$ has **overlapping subproblems**. `F(n-2)` is computed by both `F(n-1)` and the direct call from `F(n)`, so the repeated work grows exponentially and takes $\Theta(\varphi^n)$ time. In merge sort, the two halves are **disjoint**, so no element appears in both and no work is repeated. When subproblems overlap, **dynamic programming** (memoization or bottom-up tabulation) reduces Fibonacci to $\Theta(n)$ by computing each value exactly once.
