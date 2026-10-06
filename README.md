@@ -42,6 +42,56 @@ This repository contains bilingual study materials and code developed for a univ
 |:----------:|:------------------|:-------------:|:---------------:|:----------------------------------------|
 |`DCSS309-00`|ALGORITHM|Major Required|Prof. Unggi&nbsp;Lee|Department of Computer Science and Software Engineering|
 
+### Course Overview
+
+This course introduces the design, analysis, and implementation of algorithms. It covers algorithm correctness, asymptotic time and space complexity, and paradigms including divide and conquer, greedy methods, dynamic programming, and graph algorithms.
+
+### Instructor and Research Lab
+
+- **Instructor:** Prof. Unggi Lee, Department of Computer Science and Software Engineering
+- **Research lab:** [LEAP Lab](https://codingchild2424.github.io/lab-website/), focusing on generative AI in education, pedagogical alignment, large language models, and knowledge tracing
+
+### Schedule and Class Format
+
+- **Credits:** 3
+- **Meeting times:** Tuesday, periods 8–9; Thursday, period 7
+- **Classroom:** Science and Technology Building 2, Room 310
+- **Weekly format:** 1st period: quiz and lecture (part 1); 2nd period: lecture (part 2); 3rd period: lab
+
+### Assessment
+
+| Component | Weight |
+|:----------|-------:|
+| Assignments (quizzes 5%, homework 5%) | 10% |
+| Midterm exam (written) | 30% |
+| Final exam (project) | 30% |
+| Final exam (written) | 30% |
+| Attendance | 0% |
+
+- Quizzes are held at the start of the first period in Weeks 3–7 and 9–13, cover the previous week's material, and may appear on written exams. Generative AI is prohibited during quizzes.
+- There are five homework assignments in Weeks 2–6.
+- Generative AI tools are permitted and encouraged for assignments when students explain their own reasoning and design choices.
+- Written exams are handwritten and last one hour. The final project is a team project in Weeks 9–13.
+- A grade is not awarded if a student misses more than one third of the total class hours.
+
+### Course Roadmap
+
+| Week | Topic | Week | Topic |
+|:----:|:------|:----:|:------|
+| 1 | Introduction to Algorithms | 9 | Search Trees |
+| 2 | Algorithm Design and Complexity Analysis | 10 | Hash Tables and Set Data Structures |
+| 3 | Arrays, Stacks, Queues, and Basic Sorting Algorithms | 11 | Graph Algorithms I |
+| 4 | Divide and Conquer Algorithms | 12 | Graph Algorithms II |
+| 5 | Greedy Algorithms | 13 | NP-Complete Problems and Approximation Algorithms |
+| 6 | Dynamic Programming | 14 | Final Exam (Project) |
+| 7 | Review and Problem Solving | 15 | Final Exam (Written) |
+| 8 | Midterm Exam | 16 | Study Week |
+
+### Learning Resources
+
+- **Coding practice:** [Baekjoon](https://www.acmicpc.net/), [Programmers](https://programmers.co.kr/), [LeetCode](https://leetcode.com/), [Codeforces](https://codeforces.com/), [solved.ac](https://solved.ac/)
+- **Algorithm visualizations:** [VisuAlgo](https://visualgo.net/) and [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+
 - **📖 References**
 
 | Type | Contents |
