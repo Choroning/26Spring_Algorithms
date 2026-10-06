@@ -16,30 +16,21 @@
 
 ## Table of Contents
 
-- [1. OT (Orientation)](#1-ot-orientation)
-  - [1.1 Syllabus](#11-syllabus)
-  - [1.2 Grading](#12-grading)
-  - [1.3 Assignments](#13-assignments)
-  - [1.4 Midterm & Final Exam](#14-midterm--final-exam)
-  - [1.5 Class Format](#15-class-format)
-  - [1.6 Textbook](#16-textbook)
-  - [1.7 Course Roadmap](#17-course-roadmap)
-  - [1.8 Coding Test Environment](#18-coding-test-environment)
-- [2. What Is an Algorithm?](#2-what-is-an-algorithm)
-  - [2.1 Why Study Algorithms?](#21-why-study-algorithms)
-  - [2.2 What Do We Learn?](#22-what-do-we-learn)
-  - [2.3 Definition of an Algorithm](#23-definition-of-an-algorithm)
-  - [2.4 Algorithm vs Data Structure](#24-algorithm-vs-data-structure)
-  - [2.5 Origin of the Word "Algorithm"](#25-origin-of-the-word-algorithm)
-  - [2.6 Euclidean GCD Algorithm](#26-euclidean-gcd-algorithm)
-- [3. Classical Problems](#3-classical-problems)
-  - [3.1 Finding the Maximum](#31-finding-the-maximum)
-  - [3.2 Finding a Specific Number (Binary Search)](#32-finding-a-specific-number-binary-search)
-  - [3.3 Coin Change Problem](#33-coin-change-problem)
-  - [3.4 Euler Path (One-Stroke Drawing)](#34-euler-path-one-stroke-drawing)
-  - [3.5 Maze Solving](#35-maze-solving)
-  - [3.6 Counterfeit Coin Problem](#36-counterfeit-coin-problem)
-  - [3.7 Poisoned Wine Problem](#37-poisoned-wine-problem)
+- [1. What Is an Algorithm?](#1-what-is-an-algorithm)
+  - [1.1 Why Study Algorithms?](#11-why-study-algorithms)
+  - [1.2 What Do We Learn?](#12-what-do-we-learn)
+  - [1.3 Definition of an Algorithm](#13-definition-of-an-algorithm)
+  - [1.4 Algorithm vs Data Structure](#14-algorithm-vs-data-structure)
+  - [1.5 Origin of the Word "Algorithm"](#15-origin-of-the-word-algorithm)
+  - [1.6 Euclidean GCD Algorithm](#16-euclidean-gcd-algorithm)
+- [2. Classical Problems](#2-classical-problems)
+  - [2.1 Finding the Maximum](#21-finding-the-maximum)
+  - [2.2 Finding a Specific Number (Binary Search)](#22-finding-a-specific-number-binary-search)
+  - [2.3 Coin Change Problem](#23-coin-change-problem)
+  - [2.4 Euler Path (One-Stroke Drawing)](#24-euler-path-one-stroke-drawing)
+  - [2.5 Maze Solving](#25-maze-solving)
+  - [2.6 Counterfeit Coin Problem](#26-counterfeit-coin-problem)
+  - [2.7 Poisoned Wine Problem](#27-poisoned-wine-problem)
 - [Summary](#summary)
 - [Appendix](#appendix)
 
@@ -47,115 +38,9 @@
 
 <br>
 
-## 1. OT (Orientation)
+## 1. What Is an Algorithm?
 
-### 1.1 Syllabus
-
-- The syllabus is available on the **LMS**.
-- Total **15 weeks**
-  - Week 8 — **Midterm Exam**
-  - Week 15 — **Final Exam**
-
-### 1.2 Grading
-
-| Item | Weight |
-|:-----|:-------|
-| Assignments | **10%** |
-| Midterm Exam (Written) | **30%** |
-| Final Exam — Project | **30%** |
-| Final Exam — Written | **30%** |
-| Attendance | 0% |
-
-> **Key Point:** A grade will not be awarded if you miss more than **1/3** of the total class hours.
-
-### 1.3 Assignments
-
-**In-Class Quizzes: 5%**
-
-- **10** quizzes → **0.5%** each
-- Weeks 3, 4, 5, 6, 7, 9, 10, 11, 12, 13
-- Given at the **start** of the first period (~15 min), covering **the previous week's content**
-- Quiz questions **may appear on the written exams**
-- **Generative AI is prohibited** — quizzes assess whether you have internalized the material
-
-**Homework: 5%**
-
-- **5** assignments → **1%** each
-- Weeks 2, 3, 4, 5, 6
-
-### 1.4 Midterm & Final Exam
-
-- Midterm: **30%** — Handwritten (no digital devices), 1 hour
-- Final — Written: **30%** — Handwritten, 1 hour
-- Final — Project: **30%** — Team project (Weeks 9–13), refer to the project guidelines
-
-### 1.5 Class Format
-
-| Period | Content |
-|:-------|:--------|
-| **1st Period** | Quiz (~15 min) + Lecture (Part 1) |
-| **2nd Period** | Lecture (Part 2) |
-| **3rd Period** | Lab |
-
-- Textbook: Introduction to Algorithms, CLRS
-- Quizzes cover the **previous week's** content and are given at the **start** of the 1st period
-
-### 1.6 Textbook
-
-![CLRS Textbook Cover](https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg)
-
-*CLRS Textbook Cover*
-
-**Primary Textbook:** Introduction to Algorithms, CLRS
-
-**Core thinking pattern that runs through the entire course:**
-
-```
-Problem Solving <-> Divide and Conquer <-> Recursive Thinking <-> Recurrence Relations
-```
-
-> **Key Point:** CLRS is the most widely used standard textbook in the field of algorithms worldwide. The flow of "Divide and Conquer -> Recursive Thinking -> Recurrence Relations" is the thinking pattern that runs through this entire course, so keeping this connection in mind throughout the lectures will be very helpful.
-
-> **Note:** Recursive thinking means breaking a problem into smaller versions of itself; recurrence relations are mathematical equations that describe this breakdown. These concepts will be defined formally in Weeks 3-4.
-
-### 1.7 Course Roadmap
-
-| Week | Topic | Week | Topic |
-|:-----|:------|:-----|:------|
-| **1** | Introduction to Algorithms | **9** | Graph Algorithms |
-| **2** | Algorithm Analysis (Complexity) | **10** | Shortest Paths |
-| **3** | Divide and Conquer (1) | **11** | Dynamic Programming (1) |
-| **4** | Divide and Conquer (2) | **12** | Dynamic Programming (2) |
-| **5** | Greedy Algorithms (1) | **13** | String Matching |
-| **6** | Greedy Algorithms (2) | **14** | NP-Completeness |
-| **7** | Sorting & Selection | **15** | *Final Exam* |
-| **8** | *Midterm Exam* | | |
-
-### 1.8 Coding Test Environment
-
-Algorithms are the core of technical interviews and coding tests.
-
-| Platform | URL |
-|:---------|:----|
-| **Baekjoon** (BOJ) | https://www.acmicpc.net/ |
-| **Programmers** | https://programmers.co.kr/ |
-| **LeetCode** | https://leetcode.com/ |
-| **Codeforces** | https://codeforces.com/ |
-| **solved.ac** | https://solved.ac/ |
-
-**Visualization Tools** (very useful for learning):
-- VisuAlgo: https://visualgo.net/
-- Data Structure Visualizations: https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
-
-> **Note:** VisuAlgo is a website that shows the execution process of various algorithms (sorting, searching, graphs, etc.) through animations. When an algorithm's behavior is hard to understand, stepping through the visualization can be tremendously helpful.
-
----
-
-<br>
-
-## 2. What Is an Algorithm?
-
-### 2.1 Why Study Algorithms?
+### 1.1 Why Study Algorithms?
 
 - It is the **most important subject** in computer science
 - Algorithms train you in **how to think** as a programmer
@@ -166,7 +51,7 @@ Algorithms are the core of technical interviews and coding tests.
 - Formal representation of problems and solutions
 - Analysis of program efficiency and complexity
 
-### 2.2 What Do We Learn?
+### 1.2 What Do We Learn?
 
 - Various algorithms for various problems
   - Greedy, Dynamic Programming, Divide and Conquer, Graph Algorithms, ...
@@ -176,7 +61,7 @@ Algorithms are the core of technical interviews and coding tests.
 - **Efficiency and complexity analysis**
   - How execution time changes with input size
 
-### 2.3 Definition of an Algorithm
+### 1.3 Definition of an Algorithm
 
 > A **systematic description** of a procedure for solving a problem.
 
@@ -196,7 +81,7 @@ Algorithms are the core of technical interviews and coding tests.
 
 > **Note:** Each step of an algorithm must be **unambiguous**. That is, what action to take in any given situation must not be vague. An expression like "handle appropriately according to the situation" is not an algorithm.
 
-### 2.4 Algorithm vs Data Structure
+### 1.4 Algorithm vs Data Structure
 
 | | Data Structure | Algorithm |
 |:---|:---|:---|
@@ -217,7 +102,7 @@ Algorithms are the core of technical interviews and coding tests.
 
 > **[Data Structures]** A data structure is a structural method for efficiently storing and accessing data. Representative examples include arrays, linked lists, stacks, queues, trees, hash tables, and graphs. The concepts learned in the Data Structures course form the foundation for the Algorithms course. For example, a "sorted array" data structure is required to apply the binary search algorithm.
 
-### 2.5 Origin of the Word "Algorithm"
+### 1.5 Origin of the Word "Algorithm"
 
 ![al-Khwarizmi Monument, Madrid](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
 
@@ -229,7 +114,7 @@ Algorithms are the core of technical interviews and coding tests.
 
 **Question:** Given two numbers 48 and 18, how do you find the **greatest common divisor (GCD)**?
 
-### 2.6 Euclidean GCD Algorithm
+### 1.6 Euclidean GCD Algorithm
 
 **Idea:** Given two numbers (a, b), compute the remainder of a divided by b, and repeatedly replace (a, b) with (b, a mod b).
 
@@ -253,11 +138,11 @@ Simple, finite, and correct — the hallmarks of a good algorithm.
 
 <br>
 
-## 3. Classical Problems
+## 2. Classical Problems
 
 Now that we understand what an algorithm is, let's explore several classical problems that illustrate fundamental algorithmic strategies. Each problem introduces a different way of thinking — sequential scanning, divide and conquer, greedy choices, graph traversal, and information-theoretic encoding — that will recur throughout this course.
 
-### 3.1 Finding the Maximum
+### 2.1 Finding the Maximum
 
 **Problem:** Among face-down number cards, find the card with the largest number.
 
@@ -286,7 +171,7 @@ This is **Sequential Search** — reading cards one by one in order.
 
 > **Note:** We write O(n) to describe how an algorithm's running time grows with input size n. This notation will be covered rigorously in Week 2. Informally, O(n) means "roughly proportional to n" and O(log n) means "roughly proportional to log n."
 
-### 3.2 Finding a Specific Number (Binary Search)
+### 2.2 Finding a Specific Number (Binary Search)
 
 **Problem:** Among sorted cards, find the number **85**.
 
@@ -347,7 +232,7 @@ For n = 1,000,000: sequential = 1,000,000 vs binary = ~20
 
 > **Note:** The reason `left <= right` includes the equality (=) is that when the search range has narrowed to a single element (`left == right`), that element still needs to be checked. Removing the equality (`left < right`) would cause a bug where the last element is not examined, and a present value would not be found. Boundary conditions in binary search are the most common source of mistakes in coding tests.
 
-### 3.3 Coin Change Problem
+### 2.3 Coin Change Problem
 
 **Problem:** Give change for **730 won** using the **minimum number of coins**.
 
@@ -392,7 +277,7 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 > **Key Point:** The greedy algorithm does not always guarantee an optimal solution! It works well with the Korean won coin system (500, 100, 50, 10), but if the coins are [1, 3, 4] won and you need to make change for 6 won, the greedy approach selects 4+1+1 = 3 coins, while the optimal solution is 3+3 = 2 coins. For a greedy algorithm to guarantee optimality, specific conditions (greedy choice property + optimal substructure) must be satisfied.
 
-### 3.4 Euler Path (One-Stroke Drawing)
+### 2.4 Euler Path (One-Stroke Drawing)
 
 An Euler *path* traverses every edge exactly once. If it also returns to the starting vertex, it is called an Euler *circuit* (or *cycle*). The problem here asks for an Euler circuit specifically.
 
@@ -441,7 +326,7 @@ The key insight is that crossing a bridge prematurely can split the graph into d
 
 > **Note:** The principle of cycle detection via DFS: Starting DFS from the current node, if an **already-visited node is encountered** during traversal, a cycle exists. For example, starting from node 7 and following 6->5->4->3->9->7 confirms a cycle. Since DFS "digs as deep as possible and then backtracks," it naturally checks whether the path returns to the starting point.
 
-### 3.5 Maze Solving
+### 2.5 Maze Solving
 
 **Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back.
 
@@ -468,7 +353,7 @@ No markings or thread needed — a simple and elegant algorithm.
 
 > **Note:** The right-hand rule is actually a **variant of DFS (Depth-First Search)** from a graph-theoretic perspective. Following the wall corresponds to traversing edges of a graph in one direction, and turning back at dead ends corresponds to DFS backtracking.
 
-### 3.6 Counterfeit Coin Problem
+### 2.6 Counterfeit Coin Problem
 
 **Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale**, find the counterfeit coin with the minimum number of weighings.
 
@@ -556,7 +441,7 @@ For n = 1,024 coins:
 
 > **Key Point:** The **logarithmic function** is extremely important in algorithm analysis. An intuitive way to understand log: log_2(n) is "how many times can n be divided by 2 until it becomes 1?" For example, log_2(1024) = 10 because dividing 1024 by 2 ten times yields 1. This concept appears repeatedly throughout algorithms: binary search, divide and conquer, tree height, etc.
 
-### 3.7 Poisoned Wine Problem
+### 2.7 Poisoned Wine Problem
 
 **Story:** A king has several wine jars. A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
