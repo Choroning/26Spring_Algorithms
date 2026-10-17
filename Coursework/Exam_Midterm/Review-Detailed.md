@@ -1,24 +1,26 @@
-# Week 7 — Midterm Review (Detailed Edition)
+# Midterm Review (Detailed)
 
-> **Last Updated:** 2026-05-13
->
-> **Exam:** Week 8 Midterm | Handwritten, 1 hour | No digital devices | Covers W01–W06 | CLRS Ch. 1–4, 6–10, 15, 16
->
-> **Purpose:** The *detailed* companion to `Concepts.md`. It covers the same scope and develops each concept through intuition, derivation, proof sketches, step-by-step traces, and explanations of why it works. Read this when you want to *understand*, not just memorize.
->
-> **How to use this document:** Read the corresponding section of `Concepts.md` first for the bird's-eye view, then come here for depth. Each section includes worked examples and "why this matters" commentary.
+[Repository Guide](../../README.md) | [English](Review-Detailed.md) | [한국어](Review-Detailed.ko.md)
+
+> **Last Updated:** 2026-10-18
+
+**Exam Info:** Week 8 midterm, handwritten, 1 hour, no digital devices, covering Weeks 1-6 (CLRS Chapters 1-4, 6-10, 15, 16).
+
+**Purpose:** The *detailed* companion to [Midterm Review](Review.md). It covers the same scope and develops each concept through intuition, derivation, proof sketches, step-by-step traces, and explanations of why it works. Read this when you want to *understand*, not just memorize.
+
+**How to use this document:** Read the corresponding section of [Midterm Review](Review.md) first for the bird's-eye view, then come here for depth. Each section includes worked examples and commentary on why it matters.
 
 ---
 
 ## Table of Contents
 
 - [0. About the Midterm](#0-about-the-midterm)
-- [1. Foundations (W01)](#1-foundations-w01)
-- [2. Complexity Analysis (W02)](#2-complexity-analysis-w02)
-- [3. Data Structures and Sorting (W03)](#3-data-structures-and-sorting-w03)
-- [4. Divide and Conquer (W04)](#4-divide-and-conquer-w04)
-- [5. Greedy Algorithms (W05)](#5-greedy-algorithms-w05)
-- [6. Dynamic Programming (W06)](#6-dynamic-programming-w06)
+- [1. Foundations (Week 1)](#1-foundations-week-1)
+- [2. Complexity Analysis (Week 2)](#2-complexity-analysis-week-2)
+- [3. Data Structures and Sorting (Week 3)](#3-data-structures-and-sorting-week-3)
+- [4. Divide and Conquer (Week 4)](#4-divide-and-conquer-week-4)
+- [5. Greedy Algorithms (Week 5)](#5-greedy-algorithms-week-5)
+- [6. Dynamic Programming (Week 6)](#6-dynamic-programming-week-6)
 - [7. Paradigm Comparison](#7-paradigm-comparison)
 - [8. Formula Cheat Sheet](#8-formula-cheat-sheet)
 - [9. Practice Problems (Exam-Style)](#9-practice-problems-exam-style)
@@ -29,29 +31,33 @@
 
 ## 0. About the Midterm
 
-The midterm covers Weeks 1–6 of the algorithms course. Three hours of lectures and labs per week, roughly 18 hours of material, compressed into a single 60-minute handwritten exam. No digital devices, no lookups. You will write pseudocode, fill DP tables, trace algorithms by hand, prove asymptotic bounds, and argue about correctness.
+The midterm covers Weeks 1-6 of the algorithms course. Three hours of lectures and labs per week, roughly 18 hours of material, compressed into a single 60-minute handwritten exam. No digital devices, no lookups. You will write pseudocode, fill DP tables, trace algorithms by hand, prove asymptotic bounds, and argue about correctness.
 
 | Week | Topic | CLRS | Single-sentence gist |
 |------|-------|------|----------------------|
-| 01 | Introduction | — | An algorithm is a finite, unambiguous procedure; "halving" gives logarithmic performance |
-| 02 | Complexity Analysis | 1–3 | Big-O strips irrelevant detail; the Master Theorem solves divide-and-conquer recurrences |
-| 03 | Data Structures, Sorting | 6–8, 10 | Comparison-based sorting has an Ω(n log n) wall; linear sorts exploit key structure |
-| 04 | Divide and Conquer | 4, 9 | Split into independent pieces, recurse, combine — the engine behind `n log n` |
-| 05 | Greedy | 16 | Commit to the locally best choice *if* the greedy-choice property holds |
-| 06 | Dynamic Programming | 15 | Solve overlapping subproblems once and reuse the answers |
+| 1 | Introduction | - | An algorithm is a finite, unambiguous procedure; halving gives logarithmic performance |
+| 2 | Complexity Analysis | 1-3 | Big-O strips irrelevant detail; the Master Theorem solves divide-and-conquer recurrences |
+| 3 | Data Structures, Sorting | 6-8, 10 | Comparison-based sorting has an Ω(n log n) wall; linear sorts exploit key structure |
+| 4 | Divide and Conquer | 4, 9 | Split into independent pieces, recurse, combine: the engine behind `n log n` |
+| 5 | Greedy | 16 | Commit to the locally best choice *if* the greedy-choice property holds |
+| 6 | Dynamic Programming | 15 | Solve overlapping subproblems once and reuse the answers |
+
+*Table 1. Topic, CLRS chapters, and one-line gist by week*
 
 The course's recurring intellectual thread is the chain:
 
-```
+```text
 Problem Solving  ↔  Divide & Conquer  ↔  Recursive Thinking  ↔  Recurrence Relations
 ```
 
-Every major algorithm you've seen sits somewhere on that chain. Internalizing it makes new algorithms feel familiar rather than arbitrary.
+*Figure 1. Links among problem solving, divide and conquer, recursive thinking, and recurrences*
+
+Every major algorithm you have seen sits somewhere on that chain. Internalizing it makes new algorithms feel familiar rather than arbitrary.
 
 ### 0.1 What the exam actually tests
 
 - **Definitions and vocabulary.** You should be able to state Big-O, the Master Theorem, the greedy-choice property, and optimal substructure without notes.
-- **Hand-traced executions.** Partition, merge, heapify, buildHeap, Kruskal, Prim, Dijkstra, Huffman, LCS, knapsack, Floyd-Warshall, edit distance — expect to be asked to execute at least one of these on a small instance.
+- **Hand-traced executions.** Partition, merge, heapify, buildHeap, Kruskal, Prim, Dijkstra, Huffman, LCS, knapsack, Floyd-Warshall, edit distance: expect to be asked to execute at least one of these on a small instance.
 - **Proofs and arguments.** Prove `f(n) = O(g(n))`, solve a recurrence, show that a greedy choice is optimal, or construct a counterexample.
 - **Algorithm design.** Given a new problem, identify the paradigm (D&C / Greedy / DP) and outline the solution.
 
@@ -59,17 +65,17 @@ Every major algorithm you've seen sits somewhere on that chain. Internalizing it
 
 1. **Read every question first** and allocate time proportionally to point values.
 2. **Show your work.** Partial credit rewards correct reasoning even when the arithmetic slips.
-3. **Draw tables and trees.** DP tables, recursion trees, Huffman trees, Gantt charts — visualization is faster and less error-prone than prose.
+3. **Draw tables and trees.** DP tables, recursion trees, Huffman trees, Gantt charts: visualization is faster and less error-prone than prose.
 4. **Sanity-check with small inputs.** Plug in `n = 1, 2, 3` to your recurrence or DP table before trusting it.
-5. **State the technique explicitly.** "By the Master Theorem Case 2" or "by exchange argument" tells the grader what you're doing and earns credit even if execution stumbles.
+5. **State the technique explicitly.** "By the Master Theorem Case 2" or "by exchange argument" tells the grader what you are doing and earns credit even if execution stumbles.
 
 ---
 
-## 1. Foundations (W01)
+## 1. Foundations (Week 1)
 
 ### 1.1 What exactly is an algorithm?
 
-An algorithm is a **systematic, finite, unambiguous procedure** that, given an input satisfying some precondition, produces an output satisfying some postcondition. Every step must be mechanically executable — no "handle appropriately" or "choose wisely."
+An algorithm is a **systematic, finite, unambiguous procedure** that, given an input satisfying some precondition, produces an output satisfying some postcondition. Every step must be mechanically executable; no "handle appropriately" or "choose wisely."
 
 The five properties drill deeper than the textbook three:
 
@@ -79,23 +85,25 @@ The five properties drill deeper than the textbook three:
 | **Executability** | Each step is mechanically doable | Depends on an oracle or uncomputable operation |
 | **Finiteness** | Terminates in a finite number of steps | `while True: pass` is *not* an algorithm |
 | **Efficiency** | Uses reasonable time and space | Exponential on small inputs |
-| **Unambiguity** | Each step is precisely specified | "Handle it appropriately" — too vague |
+| **Unambiguity** | Each step is precisely specified | "Handle it appropriately" is too vague |
 
-> **Why unambiguity matters on exams.** In pseudocode you must write operations a reader can simulate by hand. `for i = 1 to n: A[i] = A[i] + 1` is an algorithm; `repeat until it's right` is not.
+*Table 2. Five properties of an algorithm and their failure modes*
 
-Niklaus Wirth's famous equation `Algorithms + Data Structures = Programs` captures the whole discipline: an algorithm says *what to do*, a data structure says *how information is organized*, and the two are inseparable. The same lookup problem is `O(n)` on an unsorted array and `O(log n)` on a sorted array — the algorithm changes because the data structure changes.
+> **Note:** **Why unambiguity matters on exams.** In pseudocode you must write operations a reader can simulate by hand. `for i = 1 to n: A[i] = A[i] + 1` is an algorithm; `repeat until it's right` is not.
+
+Niklaus Wirth's famous equation `Algorithms + Data Structures = Programs` captures the whole discipline: an algorithm says *what to do*, a data structure says *how information is organized*, and the two are inseparable. The same lookup problem is `O(n)` on an unsorted array and `O(log n)` on a sorted array; the algorithm changes because the data structure changes.
 
 ### 1.2 Representing an algorithm
 
 Three representations:
 
-1. **Natural language** — fine for intuition, too ambiguous for formal analysis.
-2. **Pseudocode** — structured, language-like notation. This is what CLRS uses and what you write on exams.
-3. **Flowcharts** — visual, useful for control flow, but clumsy for anything larger than a few branches.
+1. **Natural language**: fine for intuition, too ambiguous for formal analysis.
+2. **Pseudocode**: structured, language-like notation. This is what CLRS uses and what you write on exams.
+3. **Flowcharts**: visual, useful for control flow, but clumsy for anything larger than a few branches.
 
 Exam convention: CLRS-style pseudocode, 1-indexed arrays unless stated otherwise, `=` for assignment, `==` for equality testing. `↔` denotes a swap.
 
-### 1.3 Euclidean GCD — the oldest known algorithm (~300 BCE)
+### 1.3 Euclidean GCD: the oldest known algorithm (around 300 BCE)
 
 **Key identity:** `gcd(a, b) = gcd(b, a mod b)`, with base case `gcd(a, 0) = a`.
 
@@ -115,15 +123,17 @@ def gcd(a, b):
 | 1 | 48 | 18 | 12 |
 | 2 | 18 | 12 | 6 |
 | 3 | 12 | 6 | 0 |
-| 4 | 6 | 0 | — return 6 |
+| 4 | 6 | 0 | (return 6) |
+
+*Table 3. Iteration trace of gcd(48, 18)*
 
 **Why termination is guaranteed.** Every iteration `b` strictly decreases and stays non-negative, so it must hit 0 in a finite number of steps.
 
-**How fast?** Worst case `O(log min(a, b))` iterations. The worst case occurs on consecutive Fibonacci numbers — this is a classical result, rarely tested in detail but worth remembering: GCD "loves" Fibonacci-like pairs.
+**How fast?** Worst case `O(log min(a, b))` iterations. The worst case occurs on consecutive Fibonacci numbers. This is a classical result, rarely tested in detail but worth remembering: Fibonacci-like pairs are the worst inputs for GCD.
 
 ### 1.4 Classical problems and the log₂(n) theme
 
-The introductory lecture presents seven problems precisely because they span the five algorithmic strategies you'll meet again and again: sequential scanning, binary halving, greedy choice, graph traversal, and information-theoretic encoding.
+The introductory lecture presents seven problems precisely because they span the five algorithmic strategies you will meet again and again: sequential scanning, binary halving, greedy choice, graph traversal, and information-theoretic encoding.
 
 | Problem | Strategy | Worst-case analysis |
 |---------|----------|----------------------|
@@ -135,7 +145,9 @@ The introductory lecture presents seven problems precisely because they span the
 | Counterfeit coin among 1,024 | Divide pile in half | **10 weighings** |
 | Poisoned wine, `n` jars | Binary encoding | **⌈log₂(n)⌉** servants |
 
-**The log₂(n) refrain.** Three W01 problems, binary search, counterfeit coin, and poisoned wine, all shrink from `O(n)` or `O(n/2)` to `O(log n)` because each step cuts the unknown information **in half**. The same principle makes merge sort `n log n` instead of `n²`. Repeatedly halving a problem until it reaches 1 takes `log₂ n` rounds. Every efficient divide-and-conquer algorithm uses this fact.
+*Table 4. Strategy and worst-case analysis of the classical problems*
+
+**The log₂(n) refrain.** Three Week 1 problems, binary search, counterfeit coin, and poisoned wine, all shrink from `O(n)` or `O(n/2)` to `O(log n)` because each step cuts the unknown information **in half**. The same principle makes merge sort `n log n` instead of `n²`. Repeatedly halving a problem until it reaches 1 takes `log₂ n` rounds. Every efficient divide-and-conquer algorithm uses this fact.
 
 #### 1.4.1 Finding the maximum (worked trace)
 
@@ -168,21 +180,23 @@ Search `85` in `[15, 20, 25, 35, 45, 55, 60, 75, 85, 90]`:
 | 2 | 5 | 9 | 7 | 75 | `75 < 85` → search right |
 | 3 | 8 | 9 | 8 | 85 | match → return 8 |
 
+*Table 5. Binary search trace for 85 in a sorted array*
+
 Three comparisons to search 10 items. For `n = 10⁶`, binary search needs at most 20 comparisons; sequential search needs up to a million.
 
-> **Why `left <= right` (inclusive)?** When the search window narrows to a single element (`left == right`), we still need to inspect that element. Dropping the equality would introduce an off-by-one bug where the target is missed if it lands on the last position. This is the single most common coding-test pitfall for binary search.
+> **Note:** **Why `left <= right` (inclusive)?** When the search window narrows to a single element (`left == right`), we still need to inspect that element. Dropping the equality would introduce an off-by-one bug where the target is missed if it lands on the last position. This is the single most common coding-test pitfall for binary search.
 
 #### 1.4.3 The Euler circuit condition
 
 **Theorem (Euler).** A connected undirected graph has an **Euler circuit** (a closed walk using every edge exactly once) **iff every vertex has even degree**. It has an **Euler path** (not necessarily closed) iff exactly 0 or 2 vertices have odd degree.
 
-**Intuition.** Every time your pen enters a vertex it must leave, using up edges in pairs. If a vertex has odd degree, you'll eventually enter with no edge to leave on. If 0 odd-degree vertices: the path closes. If 2: you must start at one and end at the other.
+**Intuition.** Every time your pen enters a vertex it must leave, using up edges in pairs. If a vertex has odd degree, you will eventually enter with no edge to leave on. If 0 odd-degree vertices: the path closes. If 2: you must start at one and end at the other.
 
-**Algorithmic rule — avoid bridges early.** A **bridge** is an edge whose removal disconnects the graph. At a vertex with multiple choices, prefer an edge that is *not* a bridge (that is, one through which you can cycle back). Crossing a bridge prematurely strands you on the wrong side with edges you'll never reach.
+**Algorithmic rule: avoid bridges early.** A **bridge** is an edge whose removal disconnects the graph. At a vertex with multiple choices, prefer an edge that is *not* a bridge (that is, one through which you can cycle back). Crossing a bridge prematurely strands you on the wrong side with edges you will never reach.
 
 **Detecting a bridge / cycle back:** run DFS from the candidate neighbor; if DFS reaches the current vertex along a different edge, a cycle exists and the edge is safe.
 
-#### 1.4.4 Counterfeit coin — three approaches
+#### 1.4.4 Counterfeit coin: three approaches
 
 Given `n` coins, one slightly lighter, find the fake with a balance scale.
 
@@ -192,16 +206,18 @@ Given `n` coins, one slightly lighter, find the fake with a balance scale.
 | B (pairs) | Weigh pairs; when a pair is unbalanced, resolve with one more weigh | **~512** |
 | C (halving) | Weigh two halves; lighter half contains the fake; recurse | **10** |
 
+*Table 6. Three approaches to finding the counterfeit coin*
+
 **Approach C trace for `n = 1024`:**
-```
+```text
 1024 → 512 → 256 → 128 → 64 → 32 → 16 → 8 → 4 → 2 → 1  (10 weighings)
 ```
 
 Each weighing eliminates half the candidates → `log₂ n` weighings. This is the first divide-and-conquer analysis you meet in the course.
 
-> **Why not three-way splits?** You *can* do better with thirds: split into 3 piles, weigh two of them, determine the lighter pile. This gives `log₃ n` weighings — asymptotically still `O(log n)`, just a different constant. The log-function is what matters, not the base.
+> **Note:** **Why not three-way splits?** You *can* do better with thirds: split into 3 piles, weigh two of them, determine the lighter pile. This gives `log₃ n` weighings, asymptotically still `O(log n)`, just a different constant. The log-function is what matters, not the base.
 
-#### 1.4.5 Poisoned wine — binary encoding
+#### 1.4.5 Poisoned wine: binary encoding
 
 Assign jar `k` the `⌈log₂(n)⌉`-bit binary ID equal to `k`. Servant `i` drinks from every jar whose bit `i` is 1. After one week, the bit-pattern of dead servants exactly equals the binary ID of the poisoned jar.
 
@@ -209,35 +225,39 @@ Assign jar `k` the `⌈log₂(n)⌉`-bit binary ID equal to `k`. Servant `i` dri
 
 | Jar | Binary | Servant A | Servant B |
 |-----|--------|-----------|-----------|
-| 0 | 00 | — | — |
-| 1 | 01 | — | ✓ |
-| 2 | 10 | ✓ | — |
+| 0 | 00 | - | - |
+| 1 | 01 | - | ✓ |
+| 2 | 10 | ✓ | - |
 | 3 | 11 | ✓ | ✓ |
 
-If A dies and B doesn't → binary `10` → jar 2.
+*Table 7. Binary encoding for 4 jars and 2 servants*
+
+If A dies and B does not → binary `10` → jar 2.
 
 **Why this works.** Each servant reports 1 bit of information (alive/dead). To distinguish among `n` possibilities, you need `⌈log₂(n)⌉` bits. The algorithm pays exactly this information-theoretic minimum.
 
-**For `n` that is not a power of 2:** use `⌈log₂(n)⌉` servants; some bit patterns go unused. Example: `n = 5` uses 3 servants (8 patterns), 3 patterns unused. That's fine — the encoding scheme still identifies which jar (if any) is poisoned.
+**For `n` that is not a power of 2:** use `⌈log₂(n)⌉` servants; some bit patterns go unused. Example: `n = 5` uses 3 servants (8 patterns), 3 patterns unused. That is fine; the encoding scheme still identifies which jar (if any) is poisoned.
 
 ---
 
-## 2. Complexity Analysis (W02)
+## 2. Complexity Analysis (Week 2)
 
 ### 2.1 From exact counts to asymptotic growth
 
 For an algorithm, define `T(n)` = number of **elementary operations** (comparisons, assignments, arithmetic, array accesses) as a function of input size `n`. In the **RAM model** each elementary op takes 1 time unit, so `T(n)` is a faithful proxy for wall-clock time up to constant factors.
 
-Why count operations instead of seconds? Because seconds depend on hardware. Operations depend only on the algorithm. An `O(n²)` algorithm on a supercomputer eventually loses to an `O(n log n)` algorithm on your laptop — the hardware constants buy you one or two orders of magnitude at best, while the algorithmic improvement buys you arbitrarily many.
+Why count operations instead of seconds? Because seconds depend on hardware. Operations depend only on the algorithm. An `O(n²)` algorithm on a supercomputer eventually loses to an `O(n log n)` algorithm on your laptop: the hardware constants buy you one or two orders of magnitude at best, while the algorithmic improvement buys you arbitrarily many.
 
 ### 2.2 Four flavors of complexity analysis
 
 | Type | Meaning | When to use |
 |------|---------|-------------|
-| **Worst-case** | Upper bound over all inputs of size `n` | Default — gives a guarantee |
+| **Worst-case** | Upper bound over all inputs of size `n` | Default, gives a guarantee |
 | **Average-case** | Expected time under a probability distribution (usually uniform) | When you know the input distribution |
 | **Best-case** | Fastest possible run | Rarely useful alone; good for lower bounds |
 | **Amortized** | Worst-case *total* cost over a sequence of `m` operations, divided by `m` | For data structures with occasional expensive operations (dynamic arrays, splay trees) |
+
+*Table 8. Four types of complexity analysis and when to use them*
 
 The commute analogy:
 
@@ -247,9 +267,11 @@ The commute analogy:
 | Worst | 40 min (just missed it) | The guarantee you can promise |
 | Average | 38 min | Typical day |
 
-**Why worst-case dominates on exams.** A guarantee is a contract. "Quick sort takes at most `c · n²` time for some `c`" is a durable statement; "it usually takes `n log n`" is a hope. Guarantees compose; hopes don't.
+*Table 9. Best, worst, and average cases illustrated by a commute*
 
-### 2.3 Asymptotic notation — formal definitions
+**Why worst-case dominates on exams.** A guarantee is a contract. "Quick sort takes at most `c · n²` time for some `c`" is a durable statement; "it usually takes `n log n`" is a hope. Guarantees compose; hopes do not.
+
+### 2.3 Formal definitions of asymptotic notation
 
 | Notation | Set-theoretic definition | Plain-English meaning |
 |----------|--------------------------|------------------------|
@@ -257,11 +279,13 @@ The commute analogy:
 | `Ω(g(n))` | `{ f : ∃ c > 0, n₀ ≥ 0 s.t. ∀ n ≥ n₀, f(n) ≥ c·g(n) }` | **Lower bound**: `f` grows at least as fast as `g` |
 | `Θ(g(n))` | `O(g(n)) ∩ Ω(g(n))` | **Tight bound**: `f` grows exactly as fast as `g` (up to constants) |
 
-The definitions are "for all sufficiently large `n`, we can bound `f` by a constant multiple of `g`." Constants and small `n` are irrelevant — only the *growth rate* matters.
+*Table 10. Set-theoretic definitions and meanings of asymptotic notation*
+
+The definitions say that for all sufficiently large `n`, we can bound `f` by a constant multiple of `g`. Constants and small `n` are irrelevant; only the *growth rate* matters.
 
 **Reading the definition aloud.** "There exists a constant `c` and a threshold `n₀` such that for every `n ≥ n₀`, `f(n)` is at most `c · g(n)`." The `∃ c` is a promise; you are free to choose `c` as large as you need to make the inequality work.
 
-### 2.4 Proving `f(n) = O(g(n))` — the workhorse technique
+### 2.4 Proving `f(n) = O(g(n))`: the workhorse technique
 
 **The recipe for polynomials.** For `f(n) = aₖnᵏ + aₖ₋₁nᵏ⁻¹ + ... + a₀`, you can prove `f(n) = O(nᵏ)` with:
 
@@ -290,7 +314,7 @@ With `c₁ = 3, c₂ = 5, n₀ = 1`: `3n ≤ 3n + 2 ≤ 5n` for `n ≥ 1`. So `3
 
 ### 2.5 The complexity hierarchy
 
-```
+```text
 O(1) ⊂ O(log n) ⊂ O(√n) ⊂ O(n) ⊂ O(n log n) ⊂ O(n²) ⊂ O(n³) ⊂ O(2ⁿ) ⊂ O(n!)
 ```
 
@@ -306,6 +330,8 @@ O(1) ⊂ O(log n) ⊂ O(√n) ⊂ O(n) ⊂ O(n log n) ⊂ O(n²) ⊂ O(n³) ⊂ 
 | O(2ⁿ) | Exponential | Subset enumeration, naive recursive Fibonacci | Infeasible past `n ≈ 40` |
 | O(n!) | Factorial | All permutations, naive TSP | Infeasible past `n ≈ 12` |
 
+*Table 11. Examples and running time at n = 10⁶ on a PC by complexity class*
+
 **Sanity-check table. Sorting one billion numbers:**
 
 | Algorithm | `n = 10³` | `n = 10⁶` | `n = 10⁹` |
@@ -315,21 +341,23 @@ O(1) ⊂ O(log n) ⊂ O(√n) ⊂ O(n) ⊂ O(n log n) ⊂ O(n²) ⊂ O(n³) ⊂ 
 | O(n log n) on a PC | < 1 s | < 1 s | **~5 min** |
 | O(n log n) on a supercomputer | < 1 s | < 1 s | < 1 s |
 
+*Table 12. Sorting time by algorithm and hardware*
+
 A better algorithm beats a bigger computer. Always. That is the single most important engineering lesson of the course.
 
-**Why the log base doesn't matter in Big-O.** By change of base, `logₐ n = (logᵦ n) / (logᵦ a)`, where `1/logᵦ a` is a positive constant. Constants vanish in `O(·)`, so `log` of any base ≥ 2 is interchangeable.
+**Why the log base does not matter in Big-O.** By change of base, `logₐ n = (logᵦ n) / (logᵦ a)`, where `1/logᵦ a` is a positive constant. Constants vanish in `O(·)`, so `log` of any base ≥ 2 is interchangeable.
 
-### 2.6 Recurrence relations — three methods
+### 2.6 Recurrence relations: three methods
 
-Recursive algorithms don't yield closed-form `T(n)` directly; they yield a recurrence like `T(n) = 2T(n/2) + n`. You must **solve** the recurrence to learn the algorithm's complexity.
+Recursive algorithms do not yield closed-form `T(n)` directly; they yield a recurrence like `T(n) = 2T(n/2) + n`. You must **solve** the recurrence to learn the algorithm's complexity.
 
-#### 2.6.1 Method 1 — Repeated substitution (unrolling)
+#### 2.6.1 Method 1: Repeated substitution (unrolling)
 
 Expand the recurrence level by level until you see a pattern, then substitute the base case.
 
 **Example: merge sort.** `T(n) = 2T(n/2) + n`, `T(1) = 1`. Assume `n = 2ᵏ`.
 
-```
+```text
 T(n)   = 2T(n/2) + n
        = 2·[2T(n/4) + n/2] + n      = 4T(n/4) + 2n
        = 4·[2T(n/8) + n/4] + 2n     = 8T(n/8) + 3n
@@ -344,13 +372,13 @@ Every level of the recursion tree does total work `n`; there are `log₂ n` leve
 
 **Example: factorial.** `T(n) = T(n − 1) + c`, `T(1) ≤ c`.
 
-```
+```text
 T(n) = T(n−1) + c = T(n−2) + 2c = ... = T(1) + (n−1)c ≤ c + (n−1)c = cn = O(n)
 ```
 
 This unrolls into a simple arithmetic progression.
 
-#### 2.6.2 Method 2 — Guess and verify (induction)
+#### 2.6.2 Method 2: Guess and verify (induction)
 
 Guess a closed form, prove it by induction.
 
@@ -362,7 +390,7 @@ Guess a closed form, prove it by induction.
 
 **Inductive step:** Assume `T(n/2) ≤ c · (n/2) · log(n/2)`. Then
 
-```
+```text
 T(n) = 2T(n/2) + n
      ≤ 2 · c(n/2) log(n/2) + n
      = cn log(n/2) + n
@@ -373,11 +401,11 @@ T(n) = 2T(n/2) + n
 
 Choosing `c ≥ max(2, 1/log 2)` completes the induction. ∎
 
-> **The classic pitfall.** You cannot "almost" finish an induction. If your inductive step yields `T(n) ≤ cn + 1`, that is **not** `≤ cn`; the proof has failed. The fix is to strengthen the guess — prove the stronger statement `T(n) ≤ cn − d` for a constant `d`. Then `T(n) ≤ 2(c(n/2) − d) + 1 = cn − 2d + 1 ≤ cn − d` when `d ≥ 1`. The extra slack absorbs the `+1`.
+> **Note:** **The classic pitfall.** An induction cannot be almost finished. If your inductive step yields `T(n) ≤ cn + 1`, that is **not** `≤ cn`; the proof has failed. The fix is to strengthen the guess: prove the stronger statement `T(n) ≤ cn − d` for a constant `d`. Then `T(n) ≤ 2(c(n/2) − d) + 1 = cn − 2d + 1 ≤ cn − d` when `d ≥ 1`. The extra slack absorbs the `+1`.
 
 Induction is pedagogically demanding but gives you full rigor. Expect at least one exam question that requires you to complete an induction.
 
-#### 2.6.3 Method 3 — Master Theorem
+#### 2.6.3 Method 3: Master Theorem
 
 For recurrences of the form `T(n) = a · T(n/b) + f(n)` with `a ≥ 1, b > 1`, let `h(n) = n^(log_b a)`. Compare `f(n)` with `h(n)`:
 
@@ -387,36 +415,40 @@ For recurrences of the form `T(n) = a · T(n/b) + f(n)` with `a ≥ 1, b > 1`, l
 | **Case 2** | `f(n) = Θ(n^(log_b a))` | `T(n) = Θ(n^(log_b a) · log n)` |
 | **Case 3** | `f(n) = Ω(n^(log_b a + ε))` for some `ε > 0`, **and** regularity `a · f(n/b) ≤ c · f(n)` for some `c < 1` and all large `n` | `T(n) = Θ(f(n))` |
 
+*Table 13. Three cases of the Master Theorem*
+
 **Intuition: the recursion tree.** Imagine the recursion tree for `T(n) = aT(n/b) + f(n)`. Level 0 does `f(n)` work. Level 1 has `a` subproblems, each doing `f(n/b)` work, for a total of `a · f(n/b)`. Level `k` has `aᵏ` subproblems, each doing `f(n/bᵏ)` work, for a total of `aᵏ · f(n/bᵏ)`. The tree has depth `log_b n` and `a^(log_b n) = n^(log_b a)` leaves. This is the total leaf cost when each leaf does constant work.
 
 - **Case 1.** The combine cost shrinks geometrically from root to leaf; **leaves dominate**. Total = `Θ(#leaves)` = `Θ(n^(log_b a))`.
-- **Case 2.** Every level does the same work `Θ(n^(log_b a))`; with `log n` levels, **total = Θ(n^(log_b a) · log n)**.
+- **Case 2.** Every level does the same work `Θ(n^(log_b a))`; with `log n` levels, **total = Θ(n^(log_b a) × log n)**.
 - **Case 3.** The combine cost grows from leaf to root; **root dominates**. Total = `Θ(f(n))`. Regularity ensures the geometry works out.
 
-**Worked examples — all 8 from the summary, with the comparison step shown:**
+**Worked examples (all 8 from the summary, with the comparison step shown):**
 
 | Recurrence | `a, b, n^(log_b a)` | `f(n)` | Compare | Case | Result |
 |------------|----------------------|--------|---------|------|--------|
-| `T(n) = 2T(n/2) + n` | 2, 2, `n` | `n` | `f = Θ(h)` | 2 | `Θ(n log n)` — Merge Sort |
-| `T(n) = T(n/2) + 1` | 1, 2, `1` | `1` | `f = Θ(h)` | 2 | `Θ(log n)` — Binary Search |
-| `T(n) = 2T(n/2) + 1` | 2, 2, `n` | `1` | `f = O(n^(1−1))`... actually `1 = O(n^(1−ε))` for any `0 < ε < 1` | 1 | `Θ(n)` |
+| `T(n) = 2T(n/2) + n` | 2, 2, `n` | `n` | `f = Θ(h)` | 2 | `Θ(n log n)` (Merge Sort) |
+| `T(n) = T(n/2) + 1` | 1, 2, `1` | `1` | `f = Θ(h)` | 2 | `Θ(log n)` (Binary Search) |
+| `T(n) = 2T(n/2) + 1` | 2, 2, `n` | `1` | `1 = O(n^(1−ε))` for any `0 < ε < 1` | 1 | `Θ(n)` |
 | `T(n) = 4T(n/2) + n` | 4, 2, `n²` | `n` | `n = O(n^(2−1))`, `ε = 1` | 1 | `Θ(n²)` |
 | `T(n) = 4T(n/2) + n²` | 4, 2, `n²` | `n²` | `f = Θ(h)` | 2 | `Θ(n² log n)` |
 | `T(n) = 2T(n/4) + n` | 2, 4, `√n` | `n` | `n = Ω(n^(0.5+0.5))`, regularity holds | 3 | `Θ(n)` |
-| `T(n) = 7T(n/2) + n²` | 7, 2, `n^(log₂ 7) ≈ n^2.81` | `n²` | `n² = O(n^(2.81 − 0.81))` | 1 | `Θ(n^(log₂ 7))` — Strassen |
+| `T(n) = 7T(n/2) + n²` | 7, 2, `n^(log₂ 7) ≈ n^2.81` | `n²` | `n² = O(n^(2.81 − 0.81))` | 1 | `Θ(n^(log₂ 7))` (Strassen) |
 | `T(n) = 3T(n/4) + n²` | 3, 4, `n^(log₄ 3) ≈ n^0.79` | `n²` | `n² = Ω(n^(0.79 + 1.21))`, regularity holds (`3·(n/4)² = 3n²/16 ≤ c · n²` for `c = 3/16 < 1`) | 3 | `Θ(n²)` |
 
-> **Exam tip.** On a handwritten exam, Case 3 requires verifying the regularity condition, which is tedious. Focus on Case 1 vs Case 2 — both just compare `f(n)` with `n^(log_b a)`.
+*Table 14. Worked Master Theorem examples with the comparison step*
+
+> **Note:** **Exam tip.** On a handwritten exam, Case 3 requires verifying the regularity condition, which is tedious. Focus on Case 1 vs Case 2; both just compare `f(n)` with `n^(log_b a)`.
 
 **Recurrences the Master Theorem does NOT solve:**
-- `T(n) = T(n − 1) + Θ(n)` — not `a · T(n/b)` form. Solve by substitution: `Θ(n²)`. (Quick sort worst case, insertion sort.)
-- `T(n) = T(n − 1) + T(n − 2) + Θ(1)` — not in MT shape. Solve by characteristic polynomial: `Θ(φⁿ)` ≈ O(1.618ⁿ). (Naive recursive Fibonacci.)
-- `T(n) = T(n/5) + T(7n/10) + Θ(n)` — unequal split. Prove `T(n) = O(n)` by induction, using `1/5 + 7/10 = 9/10 < 1` to close the argument. (Median of medians.)
-- `T(n) = 2T(n/2) + n log n` — `f(n)` is not a polynomial, so Case 3 can't apply directly. Result is `Θ(n log² n)` (falls outside the basic MT but can be handled by the extended version).
+- `T(n) = T(n − 1) + Θ(n)`: not `a · T(n/b)` form. Solve by substitution: `Θ(n²)`. (Quick sort worst case, insertion sort.)
+- `T(n) = T(n − 1) + T(n − 2) + Θ(1)`: not in MT shape. Solve by characteristic polynomial: `Θ(φⁿ)` ≈ O(1.618ⁿ). (Naive recursive Fibonacci.)
+- `T(n) = T(n/5) + T(7n/10) + Θ(n)`: unequal split. Prove `T(n) = O(n)` by induction, using `1/5 + 7/10 = 9/10 < 1` to close the argument. (Median of medians.)
+- `T(n) = 2T(n/2) + n log n`: `f(n)` is not a polynomial, so Case 3 cannot apply directly. Result is `Θ(n log² n)` (falls outside the basic MT but can be handled by the extended version).
 
 ---
 
-## 3. Data Structures and Sorting (W03)
+## 3. Data Structures and Sorting (Week 3)
 
 ### 3.1 Five fundamental structures
 
@@ -424,42 +456,44 @@ For recurrences of the form `T(n) = a · T(n/b) + f(n)` with `a ≥ 1, b > 1`, l
 |-----------|----------|-----------------------|-------------|
 | **Array / List** | Indexed | Access `O(1)`; insert/delete `O(n)` | Random access, base of most algorithms |
 | **Linked List** | Sequential | Access `O(n)`; insert/delete at known node `O(1)` | Dynamic sequences without contiguous memory |
-| **Stack** | **LIFO** | `push`, `pop` — `O(1)` | Function call stack, bracket matching, DFS |
-| **Queue** | **FIFO** | `enqueue`, `dequeue` — `O(1)` | BFS, task scheduling |
-| **Heap** | Priority | `insert`, `extract-min/max` — `O(log n)`; build — `O(n)` | Priority queues, heap sort, Dijkstra, Prim, Huffman |
+| **Stack** | **LIFO** | `push`, `pop`: `O(1)` | Function call stack, bracket matching, DFS |
+| **Queue** | **FIFO** | `enqueue`, `dequeue`: `O(1)` | BFS, task scheduling |
+| **Heap** | Priority | `insert`, `extract-min/max`: `O(log n)`; build: `O(n)` | Priority queues, heap sort, Dijkstra, Prim, Huffman |
+
+*Table 15. Operation costs and typical uses of the five fundamental structures*
 
 **Heap representation (1-indexed array).** A complete binary tree stored in an array. For a node at index `i`:
 - children at `A[2i]` and `A[2i + 1]`,
 - parent at `A[⌊i/2⌋]`.
 
-Heap property (max-heap): `key(parent) ≥ key(child)` at every node. (Min-heap is the dual.) Crucially, a heap is **not** a sorted array — siblings have no ordering relative to each other.
+Heap property (max-heap): `key(parent) ≥ key(child)` at every node. (Min-heap is the dual.) Crucially, a heap is **not** a sorted array; siblings have no ordering relative to each other.
 
 **Why heaps are stored as arrays.** Index arithmetic replaces pointer chasing, making every operation cache-friendly and memory-compact. This is why heaps are faster in practice than naive pointer-based trees.
 
-### 3.2 Elementary sorts — the O(n²) trio
+### 3.2 Elementary sorts: the O(n²) trio
 
-All three share the same recursive structure `T(n) = T(n − 1) + Θ(n) = Θ(n²)` — they reduce the problem by one element per step, so total work is the triangular sum `1 + 2 + ... + (n−1) = n(n−1)/2`.
+All three share the same recursive structure `T(n) = T(n − 1) + Θ(n) = Θ(n²)`; they reduce the problem by one element per step, so total work is the triangular sum `1 + 2 + ... + (n−1) = n(n−1)/2`.
 
 #### 3.2.1 Selection sort
 
 Each round: find the maximum (or minimum) in the unsorted region, swap it to the end (or start), shrink the unsorted region by 1.
 
-```
+```text
 selectionSort(A[1..n]):
     for last = n downto 2:
         k = index of largest element in A[1..last]
         swap A[k] ↔ A[last]
 ```
 
-**Analysis.** The inner scan does `last − 1` comparisons. Total = `(n−1) + (n−2) + ... + 1 = n(n−1)/2 = Θ(n²)`. *Independent of input order* — best = average = worst = `Θ(n²)`. The only thing that varies is the number of swaps (up to `n − 1`, zero if already sorted).
+**Analysis.** The inner scan does `last − 1` comparisons. Total = `(n−1) + (n−2) + ... + 1 = n(n−1)/2 = Θ(n²)`. *Independent of input order*: best = average = worst = `Θ(n²)`. The only thing that varies is the number of swaps (up to `n − 1`, zero if already sorted).
 
 **When to use.** Almost never in practice. Good pedagogically because of the simple recursive structure.
 
 #### 3.2.2 Bubble sort
 
-Each round: walk left to right, swap any adjacent out-of-order pair. The largest unsorted element "bubbles" to the end.
+Each round: walk left to right, swap any adjacent out-of-order pair. The largest unsorted element bubbles up to the end.
 
-```
+```text
 bubbleSort(A[1..n]):
     for last = n downto 2:
         for i = 1 to last − 1:
@@ -472,7 +506,7 @@ bubbleSort(A[1..n]):
 
 Each round: take the next element and insert it into its correct position among the already-sorted prefix, shifting larger elements right.
 
-```
+```text
 insertionSort(A[1..n]):
     for i = 2 to n:
         key = A[i]
@@ -483,17 +517,17 @@ insertionSort(A[1..n]):
         A[j+1] = key
 ```
 
-**Analysis.** Worst-case reversed input → `Θ(n²)`. **Best case on sorted input → Θ(n)**: each key needs only one comparison to confirm it's in place. This is why insertion sort is the standard choice for "nearly sorted" data and for small subarrays inside hybrid sorts (e.g., Python's Timsort, C++'s introsort).
+**Analysis.** Worst-case reversed input → `Θ(n²)`. **Best case on sorted input → Θ(n)**: each key needs only one comparison to confirm it is in place. This is why insertion sort is the standard choice for nearly sorted data and for small subarrays inside hybrid sorts (e.g., Python's Timsort, C++'s introsort).
 
-**Correctness by loop invariant.** At the start of iteration `i`, `A[1..i−1]` is sorted. Base case `i = 2`: trivially true (a single element is sorted). Inductive step: after inserting `A[i]` into the correct position, `A[1..i]` is sorted. Termination at `i = n + 1`: `A[1..n]` is sorted. This is mathematical induction applied directly to an algorithm — a template you'll reuse.
+**Correctness by loop invariant.** At the start of iteration `i`, `A[1..i−1]` is sorted. Base case `i = 2`: trivially true (a single element is sorted). Inductive step: after inserting `A[i]` into the correct position, `A[1..i]` is sorted. Termination at `i = n + 1`: `A[1..n]` is sorted. This is mathematical induction applied directly to an algorithm, a template you will reuse.
 
-### 3.3 Advanced sorts — the O(n log n) trio
+### 3.3 Advanced sorts: the O(n log n) trio
 
 These achieve `n log n` by splitting the problem roughly in half at each step: `T(n) = 2T(n/2) + Θ(n)`.
 
-#### 3.3.1 Merge sort — guaranteed Θ(n log n), stable, O(n) space
+#### 3.3.1 Merge sort: guaranteed Θ(n log n), stable, O(n) space
 
-```
+```text
 mergeSort(A, p, r):
     if p < r:
         q = ⌊(p + r) / 2⌋
@@ -504,7 +538,7 @@ mergeSort(A, p, r):
 
 **The merge step** (walk two sorted halves with two pointers, always copying the smaller front):
 
-```
+```text
 Merging [3, 8, 31, 65, 73] and [11, 15, 20, 29, 48]:
   3 < 11 → tmp = [3];
   8 < 11 → tmp = [3, 8];
@@ -516,11 +550,11 @@ Merging [3, 8, 31, 65, 73] and [11, 15, 20, 29, 48]:
 
 Each merge does `Θ(n)` work. The recurrence solves to `Θ(n log n)` (Master Theorem Case 2, or by recursion tree).
 
-**Always Θ(n log n)**: worst = best = average. **Stable**: equal keys keep their original relative order. **Trade-off**: `O(n)` auxiliary array for merging — merge sort is not in-place.
+**Always Θ(n log n)**: worst = best = average. **Stable**: equal keys keep their original relative order. **Trade-off**: `O(n)` auxiliary array for merging; merge sort is not in-place.
 
-#### 3.3.2 Quick sort — fastest in practice, worst case Θ(n²)
+#### 3.3.2 Quick sort: fastest in practice, worst case Θ(n²)
 
-```
+```text
 quickSort(A, p, r):
     if p < r:
         q = PARTITION(A, p, r)
@@ -544,11 +578,11 @@ PARTITION(A, p, r):    // Lomuto partition with last-element pivot
 - `A[j..r−1]` is unexamined,
 - `A[r]` is the pivot itself.
 
-After the loop, swap `A[i+1]` with the pivot — the pivot lands in its final sorted position, and the invariant gives us the partition.
+After the loop, swap `A[i+1]` with the pivot; the pivot lands in its final sorted position, and the invariant gives us the partition.
 
 **Worked partition:** `[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]` with pivot `15`:
 
-```
+```text
 j=1: A[1]=31 > 15 → skip
 j=2: A[2]=8 ≤ 15 → i=1, swap A[1]↔A[2]: [8, 31, 48, 73, 11, 3, 20, 29, 65, 15]
 j=3: A[3]=48 > 15 → skip
@@ -564,7 +598,7 @@ Pivot at index 4.
 - Best / average: partition splits roughly in half → `T(n) = 2T(n/2) + Θ(n) = Θ(n log n)`.
 - Worst: partition splits `0 : (n−1)` on every call → `T(n) = T(n−1) + Θ(n) = Θ(n²)`. Happens on already-sorted or reverse-sorted input with a last-element pivot.
 
-**Why the average is still Θ(n log n) even with lopsided splits.** Even a 9:1 split produces depth `log_{10/9}(n) = O(log n)`. The recursion tree stays shallow as long as the imbalance is bounded by a constant ratio — only the degenerate `0 : n−1` case blows up.
+**Why the average is still Θ(n log n) even with lopsided splits.** Even a 9:1 split produces depth `log_{10/9}(n) = O(log n)`. The recursion tree stays shallow as long as the imbalance is bounded by a constant ratio; only the degenerate `0 : n−1` case blows up.
 
 **Practical fixes.** Randomize the pivot (pick a uniform random index, swap to the last position, then partition). Expected time is `O(n log n)` regardless of input. Alternatively, the **median-of-three** heuristic chooses the median of `A[p], A[⌊(p+r)/2⌋], A[r]` as the pivot.
 
@@ -579,13 +613,15 @@ Pivot at index 4.
 | Cache-friendly | OK | **Excellent** | Poor |
 | Practical speed | Good | **Fastest** | OK |
 
+*Table 16. Comparison of merge sort, quick sort, and heap sort*
+
 Quick sort wins in practice because of small constant factors and excellent locality. Merge sort wins when stability or guaranteed worst-case time matters. Heap sort wins when you need `O(1)` extra space *and* guaranteed worst-case time.
 
 #### 3.3.3 Heap sort
 
 Two phases: build a heap from the unordered array, then repeatedly extract the root.
 
-```
+```text
 heapSort(A[1..n]):
     buildHeap(A, n)
     for i = n downto 2:
@@ -608,13 +644,13 @@ heapify(A, k, n):           // sift A[k] down within A[1..n]
 
 **Why `buildHeap` is O(n), not O(n log n).** The naive analysis says `n · O(log n) = O(n log n)`. The tighter analysis: at depth `h` (where leaves are `h = 0`), heapify does `O(h)` work. Roughly `n/2^(h+1)` nodes live at depth `h`. So total work is
 
-```
+```text
 Σ_{h=0}^{log n}  (n / 2^(h+1)) · h  =  (n/2) · Σ h / 2^h  =  O(n)
 ```
 
 because `Σ h/2^h` converges to a constant. Most nodes are near the leaves where heapify does almost nothing.
 
-**Why start at `⌊n/2⌋`?** Nodes indexed `⌊n/2⌋ + 1` through `n` are leaves — they're already trivially heaps of size 1. We only need to run heapify on internal nodes, from the deepest one up to the root, so the children subtrees are heaps by the time heapify reaches their parent.
+**Why start at `⌊n/2⌋`?** Nodes indexed `⌊n/2⌋ + 1` through `n` are leaves; they are already trivially heaps of size 1. We only need to run heapify on internal nodes, from the deepest one up to the root, so the children subtrees are heaps by the time heapify reaches their parent.
 
 **Extraction phase.** Swap the root (min or max) with the last element, shrink the heap by 1, heapify the new root. Each extraction is `O(log n)`; `n − 1` extractions total → `O(n log n)`.
 
@@ -626,15 +662,15 @@ because `Σ h/2^h` converges to a constant. Most nodes are near the leaves where
 
 **Proof by decision tree.** Any comparison-based sort can be represented as a binary decision tree where each internal node asks "is `A[i] ≤ A[j]`?" and each leaf corresponds to a specific output permutation. Since there are `n!` possible permutations, the tree has at least `n!` leaves. A binary tree with `L` leaves has height `≥ ⌈log₂ L⌉`. So the worst-case number of comparisons is at least `log₂(n!)`. By Stirling's approximation, `log₂(n!) = Θ(n log n)`. ∎
 
-**Consequence.** Selection, bubble, insertion, merge, quick, heap sort — none can beat `O(n log n)` as long as they only compare elements.
+**Consequence.** Selection, bubble, insertion, merge, quick, heap sort: none can beat `O(n log n)` as long as they only compare elements.
 
-### 3.5 Linear-time sorts — Ω(n log n) bypassed
+### 3.5 Linear-time sorts: Ω(n log n) bypassed
 
-These don't compare elements; they exploit **structure in the keys**.
+These do not compare elements; they exploit **structure in the keys**.
 
-#### 3.5.1 Counting sort — O(n + k) when values are in `[1..k]`
+#### 3.5.1 Counting sort: O(n + k) when values are in `[1..k]`
 
-```
+```text
 countingSort(A[1..n], B[1..n], k):
     for i = 1 to k: C[i] = 0
     for j = 1 to n: C[A[j]]++            // count occurrences
@@ -644,15 +680,15 @@ countingSort(A[1..n], B[1..n], k):
         C[A[j]]--
 ```
 
-**Step 3 insight.** After the prefix sum, `C[v]` is "the last index in `B` where a `v` should go." Walking `A` right-to-left ensures that among equal keys, the later-in-`A` one lands later in `B` — preserving stability. If you walked left-to-right, equal keys would get reversed, breaking stability.
+**Step 3 insight.** After the prefix sum, `C[v]` is the last index in `B` where a `v` should go. Walking `A` right-to-left ensures that among equal keys, the later-in-`A` one lands later in `B`, preserving stability. If you walked left-to-right, equal keys would get reversed, breaking stability.
 
-**Why stability matters.** Counting sort is often used as a *subroutine* in radix sort. Radix sort depends on the subroutine being stable — without it, earlier digits' ordering gets destroyed by later passes.
+**Why stability matters.** Counting sort is often used as a *subroutine* in radix sort. Radix sort depends on the subroutine being stable; without it, earlier digits' ordering gets destroyed by later passes.
 
 **Limitation.** You need `k = O(n)` for the total to be `Θ(n)`. If `k = n²`, counting sort is worse than comparison sorts.
 
-#### 3.5.2 Radix sort — Θ(d(n + k)) for `d`-digit keys
+#### 3.5.2 Radix sort: Θ(d(n + k)) for `d`-digit keys
 
-```
+```text
 radixSort(A[1..n], k):
     for i = 1 to d:
         stable-sort A by digit i        // typically counting sort
@@ -660,7 +696,7 @@ radixSort(A[1..n], k):
 
 Process digits from **LSD to MSD** (least to most significant). Each pass is stable, so the ordering from earlier (less significant) passes is preserved whenever later passes tie.
 
-**Why not MSD first?** MSD-first would sort by the most significant digit, but then within each group you'd need to recursively sort by the remaining digits — that's a different algorithm (MSD radix sort, more complex). LSD radix sort with a stable subroutine is the simple classic.
+**Why not MSD first?** MSD-first would sort by the most significant digit, but then within each group you would need to recursively sort by the remaining digits, which is a different algorithm (MSD radix sort, more complex). LSD radix sort with a stable subroutine is the simple classic.
 
 **Trace on `[0123, 2154, 0222, 0004, 0283, 1560, 1061, 2150]`:**
 
@@ -679,15 +715,17 @@ After sorting by the 1's digit, then 10's, then 100's, then 1000's, you get the 
 | Counting | Θ(n + k) | Θ(n + k) | Θ(n + k) | O(k) | Yes | k must be O(n) |
 | Radix | Θ(d(n + k)) | Θ(d(n + k)) | Θ(d(n + k)) | O(n + k) | Yes | d constant → Θ(n) |
 
-Commit this table to memory. It's the single most frequently tested summary in the course.
+*Table 17. Complexity, space, and stability of sorting algorithms*
+
+Commit this table to memory. It is the single most frequently tested summary in the course.
 
 ---
 
-## 4. Divide and Conquer (W04)
+## 4. Divide and Conquer (Week 4)
 
 ### 4.1 The three-step paradigm
 
-```
+```text
 DivideAndConquer(P):
     if P is small enough: solve P directly  (base case)
     else:
@@ -696,7 +734,7 @@ DivideAndConquer(P):
         COMBINE:  merge the sub-solutions into a solution to P
 ```
 
-**The non-negotiable assumption.** Subproblems must be **independent** — their input sizes sum to at most the original. If they overlap (same subproblem solved multiple times), you're doing exponential redundant work and should switch to DP.
+**The non-negotiable assumption.** Subproblems must be **independent**: their input sizes sum to at most the original. If they overlap (same subproblem solved multiple times), you are doing exponential redundant work and should switch to DP.
 
 The generic recurrence is `T(n) = a · T(n/b) + f(n)`. That is the exact template for the Master Theorem.
 
@@ -713,15 +751,17 @@ The generic recurrence is `T(n) = a · T(n/b) + f(n)`. That is the exact templat
 | Closest Pair | split by x-median | recurse each half | strip check | `2T(n/2) + O(n log n)` | O(n log² n) |
 | Strassen's matrix multiply | 7 recursive 2×2 products | | | `7T(n/2) + Θ(n²)` | Θ(n^log₂ 7) ≈ Θ(n^2.81) |
 
+*Table 18. Divide, conquer, and combine steps and recurrences of D&C algorithms*
+
 ### 4.3 The selection problem
 
 Given an unsorted array `A` of `n` elements and an integer `i`, find the `i`-th smallest element.
 
 **Trivial approach:** sort `A` in `O(n log n)`, return `A[i]`. Can we do better?
 
-#### 4.3.1 Randomized Select — Θ(n) expected
+#### 4.3.1 Randomized Select: Θ(n) expected
 
-```
+```text
 SELECT(A, p, r, i):
     if p == r: return A[p]
     q = PARTITION(A, p, r)         // Lomuto partition, random pivot
@@ -733,22 +773,22 @@ SELECT(A, p, r, i):
 
 Same partition as quick sort, but recurse on **only** the side containing rank `i`.
 
-**Why the expected time is Θ(n).** A random pivot lands in the middle half (25th–75th percentile) with probability ≥ 1/2. Conditional on a "good" split, the recursive call is on ≤ `3n/4` elements. So on average,
+**Why the expected time is Θ(n).** A random pivot lands in the middle half (25th-75th percentile) with probability ≥ 1/2. Conditional on a good split, the recursive call is on ≤ `3n/4` elements. So on average,
 
-```
+```text
 T(n) ≤ T(3n/4) + Θ(n)
      ≤ cn + c(3n/4) + c(3/4)²n + ... = cn · 4 = O(n)
 ```
 
 a geometric series. `Ω(n)` is trivial (every element must be examined), so `T(n) = Θ(n)`.
 
-**Worst case.** If the pivot is always the min or max, `T(n) = T(n−1) + Θ(n) = Θ(n²)` — same as quick sort's worst case. Randomization almost eliminates this.
+**Worst case.** If the pivot is always the min or max, `T(n) = T(n−1) + Θ(n) = Θ(n²)`, the same as quick sort's worst case. Randomization almost eliminates this.
 
-#### 4.3.2 Median of Medians — Θ(n) worst case
+#### 4.3.2 Median of Medians: Θ(n) worst case
 
 The classical deterministic linear-time algorithm:
 
-```
+```text
 LINEAR-SELECT(A, p, r, i):
     1. if |A[p..r]| ≤ 5: sort and return the i-th
     2. Divide elements into ⌈n/5⌉ groups of 5
@@ -760,7 +800,7 @@ LINEAR-SELECT(A, p, r, i):
 
 **Why groups of 5.** After step 4, at least half of the `⌈n/5⌉` group medians are `≤ M`. Each such group contributes at least 3 elements `≤ M` (the group median plus the 2 smaller in its group). So at least
 
-```
+```text
 3 · ⌈⌈n/5⌉ / 2⌉ ≈ 3n/10
 ```
 
@@ -768,7 +808,7 @@ elements are `≤ M`. By symmetry, at least `3n/10` are `≥ M`. The recursive c
 
 **The recurrence.** `T(n) = T(n/5) + T(7n/10) + Θ(n)`. Since `1/5 + 7/10 = 9/10 < 1`, this is **linear** by the recurrence "sum of fractions < 1 ⇒ `O(n)`" rule. Prove by induction: guess `T(n) ≤ cn`, show it holds if `c` is chosen so that the constants work out.
 
-**Why exactly 5?** Groups of 3 give `T(n) = T(n/3) + T(2n/3) + Θ(n)`, where `1/3 + 2/3 = 1` — the geometric sum diverges, not linear. Groups of 7 would work too but waste time sorting within each group. 5 is the smallest size that buys linear time.
+**Why exactly 5?** Groups of 3 give `T(n) = T(n/3) + T(2n/3) + Θ(n)`, where `1/3 + 2/3 = 1`, so the geometric sum diverges and the time is not linear. Groups of 7 would work too but waste time sorting within each group. 5 is the smallest size that buys linear time.
 
 **Practical note.** Median of medians is asymptotically optimal, but the constants are large. Randomized select wins in practice.
 
@@ -780,7 +820,7 @@ Given `n` points in the plane, find the pair with minimum Euclidean distance.
 
 **Divide and conquer:**
 
-1. **Preprocess:** sort points by x-coordinate — `O(n log n)`.
+1. **Preprocess:** sort points by x-coordinate in `O(n log n)`.
 2. **Divide:** split into left and right halves by the median x-coordinate.
 3. **Conquer:** recursively find `d_L` (closest pair in the left half) and `d_R` (closest pair in the right half).
 4. **Combine:** let `d = min(d_L, d_R)`. Check the **strip** of width `2d` around the dividing line for any cross-strip pair closer than `d`.
@@ -796,9 +836,9 @@ Given `n` points in the plane, find the pair with minimum Euclidean distance.
 
 Classic case: Fibonacci. Naive recursion `F(n) = F(n−1) + F(n−2)` gives a recursion tree where the subproblem sizes **sum to more than the original** (`(n−1) + (n−2) = 2n − 3`), and the same subproblems are recomputed exponentially many times. Time: `Θ(φⁿ) ≈ O(1.618ⁿ)`.
 
-**The symptom.** If subproblems overlap (share subsolutions), D&C wastes exponential time. **Fix:** DP — solve each subproblem once, store the answer, reuse.
+**The symptom.** If subproblems overlap (share subsolutions), D&C wastes exponential time. **Fix:** DP. Solve each subproblem once, store the answer, and reuse it.
 
-```
+```text
 fibDP(n):
     F[0] = 0; F[1] = 1
     for i = 2 to n: F[i] = F[i−1] + F[i−2]
@@ -809,13 +849,13 @@ fibDP(n):
 
 ---
 
-## 5. Greedy Algorithms (W05)
+## 5. Greedy Algorithms (Week 5)
 
 ### 5.1 The greedy paradigm
 
-A greedy algorithm solves an **optimization problem** by making the **locally best** choice at each step, never reconsidering. It's simple, fast, and usually wrong — except when the problem has a special structure that makes local choices safe.
+A greedy algorithm solves an **optimization problem** by making the **locally best** choice at each step, never reconsidering. It is simple, fast, and usually wrong, except when the problem has a special structure that makes local choices safe.
 
-```
+```text
 Greedy(C):
     S = {}                                       // partial solution
     while C ≠ ∅ and S is not a complete solution:
@@ -828,20 +868,20 @@ Greedy(C):
 
 ### 5.2 Two conditions for correctness
 
-1. **Greedy-choice property.** There exists an optimal solution that includes the greedy choice. Proven by the **exchange argument**: take any optimal solution that doesn't include the greedy choice, and exchange an element for the greedy choice without worsening the objective.
+1. **Greedy-choice property.** There exists an optimal solution that includes the greedy choice. Proven by the **exchange argument**: take any optimal solution that does not include the greedy choice, and exchange an element for the greedy choice without worsening the objective.
 
 2. **Optimal substructure.** An optimal solution to the problem contains an optimal solution to the subproblem that remains after the greedy choice.
 
-Both properties must be **proven** for a given problem — intuition is not enough.
+Both properties must be **proven** for a given problem; intuition is not enough.
 
-### 5.3 When greedy fails — canonical counterexamples
+### 5.3 When greedy fails: canonical counterexamples
 
 - **Coin change `{1, 3, 4}`, amount 6.** Greedy: `4 + 1 + 1 = 3` coins. Optimal: `3 + 3 = 2`. The greedy-choice property fails.
 - **Coin change `{16, 10, 5, 1}`, amount 20.** Greedy: `16 + 1 + 1 + 1 + 1 = 5`. Optimal: `10 + 10 = 2`. Greedy is locked in by the first big pick.
 - **0/1 Knapsack by value/weight ratio.** Items `(w=10, v=60), (w=20, v=100), (w=30, v=120)`, capacity 50. Greedy picks item 1 (best ratio) → `60 + 100 = 160`. Optimal picks items 2+3 → `220`. Greedy can waste capacity.
 - **Binary tree maximum path sum.** Greedily descending to the larger child can miss the globally best root-to-leaf path.
 
-**Lesson.** Always try to find a counterexample before trusting a greedy algorithm. If you can't find one, try to prove the greedy-choice property.
+**Lesson.** Always try to find a counterexample before trusting a greedy algorithm. If you cannot find one, try to prove the greedy-choice property.
 
 ### 5.4 The greedy algorithm catalog
 
@@ -849,15 +889,17 @@ Both properties must be **proven** for a given problem — intuition is not enou
 |---------|----------|----------|------|
 | Coin change (standard denominations) | Largest coin first | ✓ when denominations divide cleanly | O(k) |
 | **Fractional knapsack** | Sort by value/weight, take greedily | ✓ always | O(n log n) |
-| 0/1 knapsack | — | ✗ use DP | — |
+| 0/1 knapsack | - | ✗ use DP | - |
 | **Job scheduling** (min # machines) | Earliest start time | ✓ | O(n log n) + O(mn) |
 | **Activity selection** (max activities on 1 machine) | **Earliest finish time** | ✓ | O(n log n) |
 | **Huffman coding** | Merge two lowest-freq nodes | ✓ optimal prefix code | O(n log n) |
-| **Kruskal's MST** | Cheapest edge that doesn't form a cycle | ✓ | O(m log m) |
+| **Kruskal's MST** | Cheapest edge that does not form a cycle | ✓ | O(m log m) |
 | **Prim's MST** | Cheapest edge leaving current tree | ✓ | O(n²) array / O(m log n) heap |
 | **Dijkstra's shortest paths** | Nearest unfinalized vertex, relax | ✓ with non-negative weights | O(n²) / O(m log n) |
 
-### 5.5 Job Scheduling vs Activity Selection — the classic confusion
+*Table 19. Strategy, optimality, and running time of greedy algorithms*
+
+### 5.5 Job Scheduling vs Activity Selection: the classic confusion
 
 Students conflate these two. They are **different** problems with **different** optimal strategies.
 
@@ -868,14 +910,16 @@ Students conflate these two. They are **different** problems with **different** 
 | Strategy | **Earliest start time** | **Earliest finish time** |
 | Why | Balances load; leaves no machine idle prematurely | Finishing early leaves maximum room for future activities |
 
-**Activity selection proof sketch (exchange argument).** Let `g` be the activity with the earliest finish time. Suppose an optimal solution `OPT` doesn't contain `g`. Let `a` be the activity in `OPT` with the earliest finish time. Since `g` finishes no later than `a`, we can swap `a` for `g` without invalidating any other activity in `OPT` — the remaining activities all start at or after `a`'s finish, which is `≥ g`'s finish. The swap gives a solution of the same size that does contain `g`. ∎
+*Table 20. Comparison of job scheduling and activity selection*
 
-### 5.6 Huffman coding — optimal prefix codes
+**Activity selection proof sketch (exchange argument).** Let `g` be the activity with the earliest finish time. Suppose an optimal solution `OPT` does not contain `g`. Let `a` be the activity in `OPT` with the earliest finish time. Since `g` finishes no later than `a`, we can swap `a` for `g` without invalidating any other activity in `OPT`; the remaining activities all start at or after `a`'s finish, which is `≥ g`'s finish. The swap gives a solution of the same size that does contain `g`. ∎
+
+### 5.6 Huffman coding: optimal prefix codes
 
 **Setup.** Characters with frequencies. Assign each character a variable-length binary code. Frequent characters get short codes; rare characters get long codes. Codes must be **prefix-free**: no code is a prefix of another (needed for unambiguous decoding).
 
 **Algorithm.**
-```
+```text
 Huffman(chars, freqs):
     Q = min-priority queue of leaf nodes (one per char)
     while |Q| ≥ 2:
@@ -888,7 +932,7 @@ Huffman(chars, freqs):
 
 **Worked example.** Frequencies `A:450, C:270, G:120, T:90`.
 
-```
+```text
 Step 1: Q = [T:90, G:120, C:270, A:450]
         Merge T(90) + G(120) → N1(210)
 
@@ -900,7 +944,7 @@ Step 3: Q = [A:450, N2:480]
 ```
 
 Tree:
-```
+```text
            Root:930
            /      \
        A:450      N2:480
@@ -909,6 +953,8 @@ Tree:
                /   \
             T:90   G:120
 ```
+
+*Figure 2. Huffman tree for frequencies A:450, C:270, G:120, T:90*
 
 Codes (left = 0, right = 1): `A = 0`, `C = 10`, `T = 110`, `G = 111`.
 
@@ -922,17 +968,19 @@ Codes (left = 0, right = 1): `A = 0`, `C = 10`, `T = 110`, `G = 111`.
 | G | 120 | 3 | 360 |
 | Total: 930 chars | | | **1,620 bits** |
 
-Naive 8-bit ASCII: 930 × 8 = 7,440 bits. Huffman is 1,620 / 7,440 ≈ 22% — about a 5x compression.
+*Table 21. Bits per character under the Huffman code*
+
+Naive 8-bit ASCII: 930 × 8 = 7,440 bits. Huffman is 1,620 / 7,440 ≈ 22%, about a 5x compression.
 
 **Why optimal.** Proof by exchange argument on the two least-frequent symbols: in any optimal prefix-code tree, there is an optimal solution in which the two deepest leaves are the two least-frequent symbols, and they are siblings. Merging them first is therefore safe.
 
 ### 5.7 MST algorithms
 
-#### 5.7.1 Kruskal's algorithm — edge-centric
+#### 5.7.1 Kruskal's algorithm: edge-centric
 
 Sort edges by weight, add each edge unless it creates a cycle, until `n − 1` edges are added.
 
-```
+```text
 Kruskal(G):
     sort edges by weight ascending
     T = {}
@@ -943,17 +991,17 @@ Kruskal(G):
     return T
 ```
 
-**Why it works.** The "cut property" of MSTs: for any cut of the graph, the lightest edge crossing the cut is in some MST. Kruskal always adds the lightest edge that doesn't form a cycle — this edge crosses a cut between the components of its endpoints, and must therefore be in some MST.
+**Why it works.** The **cut property** of MSTs: for any cut of the graph, the lightest edge crossing the cut is in some MST. Kruskal always adds the lightest edge that does not form a cycle; this edge crosses a cut between the components of its endpoints, and must therefore be in some MST.
 
-**Union-Find.** With union-by-rank and path compression, each `Find` and `Union` is nearly `O(1)` (technically `O(α(n))`, inverse Ackermann, which is ≤ 4 for any `n` you'll ever encounter).
+**Union-Find.** With union-by-rank and path compression, each `Find` and `Union` is nearly `O(1)` (technically `O(α(n))`, inverse Ackermann, which is ≤ 4 for any `n` you will ever encounter).
 
 **Complexity.** Dominated by sorting edges: `O(m log m) = O(m log n)` (since `m ≤ n²`, `log m = O(log n)`).
 
-#### 5.7.2 Prim's algorithm — vertex-centric
+#### 5.7.2 Prim's algorithm: vertex-centric
 
 Grow a single tree starting from an arbitrary vertex, always adding the cheapest edge that extends the tree.
 
-```
+```text
 Prim(G, start):
     D[v] = ∞ for all v; D[start] = 0
     T = ∅
@@ -980,7 +1028,7 @@ On exam questions with small graphs, both give the same MST (edge weights typica
 
 Find shortest distances from a source `s` to all other vertices, assuming **non-negative** edge weights.
 
-```
+```text
 Dijkstra(G, s):
     D[v] = ∞ for all v; D[s] = 0
     S = {}
@@ -997,7 +1045,7 @@ Dijkstra(G, s):
 
 **Greedy invariant (why it works).** When `u` is selected as the minimum-distance unfinalized vertex, `D[u]` is its true shortest distance. Proof by contradiction: any shorter path to `u` must go through some still-unfinalized vertex `y`. Then `D[y] ≥ D[u]` (since `u` was the min), so the path via `y` has length `≥ D[y] + (non-negative tail) ≥ D[u]`, contradiction. The non-negativity assumption is where this argument lives or dies.
 
-**Why negative edges break Dijkstra.** If an edge from an unfinalized vertex `y` can have negative weight, a path `y → u` could arrive at `u` with distance `< D[u]` — but `u` has already been finalized. Use **Bellman-Ford** (`O(VE)`) for graphs with negative edges (but no negative cycles).
+**Why negative edges break Dijkstra.** If an edge from an unfinalized vertex `y` can have negative weight, a path `y → u` could arrive at `u` with distance `< D[u]`, but `u` has already been finalized. Use **Bellman-Ford** (`O(VE)`) for graphs with negative edges (but no negative cycles).
 
 **Worked counterexample.** Directed edges `s→a = 4, s→b = 2, a→b = −5`.
 - Finalize `s`. Relax: `D[a] = 4, D[b] = 2`.
@@ -1007,7 +1055,7 @@ Dijkstra(G, s):
 
 ---
 
-## 6. Dynamic Programming (W06)
+## 6. Dynamic Programming (Week 6)
 
 ### 6.1 What DP is, precisely
 
@@ -1023,7 +1071,9 @@ Dynamic programming solves problems by:
 | Property | Meaning | Why DP needs it |
 |----------|---------|-----------------|
 | **Optimal substructure** | The optimal solution to the whole problem contains optimal solutions to its subproblems | Lets us compose bigger answers from smaller ones |
-| **Overlapping subproblems** | The same subproblem is needed many times | Makes memoization pay off — without overlap, plain D&C suffices |
+| **Overlapping subproblems** | The same subproblem is needed many times | Makes memoization pay off; without overlap, plain D&C suffices |
+
+*Table 22. Two required properties of DP*
 
 **"Programming" means tabulation.** Richard Bellman coined "dynamic programming" in the 1950s for mathematical optimization research; the word has nothing to do with computer programming. "Dynamic" referred to multi-stage decision problems; "programming" meant "working out a tabular plan."
 
@@ -1037,9 +1087,11 @@ Dynamic programming solves problems by:
 | Overhead | Recursion stack + cache lookups | Tight loops, cache-friendly memory access |
 | Typical winner | When few subproblems are needed | When most subproblems are needed |
 
+*Table 23. Memoization versus tabulation*
+
 For the midterm's classical problems (Fibonacci, LCS, edit distance, knapsack, Floyd-Warshall) both approaches work; tabulation is usually cleaner to present.
 
-### 6.3 The DP recipe — 6 steps
+### 6.3 The DP recipe: 6 steps
 
 1. **Define the subproblem.** What does `OPT[i, j, ...]` represent? Write it as a complete English sentence.
 2. **Write the recurrence.** Express `OPT` in terms of smaller subproblems. Cover every case (match/mismatch, take/leave, stay/move).
@@ -1048,9 +1100,9 @@ For the midterm's classical problems (Fibonacci, LCS, edit distance, knapsack, F
 5. **Extract the answer.** Which cell holds the final value?
 6. **(Optional) Traceback.** Reconstruct the actual solution (which items, which path) by following the choices that led to each cell's value.
 
-This recipe turns DP from "clever tricks" into a systematic procedure.
+This recipe turns DP from a bag of clever tricks into a systematic procedure.
 
-### 6.4 Classic DP problems — the full catalog
+### 6.4 Classic DP problems: the full catalog
 
 #### 6.4.1 Fibonacci (warmup)
 
@@ -1061,7 +1113,7 @@ This recipe turns DP from "clever tricks" into a systematic procedure.
 - Answer: `f[n]`.
 - Time: `O(n)`. Space: `O(n)`, reducible to `O(1)` (keep only two previous values).
 
-From `Θ(φⁿ)` (naive recursion) to `Θ(n)` (DP) — the canonical demonstration of DP's value.
+From `Θ(φⁿ)` (naive recursion) to `Θ(n)` (DP): the canonical demonstration of DP's value.
 
 #### 6.4.2 Matrix Path (maximum sum)
 
@@ -1076,7 +1128,7 @@ From `Θ(φⁿ)` (naive recursion) to `Θ(n)` (DP) — the canonical demonstrati
 
 **Trace (4×4 example):**
 
-```
+```text
 m = | 6  7 12  5 |            c = | 0  0  0  0  0 |  (padded with zero row/col)
     | 5  3 11 18 |                | 0  6 13 25 30 |
     | 7 17  3  3 |                | 0 11 16 36 54 |
@@ -1085,6 +1137,8 @@ m = | 6  7 12  5 |            c = | 0  0  0  0  0 |  (padded with zero row/col)
 
 Answer: c[4, 4] = 68.
 ```
+
+*Figure 3. The 4×4 matrix m and its maximum-sum table c*
 
 #### 6.4.3 Longest Common Subsequence (LCS)
 
@@ -1099,7 +1153,7 @@ Answer: c[4, 4] = 68.
 - Answer: `c[m, n]`.
 - Time / space: `O(mn)`, space reducible to `O(min(m, n))` if only the length matters.
 
-**Worked trace — `X = "ABCB"`, `Y = "BDCAB"`:**
+**Worked trace (`X = "ABCB"`, `Y = "BDCAB"`):**
 
 |     |   | B | D | C | A | B |
 |-----|---|---|---|---|---|---|
@@ -1108,6 +1162,8 @@ Answer: c[4, 4] = 68.
 | B   | 0 | **1** | 1 | 1 | 1 | **2** |
 | C   | 0 | 1 | 1 | **2** | 2 | 2 |
 | B   | 0 | 1 | 1 | 2 | 2 | **3** |
+
+*Table 24. LCS table for ABCB and BDCAB*
 
 LCS length = 3. One LCS: `"BCB"`.
 
@@ -1121,7 +1177,7 @@ LCS length = 3. One LCS: `"BCB"`.
 
 - Subproblem: `E[i, j]` = edit distance between `X₁..ᵢ` and `Y₁..ⱼ`.
 - Recurrence:
-  - If `X[i] == Y[j]`: `E[i, j] = E[i−1, j−1]` (free — no operation).
+  - If `X[i] == Y[j]`: `E[i, j] = E[i−1, j−1]` (free, no operation).
   - Else: `E[i, j] = 1 + min(E[i−1, j], E[i, j−1], E[i−1, j−1])`.
     - `E[i−1, j]` + 1: delete `X[i]`.
     - `E[i, j−1]` + 1: insert `Y[j]`.
@@ -1131,7 +1187,7 @@ LCS length = 3. One LCS: `"BCB"`.
 - Answer: `E[m, n]`.
 - Time / space: `O(mn)`.
 
-**Trace — "kitten" → "sitting":**
+**Trace ("kitten" → "sitting"):**
 
 | E   | ε | s | i | t | t | i | n | g |
 |-----|---|---|---|---|---|---|---|---|
@@ -1143,6 +1199,8 @@ LCS length = 3. One LCS: `"BCB"`.
 | e   | 5 | 5 | 4 | 3 | 2 | 2 | 3 | 4 |
 | n   | 6 | 6 | 5 | 4 | 3 | 3 | 2 | 3 |
 
+*Table 25. Edit distance table from kitten to sitting*
+
 `E[6, 7] = 3`: three operations (replace `k → s`, replace `e → i`, insert `g`).
 
 **Applications.** Spell checking, DNA alignment, `diff` utilities, fuzzy search.
@@ -1153,7 +1211,7 @@ LCS length = 3. One LCS: `"BCB"`.
 
 - Subproblem: `K[i, w]` = max value using items `1..i` with capacity `w`.
 - Recurrence:
-  - If `wᵢ > w`: `K[i, w] = K[i−1, w]` (item doesn't fit).
+  - If `wᵢ > w`: `K[i, w] = K[i−1, w]` (item does not fit).
   - Else: `K[i, w] = max(K[i−1, w], K[i−1, w − wᵢ] + vᵢ)` (leave or take).
 - Base: `K[0, w] = 0`, `K[i, 0] = 0`.
 - Order: `i = 1..n`, `w = 1..C`.
@@ -1170,9 +1228,11 @@ LCS length = 3. One LCS: `"BCB"`.
 | 3 (3, 20) | 0 | 10 | 12 | 22 | 30 | 32 |
 | 4 (2, 15) | 0 | 10 | 15 | 25 | 30 | **37** |
 
+*Table 26. 0/1 knapsack DP table for capacity 5*
+
 `K[4, 5] = 37`. Traceback: item 4 is taken (`K[4,5] > K[3,5]` because of item 4), subtract; `K[3, 3] = 22` came from `K[2, 3]` (item 3 not taken); `K[2, 3] = 22` came from `K[1, 2] + 10` (item 2 taken); `K[1, 2] = 12` came from item 1 taken. Items `{1, 2, 4}`, weights `2+1+2 = 5`, values `12+10+15 = 37`. ✓
 
-**Why O(nC) is "pseudo-polynomial".** The *input size* (number of bits to encode capacity `C`) is `O(log C)`. The algorithm runs in time `O(nC) = O(n · 2^(log C))` — exponential in input bit-length. 0/1 knapsack is **NP-hard** in the classical complexity sense; the DP is only polynomial when expressed in terms of the numeric value of `C`.
+**Why O(nC) is called pseudo-polynomial.** The *input size* (number of bits to encode capacity `C`) is `O(log C)`. The algorithm runs in time `O(nC) = O(n · 2^(log C))`, which is exponential in input bit-length. 0/1 knapsack is **NP-hard** in the classical complexity sense; the DP is only polynomial when expressed in terms of the numeric value of `C`.
 
 #### 6.4.6 Coin Change (minimum coins)
 
@@ -1185,9 +1245,9 @@ LCS length = 3. One LCS: `"BCB"`.
 - Answer: `C[n]`.
 - Time: `O(nk)`. Space: `O(n)`.
 
-**Trace — `d = {16, 10, 5, 1}`, amount 20.**
+**Trace (`d = {16, 10, 5, 1}`, amount 20).**
 
-```
+```text
 C[0] = 0
 C[1] = C[0] + 1 = 1
 C[2] = 2
@@ -1217,7 +1277,7 @@ Greedy would pick `16 + 1 + 1 + 1 + 1 = 5`. DP correctly finds `10 + 10 = 2`.
 - Answer: `d[i, j, n]` for every pair.
 - Time: `O(n³)`. Space: `O(n²)` (can be implemented without the `k` dimension).
 
-```
+```text
 FloydWarshall(W, n):
     D = W
     for k = 1 to n:            // ← OUTERMOST, non-negotiable
@@ -1229,7 +1289,7 @@ FloydWarshall(W, n):
 
 **Why `k` must be outermost.** The `k`-th iteration assumes `D` currently holds shortest distances using intermediates `{1..k−1}`. Only after that iteration is complete is `D` valid for intermediates `{1..k}`. Swapping the loop order destroys this invariant and gives wrong answers.
 
-**Interpretation.** "Is going from `i` to `j` via vertex `k` shorter than the current best?" That's the question each iteration asks.
+**Interpretation.** "Is going from `i` to `j` via vertex `k` shorter than the current best?" That is the question each iteration asks.
 
 ### 6.5 DP patterns and when they show up
 
@@ -1241,13 +1301,15 @@ FloydWarshall(W, n):
 | 2D DP on grid | Matrix Path | `DP[i, j]` depends on `DP[i−1, j], DP[i, j−1]` |
 | 3D DP on (source, dest, intermediate set) | Floyd-Warshall | `DP[i, j, k]` depends on `DP[i, j, k−1], DP[i, k, k−1], DP[k, j, k−1]` |
 
+*Table 27. Examples and recurrence forms by DP pattern*
+
 Recognize the pattern; the recurrence writes itself.
 
 ---
 
 ## 7. Paradigm Comparison
 
-### 7.1 D&C vs Greedy vs DP — side by side
+### 7.1 D&C vs Greedy vs DP side by side
 
 | Aspect | Divide & Conquer | Greedy | Dynamic Programming |
 |--------|-------------------|--------|---------------------|
@@ -1258,9 +1320,11 @@ Recognize the pattern; the recurrence writes itself.
 | Space | `O(log n)` recursion | `O(1)` to `O(n)` | `O(n)` to `O(n²)` table |
 | Typical use | Sorting, search, geometric problems | Scheduling, MST, shortest paths | Sequence alignment, knapsack, chain optimization |
 
-### 7.2 Decision flow — which paradigm for this problem?
+*Table 28. Comparison of divide and conquer, greedy, and dynamic programming*
 
-```
+### 7.2 Decision flow: which paradigm for this problem?
+
+```text
 Does the problem ask for an optimum (min / max / count)?
 ├── No  → D&C or brute force
 └── Yes
@@ -1272,46 +1336,50 @@ Does the problem ask for an optimum (min / max / count)?
     │    └── No  → D&C
 ```
 
-**Practical exam strategy.** Try greedy first. If you can't prove it or find a counterexample, fall back to DP. If subproblems are independent and the problem has a natural recursive structure, use D&C.
+*Figure 4. Decision flow for choosing a paradigm*
+
+**Practical exam strategy.** Try greedy first. If you cannot prove it or find a counterexample, fall back to DP. If subproblems are independent and the problem has a natural recursive structure, use D&C.
 
 ### 7.3 The same problem, different paradigms
 
 | Problem | Greedy | DP | D&C |
 |---------|:------:|:--:|:---:|
-| Coin change (standard denominations) | ✓ | ✓ (overkill) | — |
-| Coin change (arbitrary denominations) | ✗ | ✓ | — |
-| Fractional knapsack | ✓ | ✓ (overkill) | — |
-| 0/1 knapsack | ✗ | ✓ | — |
-| Shortest path (non-negative weights) | ✓ (Dijkstra) | ✓ (Bellman-Ford) | — |
-| Shortest path (any weights, no neg cycles) | — | ✓ (BF, Floyd-Warshall) | — |
-| All-pairs shortest paths | — | ✓ (Floyd-Warshall) | — |
-| Sorting | — | — | ✓ (merge/quick) |
-| i-th smallest | — | — | ✓ (Select) |
-| MST | ✓ (Kruskal/Prim) | — | — |
-| Fibonacci | — | ✓ | ✗ (exponential) |
-| LCS | ✗ | ✓ | — |
-| Edit distance | ✗ | ✓ | — |
+| Coin change (standard denominations) | ✓ | ✓ (overkill) | - |
+| Coin change (arbitrary denominations) | ✗ | ✓ | - |
+| Fractional knapsack | ✓ | ✓ (overkill) | - |
+| 0/1 knapsack | ✗ | ✓ | - |
+| Shortest path (non-negative weights) | ✓ (Dijkstra) | ✓ (Bellman-Ford) | - |
+| Shortest path (any weights, no neg cycles) | - | ✓ (BF, Floyd-Warshall) | - |
+| All-pairs shortest paths | - | ✓ (Floyd-Warshall) | - |
+| Sorting | - | - | ✓ (merge/quick) |
+| i-th smallest | - | - | ✓ (Select) |
+| MST | ✓ (Kruskal/Prim) | - | - |
+| Fibonacci | - | ✓ | ✗ (exponential) |
+| LCS | ✗ | ✓ | - |
+| Edit distance | ✗ | ✓ | - |
+
+*Table 29. Applicable paradigms by problem*
 
 ### 7.4 A unifying view
 
-D&C, Greedy, and DP are all ways of exploiting **optimal substructure** — the property that the solution to a problem can be built from solutions to subproblems.
+D&C, Greedy, and DP are all ways of exploiting **optimal substructure**, the property that the solution to a problem can be built from solutions to subproblems.
 
 - **D&C** works when subproblems are independent (no overlap).
 - **Greedy** works when, additionally, a single locally-best choice can be safely committed to without lookahead.
 - **DP** works when subproblems overlap but optimal substructure still holds.
 
-Without optimal substructure, none of these paradigms apply — you're looking at brute force, backtracking, or approximation.
+Without optimal substructure, none of these paradigms apply; you are looking at brute force, backtracking, or approximation.
 
 ---
 
 ## 8. Formula Cheat Sheet
 
 **Asymptotic notation shortcut.** For a polynomial `f(n) = aₖnᵏ + ... + a₀`:
-- `f(n) = Θ(nᵏ)` — the leading term dominates.
+- `f(n) = Θ(nᵏ)`: the leading term dominates.
 - Proof of `O(nᵏ)`: take `c = |aₖ| + ... + |a₀|`, `n₀ = 1`.
 - Proof of `Ω(nᵏ)`: take `c = |aₖ|/2` for large enough `n`.
 
-**Master Theorem — quick reference.** `T(n) = aT(n/b) + f(n)`, `h(n) = n^(log_b a)`:
+**Master Theorem quick reference.** `T(n) = aT(n/b) + f(n)`, `h(n) = n^(log_b a)`:
 
 | Condition on `f(n)` | Case | Result |
 |---------------------|------|--------|
@@ -1319,19 +1387,23 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 | `Θ(h(n))` | 2 | `Θ(h(n) log n)` |
 | `Ω(h(n) · n^ε)` + regularity | 3 | `Θ(f(n))` |
 
+*Table 30. Condition and result of each Master Theorem case*
+
 **Recurrences to know by heart:**
 
 | Recurrence | Solution | Example |
 |------------|----------|---------|
 | `T(n) = T(n/2) + Θ(1)` | `Θ(log n)` | Binary search |
 | `T(n) = T(n−1) + Θ(1)` | `Θ(n)` | Factorial |
-| `T(n) = 2T(n/2) + Θ(1)` | `Θ(n)` | — |
+| `T(n) = 2T(n/2) + Θ(1)` | `Θ(n)` | - |
 | `T(n) = 2T(n/2) + Θ(n)` | `Θ(n log n)` | Merge sort |
 | `T(n) = 2T(n/2) + Θ(n log n)` | `Θ(n log² n)` | Closest pair (basic) |
 | `T(n) = T(n−1) + Θ(n)` | `Θ(n²)` | Insertion sort, quick sort worst |
 | `T(n) = 2T(n−1) + Θ(1)` | `Θ(2ⁿ)` | Tower of Hanoi |
 | `T(n) = T(n−1) + T(n−2) + Θ(1)` | `Θ(φⁿ)` ≈ O(1.618ⁿ) | Naive Fibonacci |
 | `T(n) = T(n/5) + T(7n/10) + Θ(n)` | `Θ(n)` | Median of medians |
+
+*Table 31. Recurrences to know by heart and their solutions*
 
 **DP recurrences to know by heart:**
 - **LCS:** `c[i,j] = c[i−1, j−1] + 1` if match else `max(c[i−1, j], c[i, j−1])`.
@@ -1362,24 +1434,26 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 | 0/1 Knapsack | O(nC) | O(nC) | Pseudo-polynomial |
 | Huffman | O(n log n) | O(n) | Optimal prefix code |
 
+*Table 32. Time and space complexity by algorithm*
+
 ---
 
 ## 9. Practice Problems (Exam-Style)
 
-### Problem 1 — Master Theorem
+### Problem 1: Master Theorem
 
 **Q.** Find the complexity of `T(n) = 4T(n/2) + n`.
 
 **Solution.** `a = 4, b = 2, f(n) = n`. `n^(log_b a) = n^(log₂ 4) = n²`. Compare `f(n) = n` with `n²`: `n = O(n^(2−1))` with `ε = 1`. **Case 1**. Answer: `T(n) = Θ(n²)`.
 
-### Problem 2 — Big-O Proof
+### Problem 2: Big-O Proof
 
 **Q.** Prove `5n³ + 2n² + 7 = O(n³)`.
 
 **Solution.** Take `c = 5 + 2 + 7 = 14, n₀ = 1`. For all `n ≥ 1`:
 `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³ = c · n³`. ∎
 
-### Problem 3 — Greedy vs DP (Coin Change)
+### Problem 3: Greedy vs DP (Coin Change)
 
 **Q.** Coins `{1, 3, 4}`, amount 6. Compare greedy and DP solutions.
 
@@ -1391,11 +1465,13 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 |------|---|---|---|---|---|---|---|
 | C[j] | 0 | 1 | 2 | 1 | 1 | 2 | **2** |
 
+*Table 33. DP table for making amount 6 with coins {1, 3, 4}*
+
 `C[6] = min(C[5]+1, C[3]+1, C[2]+1) = min(3, 2, 3) = 2`. Optimal: `3 + 3 = 2` coins.
 
 **Discussion.** The greedy-choice property fails for `{1, 3, 4}`: committing to the 4 blocks the better option of two 3s. This is a canonical exam pitfall.
 
-### Problem 4 — LCS
+### Problem 4: LCS
 
 **Q.** Find the LCS of `X = "ABCB"` and `Y = "BDCAB"`.
 
@@ -1407,9 +1483,11 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 | C   | 0 | 1 | 1 | **2** | 2 | 2 |
 | B   | 0 | 1 | 1 | 2 | 2 | **3** |
 
+*Table 34. LCS table for Practice Problem 4*
+
 **Answer.** Length 3, LCS = `"BCB"` (one of several). Trace from `c[4, 5]` diagonally when characters match.
 
-### Problem 5 — 0/1 Knapsack
+### Problem 5: 0/1 Knapsack
 
 **Q.** Items `(w, v) = (2, 12), (1, 10), (3, 20), (2, 15)`, capacity 5. Find `K[4, 5]` and the chosen items.
 
@@ -1421,9 +1499,11 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 | 3 (3, 20) | 0 | 10 | 12 | 22 | 30 | 32 |
 | 4 (2, 15) | 0 | 10 | 15 | 25 | 30 | **37** |
 
+*Table 35. 0/1 knapsack DP table for Practice Problem 5*
+
 **Answer.** `K[4, 5] = 37`. Traceback: items 1, 2, 4 with total weight 5 and total value 37.
 
-### Problem 6 — Quick Sort Worst Case
+### Problem 6: Quick Sort Worst Case
 
 **Q.** What input makes quick sort (last-element pivot) `Θ(n²)`? How does randomized pivot selection fix this?
 
@@ -1431,7 +1511,7 @@ Without optimal substructure, none of these paradigms apply — you're looking a
 
 Randomized pivot: pick a uniform random index `r'` in `[p..r]`, swap `A[r'] ↔ A[r]`, then run standard partition. The probability of repeated worst-case splits is negligible; expected time becomes `Θ(n log n)`. The guarantee is over the algorithm's randomness, not over the input.
 
-### Problem 7 — Dijkstra with Negative Edges
+### Problem 7: Dijkstra with Negative Edges
 
 **Q.** Give a small graph where Dijkstra returns an incorrect shortest distance.
 
@@ -1439,11 +1519,11 @@ Randomized pivot: pick a uniform random index `r'` in `[p..r]`, swap `A[r'] ↔ 
 
 - Finalize `s`. Relax: `D[a] = 4, D[b] = 2`.
 - Pick `b` (min = 2). Finalize. No outgoing edges.
-- Pick `a` (D = 4). Finalize. Try to relax `a → b`: would yield `D[b] = −1`, but `b` is already finalized — update ignored.
+- Pick `a` (D = 4). Finalize. Try to relax `a → b`: would yield `D[b] = −1`, but `b` is already finalized, so the update is ignored.
 
-Dijkstra returns `D[b] = 2`. True shortest distance: `s → a → b = 4 − 5 = −1`. The greedy invariant "once finalized, distance is optimal" fails the moment a negative edge can still improve an already-finalized vertex.
+Dijkstra returns `D[b] = 2`. True shortest distance: `s → a → b = 4 − 5 = −1`. The greedy invariant that a finalized distance is optimal fails the moment a negative edge can still improve an already-finalized vertex.
 
-### Problem 8 — Activity Selection
+### Problem 8: Activity Selection
 
 **Q.** Activities `(s, f)`: `(1, 3), (2, 5), (4, 7), (1, 8), (5, 9), (8, 10)`. Apply earliest-finish-time.
 
@@ -1458,24 +1538,24 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 
 **Answer.** 3 activities: `{(1, 3), (4, 7), (8, 10)}`.
 
-### Problem 9 — Merge Sort Recurrence by Substitution
+### Problem 9: Merge Sort Recurrence by Substitution
 
 **Q.** Solve `T(n) = 2T(n/2) + n`, `T(1) = 1`, without using the Master Theorem.
 
 **A.** Assume `n = 2ᵏ`. Unroll:
-```
+```text
 T(n) = 2T(n/2) + n
      = 4T(n/4) + 2n
      = 2ᵏ T(n/2ᵏ) + kn
 ```
 Set `2ᵏ = n` (so `k = log₂ n`): `T(n) = n · T(1) + n log₂ n = n + n log n = Θ(n log n)`. ∎
 
-### Problem 10 — Huffman Coding
+### Problem 10: Huffman Coding
 
 **Q.** Build a Huffman code for `A:5, B:9, C:12, D:13, E:16, F:45`. Compute average bits per character.
 
 **Construction.**
-```
+```text
 Q = [A:5, B:9, C:12, D:13, E:16, F:45]
 
 Merge A+B → N1:14
@@ -1503,7 +1583,7 @@ One valid code tree (left=0, right=1):
 
 Total bits = 5·4 + 9·4 + 12·3 + 13·3 + 16·3 + 45·1 = 20 + 36 + 36 + 39 + 48 + 45 = **224**. Average = 224 / 100 = **2.24 bits/char**.
 
-### Problem 11 — MST by Kruskal
+### Problem 11: MST by Kruskal
 
 **Q.** Apply Kruskal to edges `(A,B,4), (A,C,1), (B,C,2), (B,D,5), (C,D,3)`. Compute the MST.
 
@@ -1515,17 +1595,17 @@ Sort edges by weight: `(A,C,1), (B,C,2), (C,D,3), (A,B,4), (B,D,5)`.
 
 MST weight: `1 + 2 + 3 = 6`. Edges skipped: `(A,B,4)` and `(B,D,5)` would create cycles.
 
-### Problem 12 — Induction Proof of a Recurrence
+### Problem 12: Induction Proof of a Recurrence
 
 **Q.** Prove by induction that `T(n) = T(n/2) + 1, T(1) = 1` satisfies `T(n) = O(log n)`.
 
-**Guess:** `T(n) ≤ c log₂(n) + d` for constants `c, d` we'll fix.
+**Guess:** `T(n) ≤ c log₂(n) + d` for constants `c, d` we will fix.
 
 *Base:* `T(1) = 1 ≤ c · 0 + d = d`, so `d ≥ 1` works.
 
 *Inductive step:* Assume `T(n/2) ≤ c log(n/2) + d = c log n − c + d`. Then
 
-```
+```text
 T(n) = T(n/2) + 1
      ≤ c log n − c + d + 1
      ≤ c log n + d          (when c ≥ 1)
@@ -1544,22 +1624,26 @@ Choose `c = 1, d = 1`. ∎
 | Confusing `O`, `Ω`, `Θ` | `O` = upper, `Ω` = lower, `Θ` = both tight. Never say "`Θ` is better than `O`." They describe different bounds. |
 | Writing a loose `O` bound | Prefer `O(n log n)` to `O(n²)` when both hold; looseness is information loss. |
 | Proving `O` without specifying `c, n₀` | Always write "take `c = ..., n₀ = ...`." Graders want to see the witnesses. |
-| "Induction: `cn + 1 ≤ cn`?" | **No, that's not a proof.** Strengthen the guess to `cn − d`. |
-| Applying Master Theorem when `f(n)` isn't a polynomial | E.g., `T(n) = 2T(n/2) + n log n` needs the extended MT or substitution. |
+| "Induction: `cn + 1 ≤ cn`?" | **No, that is not a proof.** Strengthen the guess to `cn − d`. |
+| Applying Master Theorem when `f(n)` is not a polynomial | E.g., `T(n) = 2T(n/2) + n log n` needs the extended MT or substitution. |
 | Forgetting the regularity condition in Case 3 | Most exams only ask Cases 1 and 2; you can often sidestep Case 3. |
+
+*Table 36. Common pitfalls in notation and proofs*
 
 ### 10.2 Sorting
 
 | Pitfall | How to avoid |
 |---------|--------------|
 | "Quick sort is `O(n log n)`" (without qualifier) | Specify: average `O(n log n)`, worst `O(n²)`. |
-| "Merge sort is stable but `O(1)` space" | No — merge sort needs `O(n)` auxiliary space. |
+| "Merge sort is stable but `O(1)` space" | No, merge sort needs `O(n)` auxiliary space. |
 | "Counting sort works on any integer input" | Only when `k = O(n)`. For `k = n²`, counting sort is worse than comparison sorts. |
 | "Radix sort can be MSD-first" | LSD-first is the simple classical version. MSD-first is different (recursive). |
-| "Heap sort is stable" | No — heap sort is not stable. |
+| "Heap sort is stable" | No, heap sort is not stable. |
 | Confusing min-heap and max-heap | Min-heap extracts min; gives descending order if used in heap sort. Max-heap gives ascending order. |
-| `buildHeap` is `O(n log n)` | No — it's `O(n)` via the tighter analysis. Heapify at depth `h` costs `O(h)`, and there are many fewer deep nodes than shallow ones. |
-| Comparison-based sort lower bound is `Ω(n²)` | No — it's `Ω(n log n)`, proven by decision tree. |
+| `buildHeap` is `O(n log n)` | No, it is `O(n)` via the tighter analysis. Heapify at depth `h` costs `O(h)`, and there are many fewer deep nodes than shallow ones. |
+| Comparison-based sort lower bound is `Ω(n²)` | No, it is `Ω(n log n)`, proven by decision tree. |
+
+*Table 37. Common pitfalls in sorting*
 
 ### 10.3 Greedy
 
@@ -1569,20 +1653,24 @@ Choose `c = 1, d = 1`. ∎
 | Confusing fractional vs 0/1 knapsack | Fractional: sort by value/weight, greedy. 0/1: DP. |
 | Confusing Job Scheduling vs Activity Selection | Multiple machines → EST. Single machine → EFT. |
 | Using Dijkstra with negative edges | Use Bellman-Ford. Dijkstra's greedy invariant requires non-negative weights. |
-| Kruskal without Union-Find | Cycle detection becomes `O(n)` per edge — kills the complexity. |
+| Kruskal without Union-Find | Cycle detection becomes `O(n)` per edge, which kills the complexity. |
 | Prim on sparse graphs is best | Actually Kruskal is usually better for sparse; Prim shines on dense. |
 | Using Dijkstra when you need all-pairs | Use Floyd-Warshall or run Dijkstra `n` times (but watch the complexity). |
+
+*Table 38. Common pitfalls in greedy algorithms*
 
 ### 10.4 DP
 
 | Pitfall | How to avoid |
 |---------|--------------|
 | Wrong base case | Hand-trace the recurrence on `n = 0, 1, 2`. |
-| Off-by-one in the DP table | Be explicit whether you're 0-indexed or 1-indexed. Include a header row/column for ε. |
+| Off-by-one in the DP table | Be explicit whether you are 0-indexed or 1-indexed. Include a header row/column for ε. |
 | Wrong loop order in Floyd-Warshall | `k` **must** be outermost. The other two can be in any order. |
 | Using `O(mn)` space when `O(min(m,n))` suffices | For LCS length only, you need only two rows at a time. Saves memory on large inputs. |
 | Confusing "overlapping subproblems" with "sharing input" | Overlapping means the *same* subproblem is computed multiple times in naive recursion. |
-| "0/1 knapsack is polynomial" | It's *pseudo*-polynomial — polynomial in capacity value, not in input bit-length. NP-hard in the classical sense. |
+| "0/1 knapsack is polynomial" | It is *pseudo*-polynomial: polynomial in capacity value, not in input bit-length. NP-hard in the classical sense. |
+
+*Table 39. Common pitfalls in DP*
 
 ### 10.5 D&C
 
@@ -1590,9 +1678,11 @@ Choose `c = 1, d = 1`. ∎
 |---------|--------------|
 | Applying D&C when subproblems overlap | Use DP instead. |
 | Forgetting the base case in pseudocode | Always state "if `n ≤ some_threshold`, solve directly." |
-| Closing pair strip check: comparing all pairs | Only compare each point to the next 7 neighbors by y-coord. |
-| Median of medians with groups of 3 | Doesn't give linear time. Use groups of 5. |
-| "Randomized Select is always `O(n)`" | It's `O(n)` **expected**. Worst case is still `O(n²)`. |
+| Closest-pair strip check: comparing all pairs | Only compare each point to the next 7 neighbors by y-coord. |
+| Median of medians with groups of 3 | Does not give linear time. Use groups of 5. |
+| "Randomized Select is always `O(n)`" | It is `O(n)` **expected**. Worst case is still `O(n²)`. |
+
+*Table 40. Common pitfalls in divide and conquer*
 
 ---
 
@@ -1600,23 +1690,23 @@ Choose `c = 1, d = 1`. ∎
 
 Before you walk into the exam, you should be able to answer "yes" to every one of these.
 
-**Foundations (W01):**
+**Foundations (Week 1):**
 - [ ] State the four properties of an algorithm.
 - [ ] Trace Euclidean GCD by hand.
 - [ ] Apply binary search to an explicit array.
 - [ ] State the Euler circuit/path conditions on vertex degrees.
 - [ ] Explain why the counterfeit-coin and poisoned-wine problems use `log₂(n)`.
 
-**Complexity (W02):**
+**Complexity (Week 2):**
 - [ ] Count elementary operations in given pseudocode.
 - [ ] Prove `f(n) = O(g(n))` by finding explicit `c, n₀`.
 - [ ] Prove a matching `Ω(g(n))` bound to get `Θ`.
 - [ ] Solve `T(n) = 2T(n/2) + n` by substitution.
 - [ ] Apply the Master Theorem Cases 1 and 2 fluently.
-- [ ] Identify recurrences the Master Theorem doesn't handle.
+- [ ] Identify recurrences the Master Theorem does not handle.
 - [ ] Complete an induction proof with the `cn − d` strengthening trick.
 
-**Sorting (W03):**
+**Sorting (Week 3):**
 - [ ] Reproduce the full sorting comparison table.
 - [ ] Trace partition on a small array.
 - [ ] Explain why quick sort is `Θ(n²)` on sorted input and how randomization fixes it.
@@ -1624,13 +1714,13 @@ Before you walk into the exam, you should be able to answer "yes" to every one o
 - [ ] Explain why `buildHeap` is `O(n)`, not `O(n log n)`.
 - [ ] State when counting/radix sort are applicable.
 
-**D&C (W04):**
+**D&C (Week 4):**
 - [ ] State the three steps (divide/conquer/combine).
 - [ ] Explain what distinguishes D&C from DP (independent vs overlapping subproblems).
 - [ ] Trace the closest-pair strip check on a small example.
 - [ ] Explain why Median of Medians uses groups of 5 specifically.
 
-**Greedy (W05):**
+**Greedy (Week 5):**
 - [ ] State the greedy-choice property and optimal substructure.
 - [ ] Give a counterexample where greedy coin change fails.
 - [ ] Distinguish Job Scheduling (EST) from Activity Selection (EFT).
@@ -1639,7 +1729,7 @@ Before you walk into the exam, you should be able to answer "yes" to every one o
 - [ ] Build a Huffman tree for given frequencies.
 - [ ] Give a negative-edge counterexample where Dijkstra fails.
 
-**DP (W06):**
+**DP (Week 6):**
 - [ ] State the two required properties (optimal substructure, overlapping subproblems).
 - [ ] Execute the 6-step DP recipe on a new problem.
 - [ ] Fill the LCS, Edit Distance, and 0/1 Knapsack tables by hand.
@@ -1651,8 +1741,4 @@ Before you walk into the exam, you should be able to answer "yes" to every one o
 - [ ] Given a new problem, decide D&C / Greedy / DP (with reasons).
 - [ ] For problems that admit multiple paradigms, state each solution's complexity.
 
-> **If every box is ticked, you are as prepared as you can be. Go do well.** 🎯
-
----
-
-*Detailed edition v1 — 2026-04-14*
+**If every box is ticked, you are as prepared as you can be. Go do well.**

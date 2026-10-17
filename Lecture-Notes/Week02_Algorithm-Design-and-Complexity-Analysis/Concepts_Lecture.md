@@ -1,17 +1,18 @@
 # Week 2 Lecture — Algorithm Design and Complexity Analysis
 
-> **Last Updated:** 2026-06-19
->
-> Introduction to Algorithms, CLRS - Ch 2, 3, 4
+[Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Learning Objectives**:
+> **Last Updated:** 2026-10-18
+>
+> Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
+
+> **Learning Objectives:**
 > 1. State the formal properties of an algorithm and trace through the Euclidean GCD algorithm
 > 2. Count basic operations in iterative code and express the result as T(n)
 > 3. Distinguish between best-case, worst-case, and average-case analysis
-> 4. Define Big-O, Big-Omega, and Big-Theta notation and prove membership using the formal definition
-> 5. Explain why asymptotic notation is preferred over exact operation counts
-> 6. Solve simple recurrence relations using repeated substitution and the guess-and-verify method
-> 7. Apply the Master Theorem to determine the time complexity of divide-and-conquer recurrences
+> 4. Explain why asymptotic notation is preferred over exact operation counts, and define Big-O, Big-Omega, and Big-Theta notation and prove membership using the formal definition
+> 5. Solve simple recurrence relations using repeated substitution and the guess-and-verify method
+> 6. Apply the Master Theorem to determine the time complexity of divide-and-conquer recurrences
 
 ---
 
@@ -37,10 +38,10 @@
 - [4. Recurrence Relations](#4-recurrence-relations)
   - [4.1 What Is a Recurrence Relation?](#41-what-is-a-recurrence-relation)
   - [4.2 Method 1: Repeated Substitution](#42-method-1-repeated-substitution)
-  - [4.3 Method 2: Guess and Verify](#43-method-2-guess-and-verify)
+  - [4.3 Method 2: Guess and Verify (Induction)](#43-method-2-guess-and-verify-induction)
   - [4.4 Method 3: Master Theorem](#44-method-3-master-theorem)
 - [Summary](#summary)
-- [Appendix](#appendix)
+- [Self-Check Questions](#self-check-questions)
 
 ---
 
@@ -51,32 +52,36 @@
 ### 1.1 What Is an Algorithm?
 
 - An **algorithm** is a step-by-step procedure or method for solving a problem.
-- The problems we deal with are solved **using computers**.
+- The problems covered in this course are solved **using computers**.
 - An algorithm takes **input** and produces **output** (a solution).
 
-```
+```text
 ┌───────┐      ┌─────────────┐      ┌────────┐
 │ Input  │ ───► │  Algorithm   │ ───► │ Output │
 └───────┘      └─────────────┘      └────────┘
 ```
 
+*Figure 1. An algorithm taking input and producing output*
+
 ### 1.2 Properties of Algorithms
 
 | Property | Description |
 |:---------|:------------|
-| **Correctness** | Must produce the correct output for all valid inputs (same input -> same output) |
+| **Correctness** | Must produce the correct output for all valid inputs (same input → same output) |
 | **Executability** | Each step must be executable on a computer |
 | **Finiteness** | Must terminate within a finite amount of time |
 | **Efficiency** | The more efficient in time and space, the more valuable |
 
-> **Key Point:** **Finiteness** is especially important — a program stuck in an infinite loop is not an algorithm. For example, `while True: pass` is not an algorithm. In contrast, the Euclidean GCD always terminates because b decreases with each step and must eventually reach 0.
+*Table 1. Four properties of algorithms*
+
+> **Key Point:** **Finiteness** is especially important. A program stuck in an infinite loop is not an algorithm. For example, `while True: pass` is not an algorithm. In contrast, the Euclidean GCD always terminates because b decreases with each step and must eventually reach 0.
 
 ### 1.3 Euclidean GCD Algorithm
 
-The **oldest known algorithm**, created around ~300 BCE.
+It is **one of the oldest known algorithms**, described around 300 BCE.
 
-- **Greatest Common Divisor (GCD)**: The largest number that divides both natural numbers
-- Key insight: GCD(A, B) = GCD(B, A mod B)
+- The **Greatest Common Divisor (GCD)** is the largest number that divides both natural numbers.
+- The key insight is GCD(A, B) = GCD(B, A mod B).
 
 **Mathematical Basis:**
 
@@ -90,11 +95,11 @@ Repeatedly applying this reduces $B$ to $0$, and $A$ at that point is the GCD.
 
 > **Note:** The remainder A mod B is also a multiple of G. That is, the GCD is preserved through the modulo operation. This is why GCD(A, B) = GCD(B, A mod B) holds.
 
-> **Note:** Proof: Since $A = B \cdot q + r$ (q is the quotient, r is the remainder), $a \cdot G = b \cdot G \cdot q + r$. Therefore $r = (a - bq) \cdot G = (a \bmod b) \cdot G$. Since G remains a factor in the remainder, the GCD is preserved.
+> **Note:** **Proof.** Since $A = B \cdot q + r$ (q is the quotient, r is the remainder), $a \cdot G = b \cdot G \cdot q + r$. Therefore $r = (a - bq) \cdot G = (a \bmod b) \cdot G$. Since G remains a factor in the remainder, the GCD is preserved.
 
 **Pseudocode:**
 
-```
+```text
 Euclid(a, b)
   Input:  integers a, b  (a >= b >= 0)
   Output: GCD(a, b)
@@ -112,7 +117,9 @@ Euclid(a, b)
 | 2 | 14 | 10 | 4 |
 | 3 | 10 | 4 | 2 |
 | 4 | 4 | 2 | 0 |
-| 5 | 2 | 0 | — (return 2) |
+| 5 | 2 | 0 | (return 2) |
+
+*Table 2. Call-by-call trace of GCD(24, 14)*
 
 **Iterative Version:**
 
@@ -138,7 +145,7 @@ Both versions produce the same result. Recursion uses the **call stack**, where 
 
 **Recursive Call Stack Trace:**
 
-```
+```text
 gcd_rec(24, 14)
   └─► gcd_rec(14, 10)
         └─► gcd_rec(10, 4)
@@ -150,13 +157,15 @@ gcd_rec(24, 14)
 returns 2
 ```
 
+*Figure 2. Recursive calls and returns of gcd_rec(24, 14)*
+
 Each recursive call **pushes** a frame onto the stack. When `b == 0`, the value is **popped** back up.
 
-> **[Data Structures]** A stack is a **LIFO (Last In, First Out)** data structure. Program function calls are also managed using a stack structure — a function call pushes, and a return pops. If recursion goes too deep, a **Stack Overflow** can occur. Python's default recursion depth limit is 1000.
+> **[Data Structures]** A stack is a **LIFO (Last In, First Out)** data structure. Program function calls are also managed using a stack structure: a function call pushes, and a return pops. If recursion goes too deep, a **Stack Overflow** can occur. Python's default recursion depth limit is 1000.
 
 ### 1.4 Representing Algorithms
 
-An algorithm is a step-by-step procedure, similar to a cooking recipe. There are three common ways to represent them:
+An algorithm is a step-by-step procedure, similar to a cooking recipe. There are three common ways to represent one.
 
 | Method | Description |
 |:-------|:------------|
@@ -164,25 +173,27 @@ An algorithm is a step-by-step procedure, similar to a cooking recipe. There are
 | **Pseudocode** | A structured notation similar to programming languages (most common) |
 | **Flowchart** | A visual diagram with shapes and arrows |
 
-**Example — Finding the Maximum:**
+*Table 3. Three ways to represent an algorithm*
+
+**Example: Finding the Maximum**
 
 Problem: Find the largest number among $n$ number cards.
 
-![Card Comparison](../images/ch02_p002_001.png)
+![Figure 3. Comparing and arranging cards in hand](../../images/Week02_ch02_p02.png)
 
-*Card Comparison*
+*Figure 3. Comparing and arranging cards in hand*
 
 **Natural Language:**
 
-1. Read the first card's number and remember it
-2. Read the next card and compare it with the remembered number
-3. Keep the larger number in memory
-4. If cards remain, go to step 2
-5. The remembered number is the maximum
+1. Read the first card's number and remember it.
+2. Read the next card and compare it with the remembered number.
+3. Keep the larger number in memory.
+4. If cards remain, go to step 2.
+5. The remembered number is the maximum.
 
 **Pseudocode:**
 
-```
+```text
 FindMax(A[], n)
   max = A[0]
   for i = 1 to n-1
@@ -195,7 +206,7 @@ FindMax(A[], n)
 
 **Flowchart:**
 
-```
+```text
   ┌─────────┐
   │  Start   │
   └────┬────┘
@@ -225,22 +236,26 @@ FindMax(A[], n)
     └──► (back to i < n ?)
 ```
 
+*Figure 4. Flowchart for finding the maximum*
+
 Flowcharts are intuitive for simple algorithms but become complex for large programs, so pseudocode is predominantly used in modern textbooks.
 
 ### 1.5 Algorithm Classification
 
-> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet — they will each be covered in detail in later weeks.
+> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet; each will be covered in detail in later weeks.
 
-Six major types based on problem-solving strategy:
+By problem-solving strategy, algorithms fall into the following six major types.
 
 | Type | Core Idea |
 |:-----:|:----------|
-| **Divide and Conquer** | Split into subproblems -> solve each -> combine results. *E.g., Merge Sort: split an array in half, sort each half, then merge the sorted halves.* |
-| **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm: always extend the shortest known path to reach all nodes in a graph.* |
-| **Dynamic Programming (DP)** | Solve subproblems and store results for reuse. *E.g., Knapsack Problem: given items with weights and values, find the most valuable combination that fits in a bag.* |
-| **Approximation** | Near-optimal solutions for NP-hard problems. *E.g., Traveling Salesman Problem (TSP): find a near-shortest route visiting all cities when the exact solution is too costly to compute.* |
-| **Backtracking** | Explore all possibilities, pruning infeasible branches. *E.g., N-Queens: place N queens on an N x N chessboard so that no two queens attack each other.* |
-| **Branch and Bound** | Similar to backtracking, but uses bounds for more aggressive pruning. *E.g., Knapsack (exact): find the optimal item selection by pruning branches that cannot beat the current best.* |
+| **Divide and Conquer** | Split into subproblems → solve each → combine results. *E.g., Merge Sort splits an array in half, sorts each half, then merges the sorted halves.* |
+| **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm always extends the shortest known path to reach all nodes in a graph.* |
+| **Dynamic Programming (DP)** | Solve subproblems and store results for reuse. *E.g., the Knapsack Problem: given items with weights and values, find the most valuable combination that fits in a bag.* |
+| **Approximation** | Near-optimal solutions for NP-hard problems. *E.g., for the Traveling Salesman Problem (TSP), find a near-shortest route visiting all cities when the exact solution is too costly to compute.* |
+| **Backtracking** | Explore all possibilities, pruning infeasible branches. *E.g., N-Queens places N queens on an N x N chessboard so that no two queens attack each other.* |
+| **Branch and Bound** | Similar to backtracking, but uses bounds for more aggressive pruning. *E.g., for Knapsack (exact), find the optimal item selection by pruning branches that cannot beat the current best.* |
+
+*Table 4. Six types of algorithms by problem-solving strategy*
 
 > **Key Point:** These 6 categories form the core framework running through the entire course. Among them, **Divide and Conquer, Greedy, and Dynamic Programming** are the three most heavily covered strategies.
 
@@ -248,26 +263,26 @@ Six major types based on problem-solving strategy:
 
 Divide a large problem into smaller subproblems, solve each recursively, then combine the results. **Advantage:** Effective when the problem structure is naturally recursive. Examples: Merge Sort, Quick Sort, Binary Search.
 
-![Merge Sort Tree](../images/ch02_p020_006.png)
+![Figure 5. Merge sort on the sequence 5, 2, 4, 7, 1, 3, 2, 6](../../images/Week02_ch02_p20.png)
 
-*Merge Sort Tree*
+*Figure 5. Merge sort on the sequence 5, 2, 4, 7, 1, 3, 2, 6*
 
-> **[Data Structures]** Divide and conquer always consists of 3 stages:
+> **[Data Structures]** Divide and conquer always consists of 3 stages.
 > 1. **Divide**: Split the problem into smaller subproblems
 > 2. **Conquer**: Solve each subproblem recursively (solve directly if small enough)
 > 3. **Combine**: Merge the solutions of subproblems to form the solution to the original problem
 >
-> In merge sort: Divide = split the array in half, Conquer = recursively sort each half, Combine = merge the two sorted halves.
+> In merge sort, Divide splits the array in half, Conquer recursively sorts each half, and Combine merges the two sorted halves.
 
 **Greedy Algorithms:**
 
 Make the choice that looks **best right now** at each step. Does **not** always guarantee a globally optimal solution, but does under specific conditions. Examples: Minimum Spanning Tree (Kruskal, Prim), Dijkstra's Shortest Path, Huffman Coding.
 
-> **Note:** For a greedy algorithm to guarantee an optimal solution, two conditions are required:
+> **Note:** For a greedy algorithm to guarantee an optimal solution, two conditions are required.
 > 1. **Greedy Choice Property**: A locally optimal choice leads to a globally optimal solution
 > 2. **Optimal Substructure**: The optimal solution of the problem contains optimal solutions of subproblems
 >
-> If these conditions are not met, the greedy approach can yield incorrect solutions. This will be covered rigorously in Weeks 5-6.
+> If these conditions are not met, the greedy approach can yield suboptimal solutions. This will be covered rigorously in Weeks 5-6.
 
 **Dynamic Programming (DP):**
 
@@ -281,8 +296,8 @@ Examples: Fibonacci sequence, Longest Common Subsequence (LCS), Knapsack Problem
 
 **DP vs Divide and Conquer:** In divide and conquer, subproblems are **independent**; in DP, subproblems **overlap**.
 
-> **Note:** Examining the difference using Fibonacci:
-> - **Divide and Conquer**: fib(5) -> fib(4) + fib(3), fib(4) -> fib(3) + fib(2)... Here, fib(3) is **computed redundantly**. O(2^n).
+> **Note:** Fibonacci illustrates the difference as follows.
+> - **Divide and Conquer**: The calls expand as fib(5) → fib(4) + fib(3), fib(4) → fib(3) + fib(2), and fib(3) is **computed redundantly**. The time complexity is $O(2^n)$.
 > - **DP**: Compute sequentially from fib(1), fib(2), storing results in a table for reuse. No redundant computation, yielding O(n).
 
 **Approximation, Backtracking, Branch and Bound:**
@@ -291,20 +306,22 @@ Examples: Fibonacci sequence, Longest Common Subsequence (LCS), Knapsack Problem
 |:-----|:------------|
 | **Approximation Algorithms** | For NP-hard problems where exact solutions are too costly. Trade optimality for speed. Examples: TSP approximation, Vertex Cover |
 | **Backtracking** | Explore all possibilities but prune infeasible branches. Examples: N-Queens, Maze Search |
-| **Branch and Bound** | Similar to backtracking, but computes upper/lower bounds for more effective pruning. Examples: TSP, Knapsack (exact solution) |
+| **Branch and Bound** | Similar to backtracking, but computes upper or lower bounds for more effective pruning. Examples: TSP, Knapsack (exact solution) |
 
-> **Note:** NP-hard problems are problems that cannot be efficiently solved (in polynomial time) by any known algorithm. For example, the Traveling Salesman Problem (TSP) becomes practically impossible to check all cases as n grows. This will be covered in detail in Week 14.
+*Table 5. Comparison of approximation, backtracking, and branch-and-bound algorithms*
 
-> **Note:** The key difference between backtracking and branch and bound:
-> - **Backtracking**: "Can a **solution exist** if we go in this direction?" (feasibility check)
-> - **Branch and Bound**: "Can we **improve upon the current best solution** if we go in this direction?" (optimality check)
+> **Note:** An NP-hard problem is one to which every problem in NP reduces in polynomial time, and no polynomial-time algorithm for it is known. For example, for the Traveling Salesman Problem (TSP), checking all cases becomes practically impossible as n grows. This will be covered in detail in Week 13.
+
+> **Note:** The key difference between backtracking and branch and bound is as follows.
+> - **Backtracking**: Checks whether **a solution can exist** in this direction (feasibility check).
+> - **Branch and Bound**: Checks whether this direction **can improve upon the current best solution** (optimality check).
 >
 > Branch and bound computes upper or lower bounds and prunes entire branches that have no chance of improving the current best solution.
 
 **Other Classifications:**
 - **By problem domain:** Sorting, Graphs, Computational Geometry
 - **By computing environment:** Parallel, Distributed, Quantum
-- **Other:** AI / Machine Learning algorithms
+- **Other:** AI and Machine Learning algorithms
 
 ---
 
@@ -320,27 +337,27 @@ This counting assumes the RAM (Random Access Machine) model, where each basic op
 
 **Example: Finding the maximum among $n$ cards**
 
-- Sequential scan: compare each card with the current maximum
+- Sequential scan: compare each card with the current maximum.
 - Number of comparisons: $n - 1$
 - Time complexity: $T(n) = n - 1$
 
-> **Key Point:** The key to computing time complexity is **"counting how many basic operations are performed for input size n."** It is an abstract count of operations, not actual execution time (seconds). This allows comparing the fundamental efficiency of algorithms regardless of computer performance.
+> **Key Point:** The key to computing time complexity is **counting how many basic operations are performed for input size n**. It is an abstract count of operations, not actual execution time (seconds). This allows comparing the fundamental efficiency of algorithms regardless of computer performance.
 
 ### 2.2 Execution Time Examples
 
-**Example 1 — O(1):**
+**Example 1: O(1)**
 
-```
+```text
 sample1(A[], n)
     k = n / 2
     return A[k]
 ```
 
-1 division + 1 array access → **constant time** regardless of $n$.
+It performs only 1 division and 1 array access, so it takes **constant time** regardless of $n$.
 
-**Example 2 — O(n):**
+**Example 2: O(n)**
 
-```
+```text
 sample2(A[], n)
     sum = 0
     for i = 1 to n
@@ -348,11 +365,11 @@ sample2(A[], n)
     return sum
 ```
 
-The loop executes $n$ times → **linear time**.
+The loop executes $n$ times, so it takes **linear time**.
 
-**Example 3 — O(n^2):**
+**Example 3: O(n²)**
 
-```
+```text
 sample3(A[], n)
     sum = 0
     for i = 1 to n
@@ -361,13 +378,13 @@ sample3(A[], n)
     return sum
 ```
 
-Nested loops, each executing $n$ times → $n \times n$ = **quadratic time**.
+The nested loops each execute $n$ times, giving $n \times n$, that is, **quadratic time**.
 
-> **Note:** The basic principle for determining nested loop time complexity: **inner loop iterations x outer loop iterations**. Here it is n x n = n^2. A triple-nested loop would be O(n^3).
+> **Note:** The basic principle for determining nested loop time complexity is as follows. If the inner loop's iteration count does not depend on the outer loop, the total is **inner loop iterations × outer loop iterations**. Here it is n × n = n². A triple-nested loop would be O(n³).
 
-**Example 4 — O(n^2) (Triangular Loop):**
+**Example 4: O(n²) (Triangular Loop)**
 
-```
+```text
 sample4(A[], n)
     sum = 0
     for i = 1 to n-1
@@ -376,52 +393,56 @@ sample4(A[], n)
     return sum
 ```
 
-The inner loop executes $(n-1) + (n-2) + \cdots + 1 = \frac{n(n-1)}{2}$ times → still $O(n^2)$.
+The inner loop executes $(n-1) + (n-2) + \cdots + 1 = \frac{n(n-1)}{2}$ times in total, so it is still $O(n^2)$.
 
-> **Note:** $1 + 2 + \cdots + (n-1) = \frac{n(n-1)}{2}$ is the arithmetic series sum formula. In Big-O, we keep only the highest-order term and ignore coefficients, yielding O(n^2). This "triangular double loop" pattern appears very frequently (e.g., duplicate checking, all-pairs comparison).
+> **Note:** $1 + 2 + \cdots + (n-1) = \frac{n(n-1)}{2}$ is the arithmetic series sum formula. In Big-O, we keep only the highest-order term and ignore coefficients, yielding O(n²). This triangular double-loop pattern appears very frequently (e.g., duplicate checking, all-pairs comparison).
 
-**Example 5 — O(n) (Recursion):**
+**Example 5: O(n) (Recursion)**
 
-```
+```text
 factorial(n)
     if n == 1 return 1
     return n * factorial(n - 1)
 ```
 
-Recursion depth is $n$ → **linear time**.
+The recursion depth is $n$, so it takes **linear time**.
 
-> **Note:** The time complexity of a recursive function is determined by "how many total recursive calls occur." factorial(n) is called exactly n times, so it is O(n). Since the work done in each call (one multiplication) is O(1), the total time complexity is O(n) x O(1) = O(n).
+> **Note:** The time complexity of a recursive function is determined by how many recursive calls occur in total. factorial(n) is called exactly n times, so it is O(n). Since the work done in each call (one multiplication) is O(1), the total time complexity is O(n) × O(1) = O(n).
 
 ### 2.3 Types of Complexity Analysis
 
 | Type | Meaning |
 |:-----|:--------|
-| **Worst-case** | Upper bound — "will never take longer than this for any input" |
+| **Worst-case** | Upper bound; guarantees that no input takes longer than this |
 | **Average-case** | Expected time under a probability distribution (usually uniform) |
-| **Best-case** | Fastest execution — used to find the optimal algorithm |
+| **Best-case** | Fastest execution; used to find the optimal algorithm |
 | **Amortized** | Average cost per operation over a sequence of operations |
 
-Amortized analysis is different from average-case: it considers the worst-case total cost of a *sequence* of operations, then divides by the number of operations. For example, a dynamic array occasionally needs to resize (expensive), but most insertions are cheap, so the amortized cost per insertion is O(1).
+*Table 6. Four types of complexity analysis*
+
+Amortized analysis is different from average-case analysis. It considers the worst-case total cost of a *sequence* of operations, then divides by the number of operations. For example, a dynamic array occasionally needs to resize (expensive), but most insertions are cheap, so the amortized cost per insertion is O(1).
 
 In practice, **worst-case analysis** is the most commonly used.
 
-> **Key Point:** The reason worst-case is primarily used is that it provides a **guarantee**. "This algorithm will never exceed n^2 time for any input" is a solid promise. Average analysis, on the other hand, is merely an estimate of "usually around this much." For example, quick sort averages O(n log n) but has a worst case of O(n^2).
+> **Key Point:** The reason worst-case is primarily used is that it provides a **guarantee**. A statement such as "this algorithm will never exceed n² time for any input" is a solid promise. Average-case analysis, on the other hand, is an expected value under an assumed input distribution, so it gives no guarantee for an individual input. For example, quick sort averages O(n log n) but has a worst case of O(n²).
 
 **Commute Time Analogy:**
 
-![Seoul Metro](../images/seoul-metro.jpg)
+![Figure 6. Seoul Metro](../../images/Week02_Seoul-Metro.jpg)
 
-*Seoul Metro*
+*Figure 6. Seoul Metro*
 
-Scenario: Home -> Station (6 min) -> Subway (20 min) -> Classroom (10 min)
+Scenario: Home → Station (6 min) → Subway (20 min) → Classroom (10 min)
 
 | Case | Time | Description |
 |:-----|:-----|:------------|
-| **Best** | 36 min | Train arrives immediately |
-| **Worst** | 40 min | Just missed it, 4 min wait |
-| **Average** | 38 min | Average wait ~2 min |
+| **Best** | 36 min | The train arrives immediately |
+| **Worst** | 40 min | The train just left, so a 4 min wait |
+| **Average** | 38 min | Average wait of about 2 min |
 
-Same way of thinking about algorithm analysis — the **worst case** provides a guarantee.
+*Table 7. Best, worst, and average cases of commute time*
+
+Algorithm analysis follows the same way of thinking: the **worst case** provides a guarantee.
 
 ---
 
@@ -431,11 +452,11 @@ Same way of thinking about algorithm analysis — the **worst case** provides a 
 
 ### 3.1 Why Asymptotic Notation?
 
-In Section 2, we computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$. But these exact counts depend on implementation details (does the loop start at 0 or 1? do we count the final comparison?). Asymptotic notation strips away these irrelevant details and lets us focus on what truly matters: how the running time *scales* as $n$ grows.
+Section 2 computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$. But these exact counts depend on implementation details (does the loop start at 0 or 1? do we count the final comparison?). Asymptotic notation strips away these irrelevant details and lets us focus on what truly matters, namely how the running time *scales* as $n$ grows.
 
-![Asymptotic Notation Graph](../images/ch03_p003_001.png)
+![Figure 7. Graphical meaning of Θ, O, and Ω notation](../../images/Week02_ch03_p03.png)
 
-*Asymptotic Notation Graph*
+*Figure 7. Graphical meaning of Θ, O, and Ω notation*
 
 - Time complexity is a function of $n$ (usually a polynomial with multiple terms).
 - As $n$ grows, only the **dominant term** matters.
@@ -443,44 +464,46 @@ In Section 2, we computed exact operation counts like $T(n) = n-1$ or $T(n) = n(
 
 | Notation | Meaning | Intuitive Interpretation |
 |:---------|:--------|:------------------------|
-| $O$ (Big-O) | Upper bound | "At most this fast" |
-| $\Omega$ (Big-Omega) | Lower bound | "At least this fast" |
+| $O$ (Big-O) | Upper bound | Grows at most this fast |
+| $\Omega$ (Big-Omega) | Lower bound | Grows at least this fast |
 | $\Theta$ (Theta) | Tight bound | Exact growth rate |
 
-> **Key Point:** "Asymptotic" means "behavior as n approaches infinity." For example, in $3n^2 + 100n + 5000$, when n is 1,000,000, $3n^2 = 3 \times 10^{12}$ and $100n = 10^8$, so $100n$ is negligibly small compared to $3n^2$. That is why we **keep only the highest-order term** and ignore the rest.
+*Table 8. Meaning of the three asymptotic notations*
+
+> **Key Point:** **Asymptotic** means behavior as n approaches infinity. For example, in $3n^2 + 100n + 5000$, when n is 1,000,000, $3n^2 = 3 \times 10^{12}$ and $100n = 10^8$, so $100n$ is negligibly small compared to $3n^2$. That is why we **keep only the highest-order term** and ignore the rest.
 
 ### 3.2 Big-O Notation
 
 **Formal Definition:**
 
-$O(g(n))$ = the set of functions that grow **at most as fast as** $g(n)$.
+$O(g(n))$ is the set of functions that grow **at most as fast as** $g(n)$.
 
 $$O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \leq c \cdot g(n) \}$$
 
-- $g(n)$ is the **asymptotic upper bound** of $f(n)$
-- Convention: Technically $f(n) \in O(g(n))$, but we write $f(n) = O(g(n))$
+- $g(n)$ is the **asymptotic upper bound** of $f(n)$.
+- Convention: Technically $f(n) \in O(g(n))$, but we write $f(n) = O(g(n))$.
 
-> **Reading the definition:** "There exist constants $c > 0$ and $n_0 \geq 0$ such that for all $n \geq n_0$, $f(n) \leq c \cdot g(n)$." The symbol $\exists$ means "there exists," and $\forall$ means "for all."
+> **Note:** **Reading the definition.** "There exist constants $c > 0$ and $n_0 \geq 0$ such that for all $n \geq n_0$, $f(n) \leq c \cdot g(n)$." The symbol $\exists$ means there exists, and $\forall$ means for all.
 
 **Intuitive Meaning:** $f(n) = O(g(n))$ means $f$ **does not grow faster than** $g$ (ignoring constant factors).
 
-> **Note:** In plain terms: "for sufficiently large n (n >= n_0), f(n) is always at most c x g(n)." Here, c and n_0 are constants that need to be found. On exams, you may be asked to find specific values of c and n_0 in a proof.
+> **Note:** In plain terms, for sufficiently large n (n ≥ n₀), f(n) is always at most c × g(n). Here, c and n₀ are constants that need to be found. On exams, you may be asked to find specific values of c and n₀ in a proof.
 
 **Proof Example:** $f(n) = 2n^2 - 8n + 3 = O(n^2)$
 
 We need to find constants $c > 0$ and $n_0 \geq 0$ such that $2n^2 - 8n + 3 \leq c \cdot n^2$ for all $n \geq n_0$.
 
-Choose $c = 5$:
+Choose $c = 5$.
 
 $$2n^2 - 8n + 3 \leq 5n^2 \quad \text{(for all } n \geq 1 \text{)}$$
 
-Rearranging: $-3n^2 - 8n + 3 \leq 0$, which holds for $n \geq 1$.
+Rearranging gives $-3n^2 - 8n + 3 \leq 0$, which holds for $n \geq 1$.
 
-> **Note:** Expanding: Subtracting $5n^2$ from both sides of $2n^2 - 8n + 3 \leq 5n^2$ gives $-3n^2 - 8n + 3 \leq 0$. For $n \geq 1$, $-3n^2 \leq -3$ and $-8n \leq -8$, so the left side is $-3 - 8 + 3 = -8 \leq 0$. As n grows, $-3n^2$ dominates, making the expression even more negative, so it always holds.
+> **Note:** The expansion is as follows. Subtracting $5n^2$ from both sides of $2n^2 - 8n + 3 \leq 5n^2$ gives $-3n^2 - 8n + 3 \leq 0$. For $n \geq 1$, $-3n^2 \leq -3$ and $-8n \leq -8$, so the left side is at most $-3 - 8 + 3 = -8$, and therefore at most 0. As n grows, $-3n^2$ dominates, making the expression even more negative, so it always holds.
 
 Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 
-> **Exam Tip:** A practical method for finding c — for a polynomial $a_k n^k + a_{k-1} n^{k-1} + \cdots + a_0$, taking the **sum of absolute values of all coefficients** $|a_k| + |a_{k-1}| + \cdots + |a_0|$ as c almost always works. Example: for $2n^2 - 8n + 3$, $c = 2 + 8 + 3 = 13$, $n_0 = 1$.
+> **Note:** **Exam tip.** A practical method for finding c: for a polynomial $a_k n^k + a_{k-1} n^{k-1} + \cdots + a_0$ with a positive leading coefficient, taking the **sum of absolute values of all coefficients** $|a_k| + |a_{k-1}| + \cdots + |a_0|$ as c always works with $n_0 = 1$. This is because each term satisfies $a_i n^i \leq |a_i| n^k$ for $n \geq 1$. Example: for $2n^2 - 8n + 3$, $c = 2 + 8 + 3 = 13$, $n_0 = 1$.
 
 **Functions contained in $O(n^2)$:**
 - $3n^2 + 2n$ yes, $7n^2 - 100n$ yes, $n \log n + 5n$ yes, $3n$ yes
@@ -488,9 +511,9 @@ Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 **Functions NOT in $O(n^2)$:**
 - $n^3$ no, $3^n$ no
 
-**Best Practice:** Write as **tightly** as possible. $n \log n + 5n = O(n \log n)$, not $O(n^2)$. A loose bound means **loss of information**.
+**Best Practice:** Write as **tightly** as possible. Write $n \log n + 5n = O(n \log n)$, not $O(n^2)$. A loose bound means **loss of information**.
 
-> **Note:** "This algorithm is O(n^2)" and "this algorithm is O(n log n)" can both be true, but O(n log n) is more useful information. Just as "this apple costs at most 50 won" is more useful than "this apple costs at most 100 won."
+> **Note:** The statements "this algorithm is O(n²)" and "this algorithm is O(n log n)" can both be true, but O(n log n) is more useful information, just as "this apple costs at most 50 won" is more useful than "this apple costs at most 100 won."
 
 **More Big-O Examples:**
 
@@ -501,16 +524,18 @@ Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 | $10n^2 + 4n + 2$ | $O(n^2)$ | $10n^2+4n+2 \leq 11n^2$ (for $n \geq 5$) |
 | $6 \cdot 2^n + n^2$ | $O(2^n)$ | $6 \cdot 2^n + n^2 \leq 7 \cdot 2^n$ (for $n \geq 4$) |
 
+*Table 9. Examples of Big-O bounds and their justification*
+
 ### 3.3 Big-Omega Notation
 
 **Formal Definition:**
 
-$\Omega(g(n))$ = the set of functions that grow **at least as fast as** $g(n)$.
+$\Omega(g(n))$ is the set of functions that grow **at least as fast as** $g(n)$.
 
 $$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \geq c \cdot g(n) \}$$
 
-- $g(n)$ is the **asymptotic lower bound** of $f(n)$
-- Symmetric to Big-O
+- $g(n)$ is the **asymptotic lower bound** of $f(n)$.
+- It is symmetric to Big-O.
 
 **Intuitive Meaning:** $f(n) = \Omega(g(n))$ means $f$ **does not grow slower than** $g$.
 
@@ -523,7 +548,9 @@ $$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \for
 | $10n^2 + 4n + 2$ | $\Omega(n^2)$ | $10n^2+4n+2 \geq n^2$ (for $n \geq 1$) |
 | $6 \cdot 2^n + n^2$ | $\Omega(2^n)$ | $6 \cdot 2^n + n^2 \geq 2^n$ (for $n \geq 1$) |
 
-**Best Practice:** Write as tightly as possible. $n \log n + 5n = \Omega(n \log n)$, not $\Omega(n)$.
+*Table 10. Examples of Big-Omega bounds and their justification*
+
+**Best Practice:** Write as tightly as possible. Write $n \log n + 5n = \Omega(n \log n)$, not $\Omega(n)$.
 
 **Proof Example:** $10n^2 + 4n + 2 = \Omega(n^2)$
 
@@ -533,28 +560,30 @@ Choose $c = 10$, $n_0 = 1$. Then $10n^2 + 4n + 2 \geq 10n^2 \geq c \cdot n^2$ fo
 
 **Formal Definition:**
 
-$\Theta(g(n))$ = the set of functions that grow **at the same rate as** $g(n)$.
+$\Theta(g(n))$ is the set of functions that grow **at the same rate as** $g(n)$.
 
 $$\Theta(g(n)) = O(g(n)) \;\cap\; \Omega(g(n))$$
 
-$$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_2 \cdot g(n) \leq f(n) \leq c_1 \cdot g(n) \}$$
+$$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}$$
 
 **Intuitive Meaning:** $f(n) = \Theta(g(n))$ means $f$ and $g$ grow **at the same rate** (up to constant factors).
 
-> **Key Point:** Theta is the most precise notation:
-> - O(n^2): "This algorithm is **at most** n^2 level" (could be faster)
-> - Omega(n^2): "This algorithm is **at least** n^2 level" (could be slower)
-> - Theta(n^2): "This algorithm is **exactly** n^2 level"
+> **Key Point:** Θ is the most precise notation.
+> - O(n²): This algorithm is **at most** at the n² level (it could be faster).
+> - Ω(n²): This algorithm is **at least** at the n² level (it could be slower).
+> - Θ(n²): This algorithm is **exactly** at the n² level.
 
 **Examples:**
 
 | Expression | Theta |
 |:-----------|:------|
-| $3n + 2$ | $\Theta(n)$ — $3n \leq 3n+2 \leq 4n$ (for $n \geq 2$) |
+| $3n + 2$ | $\Theta(n)$: $3n \leq 3n+2 \leq 4n$ (for $n \geq 2$) |
 | $10n^2 + 4n + 2$ | $\Theta(n^2)$ |
 | $6 \cdot 2^n + n^2$ | $\Theta(2^n)$ |
 
-**Counterexample:** $2n^2 + 3n + 5 \neq \Theta(n^3)$ and $2n^2 + 3n + 5 \neq \Theta(n)$ — Theta requires **both** the upper and lower bounds to match.
+*Table 11. Examples of Theta bounds*
+
+**Counterexample:** $2n^2 + 3n + 5 \neq \Theta(n^3)$ and $2n^2 + 3n + 5 \neq \Theta(n)$, because Theta requires **both** the upper and lower bounds to match.
 
 **Proof Example:** $3n + 2 = \Theta(n)$
 
@@ -572,15 +601,17 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \
 | $O(n^3)$ | Cubic | Matrix multiplication (naive) |
 | $O(2^n)$ | Exponential | Subset exhaustive search |
 
+*Table 12. Common complexity classes and examples*
+
 **Hierarchy:** $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$
 
-> **Key Point:** Practical intuition:
-> - **O(1)**: Hash table lookup — instant
-> - **O(log n)**: Even for n=1 billion, ~30 steps — very fast
-> - **O(n)**: For n=1 billion, 1 billion steps — typically a few seconds
-> - **O(n log n)**: Most sorting — practical limit
-> - **O(n^2)**: For n=100,000, 10 billion steps — starts getting slow
-> - **O(2^n)**: For n=40, 1 trillion steps — practically impossible
+> **Key Point:** Practical intuition is as follows.
+> - **O(1)**: A hash table lookup (on average); it finishes instantly.
+> - **O(log n)**: Even for n=1 billion, about 30 steps; very fast.
+> - **O(n)**: For n=1 billion, 1 billion steps; typically a few seconds.
+> - **O(n log n)**: Most sorting falls here; the practical limit.
+> - **O(n²)**: For n=100,000, 10 billion steps; starts getting slow.
+> - **$O(2^n)$**: For n=40, about 1 trillion steps; practically impossible.
 
 **Growth Rate Comparison:**
 
@@ -589,13 +620,15 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \
 | 10 | 3.3 | 10 | 33 | 100 | 1,000 | 1,024 |
 | 100 | 6.6 | 100 | 664 | 10,000 | $10^6$ | $10^{30}$ |
 | 1,000 | 10 | 1,000 | 10,000 | $10^6$ | $10^9$ | $10^{301}$ |
-| $10^6$ | 20 | $10^6$ | $2 \times 10^7$ | $10^{12}$ | $10^{18}$ | — |
+| $10^6$ | 20 | $10^6$ | $2 \times 10^7$ | $10^{12}$ | $10^{18}$ | - |
+
+*Table 13. Growth of function values by input size*
 
 The gap between polynomial and exponential is **enormous**.
 
-> **Note:** $2^{100} \approx 10^{30}$, and the estimated number of atoms in the observable universe is roughly $10^{80}$. Even at just n=100, $2^n$ reaches an unimaginable scale. This is what "exponential-time algorithms are impractical" means.
+> **Note:** $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exceeds the estimated number of atoms in the observable universe (roughly $10^{80}$). Even at just n=100, $2^n$ reaches an unimaginable scale. This is what the claim that exponential-time algorithms are impractical means.
 
-> **Note:** In the table above, $\log n$ means $\log_2 n$. In CS, log without specifying a base usually means **base 2**. In Big-O, the base does not matter — since $\log_a n = \frac{\log_b n}{\log_b a}$, changing bases is just a constant factor, and constants are ignored in Big-O.
+> **Note:** In the table above, $\log n$ means $\log_2 n$. In CS, log without specifying a base usually means **base 2**. In Big-O, the base does not matter, because $\log_a n = \frac{\log_b n}{\log_b a}$, so changing bases is just a constant factor, and constants are ignored in Big-O.
 
 ### 3.6 Why Efficient Algorithms Matter
 
@@ -603,18 +636,20 @@ The gap between polynomial and exponential is **enormous**.
 
 | Algorithm | $n$ = 1,000 | $n$ = 1,000,000 | $n$ = 1,000,000,000 |
 |:----------|:------------|:----------------|:--------------------|
-| $O(n^2)$ (PC) | < 1 sec | ~2 hours | **~300 years** |
-| $O(n^2)$ (Supercomputer) | < 1 sec | ~1 sec | ~1 week |
-| $O(n \log n)$ (PC) | < 1 sec | < 1 sec | **~5 min** |
+| $O(n^2)$ (PC) | < 1 sec | about 3 hours | **about 300 years** |
+| $O(n^2)$ (Supercomputer) | < 1 sec | about 1 sec | about 12 days |
+| $O(n \log n)$ (PC) | < 1 sec | < 1 sec | **about 5 min** |
 | $O(n \log n)$ (Supercomputer) | < 1 sec | < 1 sec | < 1 sec |
 
-> *Assumes a PC performs ~10^8 operations/second and a supercomputer performs ~10^12 operations/second.*
+*Table 14. Sorting time by algorithm and hardware*
 
-> An efficient algorithm is **worth more than a supercomputer**.
+The table assumes a PC performs about $10^8$ operations per second and a supercomputer about $10^{12}$.
+
+> **Key Point:** An efficient algorithm is **worth more than a supercomputer**.
 >
 > Investing in a better algorithm is far more cost-effective than investing in better hardware.
 
-> **Key Point:** Running O(n^2) on a supercomputer is **tens of thousands of times slower** than running O(n log n) on a regular PC. Hardware can only provide constant-factor improvement, but an algorithm improvement changes the **order** itself.
+> **Note:** For large enough inputs, running O(n log n) on a regular PC is faster than running O(n²) on a supercomputer; at n = 1 billion it takes about 5 minutes versus about 12 days, a gap of **about 3,300×**. Hardware can only provide constant-factor improvement, but an algorithm improvement changes the **order** itself.
 
 ---
 
@@ -624,19 +659,19 @@ The gap between polynomial and exponential is **enormous**.
 
 ### 4.1 What Is a Recurrence Relation?
 
-When we analyze recursive algorithms, we cannot simply count loop iterations as we did in Section 2. Instead, the running time $T(n)$ is expressed in terms of $T$ on smaller inputs — this is a recurrence relation. Our goal is to *solve* the recurrence to get a closed-form expression like $O(n \log n)$.
+When we analyze recursive algorithms, we cannot simply count loop iterations as in Section 2. Instead, the running time $T(n)$ is expressed in terms of $T$ on smaller inputs, and this is a recurrence relation. The goal is to *solve* the recurrence to get a closed-form expression like $O(n \log n)$.
 
 A **recurrence relation** expresses a function in terms of its values on **smaller inputs**.
 
 Examples:
 - $a_n = a_{n-1} + 2$
-- $f(n) = n \cdot f(n-1)$ — Factorial
-- $f(n) = f(n-1) + f(n-2)$ — Fibonacci
-- $f(n) = f(n/2) + n$ — Binary reduction
+- $f(n) = n \cdot f(n-1)$: Factorial
+- $f(n) = f(n-1) + f(n-2)$: Fibonacci
+- $f(n) = f(n/2) + n$: Binary reduction
 
 Many recursive algorithms naturally produce recurrence relations for their running time.
 
-> **Note:** A recurrence relation can be thought of as a "recursively defined function." Recursive algorithms are difficult to express directly as T(n) = ..., so instead we express "T(n) in terms of T(n/2) or T(n-1), etc." The goal is to solve the recurrence and obtain a closed form.
+> **Note:** A recurrence relation can be thought of as a recursively defined function. The running time of a recursive algorithm is difficult to express directly in closed form, so instead we express T(n) in terms of T(n/2), T(n-1), and so on. The goal is to solve the recurrence and obtain a closed form.
 
 **Merge Sort Recurrence:**
 
@@ -646,7 +681,7 @@ $$T(n) = 2T(n/2) + n$$
 - $n$: Merge overhead (linear scan)
 - $T(1) = 1$
 
-> **[Data Structures]** How merge sort works:
+> **[Data Structures]** Merge sort works as follows.
 > 1. Split array [5, 2, 4, 1, 3] in half: [5, 2] / [4, 1, 3]
 > 2. Recursively sort each half: [2, 5] / [1, 3, 4]
 > 3. Merge the two sorted arrays: [1, 2, 3, 4, 5]
@@ -660,6 +695,8 @@ $$T(n) = 2T(n/2) + n$$
 | **Repeated Substitution** | Expand the recurrence step by step to find a pattern |
 | **Guess and Verify** | Guess the form, then prove it by mathematical induction |
 | **Master Theorem** | Apply a formula directly to recurrences of a specific form |
+
+*Table 15. Three methods for solving recurrences*
 
 ### 4.2 Method 1: Repeated Substitution
 
@@ -678,11 +715,11 @@ $$
 
 This is the recurrence for **factorial**, with linear time.
 
-> **Note:** The key strategy of repeated substitution: repeatedly substitute the recurrence into T(n) to find a pattern, then generalize it. In the example above, the pattern is "after k substitutions, T(n-k) + kc." Substituting k = n-1 gives T(1) + (n-1)c.
+> **Note:** The key strategy of repeated substitution is to repeatedly substitute the recurrence into T(n) to find a pattern, then generalize it. In the example above, the pattern is that after k substitutions we get T(n-k) + kc. Substituting k = n-1 gives T(1) + (n-1)c.
 
 **Applied to Merge Sort:** $T(n) = 2T(n/2) + n$, $T(1) = 1$
 
-Assume $n = 2^k$:
+Assume $n = 2^k$.
 
 $$
 \begin{aligned}
@@ -696,12 +733,12 @@ T(n) &= 2T(n/2) + n \\
 \end{aligned}
 $$
 
-> **Note:** The expansion pattern:
-> - 1 substitution: $2T(n/2) + n$ -> coefficient 2, problem size n/2
-> - 2 substitutions: $4T(n/4) + 2n$ -> coefficient 4, problem size n/4
+> **Note:** The expansion pattern is as follows.
+> - 1 substitution: $2T(n/2) + n$ → coefficient 2, problem size n/2
+> - 2 substitutions: $4T(n/4) + 2n$ → coefficient 4, problem size n/4
 > - k substitutions: $2^k T(n/2^k) + kn$
 >
-> If $n = 2^k$, then $k = \log_2 n$ and $2^k = n$, so we get $n \cdot T(1) + n\log n$. **Assuming $n = 2^k$ is for computational convenience**, and the same result holds for general n.
+> If $n = 2^k$, then $k = \log_2 n$ and $2^k = n$, so we get $n \cdot T(1) + n\log n$. **Assuming $n = 2^k$ is for computational convenience**, and the same result holds asymptotically for general n.
 
 ### 4.3 Method 2: Guess and Verify (Induction)
 
@@ -709,7 +746,7 @@ $$
 
 **Guess:** $T(n) = O(n \log n)$, i.e., $T(n) \leq cn \log n$ for some constant $c > 0$.
 
-> **[Discrete Mathematics]** The 3 steps of mathematical induction:
+> **[Discrete Mathematics]** The 3 steps of mathematical induction are as follows.
 > 1. **Base Case**: Show the statement is true for the smallest case
 > 2. **Inductive Hypothesis**: Assume the statement is true for n = k
 > 3. **Inductive Step**: Show it is also true for n = k+1
@@ -738,29 +775,29 @@ Therefore $T(n) = O(n \log n)$. $\square$
 
 **Common Pitfall:**
 
-**Warning:** The constant $c$ in the hypothesis must be **the same** $c$ in the conclusion.
+> **Caution:** The constant $c$ in the hypothesis must be **the same** $c$ in the conclusion.
 
-Incorrect proof attempt — $T(n) = 2T(n/2) + 1$, guess $T(n) = O(n)$:
+As an incorrect proof attempt, guess $T(n) = O(n)$ for $T(n) = 2T(n/2) + 1$.
 
 $$T(n) \leq 2 \cdot c(n/2) + 1 = cn + 1$$
 
-This is $cn + 1$, which is **not** $\leq cn$. Proof fails!
+This is $cn + 1$, which is **not** $\leq cn$. The proof therefore fails.
 
-Fix — strengthen the guess to $T(n) \leq cn - 2$:
+Fix: strengthen the guess to $T(n) \leq cn - 2$.
 
 $$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
 
-> **Exam Tip:** This pitfall appears frequently on exams! The most common mistake in induction proofs is getting "cn + (constant)" and saying "it's O(n), so we're done." In induction, you must show **exactly the same form** ($\leq cn$). The solution is to "slightly reduce" the guess to $cn - d$ (for an appropriate constant d) to create slack.
+> **Note:** **Exam tip.** This pitfall appears frequently on exams. The most common mistake in induction proofs is getting cn + (constant) and concluding that it is O(n) and therefore enough. In induction, you must show **exactly the same form** ($\leq cn$). The solution is to slightly reduce the guess to $cn - d$ (for an appropriate constant d) to create slack.
 
-> **Note:** A systematic method for determining the constant $d$: the original proof gave $T(n) \leq cn + 1$ but needed $\leq cn$. Set the guess to $cn - d$ and expand the inductive step: $T(n) \leq 2(c(n/2) - d) + 1 = cn - 2d + 1$. For this to be $\leq cn - d$, we need $-2d + 1 \leq -d$, i.e., $d \geq 1$ suffices. The key is "creating slack to absorb the excess."
+> **Note:** A systematic method for determining the constant $d$ is as follows. The original proof gave $T(n) \leq cn + 1$ but needed $\leq cn$. Set the guess to $cn - d$ and expand the inductive step: $T(n) \leq 2(c(n/2) - d) + 1 = cn - 2d + 1$. For this to be $\leq cn - d$, we need $-2d + 1 \leq -d$, i.e., $d \geq 1$ suffices. The key is creating slack to absorb the excess.
 
 ### 4.4 Method 3: Master Theorem
 
-For recurrences of the form:
+Consider recurrences of the following form.
 
 $$T(n) = aT(n/b) + f(n) \quad \text{(where } a \geq 1, \; b > 1\text{)}$$
 
-Let $h(n) = n^{\log_b a}$. Compare $f(n)$ and $h(n)$:
+Let $h(n) = n^{\log_b a}$, and compare $f(n)$ and $h(n)$.
 
 | Case | Condition | Result |
 |:-----|:---------|:-------|
@@ -768,25 +805,27 @@ Let $h(n) = n^{\log_b a}$. Compare $f(n)$ and $h(n)$:
 | **Case 2** | $f(n) = \Theta(n^{\log_b a})$ | $T(n) = \Theta(n^{\log_b a} \log n)$ |
 | **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (for some $\varepsilon > 0$), and $af(n/b) \leq cf(n)$ (for some $c < 1$) | $T(n) = \Theta(f(n))$ |
 
-> **Note:** What "polynomially smaller/larger" means: The requirement that $\varepsilon > 0$ exists in $f(n) = O(n^{\log_b a - \varepsilon})$ means f(n) must be smaller than $n^{\log_b a}$ by a factor of **$n^{\varepsilon}$**. For example, if $n^{\log_b a} = n$ and $f(n) = n / \log n$, this is smaller than n but not "polynomially" smaller. In such cases, the Master Theorem cannot be directly applied.
+*Table 16. The three cases of the Master Theorem*
 
-> **Key Point:** The Master Theorem is a **powerful tool that solves divide-and-conquer recurrences in one step**. The core is simple:
+> **Note:** **Polynomially smaller** or **larger** means the following. The requirement that $\varepsilon > 0$ exists in $f(n) = O(n^{\log_b a - \varepsilon})$ means f(n) must be smaller than $n^{\log_b a}$ by a factor of **$n^{\varepsilon}$**. For example, if $n^{\log_b a} = n$ and $f(n) = n / \log n$, this is smaller than n but not polynomially smaller. In such cases, the Master Theorem cannot be directly applied.
+
+> **Key Point:** The Master Theorem is a **powerful tool that solves divide-and-conquer recurrences in one step**. The core is simple.
 > - $a$: Number of recursive calls
 > - $b$: Factor by which the problem shrinks
 > - $f(n)$: Cost of dividing and combining
 > - $n^{\log_b a}$: Cost at the leaf level of the recursion tree
 >
-> The 3 Cases determine "do the leaves dominate (Case 1), does the root dominate (Case 3), or is it a tie (Case 2)?"
+> The 3 Cases determine whether the leaves dominate (Case 1), the root dominates (Case 3), or it is a tie (Case 2).
 
 **Intuition:**
 
 $$T(n) = aT(n/b) + f(n)$$
 
-Each level of the recursion tree does work. **Who dominates?**
+Each level of the recursion tree does work. **Which part dominates?**
 
-![Recursion Tree with Level Costs](../images/recursion-tree-costs.png)
+![Figure 8. Recursion tree of the merge sort recurrence with per-level costs](../../images/Week02_Recursion-Tree-Costs.png)
 
-*Recursion Tree with Level Costs*
+*Figure 8. Recursion tree of the merge sort recurrence with per-level costs*
 
 | Scenario | Winner | Result |
 |:---------|:-------|:-------|
@@ -794,41 +833,43 @@ Each level of the recursion tree does work. **Who dominates?**
 | Root dominates | Root work wins | $T(n) = \Theta(f(n))$ |
 | Balanced | Equal per level | $T(n) = \Theta(n^{\log_b a} \log n)$ |
 
+*Table 17. Result by the dominating part of the recursion tree*
+
 The tree height is $\log_b n$, and the total cost at each level is summed.
 
-> **[Data Structures]** A recursion tree is an application of trees. The root is the original problem, each internal node is a recursive call, and leaves are base cases. The tree height is $\log_b n$ because the problem size shrinks by a factor of $1/b$ at each level (n -> n/b -> n/b^2 -> ... -> 1).
+> **[Data Structures]** A recursion tree is an application of trees. The root is the original problem, each internal node is a recursive call, and leaves are base cases. The tree height is $\log_b n$ because the problem size shrinks by a factor of $1/b$ at each level (n → n/b → n/b² → … → 1).
 
 **Examples:**
 
 **Example 1:** $T(n) = 2T(n/3) + c$
 
 - $a = 2$, $b = 3$, $h(n) = n^{\log_3 2} \approx n^{0.63}$, $f(n) = c = O(1)$
-- $f(n)$ is polynomially smaller -> **Case 1**
+- $f(n)$ is polynomially smaller → **Case 1**
 - $T(n) = \Theta(n^{\log_3 2})$
 
 **Example 2:** $T(n) = 2T(n/4) + n$
 
 - $a = 2$, $b = 4$, $h(n) = n^{\log_4 2} = n^{0.5} = \sqrt{n}$, $f(n) = n$
-- $f(n)$ is polynomially larger -> **Case 3**
+- $f(n)$ is polynomially larger → **Case 3**
 - $T(n) = \Theta(n)$
 
 **Example 3:** $T(n) = 2T(n/2) + n$
 
 - $a = 2$, $b = 2$, $h(n) = n^{\log_2 2} = n$, $f(n) = n$
-- $f(n) = \Theta(h(n))$ -> **Case 2**
+- $f(n) = \Theta(h(n))$ → **Case 2**
 - $T(n) = \Theta(n \log n)$
 
-> **Note:** Master Theorem application steps:
+> **Note:** The Master Theorem is applied in the following order.
 > 1. Identify a, b, and f(n)
 > 2. Compute $n^{\log_b a}$
 > 3. Compare f(n) with $n^{\log_b a}$
 > 4. Apply the corresponding Case
 >
-> Example 3 is precisely the recurrence for **merge sort**! Using the Master Theorem, you get O(n log n) immediately without repeated substitution or induction.
+> Example 3 is precisely the recurrence for **merge sort**. Using the Master Theorem, you get Θ(n log n) immediately without repeated substitution or induction.
 
-> **Note:** The regularity condition ensures that $f(n)$ is "well-behaved" — specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) satisfy this automatically.
+> **Note:** The regularity condition ensures that $f(n)$ is well-behaved; specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) that satisfy the first condition of Case 3 also satisfy this condition automatically.
 
-> **Exam Tip:** **Case 3 of the Master Theorem is rarely tested** because verifying the regularity condition ($af(n/b) \leq cf(n)$) is tricky. Most exam problems can be solved with Case 1 or Case 2. Focusing on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
+> **Note:** **Exam tip.** **Case 3 of the Master Theorem is rarely tested** because verifying the regularity condition ($af(n/b) \leq cf(n)$) is tricky. Most exam problems can be solved with Case 1 or Case 2. Focusing on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
 
 ---
 
@@ -836,62 +877,100 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 
 ## Summary
 
-| Concept | Key Takeaway |
+| Concept | Key Summary |
 |:--------|:-------------|
-| Algorithm | A step-by-step procedure for solving problems; correctness, executability, finiteness, and efficiency are essential properties |
-| Euclidean GCD | Oldest known algorithm (~300 BCE); repeatedly applies GCD(A, B) = GCD(B, A mod B) |
-| Iteration vs Recursion | Iteration uses loops, recursion uses self-calls; same results but recursion uses the call stack |
-| Algorithm Representation | Natural language, **pseudocode** (most common), flowchart |
-| Algorithm Classification | Divide and Conquer, Greedy, DP, Approximation, Backtracking, Branch and Bound — 3 core: **Divide and Conquer, Greedy, DP** |
-| Time Complexity | Number of basic operations as a function of input size $n$; computed as abstract operation counts, not actual time (seconds) |
-| Complexity Analysis Types | **Worst-case** (most common — provides guarantee), Average, Best, Amortized |
-| Big-O ($O$) | Asymptotic **upper bound**; $f(n) \leq c \cdot g(n)$ for all $n \geq n_0$; "at most this much" |
-| Big-Omega ($\Omega$) | Asymptotic **lower bound**; $f(n) \geq c \cdot g(n)$ for all $n \geq n_0$; "at least this much" |
-| Theta ($\Theta$) | **Tight bound**; $O \cap \Omega$; "exactly this level" |
-| Write tightly | $O(n \log n)$ is more useful than $O(n^2)$; a loose bound means information loss |
-| Complexity Hierarchy | $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$ |
-| Algorithm > Hardware | Running O(n log n) on a PC is faster than running O(n^2) on a supercomputer |
-| Recurrence Relations | Express a function in terms of values on smaller inputs; used to analyze time complexity of recursive algorithms |
-| Repeated Substitution | Repeatedly expand the recurrence to find and generalize a pattern |
-| Guess and Verify | Guess the form and prove by mathematical induction; **beware the pitfall of the constant c needing to be identical** |
-| Master Theorem | Apply to $T(n) = aT(n/b) + f(n)$; determine the Case by comparing $n^{\log_b a}$ with $f(n)$ |
-| Textbook Coverage | CLRS Chapters 1-3 |
+| Algorithm | It is a step-by-step procedure for solving problems, and correctness, executability, finiteness, and efficiency are its essential properties. |
+| Euclidean GCD | It is one of the oldest known algorithms (around 300 BCE) and repeatedly applies GCD(A, B) = GCD(B, A mod B). |
+| Iteration vs Recursion | Iteration uses loops and recursion uses self-calls; the results are the same, but recursion uses the call stack. |
+| Algorithm Representation | Algorithms are represented in natural language, **pseudocode** (most common), or flowcharts. |
+| Algorithm Classification | Algorithms divide into divide and conquer, greedy, DP, approximation, backtracking, and branch and bound, and the three core strategies are **divide and conquer, greedy, and DP**. |
+| Time Complexity | It is the number of basic operations as a function of input size $n$, computed as an abstract operation count rather than actual time (seconds). |
+| Complexity Analysis Types | They are **worst-case** (most common, providing a guarantee), average-case, best-case, and amortized. |
+| Big-O ($O$) | It is an asymptotic **upper bound**, meaning constants $c$ and $n_0$ exist with $f(n) \leq c \cdot g(n)$ for all $n \geq n_0$. |
+| Big-Omega ($\Omega$) | It is an asymptotic **lower bound**, meaning constants $c$ and $n_0$ exist with $f(n) \geq c \cdot g(n)$ for all $n \geq n_0$. |
+| Theta ($\Theta$) | It is a **tight bound**, $O \cap \Omega$, meaning exactly that growth rate. |
+| Write tightly | $O(n \log n)$ is more useful than $O(n^2)$, and a loose bound means information loss. |
+| Complexity Hierarchy | The hierarchy is $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$. |
+| Algorithm > Hardware | For large enough inputs, running O(n log n) on a PC is faster than running O(n²) on a supercomputer. |
+| Recurrence Relations | A recurrence expresses a function in terms of its values on smaller inputs and is used to analyze the time complexity of recursive algorithms. |
+| Repeated Substitution | It repeatedly expands the recurrence to find and generalize a pattern. |
+| Guess and Verify | It guesses the form and proves it by mathematical induction, and you must **beware the pitfall that the constant c must be identical**. |
+| Master Theorem | It applies to $T(n) = aT(n/b) + f(n)$ and determines the Case by comparing $n^{\log_b a}$ with $f(n)$. |
 
 ---
 
+<br>
 
 ## Self-Check Questions
 
 1. **Euclidean GCD:** Trace GCD(48, 18) step by step. How many iterations does it take?
 
-   > **Answer:** Apply `GCD(A, B) = GCD(B, A mod B)` repeatedly: `GCD(48, 18) → GCD(18, 12) → GCD(12, 6) → GCD(6, 0) = 6`. The recursion stops when `b == 0`, returning the other argument as the GCD. It takes **3 iterations** (or 4 calls if you count the terminating call). The algorithm is fast because `b` shrinks quickly — by a result of Lamé, the number of steps is `O(log min(a, b))`.
+   <details>
+   <summary>Answer</summary>
+
+   Apply `GCD(A, B) = GCD(B, A mod B)` repeatedly: `GCD(48, 18) → GCD(18, 12) → GCD(12, 6) → GCD(6, 0) = 6`. The recursion stops when `b == 0`, returning the other argument as the GCD. It takes **3 iterations** (or 4 calls if you count the terminating call). The algorithm is fast because `b` shrinks quickly; by **Lamé's theorem**, the number of steps is `O(log min(a, b))`.
+
+   </details>
 
 2. **Operation Counting:** Given the code `for i in range(n): for j in range(i, n): count += 1`, how many times does `count += 1` execute? Express as a function of n.
 
-   > **Answer:** This is the **triangular double loop** pattern. The inner loop runs `n - i` times for each `i` from `0` to `n-1`, so the total is `n + (n-1) + (n-2) + ... + 1 = n(n+1)/2`. Asymptotically this is **Θ(n²)** — keeping only the highest-order term and dropping the constant factor `1/2`. The triangular structure does not save an order of growth, only a constant factor.
+   <details>
+   <summary>Answer</summary>
+
+   This is the **triangular double loop** pattern. The inner loop runs `n - i` times for each `i` from `0` to `n-1`, so the total is `n + (n-1) + (n-2) + ... + 1 = n(n+1)/2`. Asymptotically this is **Θ(n²)**, keeping only the highest-order term and dropping the constant factor `1/2`. The triangular structure does not save an order of growth, only a constant factor.
+
+   </details>
 
 3. **Big-O Proof:** Prove that 5n³ + 2n² + 7 = O(n³) by finding appropriate c and n₀.
 
-   > **Answer:** We need `c > 0` and `n₀ ≥ 0` such that `5n³ + 2n² + 7 ≤ c · n³` for all `n ≥ n₀`. Using the **sum-of-absolute-coefficients trick**, choose `c = 5 + 2 + 7 = 14` and `n₀ = 1`. For `n ≥ 1`: `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³`. Therefore `5n³ + 2n² + 7 = O(n³)` with `c = 14`, `n₀ = 1`. (Tighter values like `c = 6`, `n₀ = 3` also work.)
+   <details>
+   <summary>Answer</summary>
+
+   We need `c > 0` and `n₀ ≥ 0` such that `5n³ + 2n² + 7 ≤ c · n³` for all `n ≥ n₀`. Using the **sum-of-absolute-coefficients trick**, choose `c = 5 + 2 + 7 = 14` and `n₀ = 1`. For `n ≥ 1`: `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³`. Therefore `5n³ + 2n² + 7 = O(n³)` with `c = 14`, `n₀ = 1`. (Tighter values like `c = 6`, `n₀ = 3` also work.)
+
+   </details>
 
 4. **Big-Omega vs Big-O:** Is it true that n² = O(n³)? Is it true that n² = Ω(n³)? Explain why or why not.
 
-   > **Answer:** **`n² = O(n³)` is true** — `n²` does not grow faster than `n³`, since `n² ≤ 1 · n³` for all `n ≥ 1` (`c = 1`, `n₀ = 1`). **`n² = Ω(n³)` is false** — Big-Omega requires `n² ≥ c · n³` for some `c > 0` and large `n`, but `n²/n³ = 1/n → 0`, so no such constant exists. The lesson: Big-O gives an **upper bound** that can be loose, while Big-Omega demands a genuine lower bound.
+   <details>
+   <summary>Answer</summary>
+
+   **`n² = O(n³)` is true**. `n²` does not grow faster than `n³`, since `n² ≤ 1 · n³` for all `n ≥ 1` (`c = 1`, `n₀ = 1`). **`n² = Ω(n³)` is false**. Big-Omega requires `n² ≥ c · n³` for some `c > 0` and large `n`, but `n²/n³ = 1/n → 0`, so no such constant exists. The lesson: Big-O gives an **upper bound** that can be loose, while Big-Omega demands a genuine lower bound.
+
+   </details>
 
 5. **Theta:** If f(n) = Θ(g(n)), what does this tell you about the relationship between f and g? Can f(n) = Θ(n²) and f(n) = O(n³) both be true simultaneously?
 
-   > **Answer:** `f(n) = Θ(g(n))` means `f` and `g` grow at **exactly the same rate** up to constant factors — formally, `f = O(g)` *and* `f = Ω(g)`. **Yes**, `f(n) = Θ(n²)` and `f(n) = O(n³)` can both be true: a Θ-bound implies the matching O-bound, and any function that is `Θ(n²)` is also (loosely) `O(n³)`. Θ is the tightest statement; the corresponding O statement is always weaker but not contradictory.
+   <details>
+   <summary>Answer</summary>
 
-6. **Master Theorem:** Apply the Master Theorem to T(n) = 4T(n/2) + n. Identify a, b, f(n), compute n^(log_b a), determine the case, and state T(n).
+   `f(n) = Θ(g(n))` means `f` and `g` grow at **exactly the same rate** up to constant factors; formally, `f = O(g)` *and* `f = Ω(g)`. **Yes**, `f(n) = Θ(n²)` and `f(n) = O(n³)` can both be true: a Θ-bound implies the matching O-bound, and any function that is `Θ(n²)` is also (loosely) `O(n³)`. Θ is the tightest statement; the corresponding O statement is always weaker but not contradictory.
 
-   > **Answer:** Here `a = 4`, `b = 2`, `f(n) = n`, so `n^(log_b a) = n^(log₂ 4) = n²`. Compare `f(n) = n` with `n²`: `n` is polynomially smaller than `n²` (use `ε = 1`, since `n = O(n^(2-1))`). This is **Case 1**, so `T(n) = Θ(n^(log_b a)) = Θ(n²)`. Intuitively, the leaves of the recursion tree dominate — there are `n²` of them and each does constant work.
+   </details>
 
-7. **Guess and Verify:** For T(n) = T(n/2) + 1, guess that T(n) = O(log n) and verify using induction. Don't forget the base case!
+6. **Master Theorem:** Apply the Master Theorem to T(n) = 4T(n/2) + n. Identify a, b, f(n), compute $n^{\log_b a}$, determine the case, and state T(n).
 
-   > **Answer:** **Guess:** `T(n) ≤ c · log n` for some `c > 0`. **Base case** (`n = 2`): `T(2) = T(1) + 1`. Assuming `T(1) = 1`, `T(2) = 2`, and we need `2 ≤ c · log₂ 2 = c`, so `c ≥ 2`. **Inductive step:** Assume `T(n/2) ≤ c · log(n/2)`. Then `T(n) = T(n/2) + 1 ≤ c · log(n/2) + 1 = c · log n - c · log 2 + 1 ≤ c · log n` whenever `c · log 2 ≥ 1`, i.e., `c ≥ 1/log 2 ≈ 1.44`. Taking `c = 2` satisfies both, so `T(n) = O(log n)`.
+   <details>
+   <summary>Answer</summary>
 
-8. **Why does it matter?** A PC running an O(n log n) algorithm vs a supercomputer running an O(n²) algorithm — at what input size does the PC win?
+   Here `a = 4`, `b = 2`, `f(n) = n`, so $n^{\log_b a} = n^{\log_2 4} = n^2$. Compare `f(n) = n` with `n²`: `n` is **polynomially smaller** than `n²` (use $\varepsilon = 1$, since $n = O(n^{2-1})$). This is **Case 1**, so $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$. Intuitively, the leaves of the recursion tree dominate, because there are `n²` of them and each does constant work.
 
-   > **Answer:** Assume the PC does `10⁸` ops/sec and the supercomputer does `10¹²` ops/sec — a **10,000×** hardware gap. The PC wins when `n log n / 10⁸ < n² / 10¹²`, i.e., when `log n / n < 10⁻⁴`, roughly `n > 200,000`. Beyond a few hundred thousand inputs, the PC's better **algorithmic order** beats the supercomputer's raw speed. This illustrates the central message: **a better algorithm dominates a faster machine** — hardware gives a constant-factor improvement, while algorithmic order changes the growth class itself.
+   </details>
 
----
+7. **Guess and Verify:** For T(n) = T(n/2) + 1, guess that T(n) = O(log n) and verify using induction. The base case must also be checked.
+
+   <details>
+   <summary>Answer</summary>
+
+   **Guess:** `T(n) ≤ c · log n` for some `c > 0`. **Base case** (`n = 2`): `T(2) = T(1) + 1`. Assuming `T(1) = 1`, `T(2) = 2`, and we need `2 ≤ c · log₂ 2 = c`, so `c ≥ 2`. **Inductive step:** Assume `T(n/2) ≤ c · log(n/2)`. Then `T(n) = T(n/2) + 1 ≤ c · log(n/2) + 1 = c · log n - c · log 2 + 1 ≤ c · log n` whenever `c · log 2 ≥ 1`, i.e., `c ≥ 1/log 2`. With base 2, `log 2 = 1`, so `c ≥ 1` (with the natural log it would be `c ≥ 1/ln 2 ≈ 1.44`). Taking `c = 2` satisfies both, so `T(n) = O(log n)`.
+
+   </details>
+
+8. **Why does it matter?** Comparing a PC running an O(n log n) algorithm with a supercomputer running an O(n²) algorithm, at what input size does the PC win?
+
+   <details>
+   <summary>Answer</summary>
+
+   Assume the PC does `10⁸` ops/sec and the supercomputer does `10¹²` ops/sec, a **10,000×** hardware gap. The PC wins when `n log n / 10⁸ < n² / 10¹²`, i.e., when `log n / n < 10⁻⁴`, roughly `n > 200,000`. Beyond a few hundred thousand inputs, the PC's better **algorithmic order** beats the supercomputer's raw speed. This illustrates the central message that **a better algorithm beats a better machine**: hardware gives a constant-factor improvement, while algorithmic order changes the growth class itself.
+
+   </details>

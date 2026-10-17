@@ -1,10 +1,10 @@
 # Week 6 Lab — Dynamic Programming
 
-> **Last Updated:** 2026-05-13
+[Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Prerequisites**: Week 6 Lecture — dynamic programming, optimal substructure, overlapping subproblems. Python 3 installed. Understanding of recursion and basic algorithm analysis.
->
-> **Learning Objectives**:
+> **Last Updated:** 2026-10-18
+
+> **Learning Objectives:**
 > 1. Compare naive recursion, memoization, and tabulation through the Fibonacci problem
 > 2. Build a 2D DP table for LCS and recover the actual subsequence via backtracking
 > 3. Implement the 0-1 Knapsack problem with DP and trace selected items
@@ -15,7 +15,10 @@
 ## Table of Contents
 
 - [1. Overview](#1-overview)
-- [2. Type A — Algorithm Implementation](#2-type-a--algorithm-implementation)
+  - [1.1 Lab Goals](#11-lab-goals)
+  - [1.2 Lab Structure](#12-lab-structure)
+  - [1.3 How to Run](#13-how-to-run)
+- [2. Type A: Algorithm Implementation](#2-type-a-algorithm-implementation)
   - [2.1 A-1: Fibonacci Comparison](#21-a-1-fibonacci-comparison)
     - [2.1.1 Problem](#211-problem)
     - [2.1.2 Three Approaches](#212-three-approaches)
@@ -29,10 +32,11 @@
     - [2.3.1 Problem](#231-problem)
     - [2.3.2 DP Table & Backtracking](#232-dp-table--backtracking)
     - [2.3.3 Solution Code](#233-solution-code)
-- [3. Type B — Web Code Analysis](#3-type-b--web-code-analysis)
+- [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Text Diff Viewer](#31-b-1-text-diff-viewer)
     - [3.1.1 Setup](#311-setup)
     - [3.1.2 How Diff Works](#312-how-diff-works)
+- [4. The DP Recipe](#4-the-dp-recipe)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -42,14 +46,14 @@
 
 ## 1. Overview
 
-### Today's Goals
+### 1.1 Lab Goals
 
-- Understand and implement the core DP patterns: **memoization** and **tabulation**
-- Build a 2D DP table for **LCS** and recover the actual subsequence via backtracking
-- Implement the **0-1 Knapsack** problem with DP and trace selected items through backtracking
-- Analyze how **LCS-based diff** is used in a real web application
+- Understand and implement the core DP patterns, **memoization** and **tabulation**.
+- Build a 2D DP table for **LCS** and recover the actual subsequence via backtracking.
+- Implement the **0-1 Knapsack** problem with DP and trace selected items through backtracking.
+- Analyze how **LCS-based diff** is used in a real web application.
 
-### Lab Structure
+### 1.2 Lab Structure
 
 | Section | Topic | Time |
 |:--------|:------|:-----|
@@ -58,7 +62,9 @@
 | **A-3** | 0-1 Knapsack + Backtracking | 10 min |
 | **B-1** | Text Diff Viewer | 15 min |
 
-### How to Run
+*Table 1. Topics and time allotted for each lab section*
+
+### 1.3 How to Run
 
 Skeleton files (with `TODO` comments) are in `examples/skeletons/`, and reference solutions are in `examples/solutions/`.
 
@@ -76,7 +82,7 @@ No external packages are required (standard library only). Flask is needed only 
 
 <br>
 
-## 2. Type A — Algorithm Implementation
+## 2. Type A: Algorithm Implementation
 
 ### 2.1 A-1: Fibonacci Comparison
 
@@ -84,9 +90,9 @@ Compare three approaches to computing Fibonacci numbers and observe how DP elimi
 
 #### 2.1.1 Problem
 
-**Goal**: Compare three approaches to computing Fibonacci numbers.
+**Goal:** Compare three approaches to computing Fibonacci numbers.
 
-```
+```text
 Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 
 F(0) = 0
@@ -96,7 +102,7 @@ F(n) = F(n-1) + F(n-2)   for n >= 2
 
 **Why is naive recursion so slow?**
 
-```
+```text
                     F(5)
                    /    \
                F(4)      F(3)
@@ -110,6 +116,8 @@ F(n) = F(n-1) + F(n-2)   for n >= 2
 Overlapping subproblems!  F(3) computed 2 times, F(2) computed 3 times...
 Total calls for F(n): O(2^n)
 ```
+
+*Figure 1. Call tree of naive recursion computing F(5)*
 
 #### 2.1.2 Three Approaches
 
@@ -142,8 +150,8 @@ Run: `python examples/solutions/a1_fibonacci.py`
 
 #### 2.1.3 Performance Results
 
-```
-  N   |     Naive      |     Memo       |  Tabulation
+```text
+  N   |    Naive     |     Memo       |  Tabulation
 ------+--------------+----------------+----------------
   10  |   0.000005s  |   0.000003s    |   0.000002s
   20  |   0.001200s  |   0.000004s    |   0.000002s
@@ -152,18 +160,20 @@ Run: `python examples/solutions/a1_fibonacci.py`
   40  |   too slow   |   0.000006s    |   0.000003s
 ```
 
-*(Approximate — your results will vary)*
+The measurements are approximate and vary with the execution environment.
 
 **Key comparison:**
 
 | Approach | Time | Space | Direction |
 |:---------|:-----|:------|:----------|
-| Naive recursion | O(2^n) | O(n) stack | — |
+| Naive recursion | $O(2^n)$ | O(n) stack | N/A |
 | Memoization | O(n) | O(n) cache + stack | Top-down |
 | Tabulation | O(n) | O(n) table | Bottom-up |
 
-**Memoization** = recursion + caching. **Tabulation** = iterative table-filling.
-Both eliminate overlapping subproblems. Tabulation avoids recursion overhead.
+*Table 2. Time, space, and direction of the three Fibonacci approaches*
+
+**Memoization** is recursion plus caching, and **tabulation** is iterative table filling.
+Both eliminate overlapping subproblems, and tabulation also avoids recursion overhead.
 
 ---
 
@@ -173,11 +183,11 @@ Both eliminate overlapping subproblems. Tabulation avoids recursion overhead.
 
 #### 2.2.1 Problem
 
-**Problem**: Find the Longest Common Subsequence of two strings.
+**Problem:** Find the **longest common subsequence (LCS)** of two strings.
 
 A **subsequence** preserves order but not necessarily contiguity.
 
-```
+```text
 X = "ABCBDAB"
 Y = "BDCAB"
 
@@ -185,42 +195,46 @@ Common subsequences: "B", "AB", "BD", "BCB", "BCAB", ...
 Longest: "BCAB" (length 4)
 
 X: A B C B D A B
-       ^   ^   ^ ^
+     ^ ^     ^ ^
 Y: B D C A B
    ^   ^ ^ ^
 ```
 
+*Figure 2. Common subsequences of X and Y with the positions of LCS characters marked*
+
 **Recurrence:**
 
-```
+```text
 If X[i] == Y[j]:   dp[i][j] = dp[i-1][j-1] + 1   (match!)
 If X[i] != Y[j]:   dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 ```
 
-**Time**: O(m × n) &nbsp;&nbsp; **Space**: O(m × n)
+**Time:** O(m × n), **Space:** O(m × n)
 
 #### 2.2.2 DP Table
 
-```
+```text
 X = "ABCBDAB",  Y = "BDCAB"
 
           ""   B    D    C    A    B
           0    1    2    3    4    5
     ----------------------------------
  "" 0 |   0    0    0    0    0    0
-  A 1 |   0    0    0    0   [1]   1
-  B 2 |   0   [1]   1    1    1    2
+  A 1 |   0    0    0    0    1    1
+  B 2 |   0   [1]  (1)   1    1    2
   C 3 |   0    1    1   [2]   2    2
-  B 4 |   0    1    1    2    2   [3]
-  D 5 |   0    1   (2)   2    2    3
-  A 6 |   0    1    2    2   (3)   3
+  B 4 |   0    1    1   (2)   2    3
+  D 5 |   0    1    2   (2)   2    3
+  A 6 |   0    1    2    2   [3]   3
   B 7 |   0    1    2    2    3   [4]
 
   [n] = match (diagonal move, included in LCS)
   (n) = backtrack path
 ```
 
-**LCS = "BCAB"** (length 4)
+*Figure 3. LCS DP table for X = ABCBDAB and Y = BDCAB*
+
+**LCS = `BCAB`** (length 4)
 
 #### 2.2.3 Solution Code
 
@@ -265,16 +279,15 @@ Run: `python examples/solutions/a2_lcs.py`
 
 #### 2.2.4 Backtracking Visualization
 
-```
+```text
 Start at dp[7][5] = 4, trace back to dp[0][0]:
 
   (7,5): X[7]='B' == Y[5]='B' -> diagonal (MATCH: 'B')
   (6,4): X[6]='A' == Y[4]='A' -> diagonal (MATCH: 'A')
   (5,3): X[5]='D' != Y[3]='C' -> up  (dp[4][3]=2 >= dp[5][2]=2)
-  (4,4): was (5,3)->up->(4,3)
-         X[4]='B' != Y[3]='C' -> left... (continuing trace)
-  ...eventually:
+  (4,3): X[4]='B' != Y[3]='C' -> up  (dp[3][3]=2 >= dp[4][2]=1)
   (3,3): X[3]='C' == Y[3]='C' -> diagonal (MATCH: 'C')
+  (2,2): X[2]='B' != Y[2]='D' -> left (dp[1][2]=0 < dp[2][1]=1)
   (2,1): X[2]='B' == Y[1]='B' -> diagonal (MATCH: 'B')
 
 Collected (reversed): B -> C -> A -> B = "BCAB"
@@ -282,9 +295,9 @@ Collected (reversed): B -> C -> A -> B = "BCAB"
 
 **Applications of LCS:**
 
-- **git diff** — comparing file versions line by line
-- **DNA sequence alignment** — comparing genetic sequences
-- **Edit distance** — minimum edits to transform one string into another
+- **git diff:** compares file versions line by line.
+- **DNA sequence alignment:** compares genetic sequences.
+- **Edit distance:** finds the minimum number of edits to transform one string into another.
 
 ---
 
@@ -294,9 +307,9 @@ Collected (reversed): B -> C -> A -> B = "BCAB"
 
 #### 2.3.1 Problem
 
-**Problem**: Select items to maximize value without exceeding capacity. Items **cannot be split** (take it or leave it).
+**Problem:** Select items to maximize value without exceeding capacity. Items **cannot be split**, so each is either taken whole or left.
 
-```
+```text
 Capacity: 50
 
 Item       Value   Weight
@@ -309,7 +322,7 @@ Book        40       5
 
 **Recurrence:**
 
-```
+```text
 dp[i][j] = maximum value using first i items with capacity j
 
 If weight_i > j:   dp[i][j] = dp[i-1][j]          (can't take item i)
@@ -323,26 +336,29 @@ Which items should we pick?
 
 #### 2.3.2 DP Table & Backtracking
 
-```
+```text
           Capacity ->  0   5  10  15  20  25  30  35  40  45  50
           ---------------------------------------------------------
 (none)  0 |            0   0   0   0   0   0   0   0   0   0   0
 Laptop  1 |            0   0  60  60  60  60  60  60  60  60  60
 Camera  2 |            0   0  60  60 100 100 160 160 160 160 160
 Paint.  3 |            0   0  60  60 100 100 160 160 180 180 220
-Book    4 |            0  40  60 100 100 140 140 200 200 220 220
+Book    4 |            0  40  60 100 100 140 160 200 200 220 220
 
 Answer: dp[4][50] = 220
 
 Backtrack from dp[4][50]:
-  dp[4][50]=220 != dp[3][50]=220 -> skip Book?
-  Wait: dp[4][50]=220 == dp[3][50]=220 -> skip Book
+  dp[4][50]=220 == dp[3][50]=220 -> skip Book
   dp[3][50]=220 != dp[2][50]=160 -> TAKE Painting (j: 50->20)
   dp[2][20]=100 != dp[1][20]=60  -> TAKE Camera   (j: 20->0)
   dp[1][0]=0 == dp[0][0]=0      -> skip Laptop
 
 Selected: Camera (100, 20kg) + Painting (120, 30kg) = 220
 ```
+
+*Figure 4. DP table and backtracking for the 0-1 knapsack example with capacity 50*
+
+> **Note:** **Another optimal solution.** Laptop + Painting + Book (weight 45, value 220) is another optimal solution with the same maximum value. The code in Section 2.3.3 skips an item when dp[i][j] = dp[i-1][j], so it picks Camera + Painting.
 
 #### 2.3.3 Solution Code
 
@@ -380,13 +396,13 @@ def knapsack_01(capacity, items):
 
 Run: `python examples/solutions/a3_knapsack.py`
 
-**Time**: O(n × W) &nbsp;&nbsp; **Space**: O(n × W) &nbsp;&nbsp; (W = capacity)
+**Time:** O(n × W), **Space:** O(n × W) (W = capacity)
 
 ---
 
 <br>
 
-## 3. Type B — Web Code Analysis
+## 3. Type B: Web Code Analysis
 
 ### 3.1 B-1: Text Diff Viewer
 
@@ -401,7 +417,7 @@ python app.py
 
 Enter two texts and the app highlights the differences based on **LCS**.
 
-```
+```text
   Text A: "The quick brown fox"
   Text B: "The slow brown dog"
 
@@ -416,7 +432,7 @@ This is the same principle behind **GitHub's diff feature**.
 
 #### 3.1.2 How Diff Works
 
-```
+```text
 1. Split texts into tokens (words or lines)
 2. Compute LCS of the two token sequences
 3. Tokens in LCS      -> unchanged (white)
@@ -437,28 +453,23 @@ This is the same principle behind **GitHub's diff feature**.
     ---    dog      <- inserted
 ```
 
+*Figure 5. Processing steps and token alignment of LCS-based diff*
+
 **Experiment:**
 
-- Try short sentences with a few word changes
-- Try longer paragraphs — observe how LCS captures the common structure
-- Think about why this is O(m × n) where m, n are the token counts
+- Try short sentences with a few word changes.
+- Try longer paragraphs and observe how LCS captures the common structure.
+- Consider why this approach is O(m × n), where m and n are the token counts.
 
 ---
 
 <br>
 
-## Summary
+## 4. The DP Recipe
 
-### What We Learned Today
+Design a DP algorithm in the following five steps.
 
-- **Fibonacci**: Naive O(2^n) vs memoization/tabulation O(n) — eliminating overlapping subproblems
-- **LCS**: 2D DP table + backtracking to recover the actual subsequence
-- **0-1 Knapsack**: DP table construction + backtracking to find selected items
-- **Text Diff**: LCS applied to a real web application (like GitHub diff)
-
-### The DP Recipe
-
-```
+```text
 1. Define the subproblem   — what does dp[i][j] represent?
 2. Write the recurrence    — how does dp[i][j] relate to smaller subproblems?
 3. Identify base cases     — dp[0][...] = ?, dp[...][0] = ?
@@ -466,9 +477,19 @@ This is the same principle behind **GitHub's diff feature**.
 5. Backtrack if needed     — recover the actual solution, not just the value
 ```
 
-### Next Week
+---
 
-**Week 07**: Midterm Exam Preparation — review everything from Weeks 02–06!
+<br>
+
+## Summary
+
+| Concept | Key Summary |
+|---------|-------------|
+| Fibonacci | Naive recursion takes $O(2^n)$, while memoization and tabulation eliminate overlapping subproblems and compute in O(n). |
+| LCS | A 2D DP table is filled and then backtracking recovers the actual subsequence. |
+| 0-1 Knapsack | The DP table is built and backtracking finds the selected items. |
+| Text Diff | It applies LCS to a real web application and works on the same principle as GitHub diff. |
+| DP recipe | A DP is designed by defining the subproblem, writing the recurrence, identifying base cases, determining the fill order, and backtracking when needed. |
 
 ---
 
@@ -476,26 +497,56 @@ This is the same principle behind **GitHub's diff feature**.
 
 ## Self-Check Questions
 
-1. Why does naive recursion for Fibonacci have O(2^n) time complexity? Draw the recursion tree for F(5) and count how many times F(2) is computed.
+1. Why does naive recursion for Fibonacci have $O(2^n)$ time complexity? Draw the recursion tree for F(5) and count how many times F(2) is computed.
 
-   > **Answer:** Each call branches into two recursive calls of nearly the same depth — the recursion tree is **binary and balanced** with depth $n$, giving roughly $2^n$ leaves. The same subproblem is recomputed across many branches: in `F(5)` the call tree has `F(5) → F(4), F(3)`; `F(4) → F(3), F(2)`; both copies of `F(3) → F(2), F(1)`. Counting all leaves under those branches, **F(2) is computed 3 times** (and F(1) 5 times, F(0) 3 times). The redundancy grows exponentially with $n$ — that's the $O(2^n)$.
+   <details>
+   <summary>Answer</summary>
 
-2. In the LCS problem, what is the role of the backtracking step? Why can't we determine the actual subsequence from just the final value dp[m][n]?
+   Each call branches into two recursive calls and the recursion depth is at most $n$, so the call tree has at most about $2^n$ nodes. The tree is not balanced, because the right branch is shorter, so the exact number of calls grows as $\Theta(\phi^n)$ with $\phi \approx 1.618$. The same subproblem is recomputed across many branches: in `F(5)` the call tree has `F(5) → F(4), F(3)`; `F(4) → F(3), F(2)`; both copies of `F(3) → F(2), F(1)`. Counting all leaves under those branches, **F(2) is computed 3 times** (and F(1) 5 times, F(0) 3 times). The redundancy grows exponentially with $n$, which gives the $O(2^n)$ bound.
 
-   > **Answer:** The DP table stores only the **length** of the LCS at each cell, not which characters were chosen. Many different subsequences can produce the same length, so `dp[m][n] = 4` tells us the LCS is 4 characters but not *which* 4. **Backtracking** walks the table from `dp[m][n]` back to `dp[0][0]`, replaying the decision at each cell: on a match (`X[i] == Y[j]`) emit the character and move diagonally; otherwise step in the direction of the larger neighbor. Each step is $O(1)$, so reconstruction adds only $O(m+n)$ to the algorithm.
+   </details>
+
+2. In the LCS problem, what is the role of the backtracking step? Why is the final value dp[m][n] alone not enough to determine the actual subsequence?
+
+   <details>
+   <summary>Answer</summary>
+
+   The DP table stores only the **length** of the LCS at each cell, not which characters were chosen. Many different subsequences can produce the same length, so `dp[m][n] = 4` tells us the LCS is 4 characters but not *which* 4. **Backtracking** walks the table from `dp[m][n]` back to `dp[0][0]`, replaying the decision at each cell: on a match (`X[i] == Y[j]`) it emits the character and moves diagonally; otherwise it steps in the direction of the larger neighbor. Each step is $O(1)$, so reconstruction adds only $O(m+n)$ to the algorithm.
+
+   </details>
 
 3. For the 0-1 Knapsack example, why is the Book (value 40, weight 5) not selected even though it has the best value/weight ratio (8.0/kg)?
 
-   > **Answer:** **0-1 Knapsack is not solved by greedy ratio selection** because items are indivisible. With capacity 50 and Camera (100, 20) + Painting (120, 30) already filling the bag exactly to 50 with value **220**, there is no remaining room for the Book even though its ratio is highest. Swapping Book in would force dropping a larger-value item; the swap loses more value than the Book contributes. DP enumerates all subset combinations implicitly, so it recognizes that the **combined value of two items** beats any greedy ratio-first choice.
+   <details>
+   <summary>Answer</summary>
+
+   **0-1 Knapsack is not solved by greedy ratio selection** because items are indivisible. Taking items in ratio order picks Book (8.0/kg), Laptop (6.0/kg), and Camera (5.0/kg), reaching only value 200 at weight 35, and Painting no longer fits. Camera (100, 20) + Painting (120, 30) fills the bag exactly to 50 with value **220**. Another optimal solution, Laptop + Painting + Book (weight 45), also reaches 220, so the Book is not excluded from every optimum. The backtracking in Section 2.3.3 sees dp[4][50] = dp[3][50] = 220, meaning the maximum is reachable without the Book, and skips it. DP compares all subset combinations implicitly, so it recognizes that the **combined value of an item combination** beats the ratio-first choice.
+
+   </details>
 
 4. How does the text diff viewer use LCS? Explain why this approach is O(m × n) and what happens when texts are very long.
 
-   > **Answer:** The two texts are tokenized (by word or line), and **LCS over the token sequences** identifies the longest aligned common run. Tokens inside the LCS are unchanged, tokens only in A are **deletions**, tokens only in B are **insertions**. Building the LCS table is $O(m \times n)$ because every cell is filled in $O(1)$ time. For very long texts this becomes problematic — a 10,000-line vs 10,000-line diff requires $10^8$ cells and as much memory. Production tools (like `git diff`) use **Myers' diff algorithm** ($O((m+n)D)$ where $D$ is edit distance) and Hunt-McIlroy-style optimizations to do much better in practice.
+   <details>
+   <summary>Answer</summary>
+
+   The two texts are tokenized (by word or line), and **LCS over the token sequences** identifies the longest aligned common run. Tokens inside the LCS are unchanged, tokens only in A are **deletions**, tokens only in B are **insertions**. Building the LCS table is $O(m \times n)$ because every cell is filled in $O(1)$ time. For very long texts this becomes problematic: a 10,000-line vs 10,000-line diff requires $10^8$ cells and as much memory. Production tools (like `git diff`) use **Myers' diff algorithm** ($O((m+n)D)$ where $D$ is edit distance) and Hunt-McIlroy-style optimizations to do much better in practice.
+
+   </details>
 
 5. Compare memoization and tabulation: when would you prefer one over the other? Consider stack depth, ease of implementation, and cache efficiency.
 
-   > **Answer:** **Memoization** is easier to write — you add a cache check to the natural recursive definition — and only solves subproblems actually reached, which helps when state space is sparse. Its downsides are **recursion overhead** and **stack depth** limits (Python defaults to ~1000 frames; deep DP recurrences blow up without `sys.setrecursionlimit`). **Tabulation** iterates in dependency order, avoiding recursion entirely; it has lower constant factors, better **cache locality** (sequential memory access), and can be space-optimized to $O(1)$ rows. Prefer memoization for sparsely-needed states or complex recurrences; prefer tabulation for performance and when most states are needed.
+   <details>
+   <summary>Answer</summary>
+
+   **Memoization** is easier to write, since you add a cache check to the natural recursive definition, and it only solves subproblems actually reached, which helps when the state space is sparse. Its downsides are **recursion overhead** and **stack depth** limits (Python defaults to about 1000 frames; deep DP recurrences exceed the limit without `sys.setrecursionlimit`). **Tabulation** iterates in dependency order, avoiding recursion entirely; it has lower constant factors, better **cache locality** (sequential memory access), and can be space-optimized to $O(1)$ rows. Prefer memoization for sparsely needed states or complex recurrences; prefer tabulation when performance matters and most states are needed.
+
+   </details>
 
 6. In the DP recipe, why does fill order matter? What would happen if you tried to fill the LCS table from bottom-right to top-left?
 
-   > **Answer:** Fill order must respect the **dependency direction** of the recurrence — every cell needs its inputs already computed. The LCS recurrence reads `dp[i-1][j-1]`, `dp[i-1][j]`, and `dp[i][j-1]`, so filling left-to-right and top-to-bottom guarantees those are ready. Reversing to **bottom-right → top-left** reads cells that have not yet been computed — they still hold initialization values (0), producing garbage. To go in reverse, you would need to redefine `dp[i][j]` as "LCS of *suffixes* `X[i..m]` and `Y[j..n]`" with the dependencies flipped accordingly.
+   <details>
+   <summary>Answer</summary>
+
+   Fill order must respect the **dependency direction** of the recurrence: every cell needs its inputs already computed. The LCS recurrence reads `dp[i-1][j-1]`, `dp[i-1][j]`, and `dp[i][j-1]`, so filling left-to-right and top-to-bottom guarantees those are ready. Reversing to **bottom-right → top-left** reads cells that have not yet been computed; they still hold initialization values (0), producing garbage. To go in reverse, you would need to redefine `dp[i][j]` as the LCS of the *suffixes* `X[i..m]` and `Y[j..n]` with the dependencies flipped accordingly.
+
+   </details>

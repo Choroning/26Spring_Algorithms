@@ -1,18 +1,18 @@
 # Week 9 Lecture — Search Trees
 
-> **Last Updated:** 2026-06-19
->
-> Introduction to Algorithms, CLRS - Ch 12, 13, 18
+[Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Learning Objectives**:
+> **Last Updated:** 2026-10-18
+>
+> Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 12, 13, 18
+
+> **Learning Objectives:**
 > 1. Define a tree recursively and derive tree traversal complexity using the Master Theorem
-> 2. Implement search, insert, and delete on a Binary Search Tree (BST) and analyze average and worst case
-> 3. Explain why a BST can degrade to $O(n)$ when input is sorted
-> 4. State the five Red-Black Tree (RBT) properties and explain how they guarantee $O(\log n)$ height
-> 5. Resolve a Double-Red violation using **Restructuring** (uncle black) or **Recoloring** (uncle red)
-> 6. Motivate B-Trees from the disk I/O cost model and describe how wide, shallow nodes minimize disk reads
-> 7. Execute B-Tree search, insertion (with split), and deletion (borrow/merge)
-> 8. Compare BST, RBT, and B-Tree across height, operation cost, and intended use case
+> 2. Implement search, insert, and delete on a Binary Search Tree (BST), analyze its average and worst case, and explain why it can degrade to $O(n)$ when input is sorted
+> 3. State the five Red-Black Tree (RBT) properties and explain how they guarantee $O(\log n)$ height
+> 4. Resolve a Double-Red violation using **Restructuring** (uncle black) or **Recoloring** (uncle red)
+> 5. Motivate B-Trees from the disk I/O cost model, describe how wide, shallow nodes minimize disk reads, and execute B-Tree search, insertion (with split), and deletion (borrow and merge)
+> 6. Compare BST, RBT, and B-Tree across height, operation cost, and intended use case
 
 ---
 
@@ -22,31 +22,31 @@
   - [1.1 Recursive Definition of a Tree](#11-recursive-definition-of-a-tree)
   - [1.2 Tree Traversal Complexity](#12-tree-traversal-complexity)
 - [2. Binary Search Trees (BST)](#2-binary-search-trees-bst)
-  - [2.1 BST — The Idea](#21-bst--the-idea)
+  - [2.1 BST: The Idea](#21-bst-the-idea)
   - [2.2 BST Search](#22-bst-search)
   - [2.3 BST Insertion](#23-bst-insertion)
-  - [2.4 BST Search/Insert — Average Case](#24-bst-searchinsert--average-case)
-  - [2.5 BST Worst Case — The Problem](#25-bst-worst-case--the-problem)
-  - [2.6 BST Deletion — Three Cases](#26-bst-deletion--three-cases)
-  - [2.7 BST Deletion — Complexity](#27-bst-deletion--complexity)
+  - [2.4 BST Search/Insert: Average Case](#24-bst-searchinsert-average-case)
+  - [2.5 BST Worst Case: The Problem](#25-bst-worst-case-the-problem)
+  - [2.6 BST Deletion: Three Cases](#26-bst-deletion-three-cases)
+  - [2.7 BST Deletion: Complexity](#27-bst-deletion-complexity)
 - [3. Red-Black Trees (RBT)](#3-red-black-trees-rbt)
-  - [3.1 RBT — Motivation](#31-rbt--motivation)
-  - [3.2 RBT — Five Properties](#32-rbt--five-properties)
+  - [3.1 RBT: Motivation](#31-rbt-motivation)
+  - [3.2 RBT: Five Properties](#32-rbt-five-properties)
   - [3.3 Why RBT Guarantees O(log n)](#33-why-rbt-guarantees-olog-n)
-  - [3.4 RBT Insertion — Overview](#34-rbt-insertion--overview)
-  - [3.5 Double Red — Terminology](#35-double-red--terminology)
-  - [3.6 Case 1 — Restructuring (Uncle is Black)](#36-case-1--restructuring-uncle-is-black)
-  - [3.7 Case 2 — Recoloring (Uncle is Red)](#37-case-2--recoloring-uncle-is-red)
-  - [3.8 RBT — Worked Example](#38-rbt--worked-example)
-  - [3.9 RBT — Operation Complexities](#39-rbt--operation-complexities)
+  - [3.4 RBT Insertion: Overview](#34-rbt-insertion-overview)
+  - [3.5 Double Red: Terminology](#35-double-red-terminology)
+  - [3.6 Case 1: Restructuring (Uncle is Black)](#36-case-1-restructuring-uncle-is-black)
+  - [3.7 Case 2: Recoloring (Uncle is Red)](#37-case-2-recoloring-uncle-is-red)
+  - [3.8 RBT: Worked Example](#38-rbt-worked-example)
+  - [3.9 RBT: Operation Complexities](#39-rbt-operation-complexities)
 - [4. B-Trees](#4-b-trees)
-  - [4.1 B-Tree — Motivation: The Disk I/O Problem](#41-b-tree--motivation-the-disk-io-problem)
-  - [4.2 B-Tree — The Idea](#42-b-tree--the-idea)
-  - [4.3 B-Tree — Search](#43-b-tree--search)
-  - [4.4 B-Tree — Insertion (No Split)](#44-b-tree--insertion-no-split)
-  - [4.5 B-Tree — Insertion (With Split)](#45-b-tree--insertion-with-split)
-  - [4.6 B-Tree — Deletion Overview](#46-b-tree--deletion-overview)
-  - [4.7 B-Tree — Deletion Leaf Cases](#47-b-tree--deletion-leaf-cases)
+  - [4.1 B-Tree Motivation: The Disk I/O Problem](#41-b-tree-motivation-the-disk-io-problem)
+  - [4.2 B-Tree: The Idea](#42-b-tree-the-idea)
+  - [4.3 B-Tree: Search](#43-b-tree-search)
+  - [4.4 B-Tree: Insertion (No Split)](#44-b-tree-insertion-no-split)
+  - [4.5 B-Tree: Insertion (With Split)](#45-b-tree-insertion-with-split)
+  - [4.6 B-Tree: Deletion Overview](#46-b-tree-deletion-overview)
+  - [4.7 B-Tree: Deletion Leaf Cases](#47-b-tree-deletion-leaf-cases)
 - [5. BST vs RBT vs B-Tree](#5-bst-vs-rbt-vs-b-tree)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
@@ -59,9 +59,9 @@
 
 ### 1.1 Recursive Definition of a Tree
 
-A **tree** is a root node together with zero or more **subtrees** — a recursive structure.
+A **tree** is a root node together with zero or more **subtrees**, which makes it a recursive structure.
 
-```
+```text
             [A]             "A tree of n nodes
            / | \             = root + subtrees"
          /   |   \
@@ -70,10 +70,12 @@ A **tree** is a root node together with zero or more **subtrees** — a recursiv
      [E] [F]  [G][H][I]
 ```
 
-**Key insight:** the "repetition of partial structure" lets us implement tree algorithms with **recursion**.
+*Figure 1. Recursive structure of a tree made of a root and subtrees*
 
-- Same principle as **divide and conquer**: split into subproblems (subtrees), solve each, combine
-- Almost every tree algorithm in this lecture is a one-line recursion plus a base case
+> **Key Point:** The repetition of partial structure lets us implement tree algorithms naturally with **recursion**.
+
+- This is the same principle as **divide and conquer**: split into subproblems (subtrees), solve each, and combine.
+- Basic tree algorithms such as search, insertion, and traversal are mostly a one-line recursion plus a base case.
 
 ### 1.2 Tree Traversal Complexity
 
@@ -90,7 +92,7 @@ Since $f(n) = O(n^0)$ and $0 < 1$, this is **Case 1**:
 
 $$T(n) = \Theta(n)$$
 
-> **Lower bound argument:** Any traversal must inspect every node at least once, so $\Omega(n)$ is unavoidable. The Master Theorem confirms $\Theta(n)$ is also achievable.
+> **Note:** **Lower bound argument.** Any traversal must inspect every node at least once, so $\Omega(n)$ is unavoidable. The Master Theorem confirms $\Theta(n)$ is also achievable. The balance assumption is needed only to apply the Master Theorem; the textbook proves that an in-order walk takes $\Theta(n)$ time regardless of the tree's shape.
 
 ---
 
@@ -98,13 +100,13 @@ $$T(n) = \Theta(n)$$
 
 ## 2. Binary Search Trees (BST)
 
-### 2.1 BST — The Idea
+### 2.1 BST: The Idea
 
 A BST is a binary tree that maintains a **sorted order**:
 
 $$\text{left subtree} < \text{root} < \text{right subtree}$$
 
-```
+```text
               [15]
              /    \
           [6]      [18]
@@ -116,15 +118,19 @@ $$\text{left subtree} < \text{root} < \text{right subtree}$$
             [9]
 ```
 
-**BST property** for every node $x$:
-- All keys in the **left** subtree $< x.\text{key}$
-- All keys in the **right** subtree $> x.\text{key}$
+*Figure 2. Example of a binary search tree*
 
-> **Connection to binary search:** at each step we eliminate half of the remaining search space — the same idea that gave binary search $O(\log n)$ on a sorted array.
+**BST property** for every node $x$:
+- All keys in the **left** subtree are less than $x.\text{key}$.
+- All keys in the **right** subtree are greater than $x.\text{key}$.
+
+Here we assume all keys are distinct. The textbook allows duplicate keys and uses $\le$ on the left and $\ge$ on the right; the two trees in Figure 5 contain the key 5 twice.
+
+> **Note:** **Connection to binary search.** In a balanced BST, each step eliminates about half of the remaining search space, the same idea that gave binary search $O(\log n)$ on a sorted array.
 
 ### 2.2 BST Search
 
-```
+```text
 TREE-SEARCH(x, k):
     if x = NIL or k = x.key:
         return x
@@ -134,9 +140,9 @@ TREE-SEARCH(x, k):
         return TREE-SEARCH(x.right, k)
 ```
 
-**Example — search for 13:**
+**Example (search for 13):**
 
-```
+```text
              [15]         15: 13 < 15, go left
             /    \
           [6]    [18]     6: 13 > 6, go right
@@ -146,13 +152,15 @@ TREE-SEARCH(x, k):
              [13]  <- found
 ```
 
+*Figure 3. Path of searching for key 13 in a BST*
+
 At each level we make **one comparison and descend one edge**, so the cost is $O(h)$ where $h$ is the tree height.
 
 ### 2.3 BST Insertion
 
 Insert a key $k$ by walking down as if searching for it; when we reach NIL, attach the new node as a **leaf**.
 
-```
+```text
 TREE-INSERT(T, z):
     y = NIL
     x = T.root
@@ -166,25 +174,28 @@ TREE-INSERT(T, z):
     else:                     y.right = z
 ```
 
-Insertion follows the same path as an unsuccessful search, then links the new node as a leaf — cost $O(h)$.
+Insertion follows the same path as an unsuccessful search and then links the new node as a leaf, so its cost is $O(h)$.
 
-### 2.4 BST Search/Insert — Average Case
+### 2.4 BST Search/Insert: Average Case
 
-If keys are inserted in **random order**, the expected height is $\Theta(\log n)$:
+If keys are inserted in **random order**, the expected height is $\Theta(\log n)$. If each comparison is taken to halve the remaining nodes, the search cost follows the recurrence
 
 $$T(n) = T(n/2) + O(1)$$
+
+- $T(n/2)$: recurse into only one subtree (half the nodes) at each node
+- $O(1)$: one comparison at the current node
 
 **Master Theorem:** $a = 1,\ b = 2,\ f(n) = O(1) = \Theta(n^0) = \Theta(n^{\log_b a})$. **Case 2**:
 
 $$T(n) = \Theta(\log n)$$
 
-So expected search and insert are both $O(\log n)$ — matching binary search on a sorted array.
+So expected search and insert are both $O(\log n)$, matching binary search on a sorted array. The recurrence is an approximation that assumes an even split at every step; the textbook proves that a BST built in random order has expected height $O(\log n)$.
 
-### 2.5 BST Worst Case — The Problem
+### 2.5 BST Worst Case: The Problem
 
 What if keys arrive in **sorted order**?
 
-```
+```text
 Insert: 1, 2, 3, 4, 5
 
     [1]
@@ -198,11 +209,13 @@ Insert: 1, 2, 3, 4, 5
             [5]
 ```
 
-The tree degenerates into a **linked list**:
+*Figure 4. Degenerate BST from inserting 1, 2, 3, 4, 5 in sorted order*
 
-![Balanced vs degenerate BST](../images/ch12_p002_001.png)
+The tree degenerates into a **linked list**. Figure 5 shows that the same key set can produce a BST of height 2 or a BST of height 4 depending on the insertion order.
 
-*Balanced vs degenerate BST*
+![Figure 5. BSTs of height 2 and height 4 built from the same keys](../../images/Week09_ch12_p02.png)
+
+*Figure 5. BSTs of height 2 and height 4 built from the same keys*
 
 $$T(n) = T(n-1) + O(1) \implies T(n) = O(n)$$
 
@@ -211,15 +224,17 @@ $$T(n) = T(n-1) + O(1) \implies T(n) = O(n)$$
 | Average (random) | $O(\log n)$ | $O(\log n)$ |
 | Worst (sorted)   | $O(n)$   | $O(n)$ |
 
-> **Key takeaway:** plain BSTs have excellent average-case behavior but **no guarantee** against worst-case degradation. This motivates the **balanced** trees in §3 and §4.
+*Table 1. Height and search/insert cost of a BST by input order*
 
-### 2.6 BST Deletion — Three Cases
+> **Key Point:** Plain BSTs have excellent average-case behavior but **no guarantee** against worst-case degradation. This motivates the **balanced** trees in Sections 3 and 4.
+
+### 2.6 BST Deletion: Three Cases
 
 Deletion is more delicate than search or insert. Let $z$ be the node to delete.
 
-**Case 1 — no children:** simply remove $z$.
+**Case 1: no children.** Simply remove $z$.
 
-```
+```text
     [5]          [5]
    /   \   =>   /   \
  [3]   [7]    [3]   [7]
@@ -227,9 +242,11 @@ Deletion is more delicate than search or insert. Let $z$ be the node to delete.
    [4]  <- delete 4
 ```
 
-**Case 2 — one child:** splice $z$ out by replacing it with its only child.
+*Figure 6. Deleting node 4, which has no children*
 
-```
+**Case 2: one child.** Splice $z$ out by replacing it with its only child.
+
+```text
     [5]          [5]
    /   \   =>   /   \
  [3]   [7]    [4]   [7]
@@ -237,9 +254,11 @@ Deletion is more delicate than search or insert. Let $z$ be the node to delete.
    [4]  <- delete 3, replaced by 4
 ```
 
-**Case 3 — two children:** replace $z$'s key with its **in-order successor** (the smallest key in $z$'s right subtree), then delete the successor (which has at most one child, reducing to Case 1 or 2).
+*Figure 7. Deleting node 3, which has one child*
 
-```
+**Case 3: two children.** Replace $z$'s key with its **in-order successor** (the smallest key in $z$'s right subtree), then delete the successor (which has at most one child, reducing to Case 1 or 2).
+
+```text
 Delete 6:
          [15]                     [15]
         /    \                  /     \
@@ -256,15 +275,19 @@ Step 2: replace 6's key with 7
 Step 3: delete original node 7 (has at most one child)
 ```
 
-> **Why successor?** The in-order successor is the next larger value, so substituting it preserves the BST property: every key in the left subtree is still less, every key in the right subtree is still greater.
+*Figure 8. Deleting node 6, which has two children, by replacing it with its in-order successor 7*
 
-### 2.7 BST Deletion — Complexity
+> **Note:** **Why successor?** The in-order successor is the next larger value, so substituting it preserves the BST property: every key in the left subtree is still less, every key in the right subtree is still greater.
+
+### 2.7 BST Deletion: Complexity
 
 | Step                          | Cost  |
 |-------------------------------|-------|
 | Find node to delete           | $O(h)$ |
 | Find in-order successor       | $O(h)$ |
 | Perform the structural change | $O(1)$ |
+
+*Table 2. Cost of each step of BST deletion*
 
 **Total:** $O(h)$.
 
@@ -276,15 +299,17 @@ Step 3: delete original node 7 (has at most one child)
 | Insert    | $O(\log n)$ | $O(n)$  |
 | Delete    | $O(\log n)$ | $O(n)$  |
 
+*Table 3. Average and worst-case complexity of BST operations*
+
 ---
 
 <br>
 
 ## 3. Red-Black Trees (RBT)
 
-### 3.1 RBT — Motivation
+### 3.1 RBT: Motivation
 
-BST worst case is $O(n)$ — can we **guarantee** $O(\log n)$?
+BST worst case is $O(n)$. Can we **guarantee** $O(\log n)$?
 
 A **Red-Black Tree** is a BST with one extra bit per node: a **color** (red or black). Carefully chosen coloring rules force the tree to stay approximately balanced:
 
@@ -292,13 +317,13 @@ $$h \leq 2\log_2(n+1) = O(\log n)$$
 
 so search, insert, and delete are all **guaranteed** $O(\log n)$ in the worst case.
 
-### 3.2 RBT — Five Properties
+### 3.2 RBT: Five Properties
 
-Every RBT must satisfy:
+Every RBT must satisfy the five properties in Table 4. In Figure 9, (a) draws each NIL leaf and writes the black-height next to each node, (b) merges all NILs into a single sentinel node T.nil, and (c) is the usual drawing with the leaves omitted. Black nodes are black and gray nodes are red.
 
-![Red-Black Tree example (CLRS)](../images/ch13_p003_001.png)
+![Figure 9. Example red-black tree drawn in three ways](../../images/Week09_ch13_p03.png)
 
-*Red-Black Tree example (CLRS)*
+*Figure 9. Example red-black tree drawn in three ways*
 
 | # | Property |
 |---|----------|
@@ -308,7 +333,9 @@ Every RBT must satisfy:
 | 4 | If a node is **red**, both its children are **black** (no two consecutive reds) |
 | 5 | For every node, all paths from that node to descendant leaves contain the **same number of black nodes** |
 
-```
+*Table 4. Five properties of a red-black tree*
+
+```text
              [7:B]
            /       \
        [3:R]       [18:R]
@@ -322,9 +349,11 @@ Property 4: red 18 has black children 10, 22  ok
 Property 5: every root-to-leaf path has 2 black nodes  ok
 ```
 
+*Figure 10. Red-black tree satisfying the five properties*
+
 ### 3.3 Why RBT Guarantees O(log n)
 
-Define the **black-height** $\text{bh}(x)$ of node $x$ as the number of black nodes on any path from $x$ down to a leaf (Property 5 makes this well-defined).
+Define the **black-height** $\text{bh}(x)$ of node $x$ as the number of black nodes on any path from $x$ down to a leaf, not counting $x$ itself (Property 5 makes this well-defined).
 
 - A subtree rooted at $x$ contains at least $2^{\text{bh}(x)} - 1$ internal nodes (induction on height).
 - By Property 4, on any root-to-leaf path **at least half** the nodes are black, so $\text{bh}(\text{root}) \geq h/2$.
@@ -333,17 +362,17 @@ Combining:
 
 $$n \geq 2^{h/2} - 1 \implies h \leq 2\log_2(n+1)$$
 
-> **Geometric reading:** the longest path (alternating red-black) is at most **twice** the shortest path (all black). The tree can lean, but only by a constant factor.
+> **Note:** **Geometric reading.** The longest path (alternating red and black) is at most **twice** the shortest path (all black). The tree can lean, but only by a constant factor.
 
-### 3.4 RBT Insertion — Overview
+### 3.4 RBT Insertion: Overview
 
 When inserting a new key:
 
 1. Insert as in a normal BST (the new node becomes a leaf).
 2. **Color the new node red.** This preserves Property 5 (black-height unchanged).
-3. The only property that can now break is **Property 4** — a red child of a red parent. This is called the **Double Red** problem. Fix it.
+3. If the new node becomes the root (insertion into an empty tree), Property 2 breaks, which is fixed by coloring the root black. Otherwise the only property that can break is **Property 4**: a red child of a red parent. This is called the **Double Red** problem, and it must be fixed.
 
-```
+```text
 Insert 4 into:
 
     [7:B]              [7:B]
@@ -355,17 +384,21 @@ Insert 4 into:
 No violation here — but if 4's parent had been red, we'd need to fix up.
 ```
 
-### 3.5 Double Red — Terminology
+*Figure 11. Inserting a new red node 4 under a black parent*
+
+### 3.5 Double Red: Terminology
 
 When Double Red occurs, name the relevant nodes:
 
-```
+```text
         [G]          G = grandparent
        /   \
      [P]   [U]      P = parent,  U = uncle
      /
    [N]               N = newly inserted (red), P also red
 ```
+
+*Figure 12. Nodes G, P, U, N involved in a Double Red*
 
 The fix-up branches on the **uncle's color**:
 
@@ -374,19 +407,21 @@ The fix-up branches on the **uncle's color**:
 | **Black**     | **Restructuring** (rotation) |
 | **Red**       | **Recoloring** (color flip) |
 
-### 3.6 Case 1 — Restructuring (Uncle is Black)
+*Table 5. Double Red fix-up strategy by the uncle's color*
 
-When $U$ is black, locally rotate $N$, $P$, $G$:
+### 3.6 Case 1: Restructuring (Uncle is Black)
 
-![Left-Rotate and Right-Rotate (CLRS)](../images/ch13_p006_002.png)
+When $U$ is black, locally rotate $N$, $P$, $G$. The left rotation in Figure 13 swaps $x$ and its right child $y$ so that $y$ moves up, and moves $y$'s left subtree $\beta$ to become $x$'s right subtree. The right rotation is the reverse.
 
-*Left-Rotate and Right-Rotate (CLRS)*
+![Figure 13. Left rotation and right rotation](../../images/Week09_ch13_p06.png)
+
+*Figure 13. Left rotation and right rotation*
 
 1. **Sort** $N, P, G$ by key.
 2. The **median** becomes the new local root (colored **black**); the other two become its children (colored **red**).
 3. The original subtrees are reattached in the only order consistent with the BST property.
 
-```
+```text
 Before (G=7, P=3, N=5):       After restructuring:
 
       [7:B]                       [5:B]
@@ -400,17 +435,19 @@ Median: 5 -> new local root (black)
 Others: 3, 7 -> children (red)
 ```
 
-> **Why this works:** Restructuring is a **local** operation — exactly one rotation, $O(1)$ work, and the black-height of the local root is unchanged so the fix does **not** propagate upward.
+*Figure 14. Restructuring when the uncle is black*
 
-### 3.7 Case 2 — Recoloring (Uncle is Red)
+> **Note:** **Why this works.** Restructuring is a **local** operation: it needs one rotation if $N$ and $P$ are both left children or both right children, and two rotations otherwise (as in Figure 14), so the work is $O(1)$. The black-height of the local root is unchanged, so the fix does **not** propagate upward.
+
+### 3.7 Case 2: Recoloring (Uncle is Red)
 
 When $U$ is red, swap colors:
 
 1. $P$ and $U$ become **black**.
 2. $G$ becomes **red**.
-3. If $G$ is the root, force it **black**. Otherwise, $G$ may now form a new Double Red with its own parent — repeat the fix-up at $G$.
+3. If $G$ is the root, force it **black**. Otherwise, $G$ may now form a new Double Red with its own parent, so repeat the fix-up at $G$.
 
-```
+```text
 Before:                   After recoloring:
 
       [7:B]                   [7:R] <- may cause
@@ -424,13 +461,15 @@ If 7 is the root, force it black.
 If 7's parent is also red, repeat the fix-up upward.
 ```
 
-> **Why this works:** Recoloring preserves Property 5 (black count on every path through $G$ is unchanged) but may push the violation up two levels at a time. It can therefore propagate at most $O(\log n)$ times before reaching the root.
+*Figure 15. Recoloring when the uncle is red*
 
-### 3.8 RBT — Worked Example
+> **Note:** **Why this works.** Recoloring preserves Property 5 (black count on every path through $G$ is unchanged) but may push the violation up two levels at a time. It can therefore propagate at most $O(\log n)$ times before reaching the root.
+
+### 3.8 RBT: Worked Example
 
 Insertion sequence: 7, 3, 8, 1, 5
 
-```
+```text
 Step 1: insert 7    Step 2: insert 3    Step 3: insert 8
    [7:B]               [7:B]                [7:B]
                        /                   /     \
@@ -460,7 +499,25 @@ Result:            [3:R]   [7:R]
                              [8:B]
 ```
 
-### 3.9 RBT — Operation Complexities
+*Figure 16. Red-black tree example inserting 7, 3, 8, 1, 5 in order*
+
+> **Note:** **Error in Step 5.** After the recoloring in Step 4, node 3 is black, so inserting 5 as the right child of 3 creates no Double Red because the parent is black. Step 5 of Figure 16 treats 3 as red and applies restructuring, and its result tree also loses the key 1. Figure 17 below shows the corrected result; restructuring with a black uncle is shown in Figure 14 of Section 3.6.
+
+```mermaid
+graph TD
+    N7["7 (black)"] --> N3["3 (black)"]
+    N7 --> N8["8 (black)"]
+    N3 --> N1["1 (red)"]
+    N3 --> N5["5 (red)"]
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class N7,N3,N8 black
+    class N1,N5 red
+```
+
+*Figure 17. Correct red-black tree after inserting 5*
+
+### 3.9 RBT: Operation Complexities
 
 | Operation | Complexity   | Details |
 |-----------|--------------|---------|
@@ -468,7 +525,9 @@ Result:            [3:R]   [7:R]
 | **Insert** | $O(\log n)$ | BST insert $O(\log n)$ + fix-up $O(\log n)$ |
 | **Delete** | $O(\log n)$ | BST delete $O(\log n)$ + fix-up $O(\log n)$ |
 
-The fix-up after insert/delete uses at most $O(\log n)$ recolorings and **at most 2 rotations**.
+*Table 6. Complexity of red-black tree operations*
+
+The fix-up uses at most $O(\log n)$ recolorings and only a constant number of rotations: **at most 2** after an insertion and at most 3 after a deletion.
 
 | | BST (avg)   | BST (worst) | RBT (worst) |
 |-|-------------|-------------|-------------|
@@ -476,7 +535,15 @@ The fix-up after insert/delete uses at most $O(\log n)$ recolorings and **at mos
 | Insert | $O(\log n)$ | $O(n)$ | **$O(\log n)$** |
 | Delete | $O(\log n)$ | $O(n)$ | **$O(\log n)$** |
 
-> **Bottom line:** RBT pays a tiny constant overhead (1 color bit, occasional rotation) in exchange for a worst-case guarantee. This is why it is the default choice for in-memory ordered maps (e.g., C++ `std::map`, Java `TreeMap`, the Linux kernel's CFS scheduler).
+*Table 7. Complexity comparison of BST and red-black tree*
+
+> **Note:** **Bottom line.** RBT pays a tiny constant overhead (1 color bit, occasional rotation) in exchange for a worst-case guarantee. This is why it is the default choice for in-memory ordered maps (e.g., C++ `std::map`, Java `TreeMap`, the Linux kernel's CFS scheduler).
+
+A **treap** is another BST that stays balanced through randomness. Each node holds a key and a priority; the keys obey the BST property, and the priorities obey the min-heap property, in which a parent's priority is smaller than its children's (Figure 18). With random priorities, the expected height is $O(\log n)$.
+
+![Figure 18. Treap with each node labeled key:priority](../../images/Week09_ch13_p27.png)
+
+*Figure 18. Treap with each node labeled key:priority*
 
 ---
 
@@ -484,11 +551,11 @@ The fix-up after insert/delete uses at most $O(\log n)$ recolorings and **at mos
 
 ## 4. B-Trees
 
-### 4.1 B-Tree — Motivation: The Disk I/O Problem
+### 4.1 B-Tree Motivation: The Disk I/O Problem
 
 When data is too large for main memory, it lives on **disk**, and disk access dominates running time:
 
-```
+```text
 Access times (typical):
   CPU register     ~0.3 ns
   Main memory      ~100 ns
@@ -496,21 +563,17 @@ Access times (typical):
   HDD              ~5 ms    (~50,000x slower than memory)
 ```
 
-A Red-Black Tree with $n = 10^9$ nodes has height $\approx 30$. On HDD that is $30 \times 5\,\text{ms} = 150\,\text{ms}$ per operation — far too slow for a database. The bottleneck is **disk reads**, not comparisons.
+A Red-Black Tree with $n = 10^9$ nodes has height at least about 30 ($\log_2 10^9 \approx 30$). On HDD that is $30 \times 5\,\text{ms} = 150\,\text{ms}$ per operation, far too slow for a database. The bottleneck is **disk reads**, not comparisons.
 
-> "1 second of CPU $\approx$ 10 days of disk I/O" (in relative terms).
+> **Note:** **Relative scale.** In relative terms, 1 second of CPU time corresponds to about 10 days of disk I/O.
 
-> **Cost model shift:** for in-memory structures we minimize comparisons; for disk-resident structures we minimize **the number of disk blocks read**, i.e., the **height** of the tree.
+> **Note:** **Cost model shift.** For in-memory structures we minimize comparisons; for disk-resident structures we minimize **the number of disk blocks read**, i.e., the **height** of the tree.
 
-### 4.2 B-Tree — The Idea
+### 4.2 B-Tree: The Idea
 
 Make each node hold **many keys** so the tree is **wide and shallow**.
 
-![B-Tree example (CLRS)](../images/ch13_p027_011.png)
-
-*B-Tree example (CLRS)*
-
-```
+```text
 BST (tall, narrow):     B-Tree (short, wide):
 
      [50]                  [20|40|60|80]
@@ -521,15 +584,17 @@ BST (tall, narrow):     B-Tree (short, wide):
 Height ~30
 ```
 
+*Figure 19. Tall, narrow BST and short, wide B-Tree*
+
 **Design decisions:**
 - One node = one **disk block** (typically 4 KB).
 - A single disk read brings **hundreds of keys** into memory.
 - Searching **within a node** is fast in-memory work and does not count against the disk-I/O budget.
-- A B-Tree of order 1000 with height 3 stores over $10^9$ keys.
+- A B-Tree of order 1000 with height 3 (three levels) stores about $10^9$ keys.
 
-### 4.3 B-Tree — Search
+### 4.3 B-Tree: Search
 
-```
+```text
 B-TREE-SEARCH(x, k):
     i = 1
     while i <= x.n and k > x.key[i]:
@@ -542,7 +607,7 @@ B-TREE-SEARCH(x, k):
     return B-TREE-SEARCH(x.child[i], k)
 ```
 
-```
+```text
 Search for key 42 in a B-Tree (order 5):
 
   Root: [20 | 40 | 60 | 80]
@@ -557,13 +622,15 @@ Search for key 42 in a B-Tree (order 5):
                 found (1 disk read for root + 1 for child = 2 total)
 ```
 
-**Each level costs one disk read.** Height 3 ⇒ at most 3 disk reads, regardless of $n$.
+*Figure 20. Path of searching for key 42 in a B-Tree of order 5*
 
-### 4.4 B-Tree — Insertion (No Split)
+**Each level costs one disk read.** Height 3 means at most 3 disk reads, regardless of $n$.
 
-**Case 1 — target leaf has room:** insert in sorted order, done.
+### 4.4 B-Tree: Insertion (No Split)
 
-```
+**Case 1: target leaf has room.** Insert in sorted order, and the operation is done.
+
+```text
 Insert 25 (max 4 keys per node):
 
   Root: [10 | 20 | 40 | 60]
@@ -575,13 +642,15 @@ Insert 25 (max 4 keys per node):
   Leaf: [21 | 25 | 30 | 35]   <- place 25 in sorted position
 ```
 
-One search descent + one block write. No structural change.
+*Figure 21. Inserting key 25 into a leaf that has room*
 
-### 4.5 B-Tree — Insertion (With Split)
+One search descent plus one block write, with no structural change.
 
-**Case 2 — target leaf is full:** **split** at the median and **promote** to the parent.
+### 4.5 B-Tree: Insertion (With Split)
 
-```
+**Case 2: target leaf is full.** **Split** at the median and **promote** the median to the parent.
+
+```text
 Insert 28 (max 4 keys per node):
 
   Parent: [... | 20 | 40 | ...]
@@ -603,37 +672,41 @@ Step 3: promote median 28 to parent
            [21 | 25] [30 | 35]
 ```
 
-If the parent is also full, the split **propagates upward**. In the extreme case the root splits and the tree grows one level taller — this is the **only way a B-Tree gains height**, and it keeps the tree perfectly balanced.
+*Figure 22. Split and promotion when inserting key 28 into a full leaf*
 
-### 4.6 B-Tree — Deletion Overview
+If the parent is also full, the split **propagates upward**. In the extreme case the root splits and the tree grows one level taller; this is the **only way a B-Tree gains height**, and it keeps the tree perfectly balanced.
 
-Deletion is the most complex B-Tree operation. The cases:
+### 4.6 B-Tree: Deletion Overview
 
-**Case 1 — key is in a leaf:**
-- 1.1: leaf has more than the minimum keys → just remove
-- 1.2: **borrow** from a sibling that has extra keys → rotate through parent
-- 1.3: **merge** with a sibling (both at minimum) → pull a key down from the parent
-- 1.4: merge underflows the parent → recurse upward
+Deletion is the most complex B-Tree operation. The cases are as follows.
 
-**Case 2 — key is in an internal node:**
-- Replace with the **in-order predecessor** (largest key in left child) or **in-order successor** (smallest in right child)
-- Then delete from the leaf — reduces to Case 1
+**Case 1: key is in a leaf.**
+- 1.1: if the leaf has more than the minimum number of keys, just remove the key.
+- 1.2: if a sibling has extra keys, **borrow** from it by rotating a key through the parent.
+- 1.3: if the sibling is also at the minimum, **merge** with it by pulling a key down from the parent.
+- 1.4: if the merge underflows the parent, recurse upward.
 
-**Case 3 — internal key, all relevant nodes at minimum:**
-- Merge children, pull parent key down, restructure
-- May propagate splits or merges upward
+**Case 2: key is in an internal node.**
+- Replace it with the **in-order predecessor** (largest key in the left subtree) or **in-order successor** (smallest key in the right subtree).
+- Then delete from the leaf, which reduces to Case 1.
 
-### 4.7 B-Tree — Deletion Leaf Cases
+**Case 3: internal key, all relevant nodes at the minimum.**
+- Merge children, pull the parent key down, and restructure.
+- Merges may propagate upward.
 
-**Case 1.1 — Simple removal** (node has spare keys):
+### 4.7 B-Tree: Deletion Leaf Cases
 
-```
+**Case 1.1: Simple removal (node has spare keys).**
+
+```text
 Delete 30:  [10 | 20 | 30 | 40]  =>  [10 | 20 | 40]   ok
 ```
 
-**Case 1.2 — Borrow from sibling via parent rotation:**
+*Figure 23. Deleting 30 from a leaf with spare keys*
 
-```
+**Case 1.2: Borrow from a sibling via parent rotation.**
+
+```text
 Delete 20:
   Parent: [... | 25 | ...]      Parent: [... | 30 | ...]
             |    |                        |    |
@@ -642,9 +715,11 @@ Delete 20:
 Borrow 30 from right sibling; 25 rotates down, 30 rotates up.
 ```
 
-**Case 1.3 — Merge with sibling:**
+*Figure 24. Deletion by borrowing a key from the right sibling*
 
-```
+**Case 1.3: Merge with a sibling.**
+
+```text
 Delete 20:
   Parent: [... | 25 | ...]      Parent: [... | ...]
             |    |                        |
@@ -653,7 +728,9 @@ Delete 20:
 Pull 25 down, combine with sibling.
 ```
 
-> **Symmetry with insertion:** insertion grows by **splitting** when full; deletion shrinks by **merging** when underflowing. Both operations preserve perfect balance and cost $O(\log_M n)$ disk reads, where $M$ is the branching factor.
+*Figure 25. Deletion by merging with a sibling*
+
+> **Note:** **Symmetry with insertion.** Insertion grows by **splitting** when full; deletion shrinks by **merging** when underflowing. Both operations preserve perfect balance and cost $O(\log_M n)$ disk reads, where $M$ is the branching factor.
 
 ---
 
@@ -668,8 +745,14 @@ Pull 25 down, combine with sibling.
 | **Search** | $O(\log n)$ avg, $O(n)$ worst | $O(\log n)$ | $O(\log_M n)$ |
 | **Insert** | $O(\log n)$ avg, $O(n)$ worst | $O(\log n)$ | $O(\log_M n)$ |
 | **Delete** | $O(\log n)$ avg, $O(n)$ worst | $O(\log n)$ | $O(\log_M n)$ |
-| **Balance mechanism** | none | rotations on color violation | splits / merges on overflow |
+| **Balance mechanism** | none | recoloring and rotations on color violation | splits on overflow, merges on underflow |
 | **Best for** | simple in-memory use | general-purpose ordered map (`std::map`) | disk-based systems (databases, file systems) |
+
+*Table 8. Comparison of BST, red-black tree, and B-Tree*
+
+B-Tree costs are counted in disk reads. With a linear scan of the keys inside each node, the CPU time is $O(M \log_M n)$.
+
+> **Note:** **Enforced balance.** In a self-balancing tree, balance is not given; it is enforced by operations such as rotation, recoloring, splitting, and merging.
 
 ---
 
@@ -677,21 +760,15 @@ Pull 25 down, combine with sibling.
 
 ## Summary
 
-| Structure | Key Idea | Worst-Case Search/Insert/Delete |
-|-----------|----------|---------------------------------|
-| BST | left $<$ root $<$ right | $O(n)$ (degenerates on sorted input) |
-| Red-Black Tree | 5 color rules ⇒ $h \leq 2\log_2(n+1)$ | $O(\log n)$ guaranteed |
-| B-Tree (order $M$) | wide nodes = one disk block | $O(\log_M n)$ disk reads |
-
-**Key Takeaways:**
-- **Trees are recursive** — traversal is $\Theta(n)$ and many tree algorithms are one recursion plus a base case
-- **BST** gives expected $O(\log n)$ but no worst-case guarantee — sorted input degenerates to a list
-- **Red-Black Trees** add 1 color bit and 5 properties to bound height by $2\log_2(n+1)$; the Double-Red fix is **Restructuring** (uncle black, $O(1)$ rotation) or **Recoloring** (uncle red, may propagate)
-- **B-Trees** trade in-memory comparisons for **disk reads**: wide nodes ⇒ shallow trees ⇒ height $\approx 3$ for billions of keys; used in databases (MySQL, PostgreSQL) and file systems (NTFS, ext4)
-- The right structure depends on the **cost model**: RBT optimizes RAM accesses; B-Tree optimizes disk blocks
-
-> "Balance is not given — it is enforced."
-> — every self-balancing tree, ever
+| Concept | Key Summary |
+|---------|-------------|
+| Recursive structure of trees | Trees are recursive, so traversal is $\Theta(n)$ and many tree algorithms are one recursion plus a base case. |
+| BST | It keeps left $<$ root $<$ right order and gives expected $O(\log n)$, but sorted input degenerates it to a list with $O(n)$ worst-case search, insert, and delete. |
+| Red-Black Tree | One color bit and five properties bound the height by $2\log_2(n+1)$, guaranteeing $O(\log n)$. |
+| Double Red fix | Restructuring ($O(1)$ rotations) applies when the uncle is black, and recoloring (which may propagate) applies when the uncle is red. |
+| B-Tree (order $M$) | It trades in-memory comparisons for fewer disk reads. Each wide node fits one disk block, so operations take $O(\log_M n)$ disk reads and the height stays about 3 even for billions of keys. |
+| Uses of B-Trees | They are standard in databases (MySQL, PostgreSQL) and file systems (NTFS, ext4). |
+| Choosing a structure | The choice depends on the cost model: RBT optimizes RAM accesses, and B-Tree optimizes disk block reads. |
 
 ---
 
@@ -701,38 +778,83 @@ Pull 25 down, combine with sibling.
 
 1. **Recursive Traversal:** Write a recurrence for in-order traversal of a balanced binary tree, and use the Master Theorem to derive its complexity. Why can no traversal beat $\Omega(n)$?
 
-   > **Answer:** In-order traversal visits the left subtree, the root, then the right subtree, giving $T(n) = 2T(n/2) + O(1)$. With $a = 2$, $b = 2$, $f(n) = O(1) = O(n^0)$ and $n^{\log_b a} = n^1$, this is **Master Theorem Case 1**, so $T(n) = \Theta(n)$. The $\Omega(n)$ lower bound is unavoidable because any "traversal" by definition must inspect every one of the $n$ nodes at least once — visiting fewer would leave a node unprocessed.
+   <details>
+   <summary>Answer</summary>
+
+   In-order traversal visits the left subtree, the root, then the right subtree, giving $T(n) = 2T(n/2) + O(1)$. With $a = 2$, $b = 2$, $f(n) = O(1) = O(n^0)$ and $n^{\log_b a} = n^1$, this is **Master Theorem Case 1**, so $T(n) = \Theta(n)$. The $\Omega(n)$ lower bound is unavoidable because a traversal by definition must inspect every one of the $n$ nodes at least once; visiting fewer would leave a node unprocessed.
+
+   </details>
 
 2. **BST Average vs Worst:** Insert the keys $1, 2, 3, 4, 5$ in that order into an empty BST. Draw the result and give the search cost for key $5$. Then insert the same keys in the order $3, 1, 5, 2, 4$ and compare.
 
-   > **Answer:** Sorted insertion $1,2,3,4,5$ produces a right-leaning chain (height 4); finding 5 requires walking through all 5 nodes — cost **5 comparisons, $O(n)$**. Inserting in order $3,1,5,2,4$ gives a balanced tree with 3 as root, 1 and 5 as children, and 2, 4 as grandchildren (height 2); finding 5 takes **only 2 comparisons, $O(\log n)$**. Same keys, dramatically different cost — demonstrating that plain BSTs have no worst-case guarantee.
+   <details>
+   <summary>Answer</summary>
 
-3. **BST Deletion:** In a BST, delete the node with key $6$ from the tree shown in §2.6 using the in-order **predecessor** instead of the successor. Show the resulting tree.
+   Sorted insertion $1,2,3,4,5$ produces a right-leaning chain (height 4); finding 5 requires walking through all 5 nodes, costing **5 comparisons, $O(n)$**. Inserting in order $3,1,5,2,4$ gives a balanced tree with 3 as root, 1 and 5 as children, and 2, 4 as grandchildren (height 2); finding 5 takes **only 2 comparisons, $O(\log n)$**. The keys are the same but the costs differ dramatically, which demonstrates that plain BSTs have no worst-case guarantee.
 
-   > **Answer:** The **in-order predecessor** of 6 is the **largest key in 6's left subtree**, which is 4. Replace 6's key with 4, then delete the original node 4 (a leaf, so just remove it). The result keeps 15 at the root with 18 on the right; on the left, 4 replaces 6, its left child is still 3 (with grandchild 2), and its right child is the unchanged subtree rooted at 7 containing 13 and 9. The BST property holds because every key in 4's left subtree ($2,3$) is less than 4 and every key in its right subtree ($7,9,13$) is greater than 4.
+   </details>
+
+3. **BST Deletion:** In a BST, delete the node with key $6$ from the tree shown in Section 2.6 using the in-order **predecessor** instead of the successor. Show the resulting tree.
+
+   <details>
+   <summary>Answer</summary>
+
+   The **in-order predecessor** of 6 is the **largest key in 6's left subtree**, which is 4. Replace 6's key with 4, then delete the original node 4 (a leaf, so just remove it). The result keeps 15 at the root with 18 on the right; on the left, 4 replaces 6, its left child is still 3 (with grandchild 2), and its right child is the unchanged subtree rooted at 7 containing 13 and 9. The BST property holds because every key in 4's left subtree ($2,3$) is less than 4 and every key in its right subtree ($7,9,13$) is greater than 4.
+
+   </details>
 
 4. **RBT Property 5:** Explain why coloring a newly inserted node **red** (rather than black) preserves Property 5. What would go wrong if we colored it black?
 
-   > **Answer:** Property 5 requires that every root-to-leaf path has the **same number of black nodes**. A new node is inserted in place of a NIL leaf (which is black) and inherits its position; coloring the new node **red** adds zero black nodes to any path, so black-heights are unchanged. If we colored it black instead, the path through the new node would gain one black node while sibling paths keep the old count — **Property 5 breaks immediately** and the fix would have to propagate black-height adjustments throughout the tree, which is much more expensive than the local Double-Red fix.
+   <details>
+   <summary>Answer</summary>
+
+   Property 5 requires that every root-to-leaf path has the **same number of black nodes**. A new node is inserted in place of a NIL leaf (which is black) and inherits its position; coloring the new node **red** adds zero black nodes to any path, so black-heights are unchanged. If we colored it black instead, the path through the new node would gain one black node while sibling paths keep the old count, so **Property 5 breaks immediately**, and the fix would have to propagate black-height adjustments throughout the tree, which is much more expensive than the local Double-Red fix.
+
+   </details>
 
 5. **Restructuring vs Recoloring:** For each of the following Double-Red situations, decide which strategy applies and give the resulting tree.
    (a) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(B),\ N = 7\,(R)$
    (b) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(R),\ N = 3\,(R)$
 
-   > **Answer:** **(a)** Uncle $U = 15$ is **black** → **Restructuring**. Sort $\{N=7, P=5, G=10\}$ → median is **7**, which becomes the new local root (black) with 5 and 10 as red children: `7(B)` → `5(R)` left, `10(R)` right; $U = 15$ reattaches as a child of 10. **(b)** Uncle $U = 15$ is **red** → **Recoloring**. Flip $P = 5$ and $U = 15$ to black, and $G = 10$ to red. If 10 is the root, force it back to black; otherwise the fix may propagate upward to 10's parent.
+   <details>
+   <summary>Answer</summary>
+
+   **(a)** Uncle $U = 15$ is **black** → **Restructuring**. Sort $\{N=7, P=5, G=10\}$ → median is **7**, which becomes the new local root (black) with 5 and 10 as red children: `7(B)` → `5(R)` left, `10(R)` right; $U = 15$ reattaches as a child of 10. **(b)** Uncle $U = 15$ is **red** → **Recoloring**. Flip $P = 5$ and $U = 15$ to black, and $G = 10$ to red. If 10 is the root, force it back to black; otherwise the fix may propagate upward to 10's parent.
+
+   </details>
 
 6. **RBT Height Bound:** Prove that an RBT with $n$ internal nodes has height at most $2\log_2(n+1)$, using the black-height inequality $n \geq 2^{\text{bh}(\text{root})} - 1$.
 
-   > **Answer:** By **Property 4** (no two consecutive reds), at least half the nodes on any root-to-leaf path are black, so $\text{bh}(\text{root}) \geq h/2$. Combined with $n \geq 2^{\text{bh}(\text{root})} - 1$, we get $n \geq 2^{h/2} - 1$, hence $n + 1 \geq 2^{h/2}$. Taking $\log_2$ of both sides yields $\log_2(n+1) \geq h/2$, i.e., $h \leq 2\log_2(n+1) = O(\log n)$. This is the formal reason RBT operations are guaranteed $O(\log n)$ in the worst case.
+   <details>
+   <summary>Answer</summary>
+
+   By **Property 4** (no two consecutive reds), at least half the nodes on any root-to-leaf path are black, so $\text{bh}(\text{root}) \geq h/2$. Combined with $n \geq 2^{\text{bh}(\text{root})} - 1$, we get $n \geq 2^{h/2} - 1$, hence $n + 1 \geq 2^{h/2}$. Taking $\log_2$ of both sides yields $\log_2(n+1) \geq h/2$, i.e., $h \leq 2\log_2(n+1) = O(\log n)$. This is the formal reason RBT operations are guaranteed $O(\log n)$ in the worst case.
+
+   </details>
 
 7. **B-Tree Disk I/O:** A B-Tree of order $M = 100$ stores $n = 10^8$ keys. Estimate the height. How many disk reads does a search require? Compare with a Red-Black Tree on the same data.
 
-   > **Answer:** Height is $h \leq \log_M n = \log_{100} 10^8 = 8/2 = 4$. A search needs at most **4 disk reads** (one per level). A Red-Black Tree on the same data has height $\leq 2\log_2(10^8 + 1) \approx 2 \cdot 26.6 \approx 53$, requiring up to **~53 disk reads** if the tree is disk-resident. On a 5 ms HDD: B-Tree ≈ 20 ms vs RBT ≈ 265 ms per query — over **10× faster**, which is why every relational database index is a B-Tree variant, not a binary tree.
+   <details>
+   <summary>Answer</summary>
+
+   Assuming full nodes, the height is about $\log_M n = \log_{100} 10^8 = 8/2 = 4$. A search needs at most **4 disk reads** (one per level). A Red-Black Tree on the same data has height $\leq 2\log_2(10^8 + 1) \approx 2 \cdot 26.6 \approx 53$, requiring up to **about 53 disk reads** if the tree is disk-resident. On a 5 ms HDD, a B-Tree query takes about 20 ms versus up to about 265 ms for the RBT, so the B-Tree is over **10× faster**, which is why the default index in relational databases is a B-Tree variant rather than a binary tree.
+
+   </details>
 
 8. **B-Tree Insertion with Split:** Starting from an empty B-Tree of order 4 (max 3 keys per node), insert the sequence $10, 20, 30, 40, 50, 60, 70$ and draw the tree after each split.
 
-   > **Answer:** Insert 10, 20, 30 → single node `[10|20|30]` (full, no split yet). Insert 40 → overflow `[10|20|30|40]`, **split** at median 30: promote 30 as new root, leaves `[10|20]` and `[40]`. Insert 50, 60 into right leaf → `[40|50|60]`. Insert 70 → overflow `[40|50|60|70]`, **split** at median 60: promote 60 into root, giving root `[30|60]` with children `[10|20]`, `[40|50]`, `[70]`. Tree height is 2, perfectly balanced — every leaf is at the same depth.
+   <details>
+   <summary>Answer</summary>
+
+   Insert 10, 20, 30 → single node `[10|20|30]` (full, no split yet). Insert 40 → overflow `[10|20|30|40]`, **split** at median 30 (with four keys, take the larger of the two middle keys, 30): promote 30 as new root, leaves `[10|20]` and `[40]`. Insert 50, 60 into right leaf → `[40|50|60]`. Insert 70 → overflow `[40|50|60|70]`, **split** at median 60 by the same rule: promote 60 into root, giving root `[30|60]` with children `[10|20]`, `[40|50]`, `[70]`. Tree height is 2, and the tree is perfectly balanced because every leaf is at the same depth.
+
+   </details>
 
 9. **Choosing a Structure:** You are designing (a) the symbol table of a compiler, (b) the index of a 1 TB relational database, (c) an ordered map for a small embedded device with 32 KB of RAM. Which structure (BST, RBT, B-Tree) fits each, and why?
 
-   > **Answer:** **(a) Compiler symbol table → hash table or RBT.** Lookups are by exact name with no need for range queries; if scope-ordered traversal matters, an **RBT** gives worst-case $O(\log n)$. **(b) 1 TB database index → B-Tree.** Data lives on disk, so the cost model is disk reads — wide nodes (one disk block) keep the height near 3–4 even at $10^9+$ keys. **(c) Embedded ordered map → RBT.** 32 KB RAM is too small for B-Tree overhead but fits a compact pointer-based balanced tree; an RBT guarantees $O(\log n)$ without disk concerns, and the constant factor beats a B-Tree at small $n$.
+   <details>
+   <summary>Answer</summary>
+
+   **(a) Compiler symbol table → hash table or RBT.** Lookups are by exact name with no need for range queries; if scope-ordered traversal matters, an **RBT** gives worst-case $O(\log n)$. **(b) 1 TB database index → B-Tree.** Data lives on disk, so the cost model is disk reads; wide nodes (one disk block) keep the height near 3-4 even for more than $10^9$ keys. **(c) Embedded ordered map → RBT.** 32 KB RAM is too small for B-Tree overhead but fits a compact pointer-based balanced tree; an RBT guarantees $O(\log n)$ without disk concerns, and the constant factor beats a B-Tree at small $n$.
+
+   </details>

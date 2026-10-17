@@ -1,18 +1,18 @@
 # Week 5 Lecture — Greedy Algorithms
 
-> **Last Updated:** 2026-06-19
->
-> Introduction to Algorithms, CLRS - Ch 15, 16.3, 21, 22
+[Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Learning Objectives**:
-> 1. Define the greedy paradigm and state the two conditions for greedy correctness (greedy-choice property, optimal substructure)
-> 2. Identify when greedy works and when it fails, with concrete counterexamples
-> 3. Solve the fractional knapsack problem using the greedy approach and explain why it fails for 0-1 knapsack
-> 4. Apply the activity selection algorithm (earliest finish time) and the job scheduling algorithm (earliest start time)
-> 5. Construct a Huffman tree from character frequencies and compute the compression ratio
-> 6. Execute Kruskal's and Prim's MST algorithms and explain their differences
-> 7. Execute Dijkstra's shortest path algorithm using edge relaxation and explain why it fails with negative weights
-> 8. Compare greedy algorithms with dynamic programming and decide which approach to use for a given problem
+> **Last Updated:** 2026-10-18
+>
+> Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
+
+> **Learning Objectives:**
+> 1. State the greedy paradigm and the two conditions for greedy correctness (greedy-choice property, optimal substructure), and identify when greedy works and when it fails with concrete counterexamples
+> 2. Solve the fractional knapsack problem using the greedy approach and explain why it fails for 0-1 knapsack
+> 3. Apply the activity selection algorithm (earliest finish time) and the job scheduling algorithm (earliest start time)
+> 4. Construct a Huffman tree from character frequencies and compute the compression ratio
+> 5. Execute Kruskal's and Prim's MST algorithms and Dijkstra's shortest path algorithm with edge relaxation, and explain how the two MST algorithms differ and why Dijkstra's algorithm fails with negative weights
+> 6. Compare greedy algorithms with dynamic programming and decide which approach to use for a given problem
 
 ---
 
@@ -21,37 +21,39 @@
 - [1. Greedy Algorithm Fundamentals](#1-greedy-algorithm-fundamentals)
   - [1.1 What is a Greedy Algorithm?](#11-what-is-a-greedy-algorithm)
   - [1.2 Key Properties for Greedy Correctness](#12-key-properties-for-greedy-correctness)
-  - [1.3 When Greedy Fails — Binary Tree Path Sum](#13-when-greedy-fails--binary-tree-path-sum)
-  - [1.4 When Greedy Fails — Non-Standard Coin Change](#14-when-greedy-fails--non-standard-coin-change)
+  - [1.3 When Greedy Fails: Binary Tree Path Sum](#13-when-greedy-fails-binary-tree-path-sum)
+  - [1.4 When Greedy Fails: Non-Standard Coin Change](#14-when-greedy-fails-non-standard-coin-change)
   - [1.5 Greedy in the Real World](#15-greedy-in-the-real-world)
 - [2. Coin Change](#2-coin-change)
-  - [2.1 Coin Change — Greedy Algorithm](#21-coin-change--greedy-algorithm)
+  - [2.1 Coin Change: Greedy Algorithm](#21-coin-change-greedy-algorithm)
 - [3. Fractional Knapsack](#3-fractional-knapsack)
-  - [3.1 Fractional Knapsack — Problem Definition](#31-fractional-knapsack--problem-definition)
-  - [3.2 Fractional Knapsack — Algorithm](#32-fractional-knapsack--algorithm)
-  - [3.3 Fractional Knapsack — Worked Example](#33-fractional-knapsack--worked-example)
-  - [3.4 0-1 vs Fractional Knapsack — Why Greedy Fails for 0-1](#34-0-1-vs-fractional-knapsack--why-greedy-fails-for-0-1)
+  - [3.1 Fractional Knapsack: Problem Definition](#31-fractional-knapsack-problem-definition)
+  - [3.2 Fractional Knapsack: Algorithm](#32-fractional-knapsack-algorithm)
+  - [3.3 Fractional Knapsack: Worked Example](#33-fractional-knapsack-worked-example)
+  - [3.4 0-1 vs Fractional Knapsack: Why Greedy Fails for 0-1](#34-0-1-vs-fractional-knapsack-why-greedy-fails-for-0-1)
 - [4. Job Scheduling](#4-job-scheduling)
-  - [4.1 Job Scheduling — Algorithm](#41-job-scheduling--algorithm)
-  - [4.2 Job Scheduling — Worked Example](#42-job-scheduling--worked-example)
+  - [4.1 Job Scheduling: Algorithm](#41-job-scheduling-algorithm)
+  - [4.2 Job Scheduling: Worked Example](#42-job-scheduling-worked-example)
 - [5. Activity Selection](#5-activity-selection)
-  - [5.1 Activity Selection — Algorithm](#51-activity-selection--algorithm)
+  - [5.1 Activity Selection: Algorithm](#51-activity-selection-algorithm)
+  - [5.2 Activity Selection: Worked Example](#52-activity-selection-worked-example)
 - [6. Huffman Coding](#6-huffman-coding)
-  - [6.1 Huffman Coding — Concept](#61-huffman-coding--concept)
-  - [6.2 Huffman Coding — Algorithm](#62-huffman-coding--algorithm)
-  - [6.3 Huffman Coding — Worked Example](#63-huffman-coding--worked-example)
-  - [6.4 Huffman Coding — Compression Ratio](#64-huffman-coding--compression-ratio)
+  - [6.1 Huffman Coding: Concept](#61-huffman-coding-concept)
+  - [6.2 Huffman Coding: Algorithm](#62-huffman-coding-algorithm)
+  - [6.3 Huffman Coding: Worked Example](#63-huffman-coding-worked-example)
+  - [6.4 Huffman Coding: Compression Ratio](#64-huffman-coding-compression-ratio)
 - [7. Minimum Spanning Tree (MST)](#7-minimum-spanning-tree-mst)
-  - [7.1 MST — Problem Definition](#71-mst--problem-definition)
+  - [7.1 MST: Problem Definition](#71-mst-problem-definition)
   - [7.2 Kruskal's MST Algorithm](#72-kruskals-mst-algorithm)
   - [7.3 Prim's MST Algorithm](#73-prims-mst-algorithm)
-  - [7.4 Kruskal vs Prim — Visual Comparison](#74-kruskal-vs-prim--visual-comparison)
+  - [7.4 Kruskal vs Prim: Visual Comparison](#74-kruskal-vs-prim-visual-comparison)
 - [8. Dijkstra's Shortest Path Algorithm](#8-dijkstras-shortest-path-algorithm)
-  - [8.1 Dijkstra's — Algorithm](#81-dijkstras--algorithm)
-  - [8.2 Dijkstra's — Edge Relaxation](#82-dijkstras--edge-relaxation)
-  - [8.3 Dijkstra's — Execution Trace](#83-dijkstras--execution-trace)
+  - [8.1 Dijkstra: Algorithm](#81-dijkstra-algorithm)
+  - [8.2 Dijkstra: Edge Relaxation](#82-dijkstra-edge-relaxation)
+  - [8.3 Dijkstra: Execution Trace](#83-dijkstra-execution-trace)
 - [9. Greedy vs Dynamic Programming](#9-greedy-vs-dynamic-programming)
 - [Summary](#summary)
+- [Self-Check Questions](#self-check-questions)
 
 ---
 
@@ -63,13 +65,13 @@
 
 A type of algorithm for solving **optimization problems**.
 
-- **Optimization problem**: Find the best (maximum or minimum) solution among all feasible solutions
-- At each step, make the **locally optimal choice** — the one that looks best *right now*
-- Once a choice is made, it is **never reconsidered** (no backtracking)
+- **Optimization problem**: A problem of finding the best (maximum or minimum) solution among all feasible solutions.
+- At each step, make the **locally optimal choice**, the one that looks best *right now*.
+- Once a choice is made, it is **never reconsidered** (no backtracking).
 
 **Generic Greedy Structure:**
 
-```
+```text
 Greedy(C):                          // C = set of all candidates
     S <- {}
     while C != {} and S is not a complete solution:
@@ -81,7 +83,7 @@ Greedy(C):                          // C = set of all candidates
     else: return "no solution"
 ```
 
-> **Key Idea:** The essence of a greedy algorithm is that it always picks the option that looks best at the moment, without considering the future consequences. This makes greedy algorithms simple and fast, but they only produce optimal results when the problem has the right structural properties.
+> **Key Point:** The essence of a greedy algorithm is that it always picks the option that looks best at the moment, without considering the future consequences. This makes greedy algorithms simple and fast, but they only produce optimal results when the problem has the right structural properties.
 
 **Terminology:** A *feasible* solution satisfies all the problem's constraints (but may not be complete yet). A *complete* solution is one that cannot be extended further and represents a full answer to the problem.
 
@@ -90,20 +92,20 @@ Greedy(C):                          // C = set of all candidates
 For a greedy algorithm to produce an **optimal** solution, two properties must hold:
 
 **1. Greedy-Choice Property**
-- A globally optimal solution can be reached by making locally optimal (greedy) choices
-- We can prove that at least one optimal solution includes the greedy choice
+- A globally optimal solution can be reached by making locally optimal (greedy) choices.
+- We can prove that at least one optimal solution includes the greedy choice.
 
 **2. Optimal Substructure**
-- An optimal solution to the problem contains optimal solutions to its subproblems
-- After making a greedy choice, the remaining subproblem has the same structure
+- An optimal solution to the problem contains optimal solutions to its subproblems.
+- After making a greedy choice, the remaining subproblem has the same structure.
 
-> **Greedy vs Dynamic Programming:** Both require optimal substructure. But DP considers *all* subproblems (bottom-up), while Greedy makes *one* choice and moves forward (top-down, no revisiting).
+> **Note:** **Greedy vs Dynamic Programming.** Both require optimal substructure. But DP considers *all* subproblems (bottom-up), while Greedy makes *one* choice and moves forward (top-down, no revisiting).
 
-### 1.3 When Greedy Fails — Binary Tree Path Sum
+### 1.3 When Greedy Fails: Binary Tree Path Sum
 
 **Binary Tree Maximum Path Sum:**
 
-```
+```text
              10
           /      \
       36           15
@@ -113,25 +115,27 @@ For a greedy algorithm to produce an **optimal** solution, two properties must h
   30 45 55 50 32 67 38 33
 ```
 
+*Figure 1. Binary tree maximum path sum example in which greedy misses the optimal path*
+
 - **Greedy**: At each node, go to the child with the larger value
   - Path: 10 -> 36 -> 18 -> 55 = **119**
 - **Optimal**: 10 -> 15 -> 35 -> 67 = **127**
 
 The greedy choice at the root (36 > 15) locks us out of the best path.
 
-> **Key Idea:** This example illustrates the fundamental weakness of greedy: a locally optimal choice (picking 36 over 15) can prevent us from reaching the globally optimal solution. Without the greedy-choice property, greedy algorithms may produce suboptimal results.
+> **Key Point:** This example illustrates the fundamental weakness of greedy: a locally optimal choice (picking 36 over 15) can prevent us from reaching the globally optimal solution. Without the greedy-choice property, greedy algorithms may produce suboptimal results.
 
-### 1.4 When Greedy Fails — Non-Standard Coin Change
+### 1.4 When Greedy Fails: Non-Standard Coin Change
 
 Standard denominations (500, 100, 50, 10, 1 won):
-- Each denomination is a **multiple** of the next smaller one
-- Greedy always gives an **optimal** result
+- Each denomination is a **multiple** of the next smaller one.
+- Greedy always gives an **optimal** result.
 
 Non-standard denominations (e.g., add 160-won coin):
 - Make 200 won: Greedy picks 160 + 10 + 10 + 10 + 10 = **5 coins**
 - Optimal: 100 + 100 = **2 coins**
 
-> **Key Insight:** Greedy works for coin change only when denominations have a special structure (each is a multiple of the next smaller). For arbitrary denominations, use **Dynamic Programming**.
+> **Key Point:** Greedy works for coin change only when denominations have a special structure (each is a multiple of the next smaller). For arbitrary denominations, use **Dynamic Programming**.
 
 ### 1.5 Greedy in the Real World
 
@@ -144,7 +148,9 @@ Non-standard denominations (e.g., add 160-won coin):
 | **Kruskal's / Prim's MST** | Fiber optic network design, road construction planning, circuit wiring |
 | **Dijkstra's** | GPS navigation (Google Maps, Naver Map), network routing (OSPF protocol) |
 
-> Every time your phone finds a route, your file gets compressed, or a network cable is laid — a greedy algorithm is likely at work.
+*Table 1. Real-world applications of greedy algorithms*
+
+> **Note:** Every time a phone finds a route, a file gets compressed, or a network cable is laid, a greedy algorithm is likely at work.
 
 ---
 
@@ -152,11 +158,11 @@ Non-standard denominations (e.g., add 160-won coin):
 
 ## 2. Coin Change
 
-### 2.1 Coin Change — Greedy Algorithm
+### 2.1 Coin Change: Greedy Algorithm
 
 **Problem**: Given denominations (500, 100, 50, 10, 1), find the minimum number of coins for amount W.
 
-```
+```text
 CoinChange(W):
     change = W
     n500 = n100 = n50 = n10 = n1 = 0
@@ -175,7 +181,7 @@ CoinChange(W):
 - 10-won: 1 coin (remaining 0)
 - **Total: 5 coins** (optimal for standard denominations)
 
-**Time complexity**: O(n) where n = number of denomination types (constant in practice)
+**Time complexity**: O(n) if the count of each denomination is computed by division (quotient and remainder), where n is the number of denomination types (constant in practice). If coins are subtracted one at a time as in the pseudocode above, the number of iterations also grows with the number of coins returned.
 
 > **Note:** The greedy strategy here is straightforward: always use the largest denomination possible. This works because each Korean won denomination is a multiple of the next smaller one, ensuring that choosing a larger coin never blocks a better solution.
 
@@ -185,25 +191,25 @@ CoinChange(W):
 
 ## 3. Fractional Knapsack
 
-### 3.1 Fractional Knapsack — Problem Definition
+### 3.1 Fractional Knapsack: Problem Definition
 
 **Problem definition:**
-- n items, each with weight $w_i$ and value $v_i$
-- Knapsack capacity C
-- **Fractional**: items can be divided — take any fraction of an item
-- **Goal**: Maximize total value in the knapsack
+- There are n items, each with weight $w_i$ and value $v_i$.
+- The knapsack capacity is C.
+- **Fractional**: Items can be divided, so any fraction of an item can be taken.
+- **Goal**: Maximize the total value in the knapsack.
 
 **Greedy idea:**
-1. Compute **value per unit weight** ($v_i / w_i$) for each item
-2. Sort items by value-per-weight in **decreasing** order
-3. Take items greedily — whole items if they fit, fractional otherwise
+1. Compute **value per unit weight** ($v_i / w_i$) for each item.
+2. Sort items by value-per-weight in **decreasing** order.
+3. Take items greedily: whole items if they fit, a fraction otherwise.
 
-> **0-1 Knapsack**: Items cannot be divided (take it or leave it) — requires **DP** or backtracking.
-> **Fractional Knapsack**: Items can be divided — solved optimally by **Greedy**.
+> **Note:** In **0-1 knapsack**, items cannot be divided (take it or leave it), so it requires **DP** or backtracking.
+> In **fractional knapsack**, items can be divided, so it is solved optimally by **greedy**.
 
-### 3.2 Fractional Knapsack — Algorithm
+### 3.2 Fractional Knapsack: Algorithm
 
-```
+```text
 FractionalKnapsack(items, C):
     Input:  n items (each with weight, value), capacity C
     Output: list L of items in knapsack, total value v
@@ -223,9 +229,9 @@ FractionalKnapsack(items, C):
     13. return L, v
 ```
 
-> **Key Idea:** The greedy-choice property holds because the item with the highest value-per-weight ratio contributes the most value per unit of capacity used. Taking as much of it as possible first is always part of an optimal solution.
+> **Key Point:** The greedy-choice property holds because the item with the highest value-per-weight ratio contributes the most value per unit of capacity used. Taking as much of it as possible first is always part of an optimal solution.
 
-### 3.3 Fractional Knapsack — Worked Example
+### 3.3 Fractional Knapsack: Worked Example
 
 **Knapsack capacity = 40 kg**
 
@@ -236,19 +242,19 @@ FractionalKnapsack(items, C):
 | Silver | 25 kg | 10 | 0.4 |
 | Tin | 20 kg | 2 | 0.1 |
 
+*Table 2. Weight, value, and value per weight of each item in the fractional knapsack example*
+
 | Step | Action | w | v |
 |------|--------|---|---|
 | 1 | Take all Platinum (10 kg) | 10 | 60 |
 | 2 | Take all Gold (15 kg) | 25 | 135 |
 | 3 | Silver: take 15/25 = 0.6 | 40 | **141** |
 
-![Fractional knapsack (CLRS)](../images/ch16_p014_003.png)
+*Table 3. Greedy selection steps in the fractional knapsack example*
 
-*Fractional knapsack (CLRS)*
+### 3.4 0-1 vs Fractional Knapsack: Why Greedy Fails for 0-1
 
-### 3.4 0-1 vs Fractional Knapsack — Why Greedy Fails for 0-1
-
-**Items (CLRS Figure 16.2) — Knapsack capacity = 50 lbs:**
+**Items (CLRS Figure 16.2), knapsack capacity = 50 lbs:**
 
 | Item | Weight | Value | Value/Weight |
 |------|--------|-------|-------------|
@@ -256,7 +262,9 @@ FractionalKnapsack(items, C):
 | Item 2 | 20 lbs | $100 | 5 $/lb |
 | Item 3 | 30 lbs | $120 | 4 $/lb |
 
-**Same items, same knapsack (50 lbs) — different results:**
+*Table 4. Items used to compare 0-1 and fractional knapsack*
+
+**Same items, same knapsack (50 lbs), different results:**
 
 | | 0-1 Knapsack | Fractional Knapsack |
 |---|---|---|
@@ -265,14 +273,18 @@ FractionalKnapsack(items, C):
 | **Greedy result** | $60 + $100 = **$160** | $60 + $100 + $80 = **$240** |
 | **Optimal** | Item 2 + 3 = **$220** | Same as greedy = **$240** |
 
-- **(b) 0-1**: Greedy picks item 1 first (6 $/lb), but this wastes 20 lbs of capacity -> suboptimal
-- **(c) Fractional**: Greedy fills remaining space with 2/3 of item 3 -> **optimal**
+*Table 5. Results for 0-1 and fractional knapsack on the same items*
 
-![0-1 vs fractional knapsack (CLRS Figure 16.2)](../images/ch16_p014_003.png)
+- **(b) 0-1**: Greedy picks item 1 first (6 $/lb), which leaves 20 lbs of capacity unused, so the result is suboptimal.
+- **(c) Fractional**: Greedy fills the remaining space with 2/3 of item 3, which is **optimal**.
 
-*The figure above (CLRS Figure 16.2) shows all three scenarios: (a) items with weights and values, (b) 0-1 knapsack greedy result, (c) fractional knapsack greedy result.*
+The textbook's Figure 16.2 shows three cases: (a) the items with their weights and values, (b) the possible selections for the 0-1 knapsack (the optimum is items 2 and 3), and (c) the greedy result for the fractional knapsack.
 
-> **Key Insight:** In 0-1 knapsack, greedy can waste capacity. The "empty space cost" makes greedy suboptimal. Use **DP** for 0-1 knapsack.
+![Figure 2. Selection results for 0-1 and fractional knapsack](../../images/Week05_ch16_p14.png)
+
+*Figure 2. Selection results for 0-1 and fractional knapsack*
+
+> **Key Point:** In 0-1 knapsack, greedy can waste capacity. The cost of the unfilled space makes greedy suboptimal, so **DP** should be used for 0-1 knapsack.
 
 ---
 
@@ -280,13 +292,13 @@ FractionalKnapsack(items, C):
 
 ## 4. Job Scheduling
 
-### 4.1 Job Scheduling — Algorithm
+### 4.1 Job Scheduling: Algorithm
 
 **Problem**: Assign n jobs (each with start time and finish time) to the **minimum number of machines** such that no two jobs on the same machine overlap.
 
 **Greedy strategy**: **Earliest Start Time First**
 
-```
+```text
 JobScheduling(jobs):
     Input:  n jobs, each with [start, finish]
     Output: assignment of jobs to machines
@@ -302,11 +314,11 @@ JobScheduling(jobs):
     9. return machine assignments
 ```
 
-> Among 4 strategies (earliest start, earliest finish, shortest first, longest first), only **earliest start time first** guarantees an optimal solution for the machine-minimization variant.
+> **Key Point:** Among 4 strategies (earliest start, earliest finish, shortest first, longest first), only **earliest start time first** guarantees an optimal solution for the machine-minimization variant.
 
-**Why other strategies fail (counterexample):** Consider Earliest Finish Time First for machine minimization with jobs [1,10], [2,3], [4,5], [6,7]. EFT sorts by finish time and assigns [2,3], [4,5], [6,7] to one machine and [1,10] to a second machine — 2 machines. However, EST processes [1,10] first (on Machine 1), then [2,3] starts a new Machine 2 (since Machine 1 is busy until 10), [4,5] goes to Machine 2 (free at 3), and [6,7] goes to Machine 2 (free at 5) — still 2 machines. In this case both give the same result, but EFT does not guarantee the minimum number of machines in general because it does not account for how long jobs occupy a machine.
+**Why other strategies fail (counterexample):** Consider Earliest Finish Time First for machine minimization with jobs [1,10], [2,3], [4,5], [6,7]. EFT sorts by finish time and assigns [2,3], [4,5], [6,7] to one machine and [1,10] to a second machine, using 2 machines. However, EST processes [1,10] first (on Machine 1), then [2,3] starts a new Machine 2 (since Machine 1 is busy until 10), [4,5] goes to Machine 2 (free at 3), and [6,7] goes to Machine 2 (free at 5), again using 2 machines. In this case both give the same result, but EFT does not guarantee the minimum number of machines in general because it does not account for how long jobs occupy a machine. For example, with jobs [0,1], [0,2], [1,4], [2,3], if EFT assigns each job to the earliest-created free machine, [0,1] goes to Machine 1, [0,2] to Machine 2, and [2,3] to Machine 1, and then [1,4] overlaps jobs on both machines and needs Machine 3. EST assigns [0,1] and [1,4] to Machine 1 and [0,2] and [2,3] to Machine 2, so 2 machines suffice.
 
-### 4.2 Job Scheduling — Worked Example
+### 4.2 Job Scheduling: Worked Example
 
 **Jobs**: t1=[7,8], t2=[3,7], t3=[1,5], t4=[5,9], t5=[0,2], t6=[6,8], t7=[1,6]
 
@@ -322,6 +334,8 @@ JobScheduling(jobs):
 | 6 | [6,8] | Machine 2 (free at 6) | M2: [1,6],[6,8] |
 | 7 | [7,8] | Machine 1 (free at 7) | M1: [0,2],[3,7],[7,8] |
 
+*Table 6. Machine assignment at each step of the job scheduling example*
+
 **Result**: 3 machines. **Time complexity**: O(n log n) + O(mn), where m = number of machines.
 
 ---
@@ -330,15 +344,15 @@ JobScheduling(jobs):
 
 ## 5. Activity Selection
 
-The previous problem (Job Scheduling) minimized the number of machines needed for all jobs. Now we flip the question: given just ONE machine, how do we maximize the number of jobs that fit? This closely related problem requires a different greedy strategy.
+The job scheduling problem in Section 4 minimized the number of machines needed for all jobs. Activity selection flips the question: given just one machine, it maximizes the number of jobs that fit. This closely related problem requires a different greedy strategy.
 
-### 5.1 Activity Selection — Algorithm
+### 5.1 Activity Selection: Algorithm
 
 **Problem**: One machine (room), maximize the **number of non-overlapping jobs**.
 
 **Greedy strategy**: **Earliest Finish Time First**
 
-```
+```text
 ActivitySelection(jobs):
     Sort jobs by finish time
     selected = {first job}
@@ -353,13 +367,13 @@ ActivitySelection(jobs):
 - Among the three strategies (shortest job, earliest start, earliest finish), only **earliest finish time first** guarantees optimal for the single-machine variant.
 - **Time complexity**: O(n log n)
 
-![Activity selection (CLRS)](../images/ch16_p007_001.png)
+![Figure 3. Operation of the activity selection algorithm](../../images/Week05_ch16_p07.png)
 
-*Activity selection (CLRS)*
+*Figure 3. Operation of the activity selection algorithm*
 
-> **Key Idea:** Selecting the activity that finishes earliest leaves as much remaining time as possible for subsequent activities. This is the greedy-choice property: choosing the earliest-finishing compatible activity always belongs to some optimal solution.
+> **Key Point:** Selecting the activity that finishes earliest leaves as much remaining time as possible for subsequent activities. This is the greedy-choice property: choosing the earliest-finishing compatible activity always belongs to some optimal solution.
 
-### 5.2 Activity Selection — Worked Example
+### 5.2 Activity Selection: Worked Example
 
 **Activities (already sorted by finish time):**
 
@@ -373,6 +387,8 @@ ActivitySelection(jobs):
 | a6 | 5 | 9 |
 | a7 | 6 | 10 |
 
+*Table 7. Activities sorted by finish time*
+
 **Greedy selection (Earliest Finish Time First):**
 
 | Iteration | Consider | Condition | Action | Selected | last_finish |
@@ -385,7 +401,9 @@ ActivitySelection(jobs):
 | 6 | a6 [5,9) | start 5 < 7 | Skip | {a1, a4} | 7 |
 | 7 | a7 [6,10) | start 6 < 7 | Skip | {a1, a4} | 7 |
 
-**Result**: {a1, a4} — 2 non-overlapping activities selected (maximum possible).
+*Table 8. Selection at each iteration of earliest finish time first*
+
+**Result**: {a1, a4}, that is, 2 non-overlapping activities, which is the maximum possible.
 
 ---
 
@@ -393,7 +411,7 @@ ActivitySelection(jobs):
 
 ## 6. Huffman Coding
 
-### 6.1 Huffman Coding — Concept
+### 6.1 Huffman Coding: Concept
 
 **Problem**: Compress a file by assigning **variable-length binary codes** to characters.
 
@@ -407,15 +425,15 @@ ActivitySelection(jobs):
 - No separator needed between codes
 - Unambiguous decoding by reading bits left to right
 
-> Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
+> **Note:** Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
 
-![Huffman tree: fixed vs variable length codes](../images/ch16_p017_004.png)
+![Figure 4. Trees for fixed-length and variable-length codes](../../images/Week05_ch16_p17.png)
 
-*Huffman tree: fixed vs variable length codes*
+*Figure 4. Trees for fixed-length and variable-length codes*
 
-### 6.2 Huffman Coding — Algorithm
+### 6.2 Huffman Coding: Algorithm
 
-```
+```text
 HuffmanCoding(characters, frequencies):
     Input:  n characters with their frequencies
     Output: Huffman tree
@@ -437,15 +455,15 @@ HuffmanCoding(characters, frequencies):
 - Loop runs (n-1) times, each iteration: 2 extract-min + 1 insert = O(log n)
 - Total: O(n) + (n-1) * O(log n) = **O(n log n)**
 
-> **Key Idea:** The greedy choice is to always merge the two nodes with the lowest frequencies first. This ensures that the least frequent characters end up deepest in the tree (longest codes), while the most frequent characters stay near the root (shortest codes).
+> **Key Point:** The greedy choice is to always merge the two nodes with the lowest frequencies first. This ensures that the least frequent characters end up deepest in the tree (longest codes), while the most frequent characters stay near the root (shortest codes).
 
-### 6.3 Huffman Coding — Worked Example
+### 6.3 Huffman Coding: Worked Example
 
 **Character frequencies**: A: 450, T: 90, G: 120, C: 270
 
 **Step-by-step tree construction:**
 
-```
+```text
 Step 1: Q = [T:90, G:120, C:270, A:450]
         Merge T(90) + G(120) -> node(210)
 
@@ -458,7 +476,7 @@ Step 3: Q = [A:450, 480]
 
 **Resulting tree and codes:**
 
-```
+```text
         930
        /   \
      A:450  480          A  = 0    (1 bit)
@@ -468,11 +486,15 @@ Step 3: Q = [A:450, 480]
      T:90  G:120
 ```
 
-![Huffman tree construction steps](../images/ch16_p019_005.png)
+*Figure 5. Huffman tree and the code for each character*
 
-*Huffman tree construction steps*
+![Figure 6. Construction steps of a Huffman tree](../../images/Week05_ch16_p19.png)
 
-### 6.4 Huffman Coding — Compression Ratio
+*Figure 6. Construction steps of a Huffman tree*
+
+> **Note:** In Figure 5, 210 is drawn as the left child of 480, and the pseudocode in Section 6.2 also places the lower-frequency 210 on the left. Applying the left edge = 0 rule as drawn gives C = `11`, T = `100`, G = `101`. The codes above (C = `10`, T = `110`, G = `111`) correspond to swapping the two children of 480 so that C is on the left; either way, each character's code length and the compression result are the same.
+
+### 6.4 Huffman Coding: Compression Ratio
 
 Using the codes: A = `0`, C = `10`, T = `110`, G = `111`
 
@@ -486,15 +508,17 @@ Using the codes: A = `0`, C = `10`, T = `110`, G = `111`
 | G | 120 | 3 | 360 |
 | **Total** | **930** | | **1,620 bits** |
 
+*Table 9. Frequency, code length, and bits used for each character*
+
 **Original (8-bit ASCII)**: 930 * 8 = 7,440 bits
 
-**Compression ratio**: 1,620 / 7,440 = **21.8%** (compressed to ~1/5 of original!)
+**Compression ratio**: 1,620 / 7,440 = **21.8%** (about 1/5 of the original size)
 
-**Decoding example**: Encode the string "GATTACA":
+**Decoding example**: Encode the string "GATTACA".
 - G=`111`, A=`0`, T=`110`, T=`110`, A=`0`, C=`10`, A=`0`
-- Encoded: `1110110110010`
+- Encoded: `11101101100100`
 
-Decode `1110110110010` step by step (read left to right using the tree):
+Decode `11101101100100` step by step (read left to right using the tree):
 - `1` -> `11` -> `111` = **G**
 - `0` = **A**
 - `1` -> `11` -> `110` = **T**
@@ -512,7 +536,7 @@ Decode `1110110110010` step by step (read left to right using the tree):
 
 ## 7. Minimum Spanning Tree (MST)
 
-### 7.1 MST — Problem Definition
+### 7.1 MST: Problem Definition
 
 **Problem**: Given a weighted, connected graph G = (V, E), find a tree T that:
 - Connects **all** vertices (spanning)
@@ -527,18 +551,22 @@ Decode `1110110110010` step by step (read left to right using the tree):
 
 | | Kruskal's | Prim's |
 |---|-----------|--------|
-| **Strategy** | Add cheapest edge that doesn't form a cycle | Grow tree from a start vertex, always adding the cheapest connecting edge |
+| **Strategy** | Add cheapest edge that does not form a cycle | Grow tree from a start vertex, always adding the cheapest connecting edge |
 | **Data structure** | Union-Find (disjoint sets) | Priority queue / array D |
-| **Complexity** | O(m log m) | O(n^2) or O(m log n) with heap |
+| **Complexity** | O(m log m) | $O(n^2)$ or O(m log n) with heap |
 | **Best for** | Sparse graphs | Dense graphs |
 
-![MST example (CLRS Figure 23.1)](../images/ch23_p002_011.jpg)
+*Table 10. Comparison of Kruskal's and Prim's algorithms*
 
-*CLRS Figure 23.1 — MST edges shaded. Total weight = 37*
+In the textbook's Figure 23.1, the shaded edges are the MST edges, and the total weight is 37.
+
+![Figure 7. Example of a minimum spanning tree](../../images/Week05_ch23_p02.jpg)
+
+*Figure 7. Example of a minimum spanning tree*
 
 ### 7.2 Kruskal's MST Algorithm
 
-```
+```text
 KruskalMST(G):
     Input:  weighted graph G = (V, E), |V| = n, |E| = m
     Output: MST T
@@ -555,21 +583,25 @@ KruskalMST(G):
 ```
 
 **Cycle detection**: Use **Union-Find** data structure
-- `Find(u)` and `Find(v)`: if same set, adding edge (u,v) creates a cycle
-- `Union(u,v)`: merge two sets when edge is added
-- With union-by-rank + path compression: nearly O(1) per operation
+- `Find(u)` and `Find(v)`: if they return the same set, adding edge (u,v) creates a cycle.
+- `Union(u,v)`: merges the two sets when the edge is added.
+- With union-by-rank and path compression together: nearly O(1) per operation.
 
-**Time complexity**: O(m log m) — dominated by sorting edges
+Union-Find (disjoint sets) is a data structure that tracks which vertices belong to the same connected component. `Find(u)` returns the representative of the set containing u, and `Union(u,v)` merges the sets containing u and v. Path compression flattens the tree structure during a search, and union-by-rank always attaches the shorter tree under the taller one to keep the trees balanced. Using both techniques together makes Find nearly O(1).
 
-![Kruskal execution (CLRS Figure 23.4)](../images/ch23_p009_105.jpg)
+**Time complexity**: O(m log m), dominated by sorting edges.
 
-*CLRS Figure 23.4 — Kruskal processes edges in weight order; shaded edges belong to the growing forest*
+In the textbook's Figure 23.4, Kruskal's algorithm processes edges in weight order, and the shaded edges belong to the growing forest.
 
-> **Key Idea:** Kruskal's algorithm is edge-centric. It processes all edges globally from cheapest to most expensive, adding each one to the MST unless it would create a cycle. The Union-Find data structure makes cycle detection nearly constant time.
+![Figure 8. Execution of Kruskal's algorithm](../../images/Week05_ch23_p09.jpg)
+
+*Figure 8. Execution of Kruskal's algorithm*
+
+> **Key Point:** Kruskal's algorithm is edge-centric. It processes all edges globally from cheapest to most expensive, adding each one to the MST unless it would create a cycle. The Union-Find data structure makes cycle detection nearly constant time.
 
 ### 7.3 Prim's MST Algorithm
 
-```
+```text
 PrimMST(G):
     Input:  weighted graph G = (V, E), |V| = n, |E| = m
     Output: MST T
@@ -590,33 +622,39 @@ PrimMST(G):
 
 **Key difference from Kruskal**: Prim grows **one tree** from a starting vertex; Kruskal merges **multiple trees** (forest).
 
-**Time complexity**: O(n^2) with array, O(m log n) with binary heap
+**Time complexity**: $O(n^2)$ with array, O(m log n) with binary heap
 
-![Prim execution (CLRS Figure 23.5)](../images/ch23_p012_128.jpg)
+In the textbook's Figure 23.5, Prim's algorithm grows one tree from vertex a; black vertices are in the tree, and shaded edges are MST edges.
 
-*CLRS Figure 23.5 — Prim grows one tree from vertex a; black vertices are in the tree, shaded edges are MST edges*
+![Figure 9. Execution of Prim's algorithm](../../images/Week05_ch23_p12.jpg)
 
-> **Key Idea:** Prim's algorithm is vertex-centric. It maintains a set of vertices already in the MST and always adds the vertex that can be connected to the tree with the cheapest edge. This is structurally very similar to Dijkstra's shortest path algorithm.
+*Figure 9. Execution of Prim's algorithm*
 
-### 7.4 Kruskal vs Prim — Visual Comparison
+> **Key Point:** Prim's algorithm is vertex-centric. It maintains a set of vertices already in the MST and always adds the vertex that can be connected to the tree with the cheapest edge. This is structurally very similar to Dijkstra's shortest path algorithm.
 
-**Kruskal's** (edge-centric — merges forests):
+### 7.4 Kruskal vs Prim: Visual Comparison
 
-```
+**Kruskal's** (edge-centric, merges forests):
+
+```text
 Step 1:  a--b  c  d  e  f     (add cheapest edge)
 Step 2:  a--b  c--d  e  f     (add next cheapest)
 Step 3:  a--b--c--d  e  f     (forests merge)
   ...    one tree gradually forms
 ```
 
-**Prim's** (vertex-centric — grows one tree):
+*Figure 10. Forest merging in Kruskal's algorithm*
 
-```
+**Prim's** (vertex-centric, grows one tree):
+
+```text
 Step 1:  [c]                   (start from c)
 Step 2:  [c--b]                (nearest vertex to tree)
 Step 3:  [c--b--f]             (nearest vertex to tree)
   ...    tree grows outward
 ```
+
+*Figure 11. Tree growth in Prim's algorithm*
 
 Both produce the same MST (if edge weights are unique), but the construction order differs.
 
@@ -626,11 +664,13 @@ Both produce the same MST (if edge weights are unique), but the construction ord
 
 ## 8. Dijkstra's Shortest Path Algorithm
 
-### 8.1 Dijkstra's — Algorithm
+### 8.1 Dijkstra: Algorithm
 
 **Problem**: Find shortest paths from source vertex s to all other vertices in a weighted graph (non-negative weights).
 
-```
+Consider finding the shortest driving distance from one city to every other city. We start by knowing the distances to the immediate neighboring cities. We then finalize the closest city (its distance cannot improve) and update the distances from it to its neighbors. Repeating this process of always finalizing the closest unfinalized city finds all shortest paths.
+
+```text
 Dijkstra(G, s):
     Input:  weighted graph G = (V, E), source vertex s
     Output: array D where D[v] = shortest distance from s to v
@@ -646,15 +686,17 @@ Dijkstra(G, s):
     9. return D
 ```
 
-**Time complexity**: O(n^2) with array, O(m log n) with binary min-heap
+**Time complexity**: $O(n^2)$ with array, O(m log n) with binary min-heap
 
-> **Note:** Dijkstra's does NOT work with **negative** edge weights. For that, use **Bellman-Ford** (O(VE)).
+> **Note:** Dijkstra's algorithm does not work with **negative** edge weights. For that, use **Bellman-Ford** (O(VE)).
 
-### 8.2 Dijkstra's — Edge Relaxation
+With negative edges, a vertex that has already been finalized may later become reachable by a shorter path through a negative edge, which breaks the greedy invariant that the distance of the vertex with the minimum D value is optimal.
+
+### 8.2 Dijkstra: Edge Relaxation
 
 **Edge relaxation** is the core operation (lines 6-8):
 
-```
+```text
         s -----> ... -----> vmin -----> w
         |         D[vmin]        wt     |
         |                               |
@@ -662,28 +704,34 @@ Dijkstra(G, s):
                      D[w] (current)
 ```
 
-- If `D[vmin] + weight(vmin, w) < D[w]`, then going through vmin is a **shorter path** to w
+*Figure 12. Edge relaxation: the path through vmin versus the current path*
+
+- If `D[vmin] + weight(vmin, w) < D[w]`, then going through vmin is a **shorter path** to w.
 - Update: `D[w] = D[vmin] + weight(vmin, w)`
 
-**Why it works**: When vmin is selected (minimum D value among unfinalized), its shortest distance is **guaranteed correct** — no future path through unfinalized vertices can be shorter (because all edge weights are non-negative).
+**Why it works**: When vmin is selected (minimum D value among unfinalized), its shortest distance is **guaranteed correct**: no future path through unfinalized vertices can be shorter (because all edge weights are non-negative).
 
-![Edge relaxation (CLRS Figure 24.3)](../images/ch24_p007_068.jpg)
+The textbook's Figure 24.3 shows the two cases of edge relaxation: in (a) the d value decreases, and in (b) it does not change.
 
-*CLRS Figure 24.3 — (a) d decreases (b) no change*
+![Figure 13. Two cases of edge relaxation](../../images/Week05_ch24_p07.jpg)
 
-> **Key Idea:** Edge relaxation is the fundamental building block of shortest-path algorithms. It checks whether going through a newly finalized vertex provides a shorter path to its neighbors. Dijkstra's greedy-choice property ensures that once a vertex is finalized, its distance value is optimal.
+*Figure 13. Two cases of edge relaxation*
 
-### 8.3 Dijkstra's — Execution Trace
+> **Key Point:** Edge relaxation is the fundamental building block of shortest-path algorithms. It checks whether going through a newly finalized vertex provides a shorter path to its neighbors. Dijkstra's greedy-choice property ensures that once a vertex is finalized, its distance value is optimal.
 
-![Dijkstra execution (CLRS Figure 24.6)](../images/ch24_p017_197.jpg)
+### 8.3 Dijkstra: Execution Trace
 
-*Dijkstra execution (CLRS Figure 24.6)*
+The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by step.
 
-- Source *s* is the leftmost vertex. **Black** = finalized (in S), **white** = in priority queue Q.
+![Figure 14. Execution of Dijkstra's algorithm](../../images/Week05_ch24_p17.jpg)
+
+*Figure 14. Execution of Dijkstra's algorithm*
+
+- Source *s* is the leftmost vertex. **Black** vertices are finalized (in S), and **white** vertices are in the priority queue Q.
 - **(a)** Initial state -> **(b)** s finalized -> **(c)** y finalized -> ... -> **(f)** all finalized.
 - At each step, the vertex with minimum d value is extracted and its neighbors are relaxed.
 
-**Observation**: Dijkstra's is structurally very similar to Prim's MST — both grow a set by selecting the minimum-cost vertex at each step. The key difference is what "cost" means: Prim uses edge weight to the tree, Dijkstra uses total distance from the source.
+**Observation**: Dijkstra's is structurally very similar to Prim's MST: both grow a set by selecting the minimum-cost vertex at each step. The key difference is what "cost" means: Prim uses edge weight to the tree, Dijkstra uses total distance from the source.
 
 ---
 
@@ -700,9 +748,13 @@ Dijkstra(G, s):
 | **Speed** | Typically faster | Typically slower (but more general) |
 | **Coin Change** | O(k), but may fail | O(nk), always optimal |
 | **Knapsack** | Fractional: optimal | 0-1: optimal |
-| **Shortest Path** | Dijkstra (non-negative) | Bellman-Ford (any weights) |
+| **Shortest Path** | Dijkstra (non-negative) | Bellman-Ford (any weights, no negative cycles) |
 
-> **Rule of thumb:** Try greedy first. If you can prove the greedy-choice property, use it. Otherwise, fall back to DP.
+*Table 11. Comparison of greedy and dynamic programming*
+
+> **Note:** **Rule of Thumb.** Try greedy first. If you can prove the greedy-choice property, use it. Otherwise, fall back to DP.
+
+> **Note:** DP is usually described as bottom-up (tabulation), but it can also be implemented top-down (memoization). Greedy is called top-down in the sense that it makes a choice first and then solves the remaining subproblem.
 
 ---
 
@@ -710,22 +762,20 @@ Dijkstra(G, s):
 
 ## Summary
 
-| Algorithm | Problem | Time Complexity | Is It Optimal? |
-|-----------|---------|----------------|----------|
-| Coin Change (Greedy) | Min coins | O(k) for k denominations | Only for standard denominations |
-| Fractional Knapsack | Max value (divisible) | **O(n log n)** | Yes (always) |
-| Job Scheduling (EST) | Min machines | O(n log n) + O(mn) | Yes (always) |
-| Activity Selection (EFT) | Max activities, 1 machine | **O(n log n)** | Yes (always) |
-| Huffman Coding | Optimal prefix code | **O(n log n)** | Yes (always) |
-| Kruskal's MST | Min spanning tree | **O(m log m)** | Yes (always) |
-| Prim's MST | Min spanning tree | **O(n^2)** / O(m log n) | Yes (always) |
-| Dijkstra's | Shortest paths | **O(n^2)** / O(m log n) | Yes (non-negative weights) |
-
-**Key Takeaways:**
-- Greedy algorithms make locally optimal choices at each step, hoping to find a global optimum
-- Two conditions for correctness: **greedy-choice property** and **optimal substructure**
-- When greedy fails (0-1 knapsack, non-standard coins), use **Dynamic Programming** instead
-- Many fundamental algorithms (Kruskal, Prim, Dijkstra, Huffman) are greedy and provably optimal
+| Concept | Key Summary |
+|:-----|:-----|
+| Greedy algorithm | Makes a locally optimal choice at each step in the hope of reaching a global optimum. |
+| Two conditions for greedy correctness | The **greedy-choice property** and **optimal substructure** must hold. |
+| Coin change (greedy) | Finds the minimum number of coins in O(k) for k denominations and is optimal only for standard denominations. |
+| Fractional knapsack | Finds the maximum value of divisible items in O(n log n) and is always optimal. |
+| Job scheduling (EST) | Finds the minimum number of machines in O(n log n) + O(mn) and is always optimal. |
+| Activity selection (EFT) | Finds the maximum number of activities on one machine in O(n log n) and is always optimal. |
+| Huffman coding | Finds an optimal prefix code in O(n log n) and is always optimal. |
+| Kruskal's MST | Finds a minimum spanning tree in O(m log m) and is always optimal. |
+| Prim's MST | Finds a minimum spanning tree in $O(n^2)$ with an array or O(m log n) with a binary heap and is always optimal. |
+| Dijkstra's algorithm | Finds shortest paths in $O(n^2)$ with an array or O(m log n) with a binary heap and is optimal for non-negative weights. |
+| When greedy fails | When greedy fails, as in 0-1 knapsack or non-standard coins, **dynamic programming** is used instead. |
+| Greedy fundamental algorithms | Many fundamental algorithms, such as Kruskal, Prim, Dijkstra, and Huffman, are greedy and provably optimal. |
 
 ---
 
@@ -733,34 +783,74 @@ Dijkstra(G, s):
 
 ## Self-Check Questions
 
-1. **Greedy-Choice Property:** In your own words, what does the greedy-choice property mean? Give an example of a problem where it holds and one where it doesn't.
+1. **Greedy-Choice Property:** In your own words, what does the greedy-choice property mean? Give an example of a problem where it holds and one where it does not.
 
-   > **Answer:** The **greedy-choice property** means a globally optimal solution can be built by choosing the **locally optimal option** at each step, without looking ahead or reconsidering. At least one optimal solution must contain the greedy choice. **Example where it holds:** In Fractional Knapsack, taking as much as possible of the item with the highest value per weight is part of an optimum. **Example where it fails:** In the binary-tree maximum-path-sum problem, choosing the larger child (36 rather than 15) can exclude the truly optimal path through the smaller child.
+   <details>
+   <summary>Answer</summary>
+
+   The **greedy-choice property** means a globally optimal solution can be built by choosing the **locally optimal option** at each step, without looking ahead or reconsidering. At least one optimal solution must contain the greedy choice. **Example where it holds:** In Fractional Knapsack, taking as much as possible of the item with the highest value per weight is part of an optimum. **Example where it fails:** In the binary-tree maximum-path-sum problem, choosing the larger child (36 rather than 15) can exclude the truly optimal path through the smaller child.
+
+   </details>
 
 2. **Coin Change:** Prove (informally) that the greedy algorithm is optimal for denominations {1, 5, 10, 25}. Then show that adding a 12-cent coin breaks the greedy approach for making 15 cents.
 
-   > **Answer:** For {1, 5, 10, 25}, each denomination is a multiple (or near-multiple) of smaller ones, so using a larger coin can never be replaced by an equal-or-fewer count of smaller coins — e.g., one 25 replaces at least three 10-or-5s. Formally, any optimal solution using fewer of the largest coin than greedy does can be rewritten without increasing the total count. **With a 12-cent coin** making 15: greedy picks **12 + 1 + 1 + 1 = 4 coins**, but the optimum is **10 + 5 = 2 coins**. The 12-coin destroys the divisor structure, so the greedy-choice property fails.
+   <details>
+   <summary>Answer</summary>
+
+   For {1, 5, 10, 25}, each denomination is a multiple (or near-multiple) of smaller ones, so a larger coin can never be replaced by an equal or smaller number of smaller coins. For example, replacing one 25 takes at least three 10s or 5s. Therefore, any optimal solution using fewer of the largest coin than greedy does can be rewritten without increasing the total count. **With a 12-cent coin** making 15: greedy picks **12 + 1 + 1 + 1 = 4 coins**, but the optimum is **10 + 5 = 2 coins**. The 12-coin destroys the divisor structure, so the greedy-choice property fails.
+
+   </details>
 
 3. **Fractional vs 0-1 Knapsack:** Given items (weight, value): A(10, 60), B(20, 100), C(30, 120) and capacity 50: solve both the fractional and 0-1 versions. Why do the answers differ?
 
-   > **Answer:** Ratios are 6, 5, 4 $/lb. **Fractional**: take A (10 lb, $60), B (20 lb, $100), then 2/3 of C (20 lb, $80) → **$240**. **0-1**: greedy gets A + B = **$160** wasting 20 lb of capacity; the true 0-1 optimum is B + C = **$220**. The answers differ because in **0-1** you cannot fill the leftover capacity with a fraction of a low-ratio item, so a high-ratio item can actually be a *trap* that strands capacity — exactly where the greedy-choice property breaks.
+   <details>
+   <summary>Answer</summary>
+
+   Ratios are 6, 5, 4 $/lb. **Fractional**: take A (10 lb, $60), B (20 lb, $100), then 2/3 of C (20 lb, $80) → **$240**. **0-1**: greedy gets A + B = **$160** wasting 20 lb of capacity; the true 0-1 optimum is B + C = **$220**. The answers differ because in **0-1** you cannot fill the leftover capacity with a fraction of a low-ratio item, so a high-ratio item can actually be a *trap* that strands capacity, which is exactly where the greedy-choice property breaks.
+
+   </details>
 
 4. **Activity Selection:** Given activities with (start, finish): (1,3), (2,5), (4,7), (1,8), (5,9), (8,10), apply the earliest-finish-time algorithm. How many activities are selected?
 
-   > **Answer:** Sorted by finish time: (1,3), (2,5), (4,7), (1,8), (5,9), (8,10). Pick (1,3) → `last_finish = 3`. Skip (2,5) since 2 < 3. Pick (4,7) since 4 ≥ 3 → `last_finish = 7`. Skip (1,8), (5,9) since 1, 5 < 7. Pick (8,10) since 8 ≥ 7 → `last_finish = 10`. **Selected: {(1,3), (4,7), (8,10)} — 3 activities.** Choosing the earliest-finishing compatible activity at each step maximizes the remaining time available for subsequent picks.
+   <details>
+   <summary>Answer</summary>
+
+   Sorted by finish time: (1,3), (2,5), (4,7), (1,8), (5,9), (8,10). Pick (1,3) → `last_finish = 3`. Skip (2,5) since 2 < 3. Pick (4,7) since 4 ≥ 3 → `last_finish = 7`. Skip (1,8), (5,9) since 1, 5 < 7. Pick (8,10) since 8 ≥ 7 → `last_finish = 10`. **Selected: {(1,3), (4,7), (8,10)}, 3 activities.** Choosing the earliest-finishing compatible activity at each step maximizes the remaining time available for subsequent picks.
+
+   </details>
 
 5. **Huffman Coding:** Build a Huffman tree for characters with frequencies: E=40, A=30, B=15, C=10, D=5. What code is assigned to each character? What is the average bits per character?
 
-   > **Answer:** Merge order: D(5)+C(10)=15; then B(15)+15=30; then A(30)+30=60; then E(40)+60=100. Reading left=0, right=1 from the root: **E = `0`, A = `10`, B = `110`, C = `1111`, D = `1110`** (1, 2, 3, 4, 4 bits respectively). Total bits = 40·1 + 30·2 + 15·3 + 10·4 + 5·4 = 40+60+45+40+20 = **205 bits over 100 characters → 2.05 bits/char average**, far below the 8-bit ASCII baseline.
+   <details>
+   <summary>Answer</summary>
+
+   Merge order: D(5)+C(10)=15; then B(15)+15=30; then A(30)+30=60; then E(40)+60=100. Reading left=0, right=1 from the root: **E = `0`, A = `10`, B = `110`, C = `1111`, D = `1110`** (1, 2, 3, 4, 4 bits respectively). Total bits = 40×1 + 30×2 + 15×3 + 10×4 + 5×4 = 40+60+45+40+20 = **205 bits over 100 characters → 2.05 bits/char average**, far below the 8-bit ASCII baseline.
+
+   </details>
 
 6. **Kruskal vs Prim:** For a graph with 6 vertices and 9 edges, trace both algorithms. Do they produce the same MST? Under what condition might they produce different MSTs?
 
-   > **Answer:** Both are correct greedy MST algorithms and produce a tree of **identical total weight**. When **all edge weights are distinct**, the MST is **unique**, so Kruskal and Prim produce the *exact same* edge set even though the construction order differs (Kruskal merges a forest globally; Prim grows one tree from a start vertex). With **tied edge weights**, multiple MSTs may exist — both algorithms still find a minimum-weight one, but tie-breaking (and Prim's start vertex) can select different edges.
+   <details>
+   <summary>Answer</summary>
+
+   Both are correct greedy MST algorithms and produce a tree of **identical total weight**. When **all edge weights are distinct**, the MST is **unique**, so Kruskal and Prim produce the *exact same* edge set even though the construction order differs (Kruskal merges a forest globally; Prim grows one tree from a start vertex). With **tied edge weights**, multiple MSTs may exist; both algorithms still find a minimum-weight one, but tie-breaking (and Prim's start vertex) can select different edges.
+
+   </details>
 
 7. **Dijkstra's:** Given a graph with a negative edge, construct a specific example where Dijkstra produces a wrong answer. Then explain the greedy invariant that is violated.
 
-   > **Answer:** Use vertices A, B, C with edges A→B = 1, A→C = 2, C→B = -2, and source A. Dijkstra finalizes A, then B because `D[B] = 1 < D[C] = 2`. When C is later processed, the path A→C→B has cost 0, which is better than B's finalized distance 1. Dijkstra cannot revise B after finalization, so it returns a wrong result. This violates the invariant that the smallest tentative distance is final; negative weights break the monotonicity that supports it.
+   <details>
+   <summary>Answer</summary>
+
+   Use vertices A, B, C with edges A→B = 1, A→C = 2, C→B = -2, and source A. Dijkstra finalizes A, then B because `D[B] = 1 < D[C] = 2`. When C is later processed, the path A→C→B has cost 0, which is better than B's finalized distance 1. Dijkstra cannot revise B after finalization, so it returns a wrong result. This violates the invariant that the smallest tentative distance is final; negative weights break the monotonicity that supports it.
+
+   </details>
 
 8. **Greedy vs DP Decision:** For each problem, decide greedy or DP and explain: (a) minimum coins for arbitrary denominations, (b) shortest path with non-negative weights, (c) longest common subsequence, (d) fractional knapsack.
 
-   > **Answer:** **(a) DP:** Arbitrary denominations can break the divisor structure. For amount 6 with coins `{1, 3, 4}`, greedy choice can leave a remainder that needs extra coins; use `dp[i] = min(dp[i-c] + 1)`. **(b) Greedy:** Dijkstra's algorithm works because non-negative weights preserve the invariant that a finalized distance is optimal. **(c) DP:** LCS has overlapping subproblems and no reliable local choice, since a character match may or may not belong to an LCS. The standard `dp[i][j]` table takes O(mn) space. **(d) Greedy:** Sort by value per weight. Since fractions are allowed, each unit of capacity can be assigned at the best available rate.
+   <details>
+   <summary>Answer</summary>
+
+   **(a) DP:** Arbitrary denominations can break the divisor structure. For amount 6 with coins `{1, 3, 4}`, greedy choice can leave a remainder that needs extra coins; use `dp[i] = min(dp[i-c] + 1)`. **(b) Greedy:** Dijkstra's algorithm works because non-negative weights preserve the invariant that a finalized distance is optimal. **(c) DP:** LCS has overlapping subproblems and no reliable local choice, since a character match may or may not belong to an LCS. The standard `dp[i][j]` table takes O(mn) space. **(d) Greedy:** Sort by value per weight. Since fractions are allowed, each unit of capacity can be assigned at the best available rate.
+
+   </details>

@@ -1,21 +1,24 @@
 # Week 5 Lab — Greedy Algorithms
 
-> **Last Updated:** 2026-05-13
+[Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Prerequisites**: Week 5 Lecture — greedy algorithms, greedy choice property, optimal substructure. Python 3 installed. Understanding of sorting and basic dynamic programming concepts.
->
-> **Learning Objectives**:
+> **Last Updated:** 2026-10-18
+
+> **Learning Objectives:**
 > 1. Experimentally verify the success and failure conditions of greedy algorithms
 > 2. Implement fractional knapsack using a greedy value/weight ratio strategy
 > 3. Build a Huffman coding tree and analyze compression efficiency
-> 4. Experience how greedy strategies are applied to real scheduling problems
+> 4. Apply greedy strategies to a real scheduling problem
 
 ---
 
 ## Table of Contents
 
 - [1. Overview](#1-overview)
-- [2. Type A — Algorithm Implementation](#2-type-a--algorithm-implementation)
+  - [1.1 Lab Goals](#11-lab-goals)
+  - [1.2 Lab Structure](#12-lab-structure)
+  - [1.3 How to Run](#13-how-to-run)
+- [2. Type A: Algorithm Implementation](#2-type-a-algorithm-implementation)
   - [2.1 A-1: Coin Change](#21-a-1-coin-change)
     - [2.1.1 Problem](#211-problem)
     - [2.1.2 Greedy Code](#212-greedy-code)
@@ -32,14 +35,15 @@
     - [2.3.3 Core Code](#233-core-code)
     - [2.3.4 Encoding and Decoding](#234-encoding-and-decoding)
     - [2.3.5 Compression Results](#235-compression-results)
-- [3. Type B — Web Code Analysis](#3-type-b--web-code-analysis)
+- [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Meeting Room Reservation System](#31-b-1-meeting-room-reservation-system)
     - [3.1.1 Problem](#311-problem)
     - [3.1.2 Solution](#312-solution)
     - [3.1.3 Greedy Code](#313-greedy-code)
     - [3.1.4 Brute Force Comparison](#314-brute-force-comparison)
+- [4. When Does Greedy Work?](#4-when-does-greedy-work)
 - [Summary](#summary)
-- [Appendix](#appendix)
+- [Self-Check Questions](#self-check-questions)
 
 ---
 
@@ -47,14 +51,14 @@
 
 ## 1. Overview
 
-### Today's Goals
+### 1.1 Lab Goals
 
-- Observe when the greedy approach **works** and when it **fails** through the coin change problem
-- Implement **Fractional Knapsack** and understand why greedy is optimal when items can be split
-- Build a **Huffman coding** tree and measure compression efficiency
-- Apply **Activity Selection** (greedy by end time) to a meeting room scheduling problem
+- Observe when the greedy approach **works** and when it **fails** through the coin change problem.
+- Implement **Fractional Knapsack** and understand why greedy is optimal when items can be split.
+- Build a **Huffman coding** tree and measure compression efficiency.
+- Apply **Activity Selection** (greedy by end time) to a meeting room scheduling problem.
 
-### Lab Structure
+### 1.2 Lab Structure
 
 | Section | Topic | Time |
 |:--------|:------|:-----|
@@ -63,7 +67,9 @@
 | **A-3** | Huffman Coding | 15 min |
 | **B-1** | Meeting Room Reservation System | 15 min |
 
-### How to Run
+*Table 1. Topic and time for each lab section*
+
+### 1.3 How to Run
 
 Skeleton files (with `TODO` comments) are in `examples/skeletons/`, and reference solutions are in `examples/solutions/`.
 
@@ -81,7 +87,7 @@ No external packages are required (standard library only). Flask is needed only 
 
 <br>
 
-## 2. Type A — Algorithm Implementation
+## 2. Type A: Algorithm Implementation
 
 ### 2.1 A-1: Coin Change
 
@@ -93,7 +99,7 @@ Observe when the greedy approach works and when it fails by comparing it with an
 
 **Case 1: Greedy succeeds**
 
-```
+```text
 Coins: [500, 100, 50, 10]    Amount: 1260
 
 Greedy strategy: always pick the largest coin possible
@@ -103,7 +109,7 @@ Greedy strategy: always pick the largest coin possible
 
 **Case 2: Greedy fails**
 
-```
+```text
 Coins: [1, 3, 4]    Amount: 6
 
 Greedy: pick largest first
@@ -113,7 +119,7 @@ Optimal (DP):
   3 -> 3     = 2 coins  <-- fewer coins!
 ```
 
-**Why does greedy fail?** The coins are not in a divisor relationship — picking the locally best coin can block a globally better combination.
+**Why does greedy fail?** The coins are not in a divisor relationship, so picking the locally best coin can block a globally better combination.
 
 #### 2.1.2 Greedy Code
 
@@ -146,8 +152,7 @@ Run: `python examples/solutions/a1_coin_change.py`
 ```python
 def coin_change_dp(amount, coins):
     """
-    Calculate minimum number of coins using DP 
-    (always guarantees optimal solution).
+    Calculate minimum number of coins using DP (always guarantees optimal solution).
 
     Algorithm: dp[i] = minimum number of coins to make amount i
     Recurrence: dp[i] = min(dp[i - c] + 1) (for all coins c)
@@ -184,7 +189,9 @@ def coin_change_dp(amount, coins):
 | [500, 100, 50, 10] | Optimal | Optimal | Yes |
 | [1, 3, 4] | 3 coins | **2 coins** | **No** |
 
-Greedy works when coins have the **divisor property** (each coin divides the next larger one).
+*Table 2. Greedy and DP results for each coin set*
+
+Greedy is always optimal when coins have the **divisor property** (each coin divides the next larger one). This property is sufficient but not necessary: as with the US coins in Section 2.1.4, greedy can be optimal for some coin sets without it.
 
 #### 2.1.4 Extended Test Cases
 
@@ -197,6 +204,8 @@ The file `a1_coin_change_greedy.py` provides a detailed comparison across multip
 | Korean standard | [500, 100, 50, 10] | 770 | Optimal | Optimal |
 | US standard | [25, 10, 5, 1] | 63 | Optimal | Optimal |
 
+*Table 3. Coin sets for which greedy is optimal*
+
 **Failure cases** (greedy > optimal):
 
 | Label | Coins | Amount | Greedy | Optimal |
@@ -205,16 +214,18 @@ The file `a1_coin_change_greedy.py` provides a detailed comparison across multip
 | Failure 2 | [6, 4, 1] | 8 | 6+1+1 = **3** coins | 4+4 = **2** coins |
 | Failure 3 | [12, 9, 1] | 18 | 12+1x6 = **7** coins | 9+9 = **2** coins |
 
+*Table 4. Coin sets for which greedy is not optimal*
+
 Run: `python examples/solutions/a1_coin_change_greedy.py`
 
 **When greedy is optimal:**
-- When each coin is a multiple of smaller coins (e.g., 500, 100, 50, 10)
-- In this case, the "greedy choice property" holds
+- Greedy is optimal when each coin is a multiple of smaller coins (e.g., 500, 100, 50, 10).
+- In this case, the greedy choice property holds.
 
 **When greedy fails:**
-- When the divisibility relationship between coins does not hold
-- In this case, DP must be used to find the optimal solution
-- Time complexity: Greedy O(k), DP O(k * amount) (k = number of coin types)
+- Greedy can fail when the divisibility relationship between coins does not hold. However, as with the US standard [25, 10, 5, 1], greedy can be optimal even without it.
+- In this case, DP must be used to guarantee the optimal solution.
+- Time complexity: Greedy O(k) (when the count of each coin is computed by division), DP O(k * amount) (k = number of coin types).
 
 ---
 
@@ -226,7 +237,7 @@ Run: `python examples/solutions/a1_coin_change_greedy.py`
 
 **Problem**: Given items with weights and values, maximize total value in a knapsack of limited capacity. Items **can be split**.
 
-```
+```text
 Knapsack capacity: 50kg
 
 Item    Weight   Value   Value/kg
@@ -238,7 +249,7 @@ C        30kg     120      4.0
 
 **Greedy strategy**: Sort by value-per-weight ratio (descending), then fill greedily.
 
-```
+```text
 Step 1: Take all of A  (10 kg, value 60)   remaining: 40 kg
 Step 2: Take all of B  (20 kg, value 100)  remaining: 20 kg
 Step 3: Take 2/3 of C  (20 kg, value 80)   remaining: 0 kg
@@ -294,7 +305,7 @@ Run: `python examples/solutions/a2_fractional_knapsack.py`
 
 The solution file also demonstrates a 5-item knapsack with capacity 40kg:
 
-```
+```text
 Knapsack capacity: 40 kg
 
 Name       Weight   Value    Ratio
@@ -310,7 +321,7 @@ Greedy selection process:
 1. Jewels: added full 5.0 kg (value 300, remaining 35.0kg)
 2. Gold: added full 10.0 kg (value 600, remaining 25.0kg)
 3. Silver: added full 20.0 kg (value 500, remaining 5.0kg)
-4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0kg) — **split**
+4. Ceramics: 33.3% (5.0 kg) added (value 67, remaining 0.0kg). This item is **split**.
 
 **Maximum value: 1467**
 
@@ -320,7 +331,8 @@ The solution also includes a brute force 0-1 knapsack for comparison:
 
 ```python
 def knapsack_01_bruteforce(capacity, items):
-    """Solve the 0-1 knapsack problem using brute force (for comparison).
+    """
+    Solve the 0-1 knapsack problem using brute force (for comparison).
     Time complexity: O(2^n * n) -- checks all subsets
     """
     n = len(items)
@@ -344,7 +356,7 @@ def knapsack_01_bruteforce(capacity, items):
     return best_value, best_selection
 ```
 
-```
+```text
      Fractional             0-1 Knapsack
     (can split)           (all or nothing)
 +-----------------+     +-----------------+
@@ -358,13 +370,15 @@ Why the difference?
          0-1: "Take or skip?"     -> discrete choice
 ```
 
+*Figure 1. Comparison of fractional and 0-1 knapsack*
+
 **Key insight**: Fractional knapsack can always achieve value >= 0-1 knapsack.
 
 **Why greedy is optimal for fractional knapsack:**
 
-- Prioritizing items with the highest value per unit weight maintains optimal selection for the remaining capacity
-- Since items can be split, the question is not "include or not" but "how much to include"
-- **Time complexity**: O(n log n) — dominated by sorting
+- Prioritizing items with the highest value per unit weight maintains optimal selection for the remaining capacity.
+- Since items can be split, the question is not "include or not" but "how much to include".
+- **Time complexity**: O(n log n), dominated by sorting.
 
 ---
 
@@ -376,7 +390,7 @@ Why the difference?
 
 **Problem**: Given character frequencies, build an optimal prefix-free binary code.
 
-```
+```text
 Text: "abracadabra"
 
 Character frequencies:
@@ -385,18 +399,18 @@ Character frequencies:
 
 **Greedy strategy**: Repeatedly merge the two lowest-frequency nodes.
 
-```
+```text
 Step 1: Merge 'c'(1) + 'd'(1) = [2]
 Step 2: Merge 'b'(2) + 'r'(2) = [4]
 Step 3: Merge [2]   + [4]     = [6]
 Step 4: Merge 'a'(5) + [6]    = [11]
 ```
 
-**Key property**: Prefix-free code — no codeword is a prefix of another, so decoding is unambiguous without delimiters.
+**Key property**: Prefix-free code. No codeword is a prefix of another, so decoding is unambiguous without delimiters.
 
 #### 2.3.2 Huffman Tree
 
-```
+```text
               [11]
              /    \
           (0)     (1)
@@ -412,6 +426,8 @@ Step 4: Merge 'a'(5) + [6]    = [11]
       'c'(1)  'd'(1) 'b'(2)  'r'(2)
 ```
 
+*Figure 2. Huffman tree for "abracadabra"*
+
 **Resulting codes:**
 
 | Char | Freq | Code | Bits |
@@ -422,7 +438,9 @@ Step 4: Merge 'a'(5) + [6]    = [11]
 | c | 1 | `100` | 3 |
 | d | 1 | `101` | 3 |
 
-High frequency = short code, low frequency = long code.
+*Table 5. Code for each character from the Huffman tree*
+
+High-frequency characters get short codes, and low-frequency characters get long codes.
 
 #### 2.3.3 Core Code
 
@@ -510,17 +528,17 @@ def decode(encoded_text, root):
 
 **Encoding example:**
 
-```
+```text
 Text:    "abracadabra"
-Encoded: "01100111010001000110011101"  (23 bits)
+Encoded: "01101110100010101101110"    (23 bits)
 Decoded: "abracadabra"                (matches original: PASS)
 ```
 
-**Prefix code verification**: The solution verifies that no code is a prefix of another — this ensures unambiguous decoding without delimiters.
+**Prefix code verification**: The solution verifies that no code is a prefix of another, which ensures unambiguous decoding without delimiters.
 
 #### 2.3.5 Compression Results
 
-```
+```text
 Text: "abracadabra" (11 chars)
 
                            Bits     Bits/char
@@ -528,30 +546,32 @@ Text: "abracadabra" (11 chars)
 ASCII (8-bit):              88       8.000
 Fixed-length (3b):          33       3.000
 Huffman:                    23       2.091
-Theoretical lower bound:    21       1.927
+Theoretical lower bound:    22.4     2.040
 ```
 
 **Additional examples from the solution:**
 
 | Text | Huffman bits/char | Entropy | Compression vs ASCII |
 |:-----|:-----------------|:--------|:---------------------|
-| "abracadabra" | 2.091 | 1.927 | 73.9% |
+| "abracadabra" | 2.091 | 2.040 | 73.9% |
 | "the quick brown fox..." | 4.023 | 3.944 | 49.7% |
-| "aaaaaaaabbbbccdd" | 1.625 | 1.750 | 79.7% |
+| "aaaaaaaabbbbccdd" | 1.750 | 1.750 | 78.1% |
+
+*Table 6. Huffman compression results for each text*
 
 **Why is Huffman greedy?**
 
-- At each step, merge the **two least frequent** nodes
-- This locally optimal choice leads to a globally optimal prefix code
-- Proven optimal among all prefix-free codes
+- At each step, merge the **two least frequent** nodes.
+- This locally optimal choice leads to a globally optimal prefix code.
+- It is proven optimal among all prefix-free codes.
 
-**Time complexity**: O(n log n) — n = number of distinct characters, each heap operation is O(log n), performed n-1 times.
+**Time complexity**: O(n log n), where n is the number of distinct characters; each heap operation is O(log n), and n-1 merges are performed.
 
 ---
 
 <br>
 
-## 3. Type B — Web Code Analysis
+## 3. Type B: Web Code Analysis
 
 ### 3.1 B-1: Meeting Room Reservation System
 
@@ -567,7 +587,7 @@ python app.py
 
 **Problem**: Given a list of meeting requests with start/end times, find the **maximum number of non-overlapping meetings** that can be scheduled.
 
-```
+```text
 Meeting requests:
   A: [1, 4)    B: [3, 5)    C: [0, 6)
   D: [5, 7)    E: [3, 9)    F: [5, 9)
@@ -577,13 +597,15 @@ Timeline:
   A: |===|
   B:   |==|
   C:|======|
-  D:      |==|
-  E:   |=======|
-  F:      |====|
-  G:       |==|
-  H:          |===|
-  I:          |====|
+  D:     |==|
+  E:   |======|
+  F:     |====|
+  G:      |==|
+  H:        |===|
+  I:        |====|
 ```
+
+*Figure 3. Time intervals of meeting requests A-I*
 
 Which meetings should we select to maximize the count?
 
@@ -591,7 +613,7 @@ Which meetings should we select to maximize the count?
 
 **Greedy strategy**: Sort by **end time**, then greedily pick non-overlapping activities.
 
-```
+```text
 Sorted by end time:
   A: [1,4)  B: [3,5)  C: [0,6)  D: [5,7)  G: [6,8)
   E: [3,9)  F: [5,9)  H: [8,11)  I: [8,12)
@@ -642,9 +664,9 @@ def greedy_schedule(meetings):
 
 **Why sorting by end time works:**
 
-- Choosing the meeting that **finishes earliest** leaves the most room for future meetings
-- This greedy choice property is provably optimal
-- **Time complexity**: O(n log n) for sorting
+- Choosing the meeting that **finishes earliest** leaves the most room for future meetings.
+- This greedy choice is provably optimal.
+- **Time complexity**: O(n log n) for sorting.
 
 #### 3.1.4 Brute Force Comparison
 
@@ -689,25 +711,26 @@ def bruteforce_schedule(meetings):
 
 <br>
 
+## 4. When Does Greedy Work?
+
+For greedy to guarantee an optimal solution, the following two conditions must hold.
+
+1. **Greedy Choice Property:** A locally optimal choice is part of a globally optimal solution.
+2. **Optimal Substructure:** After making a greedy choice, the remaining subproblem is also optimally solvable.
+
+---
+
+<br>
+
 ## Summary
 
-### What We Learned Today
-
-- **Coin Change**: Greedy works for standard denominations but fails for arbitrary coin sets
-- **Fractional Knapsack**: Greedy by value/weight ratio is optimal when items can be split
-- **Huffman Coding**: Greedy merging of lowest-frequency nodes produces optimal prefix codes
-- **Activity Selection**: Sorting by end time and greedily picking gives maximum non-overlapping set
-
-### When Does Greedy Work?
-
-```
-Greedy works when:
-  1. Greedy Choice Property - a locally optimal choice is part
-                              of a globally optimal solution
-  2. Optimal Substructure - after making a greedy choice, the remaining
-                            subproblem is also optimally solvable
-```
-
+| Concept | Key Summary |
+|:-----|:-----|
+| Coin change | Greedy gives the optimal solution for standard denominations but can fail for arbitrary coin sets. |
+| Fractional knapsack | When items can be split, greedy by value/weight ratio is optimal. |
+| Huffman coding | Greedily merging the two lowest-frequency nodes produces an optimal prefix code. |
+| Activity selection | Sorting by end time and greedily picking non-overlapping activities gives a maximum non-overlapping set. |
+| Conditions for greedy | The greedy choice property and optimal substructure must both hold. |
 
 ---
 
@@ -715,26 +738,56 @@ Greedy works when:
 
 ## Self-Check Questions
 
-1. Why does the greedy coin change algorithm fail for coins [1, 3, 4] with amount 6? What property must coin denominations have for greedy to always work?
+1. **Greedy Coin Change Failure:** Why does the greedy coin change algorithm fail for coins [1, 3, 4] with amount 6? What property of coin denominations guarantees that greedy always works?
 
-   > **Answer:** Greedy picks the largest coin first: `4 → 1 → 1 = 3 coins`, but optimal is `3 + 3 = 2 coins`. The greedy choice of `4` strands a remainder of `2` that cannot be made with one coin, while picking the smaller `3` aligns perfectly with the remaining amount. For greedy to always work, denominations need the **divisor property** — each coin must be a multiple of (or align cleanly with) the next smaller one, like {1, 5, 10, 25} or {1, 10, 50, 100, 500}. This structure guarantees that committing to the biggest coin never blocks a globally better combination.
+   <details>
+   <summary>Answer</summary>
 
-2. If items cannot be split (0-1 knapsack), why does the greedy value/weight ratio strategy fail? Give a concrete example.
+   Greedy picks the largest coin first: `4 → 1 → 1 = 3 coins`, but optimal is `3 + 3 = 2 coins`. The greedy choice of `4` strands a remainder of `2` that cannot be made with one coin, while picking the smaller `3` aligns perfectly with the remaining amount. If the denominations have the **divisor property** (each coin is a multiple of the next smaller one, as in {1, 10, 50, 100, 500}), greedy is always optimal. This structure guarantees that committing to the biggest coin never blocks a globally better combination. The divisor property is sufficient but not necessary: in {1, 5, 10, 25}, 25 is not a multiple of 10, yet greedy is still always optimal.
 
-   > **Answer:** In 0-1 knapsack a high-ratio item can **strand capacity** that cannot be filled with a fraction of another item. With items A(10, $60), B(20, $100), C(30, $120) and capacity 50: greedy picks A then B → $160 with 20 lb left empty. The 0-1 optimum is **B + C = $220** — it gives up the best ratio item to use the capacity fully. The greedy-choice property fails because "include or skip" is a discrete choice; you cannot top off the leftover with `2/3` of C as you would in the fractional case.
+   </details>
 
-3. In the Huffman coding example, how close is the average bits per character to the theoretical entropy lower bound? What does this gap tell us?
+2. **0-1 Knapsack and Greedy:** If items cannot be split (0-1 knapsack), why does the greedy value/weight ratio strategy fail? Give a concrete example.
 
-   > **Answer:** For "abracadabra", Huffman achieves **2.091 bits/char** versus the entropy lower bound of **1.927 bits/char** — a gap of ~0.164 bits/char (~8.5%). The gap exists because Huffman codes must use **integer bit lengths** for each symbol, while Shannon entropy assumes fractional bit allocations. Huffman is provably optimal **among prefix-free codes**, but to approach entropy you need techniques like **arithmetic coding** that effectively encode fractional bits. The gap shrinks as alphabet size grows and frequencies become more skewed.
+   <details>
+   <summary>Answer</summary>
 
-4. In activity selection, what would happen if you sorted by start time instead of end time? Would the greedy algorithm still produce an optimal solution?
+   In 0-1 knapsack a high-ratio item can **strand capacity** that cannot be filled with a fraction of another item. With items A(10, $60), B(20, $100), C(30, $120) and capacity 50: greedy picks A then B for $160 with 20 lb left empty. The 0-1 optimum is **B + C = $220**, which gives up the best ratio item to use the capacity fully. The greedy-choice property fails because "include or skip" is a discrete choice; you cannot top off the leftover with `2/3` of C as you would in the fractional case.
 
-   > **Answer:** **No.** Sorting by start time can pick a long-running activity that blocks many shorter, compatible ones. Counterexample: activities `[0, 10), [1, 2), [3, 4), [5, 6)`. Earliest-start-first picks `[0, 10)` and stops there — **1 activity**. Earliest-finish-first picks `[1, 2), [3, 4), [5, 6)` — **3 activities**. The earliest-finish heuristic works because finishing early **leaves maximum remaining time** for future picks; earliest-start gives no such guarantee since the chosen activity may run arbitrarily long.
+   </details>
 
-5. For coin set {12, 9, 1} with amount 18, greedy uses 7 coins while optimal uses 2. Explain why this is the worst ratio among the test cases, and what makes this coin set particularly bad for greedy.
+3. **Huffman Coding and Entropy:** In the Huffman coding example, how close is the average bits per character to the theoretical entropy lower bound? What does this gap tell us?
 
-   > **Answer:** Greedy takes `12` first, leaving `6` — but `9` no longer fits, so it falls back to six `1`s → **7 coins**. Optimal: `9 + 9 = 2 coins`, exactly **3.5×** worse. This is the worst ratio because the **gap between 12 and 9 is small** (so picking 12 only saves *one* coin compared to picking 9), but **picking 12 destroys the ability to use 9 at all** for the remainder. The denominations are pairwise close yet non-divisible — there is no fallback coin between 9 and 1, so any stranded remainder collapses into a long tail of pennies.
+   <details>
+   <summary>Answer</summary>
 
-6. The brute force knapsack and meeting scheduler both examine all subsets. Why is brute force limited to small N, and how does greedy avoid this?
+   For "abracadabra", Huffman achieves **2.091 bits/char**, while the entropy lower bound computed from the character frequencies is about **2.040 bits/char**, a gap of about 0.051 bits/char (about 2.5%). The gap exists because Huffman codes must use **integer bit lengths** for each symbol, while Shannon entropy assumes fractional bit allocations. Huffman is provably optimal **among prefix-free codes**, but to approach entropy you need techniques like **arithmetic coding** that effectively encode fractional bits. The gap shrinks as the probabilities approach negative powers of two (for "aaaaaaaabbbbccdd" it is zero), and it can grow when one symbol is very likely. Coding blocks of several symbols together reduces the gap.
 
-   > **Answer:** Brute force enumerates all `2^n` subsets — at N=20 that is ~10⁶ (manageable), at N=30 it is ~10⁹ (seconds to minutes), and at N=50 it is ~10¹⁵ (intractable). The exponential blowup makes brute force infeasible for real-world inputs. **Greedy** runs in **O(n log n)** (dominated by sorting) and makes exactly one pass over the items, never enumerating subsets. It avoids the explosion by committing to a single locally optimal choice at each step rather than exploring alternatives — trading the guaranteed correctness of exhaustive search for dramatic speed, justified when the greedy-choice property holds.
+   </details>
+
+4. **Sorting Key for Activity Selection:** In activity selection, what would happen if you sorted by start time instead of end time? Would the greedy algorithm still produce an optimal solution?
+
+   <details>
+   <summary>Answer</summary>
+
+   **No.** Sorting by start time can pick a long-running activity that blocks many shorter, compatible ones. Counterexample: activities `[0, 10), [1, 2), [3, 4), [5, 6)`. Earliest-start-first picks `[0, 10)`, after which nothing else fits, so it gets only **1 activity**. Earliest-finish-first picks `[1, 2), [3, 4), [5, 6)`, which gives **3 activities**. The earliest-finish heuristic works because finishing early **leaves maximum remaining time** for future picks; earliest-start gives no such guarantee since the chosen activity may run arbitrarily long.
+
+   </details>
+
+5. **Worst Coin Set:** For coin set {12, 9, 1} with amount 18, greedy uses 7 coins while optimal uses 2. Explain why this is the worst ratio among the test cases, and what makes this coin set particularly bad for greedy.
+
+   <details>
+   <summary>Answer</summary>
+
+   Greedy takes `12` first, leaving `6`, but `9` no longer fits, so it falls back to six `1`s for **7 coins**. The optimum is `9 + 9 = 2 coins`, so greedy is exactly **3.5×** worse. This is the worst ratio because the **gap between 12 and 9 is small** (so picking 12 only saves *one* coin compared to picking 9), but **picking 12 destroys the ability to use 9 at all** for the remainder. The denominations are pairwise close yet non-divisible: there is no fallback coin between 9 and 1, so any stranded remainder collapses into a long tail of pennies.
+
+   </details>
+
+6. **Brute Force vs Greedy:** The brute force knapsack and meeting scheduler both examine all subsets. Why is brute force limited to small N, and how does greedy avoid this?
+
+   <details>
+   <summary>Answer</summary>
+
+   Brute force enumerates all $2^n$ subsets: at N=20 that is about $10^6$ (manageable), at N=30 about $10^9$ (seconds to minutes), and at N=50 about $10^{15}$ (intractable). The exponential blowup makes brute force infeasible for real-world inputs. **Greedy** runs in **O(n log n)** (dominated by sorting) and makes exactly one pass over the items, never enumerating subsets. It avoids the explosion by committing to a single locally optimal choice at each step rather than exploring alternatives. This trades the guaranteed correctness of exhaustive search for dramatic speed, which is justified when the greedy-choice property holds.
+
+   </details>

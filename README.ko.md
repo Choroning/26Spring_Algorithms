@@ -3,7 +3,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/Choroning/26Spring_Algorithms)
 ![Languages](https://img.shields.io/github/languages/top/Choroning/26Spring_Algorithms)
 
-이 레포지토리는 대학 강의 및 과제를 위해 작성된 Python 예제 및 실습 코드를 체계적으로 정리하고 보관합니다.
+이 레포지토리는 알고리즘 과목의 이중 언어 강의 노트와 수업 결과물을 정리한 아카이브입니다.
 
 *작성자: 박철원 (고려대학교(세종), 컴퓨터소프트웨어학과) - 2026년 기준 3학년*
 <br><br>
@@ -22,15 +22,16 @@
 <br><a name="about-this-repository"></a>
 ## 📝 레포지토리 소개
 
-이 레포지토리에는 대학 수준의 알고리즘 과목을 위해 작성된 이중 언어 학습 자료와 코드가 포함되어 있습니다:
+이 레포지토리에는 CLRS를 기반으로 알고리즘의 설계, 분석, 구현을 다루는 알고리즘 과목의 이중 언어 강의 노트와 코드가 담겨 있습니다.
 
-- 매 강의 및 실습 세션별 이중 언어 개념 정리 노트 (한국어 `.ko.md` + 영어 `.md`)
-- 상세한 설명 문서를 포함한 과제 솔루션
-- CLRS 기반 전체 커리큘럼을 다루는 주차별 디렉토리 구조
+- `Lecture-Notes/`에는 주차마다 이론 강의를 정리한 강의 노트(`Concepts_Lecture`)가 있고, 1~6주차에는 실습 세션을 정리한 실습 노트(`Concepts_Lab`)가 함께 있습니다.
+- 강의자료가 주차별로 배포되어 단원을 주차 번호(`Week##`)로 나눴으며, 단원 순서는 CLRS 기반 전체 커리큘럼의 주차 순서를 따릅니다. 복습 주차인 7주차와 중간고사 주차인 8주차는 단원이 없습니다.
+- 모든 강의 노트와 실습 노트는 영어 파일(`.md`)과 한국어 파일(`.ko.md`)이 같은 구성으로 짝을 이룹니다.
+- `Coursework/`에는 2~6주차 과제 다섯 개의 풀이(웹 앱 코드와 상세한 설명 보고서 `Assignment-Report.pdf`), 1주차 실습 코드, 중간고사 대비 자료, 팀 단위 텀 프로젝트가 있습니다.
 
 > **🤖 AI 에이전트 활용**
-> 본 과목은 AI 에이전트 사용을 권장합니다.
-> 수업 전반에 걸쳐 [Claude Code](https://claude.ai/download)와 [Gemini CLI](https://github.com/google-gemini/gemini-cli)를 코딩 어시스턴트로 활용하였습니다.
+> 이 과목은 AI 에이전트 사용을 권장합니다. 과제에서는 생성형 AI 도구를 쓸 수 있지만, 퀴즈에서는 생성형 AI 사용이 금지됩니다.
+> 수업 전반에 걸쳐 [Claude Code](https://claude.ai/download)와 [Gemini CLI](https://github.com/google-gemini/gemini-cli)를 코딩 어시스턴트로 활용했고, 강의 노트의 정리와 번역, 레포지토리 구조 정리에도 Claude Code를 활용했습니다.
 
 <br><a name="course-information"></a>
 ## 📚 강의 정보
@@ -44,67 +45,14 @@
 
 ### 과목 개요
 
-알고리즘의 설계, 분석, 구현을 다룬다. 알고리즘의 정확성, 시간·공간 복잡도 분석과 분할 정복, 탐욕법, 동적 프로그래밍, 그래프 알고리즘 등 핵심 설계 패러다임을 학습한다.
-
-### 교수자 및 연구실
-
-- **교수자:** 이웅기 교수, 컴퓨터소프트웨어학과
-- **연구실:** [LEAP Lab](https://codingchild2424.github.io/lab-website/) — 교육 분야 생성형 AI, 교수학적 정렬, 대규모 언어 모델, 지식 추적 연구
-
-### 수업 일정 및 형식
-
-- **학점:** 3학점
-- **수업 시간:** 화요일 8–9교시, 목요일 7교시
-- **강의실:** 과학기술2관 310호
-- **주간 형식:** 1교시 퀴즈 및 이론 강의(전반부), 2교시 이론 강의(후반부), 3교시 실습
-
-### 평가
-
-| 항목 | 비율 |
-|:-----|-----:|
-| 과제 (퀴즈 5%, 가정 과제 5%) | 10% |
-| 중간고사 (필기) | 30% |
-| 기말고사 (프로젝트) | 30% |
-| 기말고사 (필기) | 30% |
-| 출석 | 0% |
-
-- 퀴즈는 3–7주차와 9–13주차 1교시 시작 시 실시하며, 지난주 내용을 다루고 필기시험에 출제될 수 있다. 퀴즈에서는 생성형 AI 사용이 금지된다.
-- 가정 과제는 2–6주차에 총 5회 실시한다.
-- 과제에서는 생성형 AI 도구를 사용할 수 있으며, 자신의 추론과 설계 선택을 명확히 설명해야 한다.
-- 필기시험은 손글씨로 1시간 동안 진행한다. 기말 프로젝트는 9–13주차 팀 프로젝트이다.
-- 전체 수업 시수의 3분의 1을 초과해 결석하면 성적이 부여되지 않는다.
-
-### 주차별 계획
-
-| 주차 | 주제 | 주차 | 주제 |
-|:----:|:-----|:----:|:-----|
-| 1 | 알고리즘 소개 | 9 | 탐색 트리 |
-| 2 | 알고리즘 설계 및 복잡도 분석 | 10 | 해시 테이블 및 집합 자료구조 |
-| 3 | 배열, 스택, 큐, 기본 정렬 알고리즘 | 11 | 그래프 알고리즘 I |
-| 4 | 분할 정복 알고리즘 | 12 | 그래프 알고리즘 II |
-| 5 | 탐욕 알고리즘 | 13 | NP-완전 문제 및 근사 알고리즘 |
-| 6 | 동적 프로그래밍 | 14 | 기말고사 (프로젝트) |
-| 7 | 복습 및 문제 풀이 | 15 | 기말고사 (필기) |
-| 8 | 중간고사 | 16 | 자율학습 주간 |
-
-### 학습 자료
-
-- **코딩 연습:** [백준](https://www.acmicpc.net/), [프로그래머스](https://programmers.co.kr/), [LeetCode](https://leetcode.com/), [Codeforces](https://codeforces.com/), [solved.ac](https://solved.ac/)
-- **알고리즘 시각화:** [VisuAlgo](https://visualgo.net/) 및 [자료구조 시각화](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
-
-- **📖 참고 자료**
-
-| 유형 | 내용 |
-|:----:|:---------|
-|교재|Introduction to Algorithms 3판(CLRS)|
-|강의자료|[교수자 제공 Markdown 노트 및 슬라이드 (GitHub)](https://github.com/codingchild2424/2026-lecture-algorithm)|
+알고리즘의 설계, 분석, 구현을 다룬다. 알고리즘의 정확성과 시간 복잡도, 공간 복잡도 분석을 배우고, 분할 정복, 탐욕법, 동적 프로그래밍, 그래프 알고리즘 같은 핵심 설계 패러다임을 학습한다. 교수자와 연구실, 수업 일정과 형식, 평가, 수업 운영 규정, 주차별 계획 및 진도, 참고 자료는 [강의 정보 문서](Course-Information.ko.md)에 정리했다.
 
 <br><a name="prerequisites"></a>
 ## ✅ 사전 요구사항
 
-- 자료구조 및 기본 프로그래밍에 대한 이해
-- Python 인터프리터 설치
-- 커맨드 라인 툴 사용에 익숙함
+- 자료구조와 기본 프로그래밍을 이해하고 있어야 합니다.
+- Python 인터프리터가 설치되어 있어야 합니다.
+- 커맨드 라인 도구 사용에 익숙해야 합니다.
 
 - **💻 개발 환경**
 
@@ -117,116 +65,22 @@
 
 ```plaintext
 26Spring_Algorithms
-├── W01_Introduction-to-Algorithms
-│   ├── Lab-Materials
-│   │   ├── Binary-Search.py
-│   │   └── Coin-Change.py
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W02_Algorithm-Design-and-Complexity-Analysis
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   ├── locustfile.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W04_Divide-and-Conquer-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W05_Greedy-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W06_Dynamic-Programming
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W07_Midterm-Review
-│   ├── Concepts.ko.md
-│   ├── Concepts.md
-│   ├── Concepts_Detailed.ko.md
-│   └── Concepts_Detailed.md
-├── W09_Search-Trees
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W10_Hash-Tables-and-Set-Data-Structures
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W11_Graph-Algorithms-I
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W12_Graph-Algorithms-II
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W13_NP-Completeness-and-Approximation-Algorithms
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W14_Approximation-Algorithms
-├── Preparation
-│   ├── AL-Mid_SummarySheet.ko.md.pdf
-│   ├── AL-Mid_Total.ko.md.pdf
-│   ├── Mid_SummarySheet.ko.md
-│   └── Mid_Total.ko.md
-├── images
-│   └── (강의 도표 이미지)
-├── LICENSE
+├── Lecture-Notes               주차별 강의 노트와 실습 노트
+├── Coursework                  과제, 실습 코드, 중간고사 대비 자료, 팀 단위 텀 프로젝트
+├── images                      강의 노트의 그림
+├── Course-Information.ko.md    수업 운영 정보
+├── Course-Information.md
+├── LICENSE                     문서 라이선스 (CC BY-NC-SA 4.0)
+├── LICENSE-CODE                코드 라이선스 (PolyForm Noncommercial 1.0.0)
 ├── README.ko.md
 └── README.md
 ```
 
+단원 목록은 [`Lecture-Notes` 색인](Lecture-Notes/README.ko.md)에, 과제와 실습 코드, 중간고사 대비 자료, 텀 프로젝트는 [`Coursework` 색인](Coursework/README.ko.md)에 있습니다.
+
 <br><a name="license"></a>
 ## 🤝 라이선스
 
-이 레포지토리는 [MIT License](LICENSE) 하에 배포됩니다.
+이 레포지토리의 문서(강의 노트, 해설, 요약지)는 [CC BY-NC-SA 4.0](LICENSE), 코드는 [PolyForm Noncommercial 1.0.0](LICENSE-CODE)에 따라 배포됩니다. 강의자료와 교재에서 가져온 그림과 예제 코드, 강의가 배포한 과제 원본과 템플릿 코드는 원저작자에게 권리가 있으며 이 라이선스의 대상이 아닙니다.
 
 ---
