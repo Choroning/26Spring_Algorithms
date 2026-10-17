@@ -3,9 +3,9 @@
 ![Last Commit](https://img.shields.io/github/last-commit/Choroning/26Spring_Algorithms)
 ![Languages](https://img.shields.io/github/languages/top/Choroning/26Spring_Algorithms)
 
-This repository organizes and stores sample Python code written for university lectures and assignments.
+This repository archives bilingual lecture notes and coursework for the Algorithms course.
 
-*Author: Cheolwon Park (Korea University Sejong, CSE) – Year 3 (Junior) as of 2026*
+*Author: Cheolwon Park (Korea University Sejong, CSE) - Year 3 (Junior) as of 2026*
 <br><br>
 
 ## 📑 Table of Contents
@@ -22,15 +22,16 @@ This repository organizes and stores sample Python code written for university l
 <br><a name="about-this-repository"></a>
 ## 📝 About This Repository
 
-This repository contains bilingual study materials and code developed for a university-level Algorithms course, including:
+This repository contains the bilingual lecture notes and code of an Algorithms course on the design, analysis, and implementation of algorithms based on CLRS.
 
-- Bilingual Concepts notes (Korean `.ko.md` + English `.md`) for every lecture and lab session
-- Assignment solutions with detailed explanation documents
-- Weekly directory structure covering the full CLRS-based curriculum
+- `Lecture-Notes/` holds a lecture note (`Concepts_Lecture`) on each week's theory lecture, and weeks 1-6 also have a lab note (`Concepts_Lab`) on the lab session.
+- The lecture materials were distributed by week, so the units are numbered by week (`Week##`) and follow the full CLRS-based curriculum in weekly order. Week 7, a review week, and week 8, the midterm exam week, have no unit.
+- Every lecture note and lab note comes as an English file (`.md`) and a Korean file (`.ko.md`) with the same structure.
+- `Coursework/` holds the solutions to the five homework assignments of weeks 2-6 (web app code and a detailed explanation report, `Assignment-Report.pdf`), the week 1 lab code, the midterm exam preparation materials, and the team-based term project.
 
-> **🤖 AI-Assisted Development**
-> This course encourages the use of AI agents.
-> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://github.com/google-gemini/gemini-cli) were used as coding assistants throughout the course.
+> **🤖 AI Agent Usage**
+> This course encourages the use of AI agents. Generative AI tools are permitted for assignments, but generative AI is prohibited during quizzes.
+> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://github.com/google-gemini/gemini-cli) were used as coding assistants throughout the course, and Claude Code was also used to organize and translate the lecture notes and to restructure the repository.
 
 <br><a name="course-information"></a>
 ## 📚 Course Information
@@ -44,67 +45,14 @@ This repository contains bilingual study materials and code developed for a univ
 
 ### Course Overview
 
-This course introduces the design, analysis, and implementation of algorithms. It covers algorithm correctness, asymptotic time and space complexity, and paradigms including divide and conquer, greedy methods, dynamic programming, and graph algorithms.
-
-### Instructor and Research Lab
-
-- **Instructor:** Prof. Unggi Lee, Department of Computer Science and Software Engineering
-- **Research lab:** [LEAP Lab](https://codingchild2424.github.io/lab-website/), focusing on generative AI in education, pedagogical alignment, large language models, and knowledge tracing
-
-### Schedule and Class Format
-
-- **Credits:** 3
-- **Meeting times:** Tuesday, periods 8–9; Thursday, period 7
-- **Classroom:** Science and Technology Building 2, Room 310
-- **Weekly format:** 1st period: quiz and lecture (part 1); 2nd period: lecture (part 2); 3rd period: lab
-
-### Assessment
-
-| Component | Weight |
-|:----------|-------:|
-| Assignments (quizzes 5%, homework 5%) | 10% |
-| Midterm exam (written) | 30% |
-| Final exam (project) | 30% |
-| Final exam (written) | 30% |
-| Attendance | 0% |
-
-- Quizzes are held at the start of the first period in Weeks 3–7 and 9–13, cover the previous week's material, and may appear on written exams. Generative AI is prohibited during quizzes.
-- There are five homework assignments in Weeks 2–6.
-- Generative AI tools are permitted and encouraged for assignments when students explain their own reasoning and design choices.
-- Written exams are handwritten and last one hour. The final project is a team project in Weeks 9–13.
-- A grade is not awarded if a student misses more than one third of the total class hours.
-
-### Course Roadmap
-
-| Week | Topic | Week | Topic |
-|:----:|:------|:----:|:------|
-| 1 | Introduction to Algorithms | 9 | Search Trees |
-| 2 | Algorithm Design and Complexity Analysis | 10 | Hash Tables and Set Data Structures |
-| 3 | Arrays, Stacks, Queues, and Basic Sorting Algorithms | 11 | Graph Algorithms I |
-| 4 | Divide and Conquer Algorithms | 12 | Graph Algorithms II |
-| 5 | Greedy Algorithms | 13 | NP-Complete Problems and Approximation Algorithms |
-| 6 | Dynamic Programming | 14 | Final Exam (Project) |
-| 7 | Review and Problem Solving | 15 | Final Exam (Written) |
-| 8 | Midterm Exam | 16 | Study Week |
-
-### Learning Resources
-
-- **Coding practice:** [Baekjoon](https://www.acmicpc.net/), [Programmers](https://programmers.co.kr/), [LeetCode](https://leetcode.com/), [Codeforces](https://codeforces.com/), [solved.ac](https://solved.ac/)
-- **Algorithm visualizations:** [VisuAlgo](https://visualgo.net/) and [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
-
-- **📖 References**
-
-| Type | Contents |
-|:----:|:---------|
-|Textbook|"Introduction to Algorithms, 3rd Edition" by Cormen, Leiserson, Rivest, and Stein (CLRS)|
-|Lecture Notes|[Instructor's Markdown notes and slides (GitHub)](https://github.com/codingchild2424/2026-lecture-algorithm)|
+This course introduces the design, analysis, and implementation of algorithms. It covers algorithm correctness and asymptotic time and space complexity, and the core design paradigms including divide and conquer, greedy methods, dynamic programming, and graph algorithms. The instructor and research lab, schedule and class format, assessment, course policies, weekly plan and progress, and references are in the [course information document](Course-Information.md).
 
 <br><a name="prerequisites"></a>
 ## ✅ Prerequisites
 
-- Understanding of data structures and basic programming
-- Python interpreter installed
-- Familiarity with command-line tools
+- An understanding of data structures and basic programming is required.
+- A Python interpreter must be installed.
+- Familiarity with command-line tools is expected.
 
 - **💻 Development Environment**
 
@@ -117,116 +65,22 @@ This course introduces the design, analysis, and implementation of algorithms. I
 
 ```plaintext
 26Spring_Algorithms
-├── W01_Introduction-to-Algorithms
-│   ├── Lab-Materials
-│   │   ├── Binary-Search.py
-│   │   └── Coin-Change.py
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W02_Algorithm-Design-and-Complexity-Analysis
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   ├── locustfile.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W04_Divide-and-Conquer-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W05_Greedy-Algorithms
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W06_Dynamic-Programming
-│   ├── Assignment
-│   │   ├── static
-│   │   │   ├── app.js
-│   │   │   ├── index.html
-│   │   │   └── style.css
-│   │   ├── app.py
-│   │   └── requirements.txt
-│   ├── Assignment-Report.pdf
-│   ├── Concepts_Lab.ko.md
-│   ├── Concepts_Lab.md
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W07_Midterm-Review
-│   ├── Concepts.ko.md
-│   ├── Concepts.md
-│   ├── Concepts_Detailed.ko.md
-│   └── Concepts_Detailed.md
-├── W09_Search-Trees
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W10_Hash-Tables-and-Set-Data-Structures
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W11_Graph-Algorithms-I
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W12_Graph-Algorithms-II
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W13_NP-Completeness-and-Approximation-Algorithms
-│   ├── Concepts_Lecture.ko.md
-│   └── Concepts_Lecture.md
-├── W14_Approximation-Algorithms
-├── Preparation
-│   ├── AL-Mid_SummarySheet.ko.md.pdf
-│   ├── AL-Mid_Total.ko.md.pdf
-│   ├── Mid_SummarySheet.ko.md
-│   └── Mid_Total.ko.md
-├── images
-│   └── (lecture figure images)
-├── LICENSE
+├── Lecture-Notes               Weekly lecture notes and lab notes
+├── Coursework                  Assignments, lab code, midterm preparation, team-based term project
+├── images                      Figures for the lecture notes
+├── Course-Information.ko.md    Course operations
+├── Course-Information.md
+├── LICENSE                     Documentation license (CC BY-NC-SA 4.0)
+├── LICENSE-CODE                Code license (PolyForm Noncommercial 1.0.0)
 ├── README.ko.md
 └── README.md
 ```
 
+The units are listed in the [`Lecture-Notes` index](Lecture-Notes/README.md), and the assignments, lab code, midterm preparation materials, and term project in the [`Coursework` index](Coursework/README.md).
+
 <br><a name="license"></a>
 ## 🤝 License
 
-This repository is released under the [MIT License](LICENSE).
+The documents in this repository (lecture notes, explanations, and summary sheets) are licensed under [CC BY-NC-SA 4.0](LICENSE), and the code under [PolyForm Noncommercial 1.0.0](LICENSE-CODE). Figures and example code taken from lecture slides and textbooks, as well as assignment handouts and template code distributed by the course, belong to their original authors and are not covered by these licenses.
 
 ---

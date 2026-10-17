@@ -1,0 +1,568 @@
+# Week 3 Lab — Sorting Algorithm Implementation & Benchmarks
+
+[Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
+
+> **Last Updated:** 2026-10-18
+
+> **Learning Objectives:**
+> 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
+> 2. Implement advanced sorting algorithms (merge sort, quick sort) using recursion
+> 3. Measure and compare sorting algorithm performance with benchmarks
+> 4. Predict which algorithm performs best for different input sizes and patterns
+
+---
+
+## Table of Contents
+
+- [1. Overview](#1-overview)
+  - [1.1 Lab Goals](#11-lab-goals)
+  - [1.2 Lab Structure](#12-lab-structure)
+- [2. Type A: Algorithm Implementation](#2-type-a-algorithm-implementation)
+  - [2.1 A-1: Elementary Sorting Algorithms](#21-a-1-elementary-sorting-algorithms)
+    - [2.1.1 Selection Sort](#211-selection-sort)
+    - [2.1.2 Bubble Sort](#212-bubble-sort)
+    - [2.1.3 Insertion Sort](#213-insertion-sort)
+  - [2.2 A-2: Advanced Sorting Algorithms](#22-a-2-advanced-sorting-algorithms)
+    - [2.2.1 Merge Sort](#221-merge-sort)
+    - [2.2.2 Quick Sort](#222-quick-sort)
+    - [2.2.3 Sorting Algorithm Comparison](#223-sorting-algorithm-comparison)
+  - [2.3 A-3: Benchmark](#23-a-3-benchmark)
+- [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
+  - [3.1 B-1: Mini Shopping Mall Sort Comparison](#31-b-1-mini-shopping-mall-sort-comparison)
+- [4. Practice Problems (Baekjoon)](#4-practice-problems-baekjoon)
+- [5. Appendix](#5-appendix)
+- [Summary](#summary)
+- [Self-Check Questions](#self-check-questions)
+
+---
+
+<br>
+
+## 1. Overview
+
+> **Note:** This lab focuses on sorting algorithms. Arrays, stacks, queues, and heaps are covered in [Week 3 Lecture](Concepts_Lecture.md).
+
+### 1.1 Lab Goals
+
+- Implement **elementary** sorting algorithms: selection sort, bubble sort, and insertion sort.
+- Implement **advanced** sorting algorithms: merge sort and quick sort.
+- **Benchmark** all algorithms to compare their performance.
+- Experience sorting performance in a **web application** context.
+
+### 1.2 Lab Structure
+
+| Section | Topic | Time |
+|:--------|:------|:-----|
+| **A-1** | Elementary sort implementation | 10 min |
+| **A-2** | Advanced sort implementation | 15 min |
+| **A-3** | Full algorithm benchmark | 10 min |
+| **B-1** | Mini shopping mall sort comparison | 15 min |
+
+*Table 1. Topic and time of each lab section*
+
+---
+
+<br>
+
+## 2. Type A: Algorithm Implementation
+
+### 2.1 A-1: Elementary Sorting Algorithms
+
+#### 2.1.1 Selection Sort
+
+**Idea**: Find the minimum value and swap it to the front, and repeat this process.
+
+```text
+[64, 34, 25, 12, 22, 11, 90]
+
+Pass 1: Find min=11     -> [11, 34, 25, 12, 22, 64, 90]
+                            ^^
+Pass 2: Find min=12     -> [11, 12, 25, 34, 22, 64, 90]
+                                ^^
+Pass 3: Find min=22     -> [11, 12, 22, 34, 25, 64, 90]
+                                    ^^
+Pass 4: Find min=25     -> [11, 12, 22, 25, 34, 64, 90]
+                                        ^^
+Done!                     [11, 12, 22, 25, 34, 64, 90]
+```
+
+*Figure 1. Array state after each pass of selection sort*
+
+**Complexity**: O(n²). It always scans all of the remaining elements.
+
+> **Note:** Week 3 Lecture explains selection sort as finding the maximum and sending it to the back, while this lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
+
+**Solution:**
+
+```python
+def selection_sort(arr):
+    """Selection Sort: Find minimum and swap to front. O(n^2)"""
+    a = arr[:]
+    n = len(a)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if a[j] < a[min_idx]:
+                min_idx = j
+        a[i], a[min_idx] = a[min_idx], a[i]
+    return a
+
+# Example usage:
+print(selection_sort([64, 34, 25, 12, 22, 11, 90]))
+# Output: [11, 12, 22, 25, 34, 64, 90]
+```
+
+> **Note:** `arr[:]` is a **shallow copy** of the array. It sorts a copy without modifying the original array. `a[i], a[min_idx] = a[min_idx], a[i]` is Python's simultaneous assignment, swapping two values without a separate temporary variable.
+
+#### 2.1.2 Bubble Sort
+
+**Idea**: Repeatedly compare adjacent elements and swap them if they are in the wrong order. The largest element bubbles up to the end.
+
+```text
+[64, 34, 25, 12]
+
+Pass 1: [34, 64, 25, 12]  swap(64,34)
+        [34, 25, 64, 12]  swap(64,25)
+        [34, 25, 12, 64]  swap(64,12)  <- 64 fixed
+                     ^^
+Pass 2: [25, 34, 12, 64]  swap(34,25)
+        [25, 12, 34, 64]  swap(34,12)  <- 34 fixed
+                 ^^
+Pass 3: [12, 25, 34, 64]  swap(25,12)  <- 25 fixed
+             ^^
+Done!   [12, 25, 34, 64]
+```
+
+*Figure 2. Swaps in each pass of bubble sort*
+
+**Optimization**: If no swaps occur in a pass, the array is already sorted, so the algorithm can terminate early.
+
+**Solution:**
+
+```python
+def bubble_sort(arr):
+    """Bubble Sort: Repeatedly swap adjacent elements. O(n^2)"""
+    a = arr[:]
+    n = len(a)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if a[j] > a[j + 1]:
+                a[j], a[j + 1] = a[j + 1], a[j]
+                swapped = True
+        if not swapped:
+            break
+    return a
+```
+
+The `swapped` flag enables early termination, giving a best case of O(n) for already sorted input.
+
+Here, `i` is the pass number (0, 1, 2, ...). After pass `i`, the last `i` elements are already in their final positions, so the inner loop only needs to go up to index `n-i-2` (i.e., `range(0, n-i-1)`).
+
+> **Note:** The reason for `n - i - 1`: After each pass, one more element is fixed at the right end, so the last i elements need not be compared in the i-th pass. This optimization does not affect correctness but reduces unnecessary comparisons.
+
+#### 2.1.3 Insertion Sort
+
+**Idea**: Insert each element into its correct position within the already sorted prefix.
+
+```text
+[64, 34, 25, 12, 22]
+
+Step 1: [64 | 34, 25, 12, 22]  Insert 34 -> [34, 64 | 25, 12, 22]
+Step 2: [34, 64 | 25, 12, 22]  Insert 25 -> [25, 34, 64 | 12, 22]
+Step 3: [25, 34, 64 | 12, 22]  Insert 12 -> [12, 25, 34, 64 | 22]
+Step 4: [12, 25, 34, 64 | 22]  Insert 22 -> [12, 22, 25, 34, 64]
+
+        Sorted portion | Unsorted portion
+```
+
+*Figure 3. Insertion steps of insertion sort*
+
+**Best case**: O(n) for already sorted data and close to O(n) for nearly sorted data, so insertion sort is advantageous for small or nearly sorted data.
+
+**Solution:**
+
+```python
+def insertion_sort(arr):
+    """Insertion Sort: Insert each element into sorted prefix. O(n^2)"""
+    a = arr[:]
+    for i in range(1, len(a)):
+        key = a[i]
+        j = i - 1
+        while j >= 0 and a[j] > key:
+            a[j + 1] = a[j]
+            j -= 1
+        a[j + 1] = key
+    return a
+```
+
+> **Note:** Line-by-line analysis:
+> - `key = a[i]`: Store the element to be inserted.
+> - `while j >= 0 and a[j] > key`: Loop while encountering elements larger than key.
+> - `a[j + 1] = a[j]`: Shift the larger element one position to the right.
+> - `a[j + 1] = key`: Insert key into the vacant position.
+>
+> For an already sorted array, the condition `a[j] > key` is immediately false, so the while loop does not execute, resulting in O(n).
+
+**Run and Test:**
+
+```bash
+python examples/solutions/a1_basic_sorts.py
+```
+
+### 2.2 A-2: Advanced Sorting Algorithms
+
+> **Note:** **Prerequisite.** The following algorithms use **recursion**. Recursion means a function calling itself with a smaller input until it reaches a base case. If this concept is new, review the Data Structures course or the recursion section of Week 2 Lecture.
+
+#### 2.2.1 Merge Sort
+
+**Idea**: Split the array in half, recursively sort each half, then merge.
+
+```text
+         [38, 27, 43, 3, 9, 82, 10]
+                    /     \
+         [38, 27, 43, 3]   [9, 82, 10]
+            /     \           /     \
+       [38, 27]  [43, 3]  [9, 82]  [10]
+        /   \     /   \    /   \      |
+      [38] [27] [43]  [3] [9] [82]  [10]
+        \   /     \   /    \   /      |
+       [27, 38]  [3, 43]  [9, 82]  [10]
+            \     /           \     /
+        [3, 27, 38, 43]   [9, 10, 82]
+                    \     /
+         [3, 9, 10, 27, 38, 43, 82]
+```
+
+*Figure 4. Split and merge tree of merge sort*
+
+**Complexity**: O(n log n), guaranteed regardless of the input.
+
+> **Key Point:** Looking at the tree above, the 3 stages of divide and conquer are clear.
+> - Top-down (Divide): Split the array in half (total log n levels).
+> - Bottom (Base): A single element is trivially sorted.
+> - Bottom-up (Combine): Merge sorted subarrays.
+
+**Solution:**
+
+```python
+def merge_sort(arr):
+    """Merge Sort: Divide, sort halves, merge. O(n log n)"""
+    if len(arr) <= 1:
+        return arr[:]
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return _merge(left, right)
+
+def _merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+```
+
+> **Note:** In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
+
+> **Note:** Figure 4 splits the 7 elements into 4 on the left and 3 on the right. The code above computes `mid = len(arr) // 2 = 3`, so the left half is [38, 27, 43] and the right half is [3, 9, 82, 10]. The intermediate subarrays therefore differ from the figure, but the final result is the same.
+
+**Merge trace (merging [27, 38] and [3, 43]):** i=0, j=0: compare 27 vs 3 -> take 3. i=0, j=1: compare 27 vs 43 -> take 27. i=1, j=1: compare 38 vs 43 -> take 38. Take remaining 43. Result: [3, 27, 38, 43].
+
+#### 2.2.2 Quick Sort
+
+**Idea**: Select a pivot, partition the elements into those smaller than, equal to, and larger than the pivot, then recurse.
+
+```text
+pivot = 43
+[38, 27, 43, 3, 9, 82, 10]
+
+       < 43          == 43    > 43
+[38, 27, 3, 9, 10]   [43]     [82]
+       |                        |
+  quicksort(...)          quicksort(...)
+       |                        |
+[3, 9, 10, 27, 38]             [82]
+
+Result: [3, 9, 10, 27, 38] + [43] + [82]
+     = [3, 9, 10, 27, 38, 43, 82]
+```
+
+*Figure 5. Three-way partition around pivot 43*
+
+**Complexity**: Average O(n log n), Worst O(n²)
+
+The worst case O(n²) occurs when the pivot is always the smallest or largest element, producing maximally unbalanced partitions (e.g., already sorted input with the first or last element as pivot). This makes the recursion n levels deep instead of log n.
+
+**Solution:**
+
+```python
+def quick_sort(arr):
+    """Quick Sort: Partition around pivot, sort subarrays. Average O(n log n)."""
+    if len(arr) <= 1:
+        return arr[:]
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+```
+
+> **Note:** This implementation differs from the in-place partition in Week 3 Lecture. It uses list comprehensions for a **concise but space-consuming** version. The trade-offs are as follows.
+> - **Pros**: The code is very short and easy to understand, and it handles elements equal to the pivot separately.
+> - **Cons**: It creates new lists at each call, using O(n) extra space.
+>
+> In practice, the in-place approach from Week 3 Lecture is more memory-efficient, but for coding tests, this concise version is quick to implement.
+
+> **Note:** The differences in pivot selection are as follows.
+> - **Week 3 Lecture (CLRS)**: An in-place Lomuto partition that uses the last element as pivot.
+> - **This code**: A 3-way partition (< / == / >) that uses the middle element as pivot.
+>
+> Choosing the middle element as pivot gives balanced partitions even on already sorted input, so it avoids the worst case caused by sorted input (other inputs can still trigger the worst case). Since exams will likely use the CLRS approach, understanding both methods is important. Figure 5 uses 43 as the pivot to illustrate the 3-way partition, but this code takes the element at index `len(arr) // 2` as the pivot, so its first pivot for the same array is actually 3.
+
+> **Note:** **Stability.** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve the relative order of equal elements.
+
+**Run and Test:**
+
+```bash
+python examples/solutions/a2_advanced_sorts.py
+```
+
+#### 2.2.3 Sorting Algorithm Comparison
+
+A **stable** sort preserves the relative order of elements with equal keys. An **in-place** sort uses O(1) extra memory (not counting the input array). The O(log n) taken by the recursion stack is usually allowed, so quick sort is also classified as in-place.
+
+| Algorithm | Best | Average | Worst | Stable? | In-Place? |
+|:----------|:-----|:--------|:------|:--------|:----------|
+| Selection | O(n²) | O(n²) | O(n²) | No | Yes |
+| Bubble | O(n) | O(n²) | O(n²) | Yes | Yes |
+| Insertion | O(n) | O(n²) | O(n²) | Yes | Yes |
+| Merge | O(n log n) | O(n log n) | O(n log n) | Yes | No |
+| Quick | O(n log n) | O(n log n) | O(n²) | No | Yes* |
+
+*Table 2. Complexity, stability, and in-place property of sorting algorithms*
+
+*\* The list comprehension version above uses extra space.*
+
+> **Key Point:** Points to remember from this table:
+> - Among elementary sorts, insertion sort and bubble sort with early termination have best-case O(n), and **insertion sort** is especially advantageous for nearly sorted data.
+> - In this table, only **merge sort** guarantees O(n log n) even in the worst case, so its performance is the most predictable.
+> - **Quick sort** has the fastest average but risks worst-case O(n²).
+
+### 2.3 A-3: Benchmark
+
+**Run:**
+
+```bash
+python examples/skeletons/a3_sort_benchmark.py
+```
+
+Measure execution times at N = 100, 1,000, 10,000, 100,000.
+
+```text
+Algorithm        N=100     N=1,000    N=10,000    N=100,000
+-----------------------------------------------------------
+Selection Sort   0.001s    0.050s     5.0s        500s
+Bubble Sort      0.001s    0.080s     8.0s        800s
+Insertion Sort   0.001s    0.030s     3.0s        300s
+Merge Sort       0.001s    0.005s     0.05s       0.5s
+Quick Sort       0.001s    0.003s     0.03s       0.3s
+```
+
+*(Approximate values. Actual results may vary.)*
+
+**Question**: At what N does the difference between O(n²) and O(n log n) become noticeable?
+
+> **Key Point:** At N=100, all algorithms take 0.001s with no difference, but at N=10,000, O(n²) takes several seconds while O(n log n) takes tens of milliseconds, a difference of **over 100x**. At N=100,000, O(n²) takes minutes to tens of minutes while O(n log n) is under 1 second. This gap shows clearly that algorithm choice matters.
+
+> **Note:** At N=100,000, O(n²) algorithms may take several minutes to over 10 minutes. The program has not frozen; it actually takes that long. If time is short, you can test O(n²) algorithms only up to N=10,000 and run only O(n log n) algorithms for N=100,000.
+
+**Visualizing the Gap:**
+
+```text
+Time (s)
+  ^
+  |
+8 |                x              x = Bubble Sort
+  |                               o = Selection Sort
+6 |                               + = Insertion Sort
+  |                o              * = Merge Sort
+4 |                               # = Quick Sort
+  |                +
+2 |
+  |
+0 |  *#     *#     *#      *#
+  +-----+------+------+-------> N
+    100  1,000 10,000 100,000
+```
+
+*Figure 6. Execution time of each sorting algorithm by input size*
+
+O(n²) algorithms shoot up dramatically, while O(n log n) algorithms remain nearly flat at this scale.
+
+---
+
+<br>
+
+## 3. Type B: Web Code Analysis
+
+### 3.1 B-1: Mini Shopping Mall Sort Comparison
+
+**Setup:**
+
+Run the Flask app.
+
+```bash
+cd examples/solutions/b1_web_sort
+pip install flask
+python app.py
+```
+
+Flask is a lightweight Python web framework. Install with `pip install flask`. Once running, visit `http://127.0.0.1:5000` in your browser.
+
+Open **http://localhost:5000** in your browser.
+
+```text
++---------------------------------------------------+
+|  Mini Shopping Mall - Sort Demo                   |
+|                                                   |
+|  Number of products: [1,000 v]                    |
+|                                                   |
+|  [Sort with Bubble Sort]  [Sort with Quick Sort]  |
+|                                                   |
+|  Loading time: ______ ms                          |
+|                                                   |
+|  Product list:                                    |
+|  1. Product A - 12,990 won                        |
+|  2. Product B - 24,500 won                        |
+|  ...                                              |
++---------------------------------------------------+
+```
+
+*Figure 7. Screen layout of the mini shopping mall sort demo*
+
+> **Key Point:** The core of this lab is experiencing firsthand that algorithm choice directly impacts user experience (UX). You can directly verify the difference between O(n²) and O(n log n) learned in theory through the web browser.
+
+**Experiment Procedure:**
+
+1. Click **"Sort with Bubble Sort"** and check the loading time.
+2. Click **"Sort with Quick Sort"** and check the loading time.
+3. Increase the number of products: **1,000 -> 10,000 -> 50,000**.
+4. Observe the difference.
+
+**Expected Results:**
+
+| N (Products) | Bubble Sort | Quick Sort | User Experience |
+|:-------------|:-----------|:-----------|:---------------|
+| 1,000 | ~100 ms | ~5 ms | Both feel instant |
+| 10,000 | ~10 sec | ~50 ms | Bubble is painfully slow |
+| 50,000 | ~4 min | ~300 ms | Bubble is unusable |
+
+*Table 3. Expected loading time of bubble sort and quick sort by number of products*
+
+**Discussion:**
+
+What would happen if a real online shopping mall used an O(n²) sorting algorithm?
+
+Every page load, every filter change, and every "sort by price" click would make users wait and leave.
+
+> **Note:** In real shopping malls, sorting is often handled by the **database** rather than the application server (SQL's `ORDER BY`). When the sort column has a pre-built index (B-tree), the database leverages it to return sorted results very quickly. But the lesson of this lab remains the same: choosing the right algorithm and data structure determines service quality.
+
+---
+
+<br>
+
+## 4. Practice Problems (Baekjoon)
+
+| Difficulty | Number | Title | Key Concept |
+|:-----------|:-------|:------|:------------|
+| Bronze II | [2750](https://boj.kr/2750) | Sort Numbers | O(n²) elementary sort practice |
+| Bronze I | [23881](https://boj.kr/23881) | Algorithm Class - Selection Sort 1 | Selection sort simulation |
+| Bronze I | [23968](https://boj.kr/23968) | Algorithm Class - Bubble Sort 1 | Bubble sort simulation |
+| Bronze I | [24051](https://boj.kr/24051) | Algorithm Class - Insertion Sort 1 | Insertion sort simulation |
+| Silver V | [2751](https://boj.kr/2751) | Sort Numbers 2 | O(n log n) required (N=1,000,000) |
+| Silver V | [24090](https://boj.kr/24090) | Algorithm Class - Quick Sort 1 | Quick sort simulation |
+| Silver IV | [11399](https://boj.kr/11399) | ATM | Sorting + greedy application |
+| Silver III | [24060](https://boj.kr/24060) | Algorithm Class - Merge Sort 1 | Merge sort simulation |
+
+*Table 4. Baekjoon practice problems on sorting*
+
+> **Note:** "Sort Numbers 2" (problem 2751) has N up to 1,000,000, so O(n²) algorithms will result in time limit exceeded. You must use an O(n log n) algorithm (merge sort, quick sort, or Python's `sorted()`). The "Algorithm Class" series (23881, 23968, 24051, 24090, 24060) are problems that track intermediate states of the sorting process, making them excellent for verifying that you accurately understand each algorithm's step-by-step behavior.
+
+---
+
+<br>
+
+## 5. Appendix
+
+- **Assignment 2**: The solution code and report of the assignment are in [HW02_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms](../../Coursework/HW02_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms/).
+- **[Week 4 Lab](../Week04_Divide-and-Conquer-Algorithms/Concepts_Lab.md)**: Covers advanced divide and conquer, including merge sort tracing, the k-th smallest element, and the closest pair of points.
+
+---
+
+<br>
+
+## Summary
+
+| Concept | Key Summary |
+|:--------|:-------------|
+| Selection Sort | It finds the minimum and swaps it to the front, always runs in O(n²), and is an unstable in-place sort. |
+| Bubble Sort | It compares and swaps adjacent elements, runs in O(n²) with a best case of O(n) under early termination, and is a stable in-place sort. |
+| Insertion Sort | It inserts each element into the sorted prefix, runs in O(n²) with a best case of O(n), and is a stable in-place sort that is best suited to nearly sorted data. |
+| Merge Sort | It works by dividing, sorting recursively, and merging, and it is a stable sort that **always guarantees O(n log n)** but needs O(n) extra space. |
+| Quick Sort | It partitions around a pivot and recurses, runs in O(n log n) on average and O(n²) in the worst case, is unstable, and its list comprehension version uses extra space. |
+| Benchmark Takeaway | There is no difference at N=100, but from N=10,000 on, O(n²) and O(n log n) differ by **over 100x**. |
+| UX and Algorithms | Algorithm choice directly impacts user experience, and O(n²) sorting is impractical at the scale of real services. |
+| Stability vs In-Place | Stable sorts preserve the relative order of equal keys, and in-place sorts sort without extra space. |
+| Core Lesson | Any sort works for small data, but at real data scales, O(n log n) algorithms are essential. |
+
+---
+
+<br>
+
+## Self-Check Questions
+
+1. In your benchmark, which elementary sort was fastest for nearly-sorted input? Why?
+
+   <details>
+   <summary>Answer</summary>
+
+   **Insertion sort** wins by a wide margin. Each element's `while j >= 0 and a[j] > key` loop exits **almost immediately** when the prefix is already in order. The key is compared with just one neighbor, found to be in place, and skipped. The total work drops close to $\Theta(n)$, the best case. **Selection sort** still does its full $n(n-1)/2$ comparisons regardless of input order. **Bubble sort** with the `swapped` flag can also reach $\Theta(n)$ on fully-sorted input, but it is slower on nearly-sorted data because a small element to the right of its final position moves only one position left per pass, so it needs as many extra passes as that distance.
+
+   </details>
+
+2. The list comprehension version of quick sort uses extra memory. How much? Why is the in-place CLRS version preferred for large inputs?
+
+   <details>
+   <summary>Answer</summary>
+
+   Each `quick_sort` call builds three **new lists** (`left`, `middle`, `right`) totaling $O(n)$ at every recursion level. Across $O(\log n)$ average depth this is $O(n \log n)$ total allocations, peaking at $O(n)$ live extra memory on average. The **in-place CLRS** version only swaps within the original array, using $O(\log n)$ stack frames on average and $O(1)$ auxiliary data. For large inputs this matters enormously: allocations stress the **garbage collector**, blow out CPU caches, and on memory-constrained systems can exhaust RAM. The in-place version also has better cache locality because it touches contiguous memory.
+
+   </details>
+
+3. At what input size did you first notice a clear performance gap between O(n²) and O(n log n) algorithms?
+
+   <details>
+   <summary>Answer</summary>
+
+   The gap becomes dramatic around **N = 10,000**. At N=100, all algorithms finish in about 1 ms, so constant factors and timer noise hide the asymptotic difference. At N=1,000 the gap appears, with tens of milliseconds versus a few milliseconds, but users would not yet find it inconvenient. At **N = 10,000**, the ratio reaches **roughly 100×**. A gap of seconds versus tens of milliseconds is the threshold at which real users notice the delay. By N=100,000, the $O(n^2)$ algorithms take minutes while $O(n \log n)$ finishes in under a second.
+
+   </details>
+
+4. Why is insertion sort used as the base case in practical implementations like Timsort, even though its worst case is O(n²)?
+
+   <details>
+   <summary>Answer</summary>
+
+   Asymptotic $O(n^2)$ is irrelevant for **tiny subarrays** (typically size ≤ 32 or 64). At that scale, insertion sort's tiny **constant factor**, lack of recursion overhead, and excellent **cache behavior** beat merge sort and quick sort handily. Real data also tends to have **locally-sorted runs**, on which insertion sort runs in near-$\Theta(n)$. Timsort exploits both effects. It identifies natural runs, extends short ones using insertion sort, and only invokes merge sort to combine larger runs. So the worst-case $O(n^2)$ never materializes, because insertion sort is only used where $n$ is bounded by a small constant.
+
+   </details>
+
+---
