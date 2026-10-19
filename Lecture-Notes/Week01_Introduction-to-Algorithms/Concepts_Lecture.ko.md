@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-18
+> **최종 수정일:** 2026-10-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -35,6 +35,7 @@
   - [2.7 독이 든 와인 문제](#27-독이-든-와인-문제)
 - [요약](#요약)
 - [점검 문제](#점검-문제)
+- [참고 문헌](#참고-문헌)
 
 ---
 
@@ -110,11 +111,11 @@
 
 ### 1.5 "알고리즘"이라는 단어의 유래
 
-![그림 2. 마드리드의 알-콰리즈미 기념비](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
+![그림 2. 마드리드의 알-콰리즈미 기념비](../../images/Week01_Al-Khwarizmi-Monument.jpg)
 
 *그림 2. 마드리드의 알-콰리즈미 기념비*
 
-- **"algorithm"** 이라는 단어는 9세기 페르시아 수학자 **알-콰리즈미(al-Khwarizmi)** 의 이름에서 유래하였다.
+- **"algorithm"** 이라는 단어는 9세기 페르시아 수학자 **알-콰리즈미(al-Khwarizmi)** 의 이름에서 유래하였다(그림 2 [1]).
 - **알려진 가장 오래된 알고리즘** 중 하나는 기원전 300년경의 유클리드 GCD 알고리즘이다.
 - 알고리즘은 컴퓨터가 존재하기 **2,300년 이상** 전부터 있었다.
 
@@ -150,9 +151,9 @@ def gcd(a, b):
 
 ### 2.1 최댓값 찾기
 
-**문제:** 뒤집어진 숫자 카드들 중에서 가장 큰 숫자의 카드를 찾아라.
+**문제:** 뒤집어진 숫자 카드들(그림 3 [2]) 중에서 가장 큰 숫자의 카드를 찾아라.
 
-![그림 3. 트럼프 카드](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
+![그림 3. 트럼프 카드](../../images/Week01_Playing-Cards.jpg)
 
 *그림 3. 트럼프 카드*
 
@@ -181,7 +182,7 @@ def find_max(cards):
 
 **문제:** 정렬된 카드들 중에서 숫자 **85**를 찾아라.
 
-![그림 4. 이진 탐색 시각화](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
+![그림 4. 이진 탐색 시각화](../../images/Week01_Binary-Search-Visualization.svg)
 
 *그림 4. 이진 탐색 시각화*
 
@@ -189,7 +190,7 @@ def find_max(cards):
 
 데이터가 **정렬**되어 있으므로 더 효율적인 방법이 가능하다.
 
-**이진 탐색의 핵심 아이디어:** **중간** 원소와 비교한 뒤, **절반**만 탐색한다.
+**이진 탐색의 핵심 아이디어:** **중간** 원소와 비교한 뒤, **절반**만 탐색한다(그림 4 [3]).
 
 ```text
 85를 찾기: [15, 20, 25, 35, 45, 55, 60, 75, 85, 90]
@@ -242,15 +243,15 @@ n = 1,000,000일 때 순차 탐색은 최대 1,000,000번, 이진 탐색은 약 
 
 ### 2.3 동전 거스름돈 문제
 
-**문제:** **730원**을 **최소한의 동전**으로 거슬러 주어라.
+**문제:** **730원**(그림 5 [4])을 **최소한의 동전**으로 거슬러 주어라.
 
-![그림 5. 대한민국 동전](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
+![그림 5. 대한민국의 동전과 지폐](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/500px-Currency_South_Korea.jpg)
 
-*그림 5. 대한민국 동전*
+*그림 5. 대한민국의 동전과 지폐*
 
-**탐욕적 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다.
+**탐욕적 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다(그림 6 [5]).
 
-![그림 6. 36센트를 탐욕적으로 거슬러 주는 동전 선택](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
+![그림 6. 36센트를 탐욕적으로 거슬러 주는 동전 선택](../../images/Week01_Greedy-Coin-Selection-36-Cents.svg)
 
 *그림 6. 36센트를 탐욕적으로 거슬러 주는 동전 선택*
 
@@ -291,11 +292,11 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 **문제:** 한 꼭짓점에서 시작하여, **모든 간선을 정확히 한 번씩** 지나고 시작점으로 돌아와라. 꼭짓점은 재방문 가능하다.
 
-![그림 7. Konigsberg의 7개 다리](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
+![그림 7. Konigsberg의 7개 다리](../../images/Week01_Bridges-of-Konigsberg.png)
 
 *그림 7. Konigsberg의 7개 다리*
 
-> **[자료구조]** 그래프(Graph)는 자료구조 수업에서 배운 핵심 개념이다. **꼭짓점(vertex/node)** 들의 집합과 이들을 연결하는 **간선(edge)** 들의 집합으로 구성된다. 오일러 경로 문제는 역사적으로 유명한 Konigsberg 다리 문제에서 유래하였다. 오일러는 연결 그래프에서 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면 **홀수 차수(degree)를 가진 꼭짓점이 0개 또는 2개**여야 한다는 것을 증명하였다. 차수란 한 꼭짓점에 연결된 간선의 수를 말한다.
+> **[자료구조]** 그래프(Graph)는 자료구조 수업에서 배운 핵심 개념이다. **꼭짓점(vertex/node)** 들의 집합과 이들을 연결하는 **간선(edge)** 들의 집합으로 구성된다. 오일러 경로 문제는 역사적으로 유명한 Konigsberg 다리 문제(그림 7 [6])에서 유래하였다. 오일러는 연결 그래프에서 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면 **홀수 차수(degree)를 가진 꼭짓점이 0개 또는 2개**여야 한다는 것을 증명하였다. 차수란 한 꼭짓점에 연결된 간선의 수를 말한다.
 
 아래 풀이 예시에서 사용하는 그래프(꼭짓점 1~10)는 다음과 같다.
 
@@ -340,13 +341,13 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 ### 2.5 미로 찾기
 
-**그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래**를 가져가 돌아오는 길을 찾았다.
+**그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래**를 가져가 돌아오는 길을 찾았다(그림 9 [7], 그림 10 [8]).
 
-![그림 9. Longleat 울타리 미로](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
+![그림 9. Longleat 울타리 미로](../../images/Week01_Longleat-Hedge-Maze.jpg)
 
 *그림 9. Longleat 울타리 미로*
 
-![그림 10. 테세우스와 미노타우로스](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
+![그림 10. 테세우스와 미노타우로스](../../images/Week01_Theseus-and-the-Minotaur.jpg)
 
 *그림 10. 테세우스와 미노타우로스*
 
@@ -367,9 +368,9 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 ### 2.6 가짜 동전 문제
 
-**문제:** n개의 동전 중 **하나**가 가짜(약간 가벼움)이다. **양팔 저울**을 사용하여 최소한의 측정 횟수로 가짜 동전을 찾아라.
+**문제:** n개의 동전 중 **하나**가 가짜(약간 가벼움)이다. **양팔 저울**(그림 11 [9])을 사용하여 최소한의 측정 횟수로 가짜 동전을 찾아라.
 
-![그림 11. 양팔 저울](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
+![그림 11. 양팔 저울](../../images/Week01_Balance-Scale.jpg)
 
 *그림 11. 양팔 저울*
 
@@ -459,9 +460,9 @@ n = 1,024개 동전일 때:
 
 ### 2.7 독이 든 와인 문제
 
-**이야기:** 왕에게 여러 와인 항아리가 있다. 스파이가 **정확히 하나**의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망하게 한다.
+**이야기:** 왕에게 여러 와인 항아리(그림 12 [10])가 있다. 스파이가 **정확히 하나**의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망하게 한다.
 
-![그림 12. 와인 배럴](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
+![그림 12. 와인 배럴](../../images/Week01_Wine-Barrels.jpg)
 
 *그림 12. 와인 배럴*
 
@@ -638,3 +639,20 @@ n = 1,000,000     ->  log₂(1,000,000) = ~20명의 하인
    **(1) 이진 탐색**은 매 비교마다 정렬된 범위를 절반으로 줄인다. **(2) 가짜 동전 (접근법 C)** 은 매 측정마다 후보 더미를 절반으로 줄인다. **(3) 독이 든 와인 문제**는 `log₂(n)`명의 하인이 이진 인코딩으로 `n`개 항아리를 구분한다. 세 경우 모두 한 단계마다 진행 정도가 2배가 되므로 `n`개 항목을 하나로 줄이는 데 `log₂(n)`단계가 필요하다. 이는 반복적 배가의 역수이며, 점화식 `T(n) = T(n/2) + O(1)`의 해 `T(n) = O(log n)`으로 나타난다. 이 패턴은 과목 전반에 걸쳐 반복된다.
 
    </details>
+
+---
+
+<br>
+
+## 참고 문헌
+
+1. Zarateman, "Madrid - Ciudad Universitaria, Monumento a Muhammad al-Juarismi (cropped)," *Wikimedia Commons*, Oct. 2022. License: CC0 1.0. https://commons.wikimedia.org/wiki/File:Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg
+2. R. Maijen, "AcetoFive," *Wikimedia Commons*, May 2011. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:AcetoFive.JPG
+3. AlwaysAngry, "Binary Search Depiction," *Wikimedia Commons*, Nov. 2016. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg
+4. The Bank of Korea, "Currency South Korea," *Wikimedia Commons*. License: South Korean currency (Bank of Korea reproduction guidelines). https://commons.wikimedia.org/wiki/File:Currency_South_Korea.jpg
+5. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
+6. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
+7. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
+8. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
+9. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
+10. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -35,6 +35,7 @@
   - [2.7 Poisoned Wine Problem](#27-poisoned-wine-problem)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
+- [References](#references)
 
 ---
 
@@ -110,11 +111,11 @@
 
 ### 1.5 Origin of the Word "Algorithm"
 
-![Figure 2. Monument to al-Khwarizmi in Madrid](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg)
+![Figure 2. Monument to al-Khwarizmi in Madrid](../../images/Week01_Al-Khwarizmi-Monument.jpg)
 
 *Figure 2. Monument to al-Khwarizmi in Madrid*
 
-- The word **"algorithm"** derives from the name of the 9th-century Persian mathematician **al-Khwarizmi**.
+- The word **"algorithm"** derives from the name of the 9th-century Persian mathematician **al-Khwarizmi** (Figure 2 [1]).
 - **One of the earliest known algorithms** is Euclid's GCD algorithm from around 300 BCE.
 - Algorithms have existed for more than **2,300 years** before computers.
 
@@ -150,9 +151,9 @@ This section explores several classical problems that illustrate fundamental alg
 
 ### 2.1 Finding the Maximum
 
-**Problem:** Among face-down number cards, find the card with the largest number.
+**Problem:** Among face-down number cards (Figure 3 [2]), find the card with the largest number.
 
-![Figure 3. Playing cards](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG)
+![Figure 3. Playing cards](../../images/Week01_Playing-Cards.jpg)
 
 *Figure 3. Playing cards*
 
@@ -181,7 +182,7 @@ Reading cards one by one in order like this is **Sequential Search**.
 
 **Problem:** Among sorted cards, find the number **85**.
 
-![Figure 4. Binary search visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png)
+![Figure 4. Binary search visualization](../../images/Week01_Binary-Search-Visualization.svg)
 
 *Figure 4. Binary search visualization*
 
@@ -189,7 +190,7 @@ Reading cards one by one in order like this is **Sequential Search**.
 
 Since the data is **sorted**, a more efficient method is possible.
 
-**Core idea of binary search:** Compare with the **middle** element, then search only **one half**.
+**Core idea of binary search:** Compare with the **middle** element, then search only **one half** (Figure 4 [3]).
 
 ```text
 Finding 85: [15, 20, 25, 35, 45, 55, 60, 75, 85, 90]
@@ -242,15 +243,15 @@ For n = 1,000,000, sequential search makes up to 1,000,000 comparisons and binar
 
 ### 2.3 Coin Change Problem
 
-**Problem:** Give change for **730 won** using the **minimum number of coins**.
+**Problem:** Give change for **730 won** (Figure 5 [4]) using the **minimum number of coins**.
 
-![Figure 5. South Korean coins](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg)
+![Figure 5. South Korean coins and banknotes](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/500px-Currency_South_Korea.jpg)
 
-*Figure 5. South Korean coins*
+*Figure 5. South Korean coins and banknotes*
 
-**Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount.
+**Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount (Figure 6 [5]).
 
-![Figure 6. Greedy coin selection for 36 cents](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png)
+![Figure 6. Greedy coin selection for 36 cents](../../images/Week01_Greedy-Coin-Selection-36-Cents.svg)
 
 *Figure 6. Greedy coin selection for 36 cents*
 
@@ -291,11 +292,11 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
-![Figure 7. The seven bridges of Konigsberg](https://upload.wikimedia.org/wikipedia/commons/e/e5/Bridges_of_Konigsberg.png)
+![Figure 7. The seven bridges of Konigsberg](../../images/Week01_Bridges-of-Konigsberg.png)
 
 *Figure 7. The seven bridges of Konigsberg*
 
-> **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous Konigsberg bridge problem. Euler proved that for a path traversing every edge exactly once (Euler path) to exist in a connected graph, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
+> **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous Konigsberg bridge problem (Figure 7 [6]). Euler proved that for a path traversing every edge exactly once (Euler path) to exist in a connected graph, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
 
 The following graph (vertices 1-10) is used in the worked example below.
 
@@ -340,13 +341,13 @@ The key insight is that crossing a bridge prematurely can split the graph into d
 
 ### 2.5 Maze Solving
 
-**Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back.
+**Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back (Figure 9 [7], Figure 10 [8]).
 
-![Figure 9. Longleat hedge maze](https://upload.wikimedia.org/wikipedia/commons/a/a7/Longleat-maze.jpg)
+![Figure 9. Longleat hedge maze](../../images/Week01_Longleat-Hedge-Maze.jpg)
 
 *Figure 9. Longleat hedge maze*
 
-![Figure 10. Theseus and the Minotaur](https://upload.wikimedia.org/wikipedia/commons/d/d6/Theseus_Minotaur_BM_Vase_E84.jpg)
+![Figure 10. Theseus and the Minotaur](../../images/Week01_Theseus-and-the-Minotaur.jpg)
 
 *Figure 10. Theseus and the Minotaur*
 
@@ -367,9 +368,9 @@ It is a simple and elegant algorithm that needs no markings or thread.
 
 ### 2.6 Counterfeit Coin Problem
 
-**Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale**, find the counterfeit coin with the minimum number of weighings.
+**Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale** (Figure 11 [9]), find the counterfeit coin with the minimum number of weighings.
 
-![Figure 11. Balance scale](https://upload.wikimedia.org/wikipedia/commons/1/17/Balance_%C3%A0_tabac_1850.JPG)
+![Figure 11. Balance scale](../../images/Week01_Balance-Scale.jpg)
 
 *Figure 11. Balance scale*
 
@@ -459,9 +460,9 @@ For n = 1,024 coins:
 
 ### 2.7 Poisoned Wine Problem
 
-**Story:** A king has several wine jars. A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
+**Story:** A king has several wine jars (Figure 12 [10]). A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
-![Figure 12. Wine barrels](https://upload.wikimedia.org/wikipedia/commons/7/7e/Wine_Barrels.jpg)
+![Figure 12. Wine barrels](../../images/Week01_Wine-Barrels.jpg)
 
 *Figure 12. Wine barrels*
 
@@ -638,3 +639,20 @@ Try answering each question yourself before expanding the folded answer.
    **(1) Binary Search** halves the sorted range at each comparison. **(2) Counterfeit Coin (Approach C)** halves the candidate pile at each weighing. **(3) Poisoned Wine** uses `log₂(n)` servants to encode `n` jars in binary. In all three cases, each step doubles progress, so reducing `n` items to one takes `log₂(n)` steps. This is the inverse of repeated doubling and follows the recurrence `T(n) = T(n/2) + O(1)`, which solves to `T(n) = O(log n)`. The same pattern recurs throughout the course.
 
    </details>
+
+---
+
+<br>
+
+## References
+
+1. Zarateman, "Madrid - Ciudad Universitaria, Monumento a Muhammad al-Juarismi (cropped)," *Wikimedia Commons*, Oct. 2022. License: CC0 1.0. https://commons.wikimedia.org/wiki/File:Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg
+2. R. Maijen, "AcetoFive," *Wikimedia Commons*, May 2011. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:AcetoFive.JPG
+3. AlwaysAngry, "Binary Search Depiction," *Wikimedia Commons*, Nov. 2016. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg
+4. The Bank of Korea, "Currency South Korea," *Wikimedia Commons*. License: South Korean currency (Bank of Korea reproduction guidelines). https://commons.wikimedia.org/wiki/File:Currency_South_Korea.jpg
+5. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
+6. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
+7. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
+8. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
+9. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
+10. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg
