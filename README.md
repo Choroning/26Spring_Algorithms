@@ -22,16 +22,13 @@ This repository archives bilingual lecture notes and coursework for the Algorith
 <br><a name="about-this-repository"></a>
 ## 📝 About This Repository
 
-This repository contains the bilingual lecture notes and code of an Algorithms course on the design, analysis, and implementation of algorithms based on CLRS.
-
-- `Lecture-Notes/` holds a lecture note (`Concepts_Lecture`) on each week's theory lecture, and weeks 1-6 also have a lab note (`Concepts_Lab`) on the lab session.
-- The lecture materials were distributed by week, so the units are numbered by week (`Week##`) and follow the full CLRS-based curriculum in weekly order. Week 7, a review week, and week 8, the midterm exam week, have no unit.
-- Every lecture note and lab note comes as an English file (`.md`) and a Korean file (`.ko.md`) with the same structure.
-- `Coursework/` holds the solutions to the five homework assignments of weeks 2-6 (web app code and a detailed explanation report, `Assignment-Report.pdf`), the week 1 lab code, the midterm exam preparation materials, and the team-based term project.
+- `Lecture-Notes/` holds a lecture note for each week (`Week##`), and Weeks 1-6 also hold lab notes.
+- `Coursework/` holds the assignment solutions (web app code and reports), lab code, midterm review materials, and the team term project.
+- Every note comes as an English (`.md`) and Korean (`.ko.md`) pair.
 
 > **🤖 AI Agent Usage**
-> This course encourages the use of AI agents. Generative AI tools are permitted for assignments, but generative AI is prohibited during quizzes.
-> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://github.com/google-gemini/gemini-cli) were used as coding assistants throughout the course, and Claude Code was also used to organize and translate the lecture notes and to restructure the repository.
+> This course encourages the use of AI agents.
+> [Claude Code](https://claude.ai/download) and [Gemini CLI](https://github.com/google-gemini/gemini-cli) were used as coding assistants throughout the course.
 
 <br><a name="course-information"></a>
 ## 📚 Course Information
@@ -50,9 +47,9 @@ This course introduces the design, analysis, and implementation of algorithms. I
 <br><a name="prerequisites"></a>
 ## ✅ Prerequisites
 
-- An understanding of data structures and basic programming is required.
-- A Python interpreter must be installed.
-- Familiarity with command-line tools is expected.
+- Understanding of data structures and basic programming
+- Python interpreter installed
+- Familiarity with command-line tools
 
 - **💻 Development Environment**
 
