@@ -1,8 +1,8 @@
-# Week 13 Lecture — NP-Completeness & Approximation Algorithms
+# Week 13 Lecture — NP-Completeness and Approximation Algorithms
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -233,6 +233,8 @@ A decision problem is in NP if, given a **Yes certificate** (a proposed solution
 > **Caution:** **Common confusion.** NP does **not** stand for non-polynomial. It stands for *nondeterministic polynomial*, the class of problems solvable in polynomial time by an idealized **nondeterministic** machine. Equivalently, these are problems whose Yes-answer admits polynomial-time **verification**.
 
 > **Note:** **What nondeterministic means here.** The historical definition imagines a machine that, at each step, guesses one of several next moves and accepts if *some* sequence of guesses leads to a Yes. This is effectively trying all certificates in parallel. This note uses the **equivalent verifier/certificate definition** throughout: given a certificate, check it in polynomial time. The two definitions describe the same class, so nondeterministic is just **historical naming** here. You can read NP as the class of polynomially verifiable problems.
+
+> **[Theory of Computation]** Theory of Computation encodes decision problems as languages, which are sets of strings, and defines P as the class of languages accepted in polynomial time by a deterministic Turing machine and NP as the class accepted in polynomial time by a nondeterministic Turing machine. The verifier definition used in this note gives the same class as that formal definition, and the undecidability of Section 1.2 and Cook's theorem of Section 2.10 are also stated rigorously on the same Turing machine model.
 
 **Intuitive characterization:**
 
@@ -596,7 +598,7 @@ The plan is to compute the MST (Week 11) and then traverse it.
 1. Compute the MST of the input graph using Kruskal's or Prim's.
 2. Starting from any city, perform a DFS traversal of the MST,
    recording the order in which vertices are visited.
-   (Each tree edge is traversed twice — once forward, once back.)
+   (Each tree edge is traversed twice: once forward, once back.)
 3. Remove duplicate cities from the visit order, keeping the first
    occurrence of each city; append the starting city at the end.
 4. Return the resulting tour.

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
 
@@ -85,7 +85,7 @@ Greedy(C):                          // C = set of all candidates
 
 > **Key Point:** The essence of a greedy algorithm is that it always picks the option that looks best at the moment, without considering the future consequences. This makes greedy algorithms simple and fast, but they only produce optimal results when the problem has the right structural properties.
 
-**Terminology:** A *feasible* solution satisfies all the problem's constraints (but may not be complete yet). A *complete* solution is one that cannot be extended further and represents a full answer to the problem.
+> **Definition:** A **feasible solution** satisfies all the problem's constraints (but may not be complete yet). A **complete solution** is one that cannot be extended further and represents a full answer to the problem.
 
 ### 1.2 Key Properties for Greedy Correctness
 
@@ -135,7 +135,7 @@ Non-standard denominations (e.g., add 160-won coin):
 - Make 200 won: Greedy picks 160 + 10 + 10 + 10 + 10 = **5 coins**
 - Optimal: 100 + 100 = **2 coins**
 
-> **Key Point:** Greedy works for coin change only when denominations have a special structure (each is a multiple of the next smaller). For arbitrary denominations, use **Dynamic Programming**.
+> **Key Point:** Greedy always gives an optimal solution for coin change only when the denominations have a special structure, and a system in which each denomination is a multiple of the next smaller one is the typical case. For arbitrary denominations, use **Dynamic Programming**.
 
 ### 1.5 Greedy in the Real World
 
@@ -181,7 +181,7 @@ CoinChange(W):
 - 10-won: 1 coin (remaining 0)
 - **Total: 5 coins** (optimal for standard denominations)
 
-**Time complexity**: O(n) if the count of each denomination is computed by division (quotient and remainder), where n is the number of denomination types (constant in practice). If coins are subtracted one at a time as in the pseudocode above, the number of iterations also grows with the number of coins returned.
+**Time complexity**: O(k) if the count of each denomination is computed by division (quotient and remainder), where k is the number of denomination types (constant in practice). If coins are subtracted one at a time as in the pseudocode above, the number of iterations also grows with the number of coins returned.
 
 > **Note:** The greedy strategy here is straightforward: always use the largest denomination possible. This works because each Korean won denomination is a multiple of the next smaller one, ensuring that choosing a larger coin never blocks a better solution.
 
@@ -455,6 +455,8 @@ HuffmanCoding(characters, frequencies):
 - Loop runs (n-1) times, each iteration: 2 extract-min + 1 insert = O(log n)
 - Total: O(n) + (n-1) * O(log n) = **O(n log n)**
 
+> **[Data Structures]** A min-priority queue is usually implemented as a binary min-heap, which is built from n elements in O(n) time and performs insert and extract-min in O(log n) time each. Each of the n-1 merges in Huffman coding performs two extract-min operations and one insert, so these heap costs set the total O(n log n), and Prim's algorithm in Section 7.3 and Dijkstra's algorithm in Section 8.1 run in O(m log n) with a binary heap for the same reason: n extract-min operations and at most m key updates each take O(log n) time.
+
 > **Key Point:** The greedy choice is to always merge the two nodes with the lowest frequencies first. This ensures that the least frequent characters end up deepest in the tree (longest codes), while the most frequent characters stay near the root (shortest codes).
 
 ### 6.3 Huffman Coding: Worked Example
@@ -514,7 +516,7 @@ Using the codes: A = `0`, C = `10`, T = `110`, G = `111`
 
 **Compression ratio**: 1,620 / 7,440 = **21.8%** (about 1/5 of the original size)
 
-**Decoding example**: Encode the string "GATTACA".
+**Encoding and decoding example**: Encode the string "GATTACA".
 - G=`111`, A=`0`, T=`110`, T=`110`, A=`0`, C=`10`, A=`0`
 - Encoded: `11101101100100`
 
@@ -688,7 +690,7 @@ Dijkstra(G, s):
 
 **Time complexity**: $O(n^2)$ with array, O(m log n) with binary min-heap
 
-> **Note:** Dijkstra's algorithm does not work with **negative** edge weights. For that, use **Bellman-Ford** (O(VE)).
+> **Note:** Dijkstra's algorithm does not guarantee a correct result when there are **negative** edge weights. For that case, use **Bellman-Ford** (O(nm)), covered in Week 12.
 
 With negative edges, a vertex that has already been finalized may later become reachable by a shorter path through a negative edge, which breaks the greedy invariant that the distance of the vertex with the minimum D value is optimal.
 
@@ -746,7 +748,7 @@ The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by s
 | **Revisiting** | Never reconsider a choice | Stores and reuses all subproblem solutions |
 | **Correctness** | Only if greedy-choice property holds | Always correct if optimal substructure holds |
 | **Speed** | Typically faster | Typically slower (but more general) |
-| **Coin Change** | O(k), but may fail | O(nk), always optimal |
+| **Coin Change** | O(k), but may fail | O(nk), always optimal (n is the amount) |
 | **Knapsack** | Fractional: optimal | 0-1: optimal |
 | **Shortest Path** | Dijkstra (non-negative) | Bellman-Ford (any weights, no negative cycles) |
 
@@ -766,7 +768,7 @@ The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by s
 |:-----|:-----|
 | Greedy algorithm | Makes a locally optimal choice at each step in the hope of reaching a global optimum. |
 | Two conditions for greedy correctness | The **greedy-choice property** and **optimal substructure** must hold. |
-| Coin change (greedy) | Finds the minimum number of coins in O(k) for k denominations and is optimal only for standard denominations. |
+| Coin change (greedy) | Finds the minimum number of coins in O(k) for k denominations and is optimal only when the denominations have a structure that suits greedy, as the won coins do. |
 | Fractional knapsack | Finds the maximum value of divisible items in O(n log n) and is always optimal. |
 | Job scheduling (EST) | Finds the minimum number of machines in O(n log n) + O(mn) and is always optimal. |
 | Activity selection (EFT) | Finds the maximum number of activities on one machine in O(n log n) and is always optimal. |
@@ -797,7 +799,7 @@ The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by s
    <details>
    <summary>Answer</summary>
 
-   For {1, 5, 10, 25}, each denomination is a multiple (or near-multiple) of smaller ones, so a larger coin can never be replaced by an equal or smaller number of smaller coins. For example, replacing one 25 takes at least three 10s or 5s. Therefore, any optimal solution using fewer of the largest coin than greedy does can be rewritten without increasing the total count. **With a 12-cent coin** making 15: greedy picks **12 + 1 + 1 + 1 = 4 coins**, but the optimum is **10 + 5 = 2 coins**. The 12-coin destroys the divisor structure, so the greedy-choice property fails.
+   For {1, 5, 10, 25}, the number of small coins in an optimal solution is bounded. Five 1s can be replaced by one 5, two 5s by one 10, three 10s by a 25 and a 5, and two 10s with a 5 by one 25, each with fewer coins, so an optimal solution uses at most four 1s, at most one 5, and at most two 10s, and never two 10s together with a 5. The coins below 25 then sum to at most 24, so an optimal solution also uses as many 25s as greedy does, and applying the same argument to the remaining amount shows that the optimal solution equals the greedy one. **With a 12-cent coin** making 15: greedy picks **12 + 1 + 1 + 1 = 4 coins**, but the optimum is **10 + 5 = 2 coins**. The 12-coin destroys the divisor structure, so the greedy-choice property fails.
 
    </details>
 
@@ -851,6 +853,6 @@ The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by s
    <details>
    <summary>Answer</summary>
 
-   **(a) DP:** Arbitrary denominations can break the divisor structure. For amount 6 with coins `{1, 3, 4}`, greedy choice can leave a remainder that needs extra coins; use `dp[i] = min(dp[i-c] + 1)`. **(b) Greedy:** Dijkstra's algorithm works because non-negative weights preserve the invariant that a finalized distance is optimal. **(c) DP:** LCS has overlapping subproblems and no reliable local choice, since a character match may or may not belong to an LCS. The standard `dp[i][j]` table takes O(mn) space. **(d) Greedy:** Sort by value per weight. Since fractions are allowed, each unit of capacity can be assigned at the best available rate.
+   **(a) DP:** Arbitrary denominations can break the divisor structure. For amount 6 with coins `{1, 3, 4}`, greedy uses 4 + 1 + 1, which is 3 coins, while the optimum 3 + 3 uses 2 coins; use `dp[i] = min(dp[i-c] + 1)`. **(b) Greedy:** Dijkstra's algorithm works because non-negative weights preserve the invariant that a finalized distance is optimal. **(c) DP:** LCS has overlapping subproblems and no reliable local choice, since a character match may or may not belong to an LCS. The standard `dp[i][j]` table takes O(mn) space. **(d) Greedy:** Sort by value per weight. Since fractions are allowed, each unit of capacity can be assigned at the best available rate.
 
    </details>

@@ -2,11 +2,11 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 > **Learning Objectives:**
 > 1. Compare naive recursion, memoization, and tabulation through the Fibonacci problem
-> 2. Build a 2D DP table for LCS and recover the actual subsequence via backtracking
+> 2. Build a 2D DP table for LCS and recover the actual subsequence via traceback
 > 3. Implement the 0-1 Knapsack problem with DP and trace selected items
 > 4. Experience how LCS-based diff is applied in a real web application
 
@@ -23,14 +23,14 @@
     - [2.1.1 Problem](#211-problem)
     - [2.1.2 Three Approaches](#212-three-approaches)
     - [2.1.3 Performance Results](#213-performance-results)
-  - [2.2 A-2: LCS + DP Table Visualization](#22-a-2-lcs--dp-table-visualization)
+  - [2.2 A-2: LCS and DP Table Visualization](#22-a-2-lcs-and-dp-table-visualization)
     - [2.2.1 Problem](#221-problem)
     - [2.2.2 DP Table](#222-dp-table)
     - [2.2.3 Solution Code](#223-solution-code)
-    - [2.2.4 Backtracking Visualization](#224-backtracking-visualization)
-  - [2.3 A-3: 0-1 Knapsack + Backtracking](#23-a-3-0-1-knapsack--backtracking)
+    - [2.2.4 Traceback Visualization](#224-traceback-visualization)
+  - [2.3 A-3: 0-1 Knapsack and Traceback](#23-a-3-0-1-knapsack-and-traceback)
     - [2.3.1 Problem](#231-problem)
-    - [2.3.2 DP Table & Backtracking](#232-dp-table--backtracking)
+    - [2.3.2 DP Table and Traceback](#232-dp-table-and-traceback)
     - [2.3.3 Solution Code](#233-solution-code)
 - [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Text Diff Viewer](#31-b-1-text-diff-viewer)
@@ -49,8 +49,8 @@
 ### 1.1 Lab Goals
 
 - Understand and implement the core DP patterns, **memoization** and **tabulation**.
-- Build a 2D DP table for **LCS** and recover the actual subsequence via backtracking.
-- Implement the **0-1 Knapsack** problem with DP and trace selected items through backtracking.
+- Build a 2D DP table for **LCS** and recover the actual subsequence via traceback.
+- Implement the **0-1 Knapsack** problem with DP and trace selected items through traceback.
 - Analyze how **LCS-based diff** is used in a real web application.
 
 ### 1.2 Lab Structure
@@ -58,8 +58,8 @@
 | Section | Topic | Time |
 |:--------|:------|:-----|
 | **A-1** | Fibonacci Comparison | 10 min |
-| **A-2** | LCS + DP Table Visualization | 15 min |
-| **A-3** | 0-1 Knapsack + Backtracking | 10 min |
+| **A-2** | LCS and DP Table Visualization | 15 min |
+| **A-3** | 0-1 Knapsack and Traceback | 10 min |
 | **B-1** | Text Diff Viewer | 15 min |
 
 *Table 1. Topics and time allotted for each lab section*
@@ -90,7 +90,7 @@ Compare three approaches to computing Fibonacci numbers and observe how DP elimi
 
 #### 2.1.1 Problem
 
-**Goal:** Compare three approaches to computing Fibonacci numbers.
+**Goal:** Compute the same Fibonacci numbers in three ways and compare their measured running times.
 
 ```text
 Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
@@ -179,7 +179,7 @@ Both eliminate overlapping subproblems, and tabulation also avoids recursion ove
 
 <br>
 
-### 2.2 A-2: LCS + DP Table Visualization
+### 2.2 A-2: LCS and DP Table Visualization
 
 #### 2.2.1 Problem
 
@@ -229,7 +229,7 @@ X = "ABCBDAB",  Y = "BDCAB"
   B 7 |   0    1    2    2    3   [4]
 
   [n] = match (diagonal move, included in LCS)
-  (n) = backtrack path
+  (n) = traceback path
 ```
 
 *Figure 3. LCS DP table for X = ABCBDAB and Y = BDCAB*
@@ -277,7 +277,7 @@ def backtrack_lcs(dp, x, y):
 
 Run: `python examples/solutions/a2_lcs.py`
 
-#### 2.2.4 Backtracking Visualization
+#### 2.2.4 Traceback Visualization
 
 ```text
 Start at dp[7][5] = 4, trace back to dp[0][0]:
@@ -303,7 +303,7 @@ Collected (reversed): B -> C -> A -> B = "BCAB"
 
 <br>
 
-### 2.3 A-3: 0-1 Knapsack + Backtracking
+### 2.3 A-3: 0-1 Knapsack and Traceback
 
 #### 2.3.1 Problem
 
@@ -334,7 +334,7 @@ Otherwise:         dp[i][j] = max(
 
 Which items should we pick?
 
-#### 2.3.2 DP Table & Backtracking
+#### 2.3.2 DP Table and Traceback
 
 ```text
           Capacity ->  0   5  10  15  20  25  30  35  40  45  50
@@ -347,7 +347,7 @@ Book    4 |            0  40  60 100 100 140 160 200 200 220 220
 
 Answer: dp[4][50] = 220
 
-Backtrack from dp[4][50]:
+Trace back from dp[4][50]:
   dp[4][50]=220 == dp[3][50]=220 -> skip Book
   dp[3][50]=220 != dp[2][50]=160 -> TAKE Painting (j: 50->20)
   dp[2][20]=100 != dp[1][20]=60  -> TAKE Camera   (j: 20->0)
@@ -356,7 +356,7 @@ Backtrack from dp[4][50]:
 Selected: Camera (100, 20kg) + Painting (120, 30kg) = 220
 ```
 
-*Figure 4. DP table and backtracking for the 0-1 knapsack example with capacity 50*
+*Figure 4. DP table and traceback for the 0-1 knapsack example with capacity 50*
 
 > **Note:** **Another optimal solution.** Laptop + Painting + Book (weight 45, value 220) is another optimal solution with the same maximum value. The code in Section 2.3.3 skips an item when dp[i][j] = dp[i-1][j], so it picks Camera + Painting.
 
@@ -474,7 +474,7 @@ Design a DP algorithm in the following five steps.
 2. Write the recurrence    — how does dp[i][j] relate to smaller subproblems?
 3. Identify base cases     — dp[0][...] = ?, dp[...][0] = ?
 4. Determine fill order    — usually left-to-right, top-to-bottom
-5. Backtrack if needed     — recover the actual solution, not just the value
+5. Trace back if needed    — recover the actual solution, not just the value
 ```
 
 ---
@@ -486,10 +486,10 @@ Design a DP algorithm in the following five steps.
 | Concept | Key Summary |
 |---------|-------------|
 | Fibonacci | Naive recursion takes $O(2^n)$, while memoization and tabulation eliminate overlapping subproblems and compute in O(n). |
-| LCS | A 2D DP table is filled and then backtracking recovers the actual subsequence. |
-| 0-1 Knapsack | The DP table is built and backtracking finds the selected items. |
+| LCS | A 2D DP table is filled and then traceback recovers the actual subsequence. |
+| 0-1 Knapsack | The DP table is built and traceback finds the selected items. |
 | Text Diff | It applies LCS to a real web application and works on the same principle as GitHub diff. |
-| DP recipe | A DP is designed by defining the subproblem, writing the recurrence, identifying base cases, determining the fill order, and backtracking when needed. |
+| DP recipe | A DP is designed by defining the subproblem, writing the recurrence, identifying base cases, determining the fill order, and tracing back when needed. |
 
 ---
 
@@ -506,12 +506,12 @@ Design a DP algorithm in the following five steps.
 
    </details>
 
-2. In the LCS problem, what is the role of the backtracking step? Why is the final value dp[m][n] alone not enough to determine the actual subsequence?
+2. In the LCS problem, what is the role of the traceback step? Why is the final value dp[m][n] alone not enough to determine the actual subsequence?
 
    <details>
    <summary>Answer</summary>
 
-   The DP table stores only the **length** of the LCS at each cell, not which characters were chosen. Many different subsequences can produce the same length, so `dp[m][n] = 4` tells us the LCS is 4 characters but not *which* 4. **Backtracking** walks the table from `dp[m][n]` back to `dp[0][0]`, replaying the decision at each cell: on a match (`X[i] == Y[j]`) it emits the character and moves diagonally; otherwise it steps in the direction of the larger neighbor. Each step is $O(1)$, so reconstruction adds only $O(m+n)$ to the algorithm.
+   The DP table stores only the **length** of the LCS at each cell, not which characters were chosen. Many different subsequences can produce the same length, so `dp[m][n] = 4` tells us the LCS is 4 characters but not *which* 4. **Traceback** walks the table from `dp[m][n]` back to `dp[0][0]`, replaying the decision at each cell: on a match (`X[i] == Y[j]`) it emits the character and moves diagonally; otherwise it steps in the direction of the larger neighbor. Each step is $O(1)$, so reconstruction adds only $O(m+n)$ to the algorithm.
 
    </details>
 
@@ -520,7 +520,7 @@ Design a DP algorithm in the following five steps.
    <details>
    <summary>Answer</summary>
 
-   **0-1 Knapsack is not solved by greedy ratio selection** because items are indivisible. Taking items in ratio order picks Book (8.0/kg), Laptop (6.0/kg), and Camera (5.0/kg), reaching only value 200 at weight 35, and Painting no longer fits. Camera (100, 20) + Painting (120, 30) fills the bag exactly to 50 with value **220**. Another optimal solution, Laptop + Painting + Book (weight 45), also reaches 220, so the Book is not excluded from every optimum. The backtracking in Section 2.3.3 sees dp[4][50] = dp[3][50] = 220, meaning the maximum is reachable without the Book, and skips it. DP compares all subset combinations implicitly, so it recognizes that the **combined value of an item combination** beats the ratio-first choice.
+   **0-1 Knapsack is not solved by greedy ratio selection** because items are indivisible. Taking items in ratio order picks Book (8.0/kg), Laptop (6.0/kg), and Camera (5.0/kg), reaching only value 200 at weight 35, and Painting no longer fits. Camera (100, 20) + Painting (120, 30) fills the bag exactly to 50 with value **220**. Another optimal solution, Laptop + Painting + Book (weight 45), also reaches 220, so the Book is not excluded from every optimum. The traceback in Section 2.3.3 sees dp[4][50] = dp[3][50] = 220, meaning the maximum is reachable without the Book, and skips it. DP compares all subset combinations implicitly, so it recognizes that the **combined value of an item combination** beats the ratio-first choice.
 
    </details>
 

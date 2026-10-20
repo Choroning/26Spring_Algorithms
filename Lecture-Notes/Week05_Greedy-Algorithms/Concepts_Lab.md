@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 > **Learning Objectives:**
 > 1. Experimentally verify the success and failure conditions of greedy algorithms
@@ -95,7 +95,7 @@ Observe when the greedy approach works and when it fails by comparing it with an
 
 #### 2.1.1 Problem
 
-**Goal**: Observe when the greedy approach works and when it fails.
+**Goal**: Apply the same greedy rule to two coin sets and compare the results with the optimal solution.
 
 **Case 1: Greedy succeeds**
 
@@ -119,7 +119,7 @@ Optimal (DP):
   3 -> 3     = 2 coins  <-- fewer coins!
 ```
 
-**Why does greedy fail?** The coins are not in a divisor relationship, so picking the locally best coin can block a globally better combination.
+**Why does greedy fail?** This coin set does not form a divisor relationship (4 is not a multiple of 3), and picking the locally best coin 4 blocks the globally better combination 3 + 3.
 
 #### 2.1.2 Greedy Code
 
@@ -377,7 +377,7 @@ Why the difference?
 **Why greedy is optimal for fractional knapsack:**
 
 - Prioritizing items with the highest value per unit weight maintains optimal selection for the remaining capacity.
-- Since items can be split, the question is not "include or not" but "how much to include".
+- Since items can be split, the problem is to decide how much of each item to include rather than whether to include it.
 - **Time complexity**: O(n log n), dominated by sorting.
 
 ---
@@ -388,7 +388,7 @@ Why the difference?
 
 #### 2.3.1 Problem
 
-**Problem**: Given character frequencies, build an optimal prefix-free binary code.
+**Problem**: Given character frequencies, build an optimal binary prefix code.
 
 ```text
 Text: "abracadabra"
@@ -406,7 +406,7 @@ Step 3: Merge [2]   + [4]     = [6]
 Step 4: Merge 'a'(5) + [6]    = [11]
 ```
 
-**Key property**: Prefix-free code. No codeword is a prefix of another, so decoding is unambiguous without delimiters.
+**Key property**: It is a prefix code. No codeword is a prefix of another, so decoding is unambiguous without delimiters.
 
 #### 2.3.2 Huffman Tree
 
@@ -551,7 +551,7 @@ Theoretical lower bound:    22.4     2.040
 
 **Additional examples from the solution:**
 
-| Text | Huffman bits/char | Entropy | Compression vs ASCII |
+| Text | Huffman bits/char | Entropy | Savings vs ASCII |
 |:-----|:-----------------|:--------|:---------------------|
 | "abracadabra" | 2.091 | 2.040 | 73.9% |
 | "the quick brown fox..." | 4.023 | 3.944 | 49.7% |
@@ -563,7 +563,7 @@ Theoretical lower bound:    22.4     2.040
 
 - At each step, merge the **two least frequent** nodes.
 - This locally optimal choice leads to a globally optimal prefix code.
-- It is proven optimal among all prefix-free codes.
+- It is proven optimal among all prefix codes.
 
 **Time complexity**: O(n log n), where n is the number of distinct characters; each heap operation is O(log n), and n-1 merges are performed.
 
@@ -752,7 +752,7 @@ For greedy to guarantee an optimal solution, the following two conditions must h
    <details>
    <summary>Answer</summary>
 
-   In 0-1 knapsack a high-ratio item can **strand capacity** that cannot be filled with a fraction of another item. With items A(10, $60), B(20, $100), C(30, $120) and capacity 50: greedy picks A then B for $160 with 20 lb left empty. The 0-1 optimum is **B + C = $220**, which gives up the best ratio item to use the capacity fully. The greedy-choice property fails because "include or skip" is a discrete choice; you cannot top off the leftover with `2/3` of C as you would in the fractional case.
+   In 0-1 knapsack a high-ratio item can **strand capacity** that cannot be filled with a fraction of another item. With the items A(10kg, 60), B(20kg, 100), C(30kg, 120) of Section 2.2.1 and capacity 50kg, greedy picks A then B for a value of 160 with 20kg left empty. The 0-1 optimum is **B + C = 220**, which gives up the best ratio item to use the capacity fully. The greedy-choice property fails because choosing only whether to include each item is a discrete choice; you cannot top off the leftover with `2/3` of C as you would in the fractional case.
 
    </details>
 
@@ -761,7 +761,7 @@ For greedy to guarantee an optimal solution, the following two conditions must h
    <details>
    <summary>Answer</summary>
 
-   For "abracadabra", Huffman achieves **2.091 bits/char**, while the entropy lower bound computed from the character frequencies is about **2.040 bits/char**, a gap of about 0.051 bits/char (about 2.5%). The gap exists because Huffman codes must use **integer bit lengths** for each symbol, while Shannon entropy assumes fractional bit allocations. Huffman is provably optimal **among prefix-free codes**, but to approach entropy you need techniques like **arithmetic coding** that effectively encode fractional bits. The gap shrinks as the probabilities approach negative powers of two (for "aaaaaaaabbbbccdd" it is zero), and it can grow when one symbol is very likely. Coding blocks of several symbols together reduces the gap.
+   For "abracadabra", Huffman achieves **2.091 bits/char**, while the entropy lower bound computed from the character frequencies is about **2.040 bits/char**, a gap of about 0.051 bits/char (about 2.5%). The gap exists because Huffman codes must use **integer bit lengths** for each symbol, while Shannon entropy assumes fractional bit allocations. Huffman is provably optimal **among prefix codes**, but to approach entropy you need techniques like **arithmetic coding** that effectively encode fractional bits. The gap shrinks as the probabilities approach negative powers of two (for "aaaaaaaabbbbccdd" it is zero), and it can grow when one symbol is very likely. Coding blocks of several symbols together reduces the gap.
 
    </details>
 
@@ -779,7 +779,7 @@ For greedy to guarantee an optimal solution, the following two conditions must h
    <details>
    <summary>Answer</summary>
 
-   Greedy takes `12` first, leaving `6`, but `9` no longer fits, so it falls back to six `1`s for **7 coins**. The optimum is `9 + 9 = 2 coins`, so greedy is exactly **3.5×** worse. This is the worst ratio because the **gap between 12 and 9 is small** (so picking 12 only saves *one* coin compared to picking 9), but **picking 12 destroys the ability to use 9 at all** for the remainder. The denominations are pairwise close yet non-divisible: there is no fallback coin between 9 and 1, so any stranded remainder collapses into a long tail of pennies.
+   Greedy takes `12` first, leaving `6`, but `9` no longer fits, so it falls back to six `1`s for **7 coins**. The optimum is `9 + 9 = 2 coins`, so greedy is exactly **3.5×** worse. This is the worst ratio because the **gap between 12 and 9 is small** (taking 12 reduces the amount by only 3 more than taking 9), so the greedy gain is tiny, but **picking 12 destroys the ability to use 9 at all** for the remainder. The denominations are pairwise close yet non-divisible: there is no fallback coin between 9 and 1, so any stranded remainder collapses into a long tail of pennies.
 
    </details>
 

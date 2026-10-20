@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 6, 7, 8, 10
 
@@ -101,7 +101,7 @@ typedef struct ListNode {
 - The operations are insertion, deletion, and search, and all of them are O(n) in the worst case when the cost of searching for the position is included.
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[Data Structures]** The key differences between linked lists and arrays are as follows.
+> **[Data Structures]** Arrays and linked lists, covered in Data Structures, store the same linear data but have opposite costs for access and for insertion and deletion. The sorting algorithms in this note access and swap elements directly by index, so they are implemented on arrays; the two structures differ as follows.
 > - **Array**: Elements are stored contiguously in memory; index access is O(1), and insertion and deletion are O(n) because elements must be shifted.
 > - **Linked List**: Nodes are scattered in memory; access is O(n) because the list must be traversed from the beginning, and insertion and deletion are O(1) when the position is already known because only pointers change.
 >
@@ -128,7 +128,7 @@ bottom → │  A  │
 - Applications: function call stack, expression evaluation, backtracking
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[Data Structures]** Stacks are used when the most recent item must be processed first. Representative applications include:
+> **[Data Structures]** A stack, covered in Data Structures, removes the most recently inserted element first, so it is used when the most recent item must be processed first. Representative applications include:
 > - **Function call stack**: As seen with GCD recursion in Week 2, nested function calls are managed via a stack.
 > - **Parenthesis matching**: In `({[]})`, push opening brackets and pop when a closing bracket appears to check for matching.
 > - **Undo**: Web browser back navigation is also stack-based.
@@ -149,12 +149,12 @@ bottom → │  A  │
 - Applications: BFS, scheduling, buffering
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
-> **[Data Structures]** Queues are used when the first arrived item must be processed first.
-> - **BFS (Breadth-First Search)**: Uses a queue to explore the nearest nodes first in a graph.
+> **[Data Structures]** A queue, covered in Data Structures, removes the earliest inserted element first, so it is used when the first arrived item must be processed first. Representative applications include:
+> - **BFS (Breadth-First Search)**: Uses a queue to explore the vertices nearest to the start vertex first in a graph (Week 11).
 > - **Printer queue**: Documents are printed in the order they were requested.
 > - **OS process scheduling**: Distributes CPU time fairly.
 >
-> Remember that stacks (LIFO) and queues (FIFO) are opposite concepts.
+> Stacks (LIFO) and queues (FIFO) remove elements in opposite orders.
 
 ### 1.4 Heap
 
@@ -171,7 +171,7 @@ bottom → │  A  │
 
 *Figure 4. Tree and array representations of a heap*
 
-> **[Data Structures]** Reviewing complete binary trees and heaps from Data Structures:
+> **[Data Structures]** Complete binary trees, their array representation, and priority queues, covered in Data Structures, are the concepts that heap sort in Sections 3.10-3.15 builds on directly:
 > - **Complete binary tree**: All levels except the last are completely filled, and the last level is filled from left to right.
 > - **Storing a heap in an array**: Place the root at index 1, then node i's left child is 2i, right child is 2i+1, and parent is floor(i/2). This allows traversing the tree using only array index calculations, with no pointers needed, which makes it very efficient.
 > - **Priority queue**: The key application of heaps. The largest (Max Heap) or smallest (Min Heap) element can be extracted in O(log n).
@@ -193,7 +193,7 @@ bottom → │  A  │
 > - **Flow-based**: Follow the execution steps one by one.
 > - **Relational**: Observe how each step transforms the state (deeper understanding).
 
-> **Key Point:** Sorting algorithms are a core topic in algorithms courses because (1) they are the most frequently used operation in practice, (2) they encompass core concepts like divide and conquer, recursion, and complexity analysis, and (3) there is the theoretically important result of the lower bound for comparison-based sorting (Ω(n log n)).
+> **Key Point:** Sorting algorithms are a core topic in the field of algorithms because (1) they are the most frequently used operation in practice, (2) they encompass core concepts like divide and conquer, recursion, and complexity analysis, and (3) there is the theoretically important result of the lower bound for comparison-based sorting (Ω(n log n)).
 
 ---
 
@@ -246,7 +246,7 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
 > **Key Point:** The key characteristic of selection sort is that regardless of the input state (already sorted, reversed, random), it is **always Θ(n²)**. Best, average, and worst cases are all the same. The number of comparisons is always n(n-1)/2, and only the number of swaps varies (up to n-1, or 0 if already sorted).
 
-> **Note:** This note explains selection sort as finding the maximum and sending it to the back, while Week 3 Lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
+> **Note:** This section explains selection sort as finding the maximum and sending it to the back, while Week 3 Lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
 
 ### 2.3 Selection Sort: Step-by-Step Example
 
@@ -383,21 +383,21 @@ Insertion sort is the **fastest** among elementary sorts for nearly sorted data.
 - **Inductive step**: If A[1...k] is sorted (P(k) holds), inserting A[k+1] at the correct position yields sorted A[1...k+1] (P(k+1) holds).
 - **Conclusion**: After the n-th iteration, the entire array A[1...n] is sorted.
 
-> **[Discrete Mathematics]** This is exactly the same as applying **mathematical induction** (learned in high school) to algorithms.
+> **[Discrete Mathematics]** **Mathematical induction**, taught in Discrete Mathematics, proves a statement for all n by showing that it holds for the base case and that P(k) implies P(k+1). The proof above follows this structure directly, and in the loop invariant proof below, the initialization step (the invariant holds before the loop starts) corresponds to the base case and the maintenance step (one iteration preserves the invariant) to the inductive step.
 
-> **Note:** **Exam tip.** A **loop invariant** is a key tool for proving algorithm correctness. It is a condition that remains true at every iteration of the loop. Its structure is identical to mathematical induction.
+> **Note:** **Proving correctness with a loop invariant.** A **loop invariant** is a condition that remains true at every iteration of the loop, and it is a key tool for proving algorithm correctness. Its structure is identical to mathematical induction.
 > - Base case = true before the loop starts
 > - Inductive step = still true after one iteration
 > - Conclusion = the desired property holds after the loop terminates
 >
-> When exam questions ask for correctness proofs, using loop invariants is the standard approach.
+> Using a loop invariant is the standard way to prove the correctness of an algorithm built around a loop.
 
 ### 2.10 Recursive Structure of Elementary Sorts
 
 All three elementary sorts share the **same recursive structure**.
 
 ```text
-T(n) = T(n-1) + Theta(n)
+T(n) = T(n-1) + Θ(n)
 ```
 
 | Algorithm | Recursive Form | Work Per Level |
@@ -626,17 +626,17 @@ Animation: [visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
 | Case | Partition Balance | Recurrence | Complexity |
 |:-----|:-----------------|:-----------|:-----------|
-| **Worst** | 0 : n-1 (sorted input) | T(n) = T(n-1) + Θ(n) | **Θ(n²)** |
+| **Worst** | 0 : n-1 (e.g., sorted input) | T(n) = T(n-1) + Θ(n) | **Θ(n²)** |
 | **Best** | n/2 : n/2 (perfect split) | T(n) = 2T(n/2) + Θ(n) | **Θ(n log n)** |
 | **Average** | Random split | See below | **Θ(n log n)** |
 
 *Table 6. Partition balance and complexity of quick sort by case*
 
-**Worst case**: The input is already sorted, so the pivot is always the minimum or maximum.
+**Worst case**: Every partition is maximally unbalanced (0 : n-1), that is, the pivot is always the minimum or maximum of the subarray. With the last-element pivot used above, an already sorted input produces this case.
 
 ```text
-T(n) = T(0) + T(n-1) + Theta(n) = T(n-1) + Theta(n)
-     = Theta(n) + Theta(n-1) + ... + Theta(1) = Theta(n^2)
+T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
+     = Θ(n) + Θ(n-1) + ... + Θ(1) = Θ(n²)
 ```
 
 ![Figure 15. Worst-case and best-case partitions of quick sort](../../images/Week03_ch07_p08.png)
@@ -828,7 +828,7 @@ heapSort(A[], n)
 > **Key Point:** Heap sort is **O(n log n) even in the worst case**, with no degenerate inputs like those of quick sort.
 > It is also **in-place** (unlike merge sort, no extra array is needed).
 
-> **Note:** **Exam tip.** Comparison of the three O(n log n) sorts:
+> **Note:** **Comparison of the three O(n log n) sorts.** The three sorts differ in worst-case time, extra space, practical speed, and stability as follows:
 >
 > | | Merge Sort | Quick Sort | Heap Sort |
 > |:---|:---|:---|:---|
@@ -987,7 +987,7 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 > **Note:** The k in Table 9 means different things for different algorithms. For counting sort, k is the value range, and in the Θ(nk) time of radix sort, k is the number of digits. The O(n + k) space of radix sort refers to the output and count arrays of the counting sort used for each digit, so there k should be read as the number of values one digit can take (the base). Also, the O(k) space of counting sort counts only the count array; including the output array B, it is O(n + k).
 
-> **Note:** **Exam tip.** This table is a key summary frequently tested on exams. What to memorize:
+> **Note:** **Key points of Table 9.** The properties in Table 9 that guide the choice of a sorting algorithm are as follows.
 > - Always O(n²): Selection sort
 > - Best-case O(n) among elementary sorts: Bubble (with optimization), Insertion
 > - Always O(n log n): Merge, Heap
@@ -1059,7 +1059,7 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
    </details>
 
-4. **Partition:** Given the array [3, 8, 2, 5, 1, 4, 7, 6] with pivot = 6 (last element), trace through the CLRS partition procedure. What is the final array state?
+4. **Partition:** Given the array [3, 8, 2, 5, 1, 4, 7, 6] with pivot = 6 (last element), trace through the CLRS PARTITION procedure. What is the final array state?
 
    <details>
    <summary>Answer</summary>

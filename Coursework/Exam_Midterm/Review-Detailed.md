@@ -2,13 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review-Detailed.md) | [한국어](Review-Detailed.ko.md)
 
-> **Last Updated:** 2026-10-18
-
-**Exam Info:** Week 8 midterm, handwritten, 1 hour, no digital devices, covering Weeks 1-6 (CLRS Chapters 1-4, 6-10, 15, 16).
-
-**Purpose:** The *detailed* companion to [Midterm Review](Review.md). It covers the same scope and develops each concept through intuition, derivation, proof sketches, step-by-step traces, and explanations of why it works. Read this when you want to *understand*, not just memorize.
-
-**How to use this document:** Read the corresponding section of [Midterm Review](Review.md) first for the bird's-eye view, then come here for depth. Each section includes worked examples and commentary on why it matters.
+> **Last Updated:** 2026-10-20
 
 ---
 
@@ -30,6 +24,12 @@
 ---
 
 ## 0. About the Midterm
+
+**Exam Info:** Week 8 midterm, handwritten, 1 hour, no digital devices, covering Weeks 1-6 (CLRS Chapters 1-4, 6-10, 15, 16).
+
+**Purpose:** The *detailed* companion to [Midterm Review](Review.md). It covers the same scope and develops each concept through intuition, derivation, proof sketches, step-by-step traces, and explanations of why it works. Read this when you want to *understand*, not just memorize.
+
+**How to use this document:** Read the corresponding section of [Midterm Review](Review.md) first for the bird's-eye view, then come here for depth. Each section includes worked examples and commentary on why it matters.
 
 The midterm covers Weeks 1-6 of the algorithms course. Three hours of lectures and labs per week, roughly 18 hours of material, compressed into a single 60-minute handwritten exam. No digital devices, no lookups. You will write pseudocode, fill DP tables, trace algorithms by hand, prove asymptotic bounds, and argue about correctness.
 
@@ -67,7 +67,7 @@ Every major algorithm you have seen sits somewhere on that chain. Internalizing 
 2. **Show your work.** Partial credit rewards correct reasoning even when the arithmetic slips.
 3. **Draw tables and trees.** DP tables, recursion trees, Huffman trees, Gantt charts: visualization is faster and less error-prone than prose.
 4. **Sanity-check with small inputs.** Plug in `n = 1, 2, 3` to your recurrence or DP table before trusting it.
-5. **State the technique explicitly.** "By the Master Theorem Case 2" or "by exchange argument" tells the grader what you are doing and earns credit even if execution stumbles.
+5. **State the technique explicitly.** "By the Master Theorem Case 2" or "by exchange argument" tells the grader which approach the solution takes and earns credit even if the computation goes wrong.
 
 ---
 
@@ -77,7 +77,7 @@ Every major algorithm you have seen sits somewhere on that chain. Internalizing 
 
 An algorithm is a **systematic, finite, unambiguous procedure** that, given an input satisfying some precondition, produces an output satisfying some postcondition. Every step must be mechanically executable; no "handle appropriately" or "choose wisely."
 
-The five properties drill deeper than the textbook three:
+The five properties below combine the three of Week 1 (finiteness, correctness, unambiguity) with the four of Week 2 (correctness, executability, finiteness, efficiency).
 
 | Property | Meaning | Failure mode |
 |----------|---------|--------------|
@@ -213,7 +213,7 @@ Given `n` coins, one slightly lighter, find the fake with a balance scale.
 1024 → 512 → 256 → 128 → 64 → 32 → 16 → 8 → 4 → 2 → 1  (10 weighings)
 ```
 
-Each weighing eliminates half the candidates → `log₂ n` weighings. This is the first divide-and-conquer analysis you meet in the course.
+Each weighing eliminates half the candidates → `log₂ n` weighings. This is the first divide-and-conquer analysis in this range.
 
 > **Note:** **Why not three-way splits?** You *can* do better with thirds: split into 3 piles, weigh two of them, determine the lighter pile. This gives `log₃ n` weighings, asymptotically still `O(log n)`, just a different constant. The log-function is what matters, not the base.
 
@@ -246,7 +246,7 @@ If A dies and B does not → binary `10` → jar 2.
 
 For an algorithm, define `T(n)` = number of **elementary operations** (comparisons, assignments, arithmetic, array accesses) as a function of input size `n`. In the **RAM model** each elementary op takes 1 time unit, so `T(n)` is a faithful proxy for wall-clock time up to constant factors.
 
-Why count operations instead of seconds? Because seconds depend on hardware. Operations depend only on the algorithm. An `O(n²)` algorithm on a supercomputer eventually loses to an `O(n log n)` algorithm on your laptop: the hardware constants buy you one or two orders of magnitude at best, while the algorithmic improvement buys you arbitrarily many.
+Why count operations instead of seconds? Because seconds depend on hardware. Operations depend only on the algorithm. An `O(n²)` algorithm on a supercomputer eventually loses to an `O(n log n)` algorithm on an ordinary laptop: the hardware constants buy you one or two orders of magnitude at best, while the algorithmic improvement buys you arbitrarily many.
 
 ### 2.2 Four flavors of complexity analysis
 
@@ -717,7 +717,7 @@ After sorting by the 1's digit, then 10's, then 100's, then 1000's, you get the 
 
 *Table 17. Complexity, space, and stability of sorting algorithms*
 
-Commit this table to memory. It is the single most frequently tested summary in the course.
+Commit this table to memory. It compares the eight sorting algorithms of week 3 in one place.
 
 ---
 
@@ -792,7 +792,7 @@ The classical deterministic linear-time algorithm:
 LINEAR-SELECT(A, p, r, i):
     1. if |A[p..r]| ≤ 5: sort and return the i-th
     2. Divide elements into ⌈n/5⌉ groups of 5
-    3. Find the median of each group (sort and take middle) — O(n)
+    3. Find the median of each group (sort and take middle): O(n)
     4. M = LINEAR-SELECT on the medians, finding the median-of-medians
     5. Partition A around M
     6. Recurse on the appropriate side
@@ -878,7 +878,7 @@ Both properties must be **proven** for a given problem; intuition is not enough.
 
 - **Coin change `{1, 3, 4}`, amount 6.** Greedy: `4 + 1 + 1 = 3` coins. Optimal: `3 + 3 = 2`. The greedy-choice property fails.
 - **Coin change `{16, 10, 5, 1}`, amount 20.** Greedy: `16 + 1 + 1 + 1 + 1 = 5`. Optimal: `10 + 10 = 2`. Greedy is locked in by the first big pick.
-- **0/1 Knapsack by value/weight ratio.** Items `(w=10, v=60), (w=20, v=100), (w=30, v=120)`, capacity 50. Greedy picks item 1 (best ratio) → `60 + 100 = 160`. Optimal picks items 2+3 → `220`. Greedy can waste capacity.
+- **0-1 Knapsack by value/weight ratio.** Items `(w=10, v=60), (w=20, v=100), (w=30, v=120)`, capacity 50. Greedy picks item 1 (best ratio) → `60 + 100 = 160`. Optimal picks items 2+3 → `220`. Greedy can waste capacity.
 - **Binary tree maximum path sum.** Greedily descending to the larger child can miss the globally best root-to-leaf path.
 
 **Lesson.** Always try to find a counterexample before trusting a greedy algorithm. If you cannot find one, try to prove the greedy-choice property.
@@ -889,7 +889,7 @@ Both properties must be **proven** for a given problem; intuition is not enough.
 |---------|----------|----------|------|
 | Coin change (standard denominations) | Largest coin first | ✓ when denominations divide cleanly | O(k) |
 | **Fractional knapsack** | Sort by value/weight, take greedily | ✓ always | O(n log n) |
-| 0/1 knapsack | - | ✗ use DP | - |
+| 0-1 knapsack | - | ✗ use DP | - |
 | **Job scheduling** (min # machines) | Earliest start time | ✓ | O(n log n) + O(mn) |
 | **Activity selection** (max activities on 1 machine) | **Earliest finish time** | ✓ | O(n log n) |
 | **Huffman coding** | Merge two lowest-freq nodes | ✓ optimal prefix code | O(n log n) |
@@ -1205,7 +1205,7 @@ LCS length = 3. One LCS: `"BCB"`.
 
 **Applications.** Spell checking, DNA alignment, `diff` utilities, fuzzy search.
 
-#### 6.4.5 0/1 Knapsack
+#### 6.4.5 0-1 Knapsack
 
 **Problem.** `n` items, each with weight `wᵢ` and value `vᵢ`. Knapsack capacity `C`. Items cannot be divided. Maximize total value.
 
@@ -1228,11 +1228,11 @@ LCS length = 3. One LCS: `"BCB"`.
 | 3 (3, 20) | 0 | 10 | 12 | 22 | 30 | 32 |
 | 4 (2, 15) | 0 | 10 | 15 | 25 | 30 | **37** |
 
-*Table 26. 0/1 knapsack DP table for capacity 5*
+*Table 26. 0-1 knapsack DP table for capacity 5*
 
 `K[4, 5] = 37`. Traceback: item 4 is taken (`K[4,5] > K[3,5]` because of item 4), subtract; `K[3, 3] = 22` came from `K[2, 3]` (item 3 not taken); `K[2, 3] = 22` came from `K[1, 2] + 10` (item 2 taken); `K[1, 2] = 12` came from item 1 taken. Items `{1, 2, 4}`, weights `2+1+2 = 5`, values `12+10+15 = 37`. ✓
 
-**Why O(nC) is called pseudo-polynomial.** The *input size* (number of bits to encode capacity `C`) is `O(log C)`. The algorithm runs in time `O(nC) = O(n · 2^(log C))`, which is exponential in input bit-length. 0/1 knapsack is **NP-hard** in the classical complexity sense; the DP is only polynomial when expressed in terms of the numeric value of `C`.
+**Why O(nC) is called pseudo-polynomial.** The *input size* (number of bits to encode capacity `C`) is `O(log C)`. The algorithm runs in time `O(nC) = O(n · 2^(log C))`, which is exponential in input bit-length. 0-1 knapsack is **NP-hard** in the classical complexity sense; the DP is only polynomial when expressed in terms of the numeric value of `C`.
 
 #### 6.4.6 Coin Change (minimum coins)
 
@@ -1297,7 +1297,7 @@ FloydWarshall(W, n):
 |---------|---------|-----------------|
 | 1D DP | Fibonacci, Coin Change | `DP[i]` depends on `DP[i−1], DP[i−2], ...` |
 | 2D DP on strings | LCS, Edit Distance | `DP[i, j]` depends on `DP[i−1, j], DP[i, j−1], DP[i−1, j−1]` |
-| 2D DP on (item, capacity) | 0/1 Knapsack | `DP[i, w]` depends on `DP[i−1, w], DP[i−1, w−wᵢ]` |
+| 2D DP on (item, capacity) | 0-1 Knapsack | `DP[i, w]` depends on `DP[i−1, w], DP[i−1, w−wᵢ]` |
 | 2D DP on grid | Matrix Path | `DP[i, j]` depends on `DP[i−1, j], DP[i, j−1]` |
 | 3D DP on (source, dest, intermediate set) | Floyd-Warshall | `DP[i, j, k]` depends on `DP[i, j, k−1], DP[i, k, k−1], DP[k, j, k−1]` |
 
@@ -1347,7 +1347,7 @@ Does the problem ask for an optimum (min / max / count)?
 | Coin change (standard denominations) | ✓ | ✓ (overkill) | - |
 | Coin change (arbitrary denominations) | ✗ | ✓ | - |
 | Fractional knapsack | ✓ | ✓ (overkill) | - |
-| 0/1 knapsack | ✗ | ✓ | - |
+| 0-1 knapsack | ✗ | ✓ | - |
 | Shortest path (non-negative weights) | ✓ (Dijkstra) | ✓ (Bellman-Ford) | - |
 | Shortest path (any weights, no neg cycles) | - | ✓ (BF, Floyd-Warshall) | - |
 | All-pairs shortest paths | - | ✓ (Floyd-Warshall) | - |
@@ -1408,7 +1408,7 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 **DP recurrences to know by heart:**
 - **LCS:** `c[i,j] = c[i−1, j−1] + 1` if match else `max(c[i−1, j], c[i, j−1])`.
 - **Edit Distance:** `E[i,j] = E[i−1, j−1]` if match else `1 + min(E[i−1, j], E[i, j−1], E[i−1, j−1])`.
-- **0/1 Knapsack:** `K[i, w] = max(K[i−1, w], vᵢ + K[i−1, w − wᵢ])` if `wᵢ ≤ w`.
+- **0-1 Knapsack:** `K[i, w] = max(K[i−1, w], vᵢ + K[i−1, w − wᵢ])` if `wᵢ ≤ w`.
 - **Matrix Path (max):** `c[i, j] = m[i, j] + max(c[i−1, j], c[i, j−1])`.
 - **Coin change (min coins):** `C[j] = min_{dᵢ ≤ j} { C[j − dᵢ] + 1 }`.
 - **Floyd-Warshall:** `D[i, j] = min(D[i, j], D[i, k] + D[k, j])`, `k` outermost.
@@ -1431,7 +1431,7 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 | Dijkstra (heap) | O(m log n) | O(n + m) | Non-negative weights |
 | Floyd-Warshall | O(n³) | O(n²) | All-pairs |
 | LCS, Edit Distance | O(mn) | O(mn) | Strings |
-| 0/1 Knapsack | O(nC) | O(nC) | Pseudo-polynomial |
+| 0-1 Knapsack | O(nC) | O(nC) | Pseudo-polynomial |
 | Huffman | O(n log n) | O(n) | Optimal prefix code |
 
 *Table 32. Time and space complexity by algorithm*
@@ -1487,7 +1487,7 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 
 **Answer.** Length 3, LCS = `"BCB"` (one of several). Trace from `c[4, 5]` diagonally when characters match.
 
-### Problem 5: 0/1 Knapsack
+### Problem 5: 0-1 Knapsack
 
 **Q.** Items `(w, v) = (2, 12), (1, 10), (3, 20), (2, 15)`, capacity 5. Find `K[4, 5]` and the chosen items.
 
@@ -1499,7 +1499,7 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 | 3 (3, 20) | 0 | 10 | 12 | 22 | 30 | 32 |
 | 4 (2, 15) | 0 | 10 | 15 | 25 | 30 | **37** |
 
-*Table 35. 0/1 knapsack DP table for Practice Problem 5*
+*Table 35. 0-1 knapsack DP table for Practice Problem 5*
 
 **Answer.** `K[4, 5] = 37`. Traceback: items 1, 2, 4 with total weight 5 and total value 37.
 
@@ -1650,7 +1650,7 @@ Choose `c = 1, d = 1`. ∎
 | Pitfall | How to avoid |
 |---------|--------------|
 | Claiming greedy is optimal without proof | Always check with a counterexample first, then prove the greedy-choice property. |
-| Confusing fractional vs 0/1 knapsack | Fractional: sort by value/weight, greedy. 0/1: DP. |
+| Confusing fractional vs 0-1 knapsack | Fractional: sort by value/weight, greedy. 0-1: DP. |
 | Confusing Job Scheduling vs Activity Selection | Multiple machines → EST. Single machine → EFT. |
 | Using Dijkstra with negative edges | Use Bellman-Ford. Dijkstra's greedy invariant requires non-negative weights. |
 | Kruskal without Union-Find | Cycle detection becomes `O(n)` per edge, which kills the complexity. |
@@ -1668,7 +1668,7 @@ Choose `c = 1, d = 1`. ∎
 | Wrong loop order in Floyd-Warshall | `k` **must** be outermost. The other two can be in any order. |
 | Using `O(mn)` space when `O(min(m,n))` suffices | For LCS length only, you need only two rows at a time. Saves memory on large inputs. |
 | Confusing "overlapping subproblems" with "sharing input" | Overlapping means the *same* subproblem is computed multiple times in naive recursion. |
-| "0/1 knapsack is polynomial" | It is *pseudo*-polynomial: polynomial in capacity value, not in input bit-length. NP-hard in the classical sense. |
+| "0-1 knapsack is polynomial" | It is *pseudo*-polynomial: polynomial in capacity value, not in input bit-length. NP-hard in the classical sense. |
 
 *Table 39. Common pitfalls in DP*
 
@@ -1732,10 +1732,10 @@ Before you walk into the exam, you should be able to answer "yes" to every one o
 **DP (Week 6):**
 - [ ] State the two required properties (optimal substructure, overlapping subproblems).
 - [ ] Execute the 6-step DP recipe on a new problem.
-- [ ] Fill the LCS, Edit Distance, and 0/1 Knapsack tables by hand.
+- [ ] Fill the LCS, Edit Distance, and 0-1 Knapsack tables by hand.
 - [ ] Trace back the LCS and the knapsack item set.
 - [ ] Explain why Floyd-Warshall puts `k` as the outermost loop.
-- [ ] Explain what "pseudo-polynomial" means for 0/1 knapsack.
+- [ ] Explain what "pseudo-polynomial" means for 0-1 knapsack.
 
 **Paradigm synthesis:**
 - [ ] Given a new problem, decide D&C / Greedy / DP (with reasons).

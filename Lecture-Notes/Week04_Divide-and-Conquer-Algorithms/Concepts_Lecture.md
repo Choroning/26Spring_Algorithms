@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 4, 7, 9, 33
 
@@ -128,7 +128,7 @@ $$n/2^k = 1 \implies k = \log_2 n$$
 
 Total number of divisions $= \log_2 n$
 
-> **[Discrete Mathematics]** The reason $\log_2 n$ appears repeatedly is that halving a size-$n$ input $\log_2 n$ times reduces it to size 1. This is the fundamental reason why $\log n$ always appears in halving structures like binary search and merge sort.
+> **[Discrete Mathematics]** The logarithm $\log_2 n$, a function covered in Discrete Mathematics, is the exponent $k$ that satisfies $2^k = n$. Halving a size-$n$ input $k$ times leaves size $n/2^k$, so the size reaches 1 after $\log_2 n$ halvings, and this is the fundamental reason why $\log n$ appears in algorithms that halve their input, such as binary search and merge sort.
 
 ### 1.4 Conquer and Combine
 
@@ -153,8 +153,8 @@ $$T(n) = a \cdot T(n/b) + O(f(n))$$
 | $a$ | $b$ | Algorithm |
 |:-----|:-----|:-----------|
 | 2 | 2 | Merge Sort, Closest Pair |
-| 3 | 2 | Large Integer Multiplication (covered in CLRS Ch. 4; not covered in this course) |
-| 7 | 2 | Strassen Matrix Multiplication (covered in CLRS Ch. 4; not covered in this course) |
+| 3 | 2 | Large Integer Multiplication (covered in CLRS Chapter 4, not in this note) |
+| 7 | 2 | Strassen Matrix Multiplication (covered in CLRS Chapter 4, not in this note) |
 
 *Table 1. Divide and conquer algorithms by the number of subproblems a and the size ratio b*
 
@@ -205,13 +205,13 @@ Here $\varepsilon$ is some positive constant ($\varepsilon > 0$) for which the c
 
 **Worked Example:** For $T(n) = 3T(n/4) + cn^2$: $a=3$, $b=4$, $f(n)=cn^2$. Compute $n^{\log_4 3} \approx n^{0.79}$. Since $f(n) = cn^2$ grows polynomially faster than $n^{0.79}$ (i.e., $f(n) = \Omega(n^{\log_4 3 + \varepsilon})$ for $\varepsilon \approx 1.21$), this is **Case 3**, giving $T(n) = \Theta(n^2)$. The regularity condition also holds because $3f(n/4) = \frac{3}{16}f(n)$.
 
-> **Note:** **Exam Tip.** The procedure for applying the Master Theorem is as follows.
+> **Note:** **Procedure for Applying the Master Theorem.** The Master Theorem is applied in the following order.
 > 1. Identify $a$, $b$, and $f(n)$ from the recurrence.
 > 2. Compute $n^{\log_b a}$.
 > 3. Compare $f(n)$ with $n^{\log_b a}$ to determine Case 1, 2, or 3.
 > 4. Apply the formula for the corresponding case.
 >
-> Exam problems frequently give a recurrence and ask for the time complexity, so this procedure must be thoroughly understood.
+> The time complexity of most divide and conquer algorithms expressed as recurrences can be found with this procedure.
 
 ### 1.8 Other Divide and Conquer Recurrence Patterns
 
@@ -259,7 +259,7 @@ The textbook's Figure 2.4 shows merge sort merging sorted subarrays from the bot
 
 *Figure 5. Operation tree of merge sort*
 
-> **[Data Structures]** The key to merge sort is the MERGE process. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
+> **Note:** The key to merge sort is the MERGE process covered in Week 3. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
 
 **MERGE Procedure:**
 
@@ -283,7 +283,7 @@ MERGE(A, p, q, r)
 **Merge Trace: merging [27, 38] and [3, 43]**
 
 | Step | Compare | Action | Result so far | i | j |
-|------|---------|--------|--------------|---|---|
+|:-----|:-----|:-----|:-----|:-----|:-----|
 | 1 | L[1]=27 vs R[1]=3 | 3 < 27, take R | [3] | 1 | 2 |
 | 2 | L[1]=27 vs R[2]=43 | 27 < 43, take L | [3, 27] | 2 | 2 |
 | 3 | L[2]=38 vs R[2]=43 | 38 < 43, take L | [3, 27, 38] | 3 | 2 |
@@ -291,7 +291,7 @@ MERGE(A, p, q, r)
 
 *Table 4. Merge trace of [27, 38] and [3, 43]*
 
-> **[Data Structures]** The sentinel value ∞ eliminates the need for boundary checks. When one array is exhausted, the sentinel ensures the remaining elements of the other array are copied in order.
+> **Note:** The sentinel value ∞ eliminates the need for boundary checks. When one array is exhausted, the ∞ in its next slot is larger than any element, so the remaining elements of the other array are copied in order.
 
 ### 2.2 Merge Sort: Recurrence and Analysis
 
@@ -489,7 +489,7 @@ $$T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + \Theta(n) = \Theta(n \lo
 
 **Space:** $O(\log n)$ average (recursion stack), $O(n)$ worst case
 
-> **Note:** **Exam Tip.** The worst case of quick sort occurs when selecting the last element as pivot on an already sorted (or reverse-sorted) array. To prevent this, in practice strategies such as **random pivot** and **median-of-three** are used.
+> **Note:** **Inputs That Cause the Worst Case.** With a PARTITION that uses the last element as pivot, an already sorted (or reverse-sorted) array produces a split of sizes 0 and $n-1$ every time, which is the worst case. To prevent this, in practice strategies such as **random pivot** and **median-of-three** are used.
 
 **Randomized Partition:** Pick a random index $r'$ in $[p..r]$, swap $A[r']$ with $A[r]$, then call PARTITION as before. This simple modification avoids worst-case behavior on sorted or nearly-sorted input.
 
@@ -514,7 +514,7 @@ $$T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + \Theta(n) = \Theta(n \lo
 
 $$T(n) \le \max\{T(k-1),\ T(n-k)\} + \Theta(n)$$
 
-> **Note:** The selection problem asks "can we find the $i$-th element without sorting the entire array?" Sorting takes $O(n \log n)$, but selection algorithms solve it in $O(n)$.
+> **Note:** The selection problem asks whether the $i$-th element can be found without sorting the entire array. Sorting takes $O(n \log n)$, but selection algorithms solve it in $O(n)$.
 
 ### 5.2 Randomized Selection
 
@@ -629,7 +629,7 @@ $T(n) = \Omega(n)$ is trivial (every element must be examined), so:
 
 $$T(n) = \Theta(n)$$
 
-> **[Discrete Mathematics]** The infinite geometric series $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($|r| < 1$) is used here. Since $r = 3/4 < 1$, the series converges to the constant $4c$. Such geometric decrease appears very frequently in divide and conquer analysis.
+> **[Discrete Mathematics]** The expansion above uses the sum of an infinite geometric series, $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($|r| < 1$), covered in Discrete Mathematics. Since $r = 3/4 < 1$, the series converges and the coefficient becomes the constant $4c$; this form, in which the problem size shrinks by a fixed ratio at every step so that the cost decreases geometrically, appears frequently in divide and conquer analysis.
 
 ### 5.6 Selection: Worst-Case Time Analysis
 
@@ -726,7 +726,7 @@ $$\therefore T(n) = O(n)$$
 
 $T(n) = \Omega(n)$ is trivial, so: $T(n) = \Theta(n)$
 
-> **Note:** **Exam Tip.** The condition $1/5 + 7/10 = 9/10 < 1$ is the key to guaranteeing linear time. If this sum were ≥ 1, the geometric decrease would not hold and linear time would not be achieved. Exam questions may ask "why group by 5?" or "why is it linear?"
+> **Note:** **Condition for Linear Time.** The condition $1/5 + 7/10 = 9/10 < 1$ is the key to guaranteeing linear time. If this sum were ≥ 1, the geometric decrease would not hold and linear time would not be achieved. Both the choice of group size 5 and the reason the algorithm is linear are explained by this condition.
 
 ---
 
@@ -783,7 +783,7 @@ The key insight lies in the **combine** step:
 - For each point, compare only the next few points in y order (at most **7** neighbors).
 - This limits the strip check to $O(1)$ comparisons per point, so after sorting the strip check takes $O(n)$ in total.
 
-> **Key Point:** The reason each point needs at most 7 comparisons is the core insight of this algorithm. Points on the same side are at distance ≥ $d$ from each other, so one $d \times d$ square holds at most 4 points and a $d \times 2d$ rectangle holds at most 8. Therefore, for each point, comparing only the next 7 points in y order is sufficient.
+> **Key Point:** The reason each point needs at most 7 comparisons is the core insight of this algorithm. Points on the same side are at distance ≥ $d$ from each other, so one $d \times d$ square holds at most 4 points and a rectangle of width $2d$ and height $d$ holds at most 8. Therefore, for each point, comparing only the next 7 points in y order is sufficient.
 
 ### 6.4 Closest Pair: Pseudocode
 
@@ -963,7 +963,7 @@ FIB-NUMBER(n)
    <details>
    <summary>Answer</summary>
 
-   Any **already-sorted** (or reverse-sorted) array such as `[1, 2, 3, 4, 5]` does it: the pivot `5` is the largest, so the partition produces sizes $n-1$ and $0$, yielding the recurrence $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. **Randomized partition** swaps a random index into position `r` before partitioning, so the adversarial input no longer correlates with the pivot choice, so the **expected** running time becomes $\Theta(n \log n)$ regardless of input order.
+   Any **already-sorted** (or reverse-sorted) array such as `[1, 2, 3, 4, 5]` does it: the pivot `5` is the largest, so the partition produces sizes $n-1$ and $0$, yielding the recurrence $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. **Randomized partition** swaps a random index into position `r` before partitioning, so the adversarial input no longer correlates with the pivot choice, and the **expected** running time therefore becomes $\Theta(n \log n)$ regardless of input order.
 
    </details>
 

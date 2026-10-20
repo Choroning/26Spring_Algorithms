@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -470,6 +470,8 @@ FloydWarshall(W, n):
 **Time:** $O(n^3)$, from three nested loops over $n$ vertices.
 
 **Space:** $O(n^2)$ for the distance matrix.
+
+> **[Data Structures]** The input $W$ is the adjacency matrix representation of the graph, which stores a graph with $n$ vertices in an $n \times n$ array so that the weight of edge $(i, j)$ is read from $W[i,j]$ in $O(1)$ time. Floyd-Warshall copies this matrix into the distance matrix $D$ and looks up $D[i,k]$ and $D[k,j]$ in constant time at every update, so each step of the three nested loops takes $O(1)$ and the total time is $O(n^3)$.
 
 > **Note:** Each iteration $k$ considers all paths that may pass through vertices $\{1, 2, \ldots, k\}$ as intermediates.
 

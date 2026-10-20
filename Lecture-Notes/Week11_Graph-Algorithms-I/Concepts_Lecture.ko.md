@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-18
+> **최종 수정일:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 21, 22, 23
 
@@ -546,7 +546,7 @@ A에서 DFS-TS (인접 순서 L(A) = [B, C]로 가정, 즉 B를 C보다 먼저 �
      D 끝   → R = [D]
      B 끝   → R = [B, D]
    C 방문
-     D 이미 방문 → R = [C, B, D]
+     D 이미 방문, C 끝 → R = [C, B, D]
    A 끝       → R = [A, C, B, D]
 
 결과: A → C → B → D ✓
@@ -571,6 +571,8 @@ A에서 DFS-TS (인접 순서 L(A) = [B, C]로 가정, 즉 B를 C보다 먼저 �
 **트리:**
 - 트리는 사이클이 **없는** 연결 그래프이다.
 - $n$개 정점의 트리는 **정확히 $n - 1$개의 간선**을 가진다.
+
+> **[이산수학]** 이산수학에서 귀납법으로 증명하는 트리의 기본 성질에 따르면, 정점이 $n$개인 연결 그래프에 사이클이 없을 필요충분조건은 간선이 정확히 $n - 1$개인 것이고, 트리에 간선 하나를 더하면 사이클이 정확히 하나 생긴다. 앞의 성질은 모든 MST가 $|V| - 1$개의 간선을 갖는 이유이고, 뒤의 성질은 점검 문제 7의 컷 성질 증명에서 쓰는 교환 논증의 근거이다.
 
 **$G$의 신장 트리:**
 - 신장 트리는 $G$의 **모든 정점**을 포함하고 $G$의 간선만 사용하는, 트리인 부분 그래프이다.
@@ -659,18 +661,18 @@ Step 0: S={A}     d: A=0, B=∞, C=∞, D=∞, E=∞
 
 Step 1: extractMin → C (d=3).  S={A, C}
         C에서 relax: d[D] = min(5,2) = 2,  d[E] = 4
-        MST 간선: A—C  (가중치 3)
+        MST 간선: A-C  (가중치 3)
 
 Step 2: extractMin → D (d=2).  S={A, C, D}
         D에서 relax: d[B] = min(8,9) = 8 (변경 없음),  d[E] = min(4,6) = 4 (변경 없음)
-        MST 간선: C—D  (가중치 2)
+        MST 간선: C-D  (가중치 2)
 
 Step 3: extractMin → E (d=4).  S={A, C, D, E}
         E에서 relax: d[B] = min(8,7) = 7
-        MST 간선: C—E  (가중치 4)
+        MST 간선: C-E  (가중치 4)
 
 Step 4: extractMin → B (d=7).  S={A, C, D, E, B}
-        MST 간선: E—B  (가중치 7)
+        MST 간선: E-B  (가중치 7)
 
 MST 가중치 총합: 3 + 2 + 4 + 7 = 16
 ```
@@ -732,20 +734,20 @@ Kruskal(G)
 ```
 
 ```text
-Step 1: 간선 (C,D,2) — C와 D가 다른 집합 → ADD
+Step 1: 간선 (C,D,2), C와 D가 다른 집합 → ADD
         집합: {A}, {B}, {C,D}, {E}        T = {(C,D)}
 
-Step 2: 간선 (A,C,3) — A와 C가 다른 집합 → ADD
+Step 2: 간선 (A,C,3), A와 C가 다른 집합 → ADD
         집합: {A,C,D}, {B}, {E}           T = {(C,D),(A,C)}
 
-Step 3: 간선 (C,E,4) — C와 E가 다른 집합 → ADD
+Step 3: 간선 (C,E,4), C와 E가 다른 집합 → ADD
         집합: {A,C,D,E}, {B}              T = {(C,D),(A,C),(C,E)}
 
-Step 4: 간선 (A,D,5) — A와 D가 같은 집합 → SKIP (사이클 형성)
+Step 4: 간선 (A,D,5), A와 D가 같은 집합 → SKIP (사이클 형성)
 
-Step 5: 간선 (D,E,6) — D와 E가 같은 집합 → SKIP
+Step 5: 간선 (D,E,6), D와 E가 같은 집합 → SKIP
 
-Step 6: 간선 (B,E,7) — B와 E가 다른 집합 → ADD
+Step 6: 간선 (B,E,7), B와 E가 다른 집합 → ADD
         집합: {A,B,C,D,E}                 T = {(C,D),(A,C),(C,E),(B,E)}
         |T| = 4 = n-1 → 종료
 

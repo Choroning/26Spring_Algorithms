@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 12, 13, 18
 
@@ -127,6 +127,8 @@ $$\text{left subtree} < \text{root} < \text{right subtree}$$
 Here we assume all keys are distinct. The textbook allows duplicate keys and uses $\le$ on the left and $\ge$ on the right; the two trees in Figure 5 contain the key 5 twice.
 
 > **Note:** **Connection to binary search.** In a balanced BST, each step eliminates about half of the remaining search space, the same idea that gave binary search $O(\log n)$ on a sorted array.
+
+> **[Data Structures]** The pseudocode below uses the linked representation of binary trees taught in Data Structures. Each node $x$ holds a key and pointers $x.\text{left}$, $x.\text{right}$, and $x.\text{parent}$ to its left child, right child, and parent, with NIL marking a missing child, so search and insertion are implemented simply by following these pointers down one level at a time.
 
 ### 2.2 BST Search
 
@@ -381,7 +383,7 @@ Insert 4 into:
                        \
                       [4:R]   <- new node, always red
 
-No violation here — but if 4's parent had been red, we'd need to fix up.
+No violation here. If 4's parent had been red, a fix-up would be needed.
 ```
 
 *Figure 11. Inserting a new red node 4 under a black parent*
@@ -427,8 +429,8 @@ Before (G=7, P=3, N=5):       After restructuring:
       [7:B]                       [5:B]
      /     \                     /     \
    [3:R]  [8:B]          =>   [3:R]   [7:R]
-      \                                /
-     [5:R]                          [8:B]
+      \                                  \
+     [5:R]                              [8:B]
 
 Sorted: 3, 5, 7
 Median: 5 -> new local root (black)
@@ -565,7 +567,7 @@ Access times (typical):
 
 A Red-Black Tree with $n = 10^9$ nodes has height at least about 30 ($\log_2 10^9 \approx 30$). On HDD that is $30 \times 5\,\text{ms} = 150\,\text{ms}$ per operation, far too slow for a database. The bottleneck is **disk reads**, not comparisons.
 
-> **Note:** **Relative scale.** In relative terms, 1 second of CPU time corresponds to about 10 days of disk I/O.
+> **Note:** **Relative scale.** One second of CPU time corresponds to about 10 days of disk I/O.
 
 > **Note:** **Cost model shift.** For in-memory structures we minimize comparisons; for disk-resident structures we minimize **the number of disk blocks read**, i.e., the **height** of the tree.
 
@@ -590,7 +592,7 @@ Height ~30
 - One node = one **disk block** (typically 4 KB).
 - A single disk read brings **hundreds of keys** into memory.
 - Searching **within a node** is fast in-memory work and does not count against the disk-I/O budget.
-- A B-Tree of order 1000 with height 3 (three levels) stores about $10^9$ keys.
+- A B-Tree of order 1000 with three levels stores about $10^9$ keys.
 
 ### 4.3 B-Tree: Search
 
@@ -624,7 +626,7 @@ Search for key 42 in a B-Tree (order 5):
 
 *Figure 20. Path of searching for key 42 in a B-Tree of order 5*
 
-**Each level costs one disk read.** Height 3 means at most 3 disk reads, regardless of $n$.
+**Each level costs one disk read.** Three levels mean at most 3 disk reads, regardless of $n$.
 
 ### 4.4 B-Tree: Insertion (No Split)
 
@@ -730,7 +732,7 @@ Pull 25 down, combine with sibling.
 
 *Figure 25. Deletion by merging with a sibling*
 
-> **Note:** **Symmetry with insertion.** Insertion grows by **splitting** when full; deletion shrinks by **merging** when underflowing. Both operations preserve perfect balance and cost $O(\log_M n)$ disk reads, where $M$ is the branching factor.
+> **Note:** **Symmetry with insertion.** Insertion grows by **splitting** when full; deletion shrinks by **merging** when underflowing. Both operations preserve perfect balance and cost $O(\log_M n)$ disk reads, where $M$ is the order.
 
 ---
 
@@ -766,7 +768,7 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
 | BST | It keeps left $<$ root $<$ right order and gives expected $O(\log n)$, but sorted input degenerates it to a list with $O(n)$ worst-case search, insert, and delete. |
 | Red-Black Tree | One color bit and five properties bound the height by $2\log_2(n+1)$, guaranteeing $O(\log n)$. |
 | Double Red fix | Restructuring ($O(1)$ rotations) applies when the uncle is black, and recoloring (which may propagate) applies when the uncle is red. |
-| B-Tree (order $M$) | It trades in-memory comparisons for fewer disk reads. Each wide node fits one disk block, so operations take $O(\log_M n)$ disk reads and the height stays about 3 even for billions of keys. |
+| B-Tree (order $M$) | It trades in-memory comparisons for fewer disk reads. Each wide node fits one disk block, so operations take $O(\log_M n)$ disk reads and the tree stays at about three levels even for billions of keys. |
 | Uses of B-Trees | They are standard in databases (MySQL, PostgreSQL) and file systems (NTFS, ext4). |
 | Choosing a structure | The choice depends on the cost model: RBT optimizes RAM accesses, and B-Tree optimizes disk block reads. |
 
@@ -832,12 +834,12 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
 
    </details>
 
-7. **B-Tree Disk I/O:** A B-Tree of order $M = 100$ stores $n = 10^8$ keys. Estimate the height. How many disk reads does a search require? Compare with a Red-Black Tree on the same data.
+7. **B-Tree Disk I/O:** A B-Tree of order $M = 100$ stores $n = 10^8$ keys. Estimate the number of levels. How many disk reads does a search require? Compare with a Red-Black Tree on the same data.
 
    <details>
    <summary>Answer</summary>
 
-   Assuming full nodes, the height is about $\log_M n = \log_{100} 10^8 = 8/2 = 4$. A search needs at most **4 disk reads** (one per level). A Red-Black Tree on the same data has height $\leq 2\log_2(10^8 + 1) \approx 2 \cdot 26.6 \approx 53$, requiring up to **about 53 disk reads** if the tree is disk-resident. On a 5 ms HDD, a B-Tree query takes about 20 ms versus up to about 265 ms for the RBT, so the B-Tree is over **10× faster**, which is why the default index in relational databases is a B-Tree variant rather than a binary tree.
+   Assuming full nodes, the number of levels is about $\log_M n = \log_{100} 10^8 = 8/2 = 4$. A search needs at most **4 disk reads** (one per level). A Red-Black Tree on the same data has height $\leq 2\log_2(10^8 + 1) \approx 2 \cdot 26.6 \approx 53$, requiring up to **about 53 disk reads** if the tree is disk-resident. On a 5 ms HDD, a B-Tree query takes about 20 ms versus up to about 265 ms for the RBT, so the B-Tree is over **10× faster**, which is why the default index in relational databases is a B-Tree variant rather than a binary tree.
 
    </details>
 
@@ -846,7 +848,7 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
    <details>
    <summary>Answer</summary>
 
-   Insert 10, 20, 30 → single node `[10|20|30]` (full, no split yet). Insert 40 → overflow `[10|20|30|40]`, **split** at median 30 (with four keys, take the larger of the two middle keys, 30): promote 30 as new root, leaves `[10|20]` and `[40]`. Insert 50, 60 into right leaf → `[40|50|60]`. Insert 70 → overflow `[40|50|60|70]`, **split** at median 60 by the same rule: promote 60 into root, giving root `[30|60]` with children `[10|20]`, `[40|50]`, `[70]`. Tree height is 2, and the tree is perfectly balanced because every leaf is at the same depth.
+   Insert 10, 20, 30 → single node `[10|20|30]` (full, no split yet). Insert 40 → overflow `[10|20|30|40]`, **split** at median 30 (with four keys, take the larger of the two middle keys, 30): promote 30 as new root, leaves `[10|20]` and `[40]`. Insert 50, 60 into right leaf → `[40|50|60]`. Insert 70 → overflow `[40|50|60|70]`, **split** at median 60 by the same rule: promote 60 into root, giving root `[30|60]` with children `[10|20]`, `[40|50]`, `[70]`. The tree has two levels, the root and the leaves (height 1), and it is perfectly balanced because every leaf is at the same depth.
 
    </details>
 
@@ -855,6 +857,6 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
    <details>
    <summary>Answer</summary>
 
-   **(a) Compiler symbol table → hash table or RBT.** Lookups are by exact name with no need for range queries; if scope-ordered traversal matters, an **RBT** gives worst-case $O(\log n)$. **(b) 1 TB database index → B-Tree.** Data lives on disk, so the cost model is disk reads; wide nodes (one disk block) keep the height near 3-4 even for more than $10^9$ keys. **(c) Embedded ordered map → RBT.** 32 KB RAM is too small for B-Tree overhead but fits a compact pointer-based balanced tree; an RBT guarantees $O(\log n)$ without disk concerns, and the constant factor beats a B-Tree at small $n$.
+   **(a) Compiler symbol table → hash table (Week 10) or RBT.** Lookups are by exact name with no need for range queries; if scope-ordered traversal matters, an **RBT** gives worst-case $O(\log n)$. **(b) 1 TB database index → B-Tree.** Data lives on disk, so the cost model is disk reads; wide nodes (one disk block) keep the tree at about 3-4 levels even for more than $10^9$ keys. **(c) Embedded ordered map → RBT.** 32 KB RAM is too small for B-Tree overhead but fits a compact pointer-based balanced tree; an RBT guarantees $O(\log n)$ without disk concerns, and the constant factor beats a B-Tree at small $n$.
 
    </details>

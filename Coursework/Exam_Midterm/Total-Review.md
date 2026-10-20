@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 ---
 
@@ -15,7 +15,7 @@
   - [1.4 Classical Problems and the $\log_2 n$ Motif](#14-classical-problems-and-the-log_2-n-motif)
     - [1.4.1 Binary Search](#141-binary-search)
     - [1.4.2 Poisoned Wine and Binary Encoding](#142-poisoned-wine-and-binary-encoding)
-    - [1.4.3 Fake Coin (1,024 Coins)](#143-fake-coin-1024-coins)
+    - [1.4.3 Counterfeit Coin (1,024 Coins)](#143-counterfeit-coin-1024-coins)
   - [1.5 Euler Circuits and Graphs](#15-euler-circuits-and-graphs)
   - [1.6 Wrap-Up](#16-wrap-up)
 - [2. Complexity Analysis: Big-O, Recurrences, and the Master Theorem](#2-complexity-analysis-big-o-recurrences-and-the-master-theorem)
@@ -90,7 +90,7 @@
     - [6.5.1 Fibonacci: Warm-Up](#651-fibonacci-warm-up)
     - [6.5.2 Longest Common Subsequence (LCS)](#652-longest-common-subsequence-lcs)
     - [6.5.3 Edit Distance (Levenshtein)](#653-edit-distance-levenshtein)
-    - [6.5.4 0/1 Knapsack](#654-01-knapsack)
+    - [6.5.4 0-1 Knapsack](#654-0-1-knapsack)
     - [6.5.5 Coin Change (Minimum Number of Coins)](#655-coin-change-minimum-number-of-coins)
     - [6.5.6 Floyd-Warshall: All-Pairs Shortest Paths](#656-floyd-warshall-all-pairs-shortest-paths)
     - [6.5.7 Matrix Path (Maximum Sum)](#657-matrix-path-maximum-sum)
@@ -151,13 +151,13 @@
   - [9.6 Calculation Practice](#96-calculation-practice)
     - [Master Theorem](#master-theorem)
     - [LCS](#lcs)
-    - [0/1 Knapsack](#01-knapsack)
+    - [0-1 Knapsack](#0-1-knapsack)
     - [Big-O Proof](#big-o-proof)
   - [9.7 Pseudocode Check](#97-pseudocode-check)
     - [Binary Search](#binary-search)
     - [Merge Sort](#merge-sort)
     - [Filling the LCS Table](#filling-the-lcs-table)
-    - [Filling the 0/1 Knapsack Table](#filling-the-01-knapsack-table)
+    - [Filling the 0-1 Knapsack Table](#filling-the-0-1-knapsack-table)
     - [Dijkstra](#dijkstra)
   - [9.8 Exam-Day Strategy](#98-exam-day-strategy)
     - [Time Allocation (for a 1-Hour Exam)](#time-allocation-for-a-1-hour-exam)
@@ -257,7 +257,7 @@ The classical problems of Week 1 all show, from different angles, the same idea:
 | Coin change (standard) | Greedy | $O(k)$ | Choose the largest denomination first |
 | Euler circuit | Graph traversal | $O(V+E)$ | Exists when every vertex has even degree |
 | Maze (connected walls) | Right-hand rule | $O(\text{size})$ | A physical version of DFS |
-| Fake coin (1,024 coins) | Split in half | **10 weighings** | $\log_2 1024 = 10$ |
+| Counterfeit coin (1,024 coins) | Split in half | **10 weighings** | $\log_2 1024 = 10$ |
 | Poisoned wine (n jars) | Binary encoding | $\lceil \log_2 n \rceil$ servants | Each servant = 1 bit of information |
 
 *Table 3. Strategies, worst-case complexities, and key ideas of the Week 1 classical problems*
@@ -307,9 +307,9 @@ def binary_search(arr, target):
 
 **Generalization:** $n$ jars require $\lceil \log_2 n \rceil$ servants, and each servant provides 1 bit of information. The key proposition of information theory, that distinguishing $n$ cases requires at least $\log_2 n$ bits, is the same principle that makes binary search $\log n$.
 
-#### 1.4.3 Fake Coin (1,024 Coins)
+#### 1.4.3 Counterfeit Coin (1,024 Coins)
 
-**Problem:** Using a balance scale, find the one fake coin (slightly lighter) among 1,024 coins while minimizing the number of weighings.
+**Problem:** Using a balance scale, find the one counterfeit coin (slightly lighter) among 1,024 coins while minimizing the number of weighings.
 
 | Approach | Description | Worst-Case Count |
 |---|---|---|
@@ -317,7 +317,7 @@ def binary_search(arr, target):
 | Compare in pairs | A slightly improved method | 512 |
 | Split in half | Divide and conquer | 10 |
 
-*Table 5. Worst-case number of weighings for each approach to finding the fake coin*
+*Table 5. Worst-case number of weighings for each approach to finding the counterfeit coin*
 
 **Divide-and-conquer solution:** Start with 512 vs 512, choose the lighter side, and keep halving: 256 vs 256, 128 vs 128, and so on. Since $\log_2 1024 = 10$, exactly 10 weighings suffice. This idea underlies merge sort and binary search in Week 4.
 
@@ -327,7 +327,7 @@ An **Euler path** is a path that traverses every edge exactly once, and an **Eul
 
 **Theorem:**
 - An Euler **circuit** exists only if every vertex has even degree.
-- An Euler **path** (not a circuit) exists only if there are exactly 0 or 2 vertices of odd degree.
+- An Euler **path** (not necessarily a circuit) exists only if there are exactly 0 or 2 vertices of odd degree.
 
 **Intuition:** In a circuit, every time you enter a vertex you must leave it, so the number of incoming and outgoing edges at each vertex must be equal, and hence the degree is even.
 
@@ -335,7 +335,7 @@ An **Euler path** is a path that traverses every edge exactly once, and an **Eul
 
 ### 1.6 Wrap-Up
 
-The big picture of Week 1 is as follows. An algorithm is a systematic procedure that satisfies five properties: correctness, executability, finiteness, efficiency, and unambiguity. The Euclidean GCD is the prototype of recursive thinking, which reduces a problem to a smaller one. The $\log_2 n$ motif shared by binary search, the fake coin problem, and the poisoned wine problem shows that halving is the key to efficiency, and this recursive splitting idea extends to divide and conquer in Week 4.
+The big picture of Week 1 is as follows. An algorithm is a systematic procedure that satisfies five properties: correctness, executability, finiteness, efficiency, and unambiguity. The Euclidean GCD is the prototype of recursive thinking, which reduces a problem to a smaller one. The $\log_2 n$ motif shared by binary search, the counterfeit coin problem, and the poisoned wine problem shows that halving is the key to efficiency, and this recursive splitting idea extends to divide and conquer in Week 4.
 
 ---
 
@@ -597,7 +597,7 @@ A heap is a **complete binary tree** that satisfies the **heap property**.
 **Operation complexity:**
 - `insert(x)` and `extractMin/Max` are each $O(\log n)$.
 - `getMin/Max` is $O(1)$.
-- `buildHeap` is $O(n)$. Intuitively it seems to be $O(n \log n)$, but a tight analysis that accounts for leaf nodes needing no heapify reduces it to $O(n)$.
+- `buildHeap` is $O(n)$. Intuitively it seems to be $O(n \log n)$, but a tight analysis that accounts for most nodes having small height and thus small heapify cost (leaves need no heapify at all) reduces it to $O(n)$.
 
 **Practical uses:** It is the foundation of priority queues, heap sort, Dijkstra's algorithm, and Huffman coding.
 
@@ -990,7 +990,7 @@ For a greedy algorithm to guarantee an optimal solution, both of the following c
 |---|---|---|---|
 | Coins {1, 3, 4}, amount 6 | 4 + 1 + 1 = 3 coins | Fails | 3 + 3 = 2 coins |
 | Coins {16, 10, 5, 1}, amount 20 | 16 + 1 + 1 + 1 + 1 = 5 coins | Fails | 10 + 10 = 2 coins |
-| 0/1 knapsack (sorted by value/weight) | Choose the highest ratio first | Wasted capacity | DP required |
+| 0-1 knapsack (sorted by value/weight) | Choose the highest ratio first | Wasted capacity | DP required |
 | Maximum path sum in a binary tree | Move to the larger child | Reaches only a local optimum | Misses the global optimum |
 
 *Table 16. Cases where a greedy algorithm fails to produce an optimal solution*
@@ -1030,7 +1030,7 @@ FractionalKnapsack(items, C):
 
 **Time complexity:** The sorting step dominates, giving $O(n \log n)$.
 
-When items cannot be divided, as in the 0/1 knapsack, greedy fails and DP must be used.
+When items cannot be divided, as in the 0-1 knapsack, greedy fails and DP must be used.
 
 #### 5.4.3 Activity Selection
 
@@ -1091,7 +1091,7 @@ Huffman(C):
     return the root of Q
 ```
 
-**Explanation:** From a min-heap whose leaf nodes are the characters, it extracts the **two lowest-frequency nodes**, makes a new internal node with their combined frequency, and puts it back into the heap. Nodes merged early sit deep in the tree and get long codes, while the rest get short codes. After $n-1$ repetitions, a binary tree with a single root is complete. The sequence of 0s and 1s on the root→leaf path is each character's **prefix code**. The complexity is $O(n \log n)$ because the $O(\log n)$ heap operations are performed $n$ times.
+**Explanation:** From a min-heap whose leaf nodes are the characters, it extracts the **two lowest-frequency nodes**, makes a new internal node with their combined frequency, and puts it back into the heap. Nodes merged early (the lower-frequency ones) sit deep in the tree and get long codes, while the rest get short codes. After $n-1$ repetitions, a binary tree with a single root is complete. The sequence of 0s and 1s on the root→leaf path is each character's **prefix code**. The complexity is $O(n \log n)$ because the $O(\log n)$ heap operations are performed $n$ times.
 
 **Example:** With character frequencies A:450, T:90, G:120, C:270, the tree is built as follows.
 
@@ -1210,7 +1210,7 @@ They are structurally almost identical; the only difference is what updating the
 
 ### 5.7 Wrap-Up
 
-The big picture of Week 5 is as follows. A greedy algorithm chooses the local optimum at each step. Correctness requires both the greedy-choice property (proved with an exchange argument) and optimal substructure. Representative algorithms are activity selection (EFT), the fractional knapsack (value/weight ratio), Huffman coding (merging the lowest frequencies), the MST algorithms of Kruskal and Prim, and Dijkstra's shortest paths. Coin change (arbitrary denominations) and the 0/1 knapsack, where greedy fails, must be solved with DP.
+The big picture of Week 5 is as follows. A greedy algorithm chooses the local optimum at each step. Correctness requires both the greedy-choice property (proved with an exchange argument) and optimal substructure. Representative algorithms are activity selection (EFT), the fractional knapsack (value/weight ratio), Huffman coding (merging the lowest frequencies), the MST algorithms of Kruskal and Prim, and Dijkstra's shortest paths. Coin change (arbitrary denominations) and the 0-1 knapsack, where greedy fails, must be solved with DP.
 
 ---
 
@@ -1402,7 +1402,7 @@ $$
 
 **Complexity:** Both time and space are $O(mn)$.
 
-#### 6.5.4 0/1 Knapsack
+#### 6.5.4 0-1 Knapsack
 
 **Problem definition:** Given $n$ items (each with weight $w_i$ and value $v_i$) and a knapsack capacity $C$, maximize the total value under the condition that items cannot be divided.
 
@@ -1430,7 +1430,7 @@ $$
  4    0  10  15  25  30  37
 ```
 
-*Figure 7. DP table of a 0/1 knapsack with capacity 5*
+*Figure 7. DP table of a 0-1 knapsack with capacity 5*
 
 **How to read the table:** Row $i$ means that only items $1..i$ are considered, and column $w$ is the current knapsack capacity. Each cell is the maximum value obtainable under those conditions. Row 0 and column 0 are base cases (no items or zero capacity), so their value is 0. An interior cell takes the larger of $K[i-1][w]$, the value without item $i$, and $v_i + K[i-1][w - w_i]$, the value with it. For example, $K[3][4] = \max(K[2][4] = 22,\; 20 + K[2][4-3] = 20 + 10 = 30) = 30$.
 
@@ -1507,7 +1507,7 @@ FloydWarshall(W, n):
 | Matrix path | $c[i,j]$ | $m[i,j] + \max(c[i-1,j], c[i,j-1])$ | $O(n^2)$ | $O(n^2)$ |
 | LCS | $c[i,j]$ | Branch on match/mismatch | $O(mn)$ | $O(mn)$ |
 | Edit distance | $E[i,j]$ | min of insert, delete, substitute | $O(mn)$ | $O(mn)$ |
-| 0/1 knapsack | $K[i,w]$ | max of include/exclude | $O(nC)$ | $O(nC)$ |
+| 0-1 knapsack | $K[i,w]$ | max of include/exclude | $O(nC)$ | $O(nC)$ |
 | Coins (minimum) | $C[j]$ | $\min(C[j-d_i]+1)$ | $O(nk)$ | $O(n)$ |
 | Floyd-Warshall | $d[i,j,k]$ | With/without intermediate vertex $k$ | $O(n^3)$ | $O(n^2)$ |
 
@@ -1515,7 +1515,7 @@ FloydWarshall(W, n):
 
 ### 6.7 Wrap-Up
 
-**Big picture:** DP is a technique that uses optimal substructure and overlapping subproblems to reduce exponential-time recursion to polynomial time. The standard six-step recipe is: define the subproblem, derive the recurrence, set the base cases, determine the computation order, extract the answer, and backtrack. Master the seven classic problems: Fibonacci, matrix path, LCS, edit distance, 0/1 knapsack, coin change, and Floyd-Warshall.
+**Big picture:** DP is a technique that uses optimal substructure and overlapping subproblems to reduce exponential-time recursion to polynomial time. The standard six-step recipe is: define the subproblem, derive the recurrence, set the base cases, determine the computation order, extract the answer, and backtrack. Master the seven classic problems: Fibonacci, matrix path, LCS, edit distance, 0-1 knapsack, coin change, and Floyd-Warshall.
 
 ---
 
@@ -1588,7 +1588,7 @@ $T(n) = a T(n/b) + f(n)$, $h = n^{\log_b a}$:
 
 - **LCS:** $c[i-1, j-1] + 1$ on a match, $\max(c[i-1, j], c[i, j-1])$ on a mismatch
 - **Edit distance:** $E[i-1, j-1]$ on a match, $1 + \min$(three directions) on a mismatch
-- **0/1 knapsack:** $\max(K[i-1, w], v_i + K[i-1, w - w_i])$
+- **0-1 knapsack:** $\max(K[i-1, w], v_i + K[i-1, w - w_i])$
 - **Matrix path:** $m[i,j] + \max(c[i-1,j], c[i,j-1])$
 - **Coin change:** $1 + \min_{d_i \leq j} C[j - d_i]$
 - **Floyd-Warshall:** $\min(d[i,j], d[i,k] + d[k,j])$ (k in the outer loop)
@@ -1602,7 +1602,7 @@ $T(n) = a T(n/b) + f(n)$, $h = n^{\log_b a}$:
 | Claiming greedy without proof | Search for a counterexample → if none, use an exchange argument |
 | Wrong DP base case | Verify n=0,1,2 by hand |
 | Off-by-one in the DP table | State 0-index vs 1-index explicitly |
-| Fractional vs 0/1 knapsack | Divisible = greedy, indivisible = DP |
+| Fractional vs 0-1 knapsack | Divisible = greedy, indivisible = DP |
 | Quick sort on sorted input | Random or median-of-3 pivot |
 | Floyd-Warshall loop order | **k must be outermost** |
 | Dijkstra + negative edges | Replace with Bellman-Ford |
@@ -1654,7 +1654,7 @@ Does the problem ask for an optimal value?
 | Coin change (standard) | ✓ | ✓ | - |
 | Coin change (arbitrary) | ✗ | ✓ | - |
 | Fractional knapsack | ✓ | ✓ | - |
-| 0/1 knapsack | ✗ | ✓ | - |
+| 0-1 knapsack | ✗ | ✓ | - |
 | Shortest path (weights ≥ 0) | ✓ Dijkstra | ✓ | - |
 | Shortest path (negative weights allowed) | - | ✓ Bellman-Ford, FW | - |
 | Sorting | - | - | ✓ |
@@ -1670,10 +1670,10 @@ Does the problem ask for an optimal value?
 The Euclidean GCD (Week 1), merge sort (Week 4), and DP (Week 6) all share the structure of reducing a problem to smaller problems. Recursion is the basso continuo that runs through the whole course.
 
 #### Connection 2: Divide and Conquer and Logarithmic Complexity
-Binary search (Week 1), the fake coin problem (Week 1), and merge sort (Week 4) all split the problem in half, and the total complexity is determined by $\log n$ levels × $O(n)$ or $O(1)$ per level.
+Binary search (Week 1), the counterfeit coin problem (Week 1), and merge sort (Week 4) all split the problem in half, and the total complexity is determined by $\log n$ levels × $O(n)$ or $O(1)$ per level.
 
 #### Connection 3: The Switch from Greedy to DP
-For coin change with arbitrary denominations and for the 0/1 knapsack, greedy fails, so one must switch to DP. This switch teaches the lesson of **moving from recognizing a counterexample to a generalized solution**.
+For coin change with arbitrary denominations and for the 0-1 knapsack, greedy fails, so one must switch to DP. This switch teaches the lesson of **moving from recognizing a counterexample to a generalized solution**.
 
 #### Connection 4: The Hierarchy of the Comparison Lower Bound and Linear Sorting
 The comparison-based $\Omega(n \log n)$ lower bound is a **limitation of the comparison model**. Changing the model to use information about digits or value ranges breaks this bound and makes $O(n)$ possible, which is what justifies counting sort and radix sort.
@@ -1727,7 +1727,7 @@ Big-O, recurrences, and the Master Theorem (Week 2) are the tools for analyzing 
 
 ### 9.0 Weekly Core Cheat Sheet
 
-This expands the "Exam Review Cheat Sheet" shared in the Week 7 class and collects the core information that must be found fastest during the exam.
+This table collects, week by week, the core information that must be found fastest during the exam.
 
 | Week | Topic | Core Algorithms | Complexity |
 |---|---|---|---|
@@ -1735,7 +1735,7 @@ This expands the "Exam Review Cheat Sheet" shared in the Week 7 class and collec
 | Week 3 | Sorting | Merge sort, quick sort, heap sort | $O(n \log n)$ |
 | Week 4 | Divide and conquer | Binary search, closest pair, selection | $O(\log n)$, $O(n \log n)$, $O(n)$ |
 | Week 5 | Greedy | Activity selection, Huffman, fractional knapsack, MST, Dijkstra | $O(n \log n)$ |
-| Week 6 | DP | Fibonacci, LCS, 0/1 knapsack, edit distance, Floyd-Warshall | $O(n)$, $O(mn)$, $O(nW)$, $O(n^3)$ |
+| Week 6 | DP | Fibonacci, LCS, 0-1 knapsack, edit distance, Floyd-Warshall | $O(n)$, $O(mn)$, $O(nW)$, $O(n^3)$ |
 
 *Table 31. Topics, core algorithms, and complexities by week*
 
@@ -1758,14 +1758,14 @@ This expands the "Exam Review Cheat Sheet" shared in the Week 7 class and collec
 | Claiming greedy is optimal without proof | **Always look for a counterexample first** |
 | Wrong base case in a DP recurrence | Verify by tracing small inputs (n=1, 2, 3) |
 | Off-by-one errors in a DP table | **State explicitly** whether it is 0-indexed or 1-indexed |
-| Confusing fractional vs 0/1 knapsack | Fractional = greedy, 0/1 = DP |
+| Confusing fractional vs 0-1 knapsack | Fractional = greedy, 0-1 = DP |
 | Overlooking quick sort's worst case ($n^2$) | Avoid it with a random pivot or median-of-3 |
 
 *Table 32. Common exam mistakes and how to avoid them*
 
 ### 9.2 Examples of Exam Question Types
 
-These are the **three representative exam question types** that the professor presented in the Week 7 class.
+The following are **three representative exam question types**.
 
 #### Example 1: Complexity Analysis (Applying the Master Theorem)
 
@@ -2015,7 +2015,7 @@ def activity_selection(lectures):
 
 **Explanation:** It converts each lecture into an `(end, start, original index)` tuple and **sorts by finish time** (Python sorts tuples by their first element). While traversing, it selects a lecture if its start is at least the previous `last_end` and updates `last_end` to the current finish time. The greedy choice of the lecture that ends earliest is optimal because it leaves the most time for the remaining lectures (exchange argument).
 
-**Example:** For the lecture list `[(1,3),(2,5),(3,6),(5,7),(6,8),(8,10),(9,11)]`, the selected lectures are (1,3) → (5,7) → (8,10), 3 in total.
+**Example:** For the lecture list `[(1,3),(2,5),(3,6),(5,7),(6,8),(8,10),(9,11)]`, the selected lectures are (1,3) → (3,6) → (6,8) → (8,10), 4 in total. A lecture that starts exactly when the previous one ends does not overlap it (`start >= last_end`).
 
 **Key point:** It is a greedy algorithm based on EFT (Earliest Finish Time), and its time complexity is $O(n \log n)$, dominated by sorting.
 
@@ -2093,7 +2093,7 @@ def min_cost_climbing(cost):
 #### Week 6 DP
 28. What are the two required conditions of DP?
 29. What is the difference between memoization and tabulation?
-30. Why does greedy fail and DP succeed on the 0/1 knapsack?
+30. Why does greedy fail and DP succeed on the 0-1 knapsack?
 
 ### 9.6 Calculation Practice
 
@@ -2106,7 +2106,7 @@ The solution of $T(n) = 7T(n/2) + n^2$ is found as follows.
 #### LCS
 The LCS of $X$ = `ABCB` and $Y$ = `BDCAB` can be found by filling the table: $c[4][5] = 3$, and the LCS is `BCB`.
 
-#### 0/1 Knapsack
+#### 0-1 Knapsack
 For items $(w, v) = (2,12), (1,10), (3,20), (2,15)$ and capacity $C = 5$, the maximum value is $K[4][5] = 37$ in the table, with items 4, 2, and 1 selected for a total weight of 5kg.
 
 #### Big-O Proof
@@ -2145,7 +2145,7 @@ for i = 1 to m:
         else: c[i][j] = max(c[i-1][j], c[i][j-1])
 ```
 
-#### Filling the 0/1 Knapsack Table
+#### Filling the 0-1 Knapsack Table
 ```text
 for i = 1 to n:
     for w = 0 to C:
@@ -2199,5 +2199,3 @@ while S ≠ V:
 This document covers the **why, mechanisms, examples, and connections** so that the material of Weeks 1-7 can be understood from the beginning. If, while studying, you wonder why a concept appears where it does, rereading **the big picture in Section 8** will make the structure clear.
 
 The key to an answer that shows deep understanding is not rote memorization but internalizing **why a concept exists, which other concepts it interlocks with, and what trade-offs it carries**.
-
-**Good luck on the exam.**
