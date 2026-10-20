@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 > **Learning Objectives:**
 > 1. Install and run at least one AI coding agent (Gemini CLI, Claude Code, Codex CLI, or GitHub Copilot CLI)
@@ -274,12 +274,12 @@ You:    "Create a rubric for evaluating high-quality open-source READMEs."
 Agent:  Returns 8 criteria (description, installation, usage, architecture, ...)
 
 You:    "Evaluate the README you wrote against this rubric. Score each criterion."
-Agent:  Score 6/8 — Deficient: architecture diagram, contribution guide
+Agent:  Score 6/8, deficient: architecture diagram, contribution guide
 
 You:    "Fix all failing criteria. Keep going until all criteria are met."
-Agent:  Iterates autonomously — updates README, re-evaluates, fixes again...
+Agent:  Iterates autonomously: updates README, re-evaluates, fixes again...
 
-Result: 8/8 — All criteria met.
+Result: 8/8, all criteria met.
 ```
 
 **Key insight: this process is the Ralph loop.**
@@ -316,7 +316,7 @@ Use the agent to create a **multi-file sorting benchmark**. This task is a previ
 
 *Table 4. Expected file layout of the sorting benchmark*
 
-> **[Data Structures]** Recall the sorting algorithms covered in Data Structures.
+> **Note:** The benchmark compares the following three sorting methods, and Week 3 covers how each algorithm works and analyzes its complexity in detail.
 > - **Bubble Sort:** Compares and swaps adjacent elements. O(n²). Simplest to implement but the slowest of the three.
 > - **Merge Sort:** Divides the array in half, sorts each half, then merges. O(n log n). A classic example of divide and conquer.
 > - **Python's built-in sort:** Uses the Timsort algorithm, a hybrid of merge sort and insertion sort. O(n log n). The fastest of the three in practice.

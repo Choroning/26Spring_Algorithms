@@ -1,8 +1,8 @@
-# Week 3 Lab — Sorting Algorithm Implementation & Benchmarks
+# Week 3 Lab — Sorting Algorithm Implementation and Benchmark
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -212,7 +212,7 @@ python examples/solutions/a1_basic_sorts.py
 
 ### 2.2 A-2: Advanced Sorting Algorithms
 
-> **Note:** **Prerequisite.** The following algorithms use **recursion**. Recursion means a function calling itself with a smaller input until it reaches a base case. If this concept is new, review the Data Structures course or the recursion section of Week 2 Lecture.
+> **[Data Structures]** **Recursion**, covered in Data Structures, is a technique in which a function calls itself on smaller inputs until it reaches a base case. Merge sort and quick sort below split the array and call the same function recursively on each part, so understanding them requires recursion, whose basics are covered in the recursion section of Week 2 Lecture.
 
 #### 2.2.1 Merge Sort
 
@@ -325,7 +325,7 @@ def quick_sort(arr):
 > - **Week 3 Lecture (CLRS)**: An in-place Lomuto partition that uses the last element as pivot.
 > - **This code**: A 3-way partition (< / == / >) that uses the middle element as pivot.
 >
-> Choosing the middle element as pivot gives balanced partitions even on already sorted input, so it avoids the worst case caused by sorted input (other inputs can still trigger the worst case). Since exams will likely use the CLRS approach, understanding both methods is important. Figure 5 uses 43 as the pivot to illustrate the 3-way partition, but this code takes the element at index `len(arr) // 2` as the pivot, so its first pivot for the same array is actually 3.
+> Choosing the middle element as pivot gives balanced partitions even on already sorted input, so it avoids the worst case caused by sorted input (other inputs can still trigger the worst case). The CLRS approach is the standard partition assumed by the quick sort analysis in Week 3 and Week 4 Lectures, so it is worth distinguishing the two methods. Figure 5 uses 43 as the pivot to illustrate the 3-way partition, but this code takes the element at index `len(arr) // 2` as the pivot, so its first pivot for the same array is actually 3.
 
 > **Note:** **Stability.** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve the relative order of equal elements.
 
@@ -425,9 +425,9 @@ pip install flask
 python app.py
 ```
 
-Flask is a lightweight Python web framework. Install with `pip install flask`. Once running, visit `http://127.0.0.1:5000` in your browser.
+Flask is a lightweight Python web framework, installed with `pip install flask`.
 
-Open **http://localhost:5000** in your browser.
+After starting the app, open **http://localhost:5000** (the same address as `http://127.0.0.1:5000`) in your browser.
 
 ```text
 +---------------------------------------------------+
@@ -462,7 +462,7 @@ Open **http://localhost:5000** in your browser.
 | N (Products) | Bubble Sort | Quick Sort | User Experience |
 |:-------------|:-----------|:-----------|:---------------|
 | 1,000 | ~100 ms | ~5 ms | Both feel instant |
-| 10,000 | ~10 sec | ~50 ms | Bubble is painfully slow |
+| 10,000 | ~10 sec | ~50 ms | Bubble is noticeably slow |
 | 50,000 | ~4 min | ~300 ms | Bubble is unusable |
 
 *Table 3. Expected loading time of bubble sort and quick sort by number of products*

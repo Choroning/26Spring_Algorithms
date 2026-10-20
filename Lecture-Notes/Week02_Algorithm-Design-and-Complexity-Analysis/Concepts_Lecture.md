@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
 
@@ -141,7 +141,7 @@ def gcd_rec(a, b):
 
 Both versions produce the same result. Recursion uses the **call stack**, where each call pushes a new frame. Iteration avoids stack overhead.
 
-> **[Data Structures]** **Recursion** is when a function calls itself. Every recursive function consists of (1) a **base case**: the condition that stops the recursion, and (2) a **recursive step**: reducing the problem to a smaller size and calling itself. In the GCD function above, `b == 0` is the base case, and `gcd_rec(b, a % b)` is the recursive step.
+> **[Data Structures]** **Recursion** is when a function calls itself, and every recursive function consists of a **base case**, which stops the recursion, and a **recursive step**, which reduces the problem to a smaller size and calls the function itself. In the GCD function above, `b == 0` is the base case and `gcd_rec(b, a % b)` is the recursive step, and since the second argument shrinks with every call, the base case is always reached and the recursion ends.
 
 **Recursive Call Stack Trace:**
 
@@ -202,7 +202,7 @@ FindMax(A[], n)
   return max
 ```
 
-> **Note:** Pseudocode is not a specific programming language but a conventional notation for clearly expressing the logic of an algorithm. The CLRS textbook uses its own pseudocode style, and you will write algorithms in this format on exams.
+> **Note:** Pseudocode is not a specific programming language but a conventional notation for clearly expressing the logic of an algorithm. The CLRS textbook writes algorithms in its own pseudocode style.
 
 **Flowchart:**
 
@@ -242,14 +242,14 @@ Flowcharts are intuitive for simple algorithms but become complex for large prog
 
 ### 1.5 Algorithm Classification
 
-> **Note:** This is a roadmap for the semester. You do not need to understand these terms yet; each will be covered in detail in later weeks.
+> **Note:** The classification below gives an overview of algorithm design strategies; divide and conquer is covered in detail in Week 4, greedy algorithms in Week 5, dynamic programming in Week 6, and approximation algorithms in Weeks 13-14.
 
 By problem-solving strategy, algorithms fall into the following six major types.
 
 | Type | Core Idea |
 |:-----:|:----------|
 | **Divide and Conquer** | Split into subproblems → solve each → combine results. *E.g., Merge Sort splits an array in half, sorts each half, then merges the sorted halves.* |
-| **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm always extends the shortest known path to reach all nodes in a graph.* |
+| **Greedy** | Make the locally optimal choice at each step. *E.g., Dijkstra's Algorithm always extends the shortest known path to reach all vertices in a graph.* |
 | **Dynamic Programming (DP)** | Solve subproblems and store results for reuse. *E.g., the Knapsack Problem: given items with weights and values, find the most valuable combination that fits in a bag.* |
 | **Approximation** | Near-optimal solutions for NP-hard problems. *E.g., for the Traveling Salesman Problem (TSP), find a near-shortest route visiting all cities when the exact solution is too costly to compute.* |
 | **Backtracking** | Explore all possibilities, pruning infeasible branches. *E.g., N-Queens places N queens on an N x N chessboard so that no two queens attack each other.* |
@@ -267,7 +267,7 @@ Divide a large problem into smaller subproblems, solve each recursively, then co
 
 *Figure 5. Merge sort on the sequence 5, 2, 4, 7, 1, 3, 2, 6*
 
-> **[Data Structures]** Divide and conquer always consists of 3 stages.
+> **Note:** Divide and conquer always consists of the following 3 stages, covered in detail in Week 4.
 > 1. **Divide**: Split the problem into smaller subproblems
 > 2. **Conquer**: Solve each subproblem recursively (solve directly if small enough)
 > 3. **Combine**: Merge the solutions of subproblems to form the solution to the original problem
@@ -487,7 +487,7 @@ $$O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\,
 
 **Intuitive Meaning:** $f(n) = O(g(n))$ means $f$ **does not grow faster than** $g$ (ignoring constant factors).
 
-> **Note:** In plain terms, for sufficiently large n (n ≥ n₀), f(n) is always at most c × g(n). Here, c and n₀ are constants that need to be found. On exams, you may be asked to find specific values of c and n₀ in a proof.
+> **Note:** In plain terms, for sufficiently large n (n ≥ n₀), f(n) is always at most c × g(n). Here, c and n₀ are constants that need to be found, and to prove that a function belongs to O(g(n)), it suffices to exhibit specific values of c and n₀ that satisfy this condition.
 
 **Proof Example:** $f(n) = 2n^2 - 8n + 3 = O(n^2)$
 
@@ -503,7 +503,7 @@ Rearranging gives $-3n^2 - 8n + 3 \leq 0$, which holds for $n \geq 1$.
 
 Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 
-> **Note:** **Exam tip.** A practical method for finding c: for a polynomial $a_k n^k + a_{k-1} n^{k-1} + \cdots + a_0$ with a positive leading coefficient, taking the **sum of absolute values of all coefficients** $|a_k| + |a_{k-1}| + \cdots + |a_0|$ as c always works with $n_0 = 1$. This is because each term satisfies $a_i n^i \leq |a_i| n^k$ for $n \geq 1$. Example: for $2n^2 - 8n + 3$, $c = 2 + 8 + 3 = 13$, $n_0 = 1$.
+> **Note:** **Choosing c.** For a polynomial $a_k n^k + a_{k-1} n^{k-1} + \cdots + a_0$ with a positive leading coefficient, taking the **sum of absolute values of all coefficients** $|a_k| + |a_{k-1}| + \cdots + |a_0|$ as c always works with $n_0 = 1$. This is because each term satisfies $a_i n^i \leq |a_i| n^k$ for $n \geq 1$. Example: for $2n^2 - 8n + 3$, $c = 2 + 8 + 3 = 13$, $n_0 = 1$.
 
 **Functions contained in $O(n^2)$:**
 - $3n^2 + 2n$ yes, $7n^2 - 100n$ yes, $n \log n + 5n$ yes, $3n$ yes
@@ -626,7 +626,7 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \
 
 The gap between polynomial and exponential is **enormous**.
 
-> **Note:** $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exceeds the estimated number of atoms in the observable universe (roughly $10^{80}$). Even at just n=100, $2^n$ reaches an unimaginable scale. This is what the claim that exponential-time algorithms are impractical means.
+> **Note:** $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exceeds the estimated number of atoms in the observable universe (roughly $10^{80}$). Even at just $n = 100$, $2^n$ reaches an unimaginable scale. This is what the claim that exponential-time algorithms are impractical means.
 
 > **Note:** In the table above, $\log n$ means $\log_2 n$. In CS, log without specifying a base usually means **base 2**. In Big-O, the base does not matter, because $\log_a n = \frac{\log_b n}{\log_b a}$, so changing bases is just a constant factor, and constants are ignored in Big-O.
 
@@ -681,7 +681,7 @@ $$T(n) = 2T(n/2) + n$$
 - $n$: Merge overhead (linear scan)
 - $T(1) = 1$
 
-> **[Data Structures]** Merge sort works as follows.
+> **Note:** Merge sort works as follows, and Weeks 3 and 4 cover it in detail.
 > 1. Split array [5, 2, 4, 1, 3] in half: [5, 2] / [4, 1, 3]
 > 2. Recursively sort each half: [2, 5] / [1, 3, 4]
 > 3. Merge the two sorted arrays: [1, 2, 3, 4, 5]
@@ -751,7 +751,7 @@ $$
 > 2. **Inductive Hypothesis**: Assume the statement is true for n = k
 > 3. **Inductive Step**: Show it is also true for n = k+1
 >
-> Completing these three steps proves the statement for all natural numbers.
+> Completing these three steps proves the statement for all natural numbers. The form used in the proof below, which assumes the statement for inputs smaller than n (such as n/2), is strong induction and rests on the same principle, and the guess-and-verify method proves a guessed bound in this way.
 
 **Proof by Mathematical Induction:**
 
@@ -787,7 +787,7 @@ Fix: strengthen the guess to $T(n) \leq cn - 2$.
 
 $$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
 
-> **Note:** **Exam tip.** This pitfall appears frequently on exams. The most common mistake in induction proofs is getting cn + (constant) and concluding that it is O(n) and therefore enough. In induction, you must show **exactly the same form** ($\leq cn$). The solution is to slightly reduce the guess to $cn - d$ (for an appropriate constant d) to create slack.
+> **Note:** **A common mistake.** The most common mistake in induction proofs is getting cn + (constant) and concluding that it is O(n) and therefore enough. In induction, you must show **exactly the same form** ($\leq cn$). The solution is to slightly reduce the guess to $cn - d$ (for an appropriate constant d) to create slack.
 
 > **Note:** A systematic method for determining the constant $d$ is as follows. The original proof gave $T(n) \leq cn + 1$ but needed $\leq cn$. Set the guess to $cn - d$ and expand the inductive step: $T(n) \leq 2(c(n/2) - d) + 1 = cn - 2d + 1$. For this to be $\leq cn - d$, we need $-2d + 1 \leq -d$, i.e., $d \geq 1$ suffices. The key is creating slack to absorb the excess.
 
@@ -869,7 +869,7 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 
 > **Note:** The regularity condition ensures that $f(n)$ is well-behaved; specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) that satisfy the first condition of Case 3 also satisfy this condition automatically.
 
-> **Note:** **Exam tip.** **Case 3 of the Master Theorem is rarely tested** because verifying the regularity condition ($af(n/b) \leq cf(n)$) is tricky. Most exam problems can be solved with Case 1 or Case 2. Focusing on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
+> **Note:** **Checking Case 3.** **Case 3 is the hardest to apply** because the regularity condition ($af(n/b) \leq cf(n)$) must also be verified. The recurrences of common divide-and-conquer algorithms mostly fall under Case 1 or Case 2, so focusing first on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
 
 ---
 

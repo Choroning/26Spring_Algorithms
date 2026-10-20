@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 21, 22, 23
 
@@ -546,7 +546,7 @@ DFS-TS from A (assume adjacency order L(A) = [B, C], so B is explored before C):
      D done  → R = [D]
      B done  → R = [B, D]
    Visit C
-     D already visited → R = [C, B, D]
+     D already visited, C done → R = [C, B, D]
    A done    → R = [A, C, B, D]
 
 Result: A → C → B → D ✓
@@ -571,6 +571,8 @@ Result: A → C → B → D ✓
 **Tree:**
 - A tree is a connected graph with **no cycles**.
 - A tree on $n$ vertices has **exactly $n - 1$ edges**.
+
+> **[Discrete Mathematics]** By the basic properties of trees proved by induction in Discrete Mathematics, a connected graph on $n$ vertices has no cycle if and only if it has exactly $n - 1$ edges, and adding one edge to a tree creates exactly one cycle. The first property is why every MST has $|V| - 1$ edges, and the second underlies the exchange argument in the cut-property proof of Self-Check Question 7.
 
 **Spanning tree of $G$:**
 - A spanning tree is a subgraph that is a tree and contains **every** vertex of $G$, using only edges of $G$.
@@ -659,18 +661,18 @@ Step 0: S={A}     d: A=0, B=∞, C=∞, D=∞, E=∞
 
 Step 1: extractMin → C (d=3).  S={A, C}
         Relax from C: d[D] = min(5,2) = 2,  d[E] = 4
-        MST edge: A—C  (weight 3)
+        MST edge: A-C  (weight 3)
 
 Step 2: extractMin → D (d=2).  S={A, C, D}
         Relax from D: d[B] = min(8,9) = 8 (no change),  d[E] = min(4,6) = 4 (no change)
-        MST edge: C—D  (weight 2)
+        MST edge: C-D  (weight 2)
 
 Step 3: extractMin → E (d=4).  S={A, C, D, E}
         Relax from E: d[B] = min(8,7) = 7
-        MST edge: C—E  (weight 4)
+        MST edge: C-E  (weight 4)
 
 Step 4: extractMin → B (d=7).  S={A, C, D, E, B}
-        MST edge: E—B  (weight 7)
+        MST edge: E-B  (weight 7)
 
 MST total weight: 3 + 2 + 4 + 7 = 16
 ```
@@ -732,20 +734,20 @@ Initial sets: {A}, {B}, {C}, {D}, {E}
 ```
 
 ```text
-Step 1: Edge (C,D,2) — C and D in different sets → ADD
+Step 1: Edge (C,D,2), C and D in different sets → ADD
         Sets: {A}, {B}, {C,D}, {E}        T = {(C,D)}
 
-Step 2: Edge (A,C,3) — A and C in different sets → ADD
+Step 2: Edge (A,C,3), A and C in different sets → ADD
         Sets: {A,C,D}, {B}, {E}           T = {(C,D),(A,C)}
 
-Step 3: Edge (C,E,4) — C and E in different sets → ADD
+Step 3: Edge (C,E,4), C and E in different sets → ADD
         Sets: {A,C,D,E}, {B}              T = {(C,D),(A,C),(C,E)}
 
-Step 4: Edge (A,D,5) — A and D in SAME set → SKIP (would form a cycle)
+Step 4: Edge (A,D,5), A and D in SAME set → SKIP (would form a cycle)
 
-Step 5: Edge (D,E,6) — D and E in SAME set → SKIP
+Step 5: Edge (D,E,6), D and E in SAME set → SKIP
 
-Step 6: Edge (B,E,7) — B and E in different sets → ADD
+Step 6: Edge (B,E,7), B and E in different sets → ADD
         Sets: {A,B,C,D,E}                 T = {(C,D),(A,C),(C,E),(B,E)}
         |T| = 4 = n-1 → DONE
 

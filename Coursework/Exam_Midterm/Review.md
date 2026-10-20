@@ -2,11 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review.md) | [한국어](Review.ko.md)
 
-> **Last Updated:** 2026-10-18
-
-**Exam Info:** Week 8 midterm, handwritten, 1 hour, no digital devices, covering Weeks 1-6 (CLRS Chapters 1-4, 6-10, 15, 16).
-
-**Purpose:** Everything you need for the midterm: definitions, recurrences, algorithms, worked examples, common pitfalls, and a final checklist. This is a self-contained synthesis of the Week 1-6 lectures and the Week 7 review.
+> **Last Updated:** 2026-10-20
 
 ---
 
@@ -28,6 +24,10 @@
 ---
 
 ## 0. Midterm at a Glance
+
+**Exam Info:** Week 8 midterm, handwritten, 1 hour, no digital devices, covering Weeks 1-6 (CLRS Chapters 1-4, 6-10, 15, 16).
+
+**Purpose:** Everything you need for the midterm: definitions, recurrences, algorithms, worked examples, common pitfalls, and a final checklist. This is a self-contained synthesis of the Week 1-6 lectures and the Week 7 review.
 
 | Week | Topic | CLRS |
 |------|-------|------|
@@ -91,7 +91,7 @@ Worst-case iterations ≈ `log(min(a,b))` (not obvious: consecutive Fibonacci in
 | Finding max | Sequential scan | `n − 1` comparisons, O(n) |
 | Binary search (sorted) | Divide & Conquer | `log₂(n)` comparisons, O(log n) |
 | Coin change (standard denominations) | Greedy (largest first) | O(k) where k = # of denominations |
-| Euler circuit | DFS, avoid bridges | Graph must have 0 or 2 odd-degree vertices |
+| Euler path | DFS, avoid bridges | Graph must have 0 or 2 odd-degree vertices |
 | Maze (connected walls) | Right-hand rule (DFS variant) | Always reaches exit |
 | Counterfeit coin (1,024 coins) | Split pile in half | **10 weighings** (log₂ 1024) |
 | Poisoned wine (n jars) | Binary encoding | `⌈log₂(n)⌉` servants |
@@ -207,7 +207,7 @@ T(n) = 2T(n/2) + n
 
 > **Note:** **Exam tip.** Case 3 requires the regularity check and is rarely tested. Focus on Case 1 vs Case 2 by comparing `f(n)` with `n^(logᵦ a)`.
 
-**Not Master Theorem shape:** `T(n) = T(n−1) + Θ(n)` (unequal split by 1) → solve by substitution: `Θ(n²)`. Quick Sort worst case, insertion sort, factorial, Fibonacci-style recursions.
+**Not Master Theorem shape:** `T(n) = T(n−1) + Θ(n)` (unequal split by 1) → solve by substitution: `Θ(n²)`. Quick Sort worst case and insertion sort have this shape, and factorial (`T(n−1) + Θ(1)`) and Fibonacci-style recursions also shrink by 1 and are not in Master Theorem shape.
 
 ---
 
@@ -215,7 +215,7 @@ T(n) = 2T(n/2) + n
 
 ### 3.1 Core Data Structures
 
-| Structure | Order | Key ops | Cost | Application |
+| Structure | Order | Key ops and cost | Characteristic | Application |
 |-----------|-------|---------|------|-------------|
 | **Array/List** | Index | Access O(1), Insert/Delete O(n) | Random access | Binary search, base of many algorithms |
 | **Linked List** | Sequential | Access O(n), Insert/Delete O(1) (at known node) | Pointer-based | Dynamic sequences |
@@ -275,7 +275,7 @@ PARTITION(A, p, r):
 
 ### 3.6 Heap Sort: Two Subroutines
 
-- `buildHeap`: O(n). Leaves need no work, which is why the bound is tighter than O(n log n).
+- `buildHeap`: O(n). The bound is tighter than O(n log n) because most nodes lie low in the tree, so the heapify costs sum to O(n) (leaves need no work at all).
 - `heapify(A, k, n)`: O(log n). Sift down to restore the heap property.
 - `heapSort`: `buildHeap` + `(n−1) × heapify` = **O(n log n) worst case**, in-place.
 
@@ -390,7 +390,7 @@ Greedy(C):
 
 - **Non-standard coins** `{1, 3, 4}`, amount 6: greedy picks `4 + 1 + 1 = 3` coins; optimal is `3 + 3 = 2`.
 - **Non-standard coins** `{16, 10, 5, 1}`, amount 20: greedy picks `16 + 1+1+1+1 = 5`; optimal is `10 + 10 = 2`.
-- **0/1 knapsack by value/weight ratio**: greedy may waste capacity.
+- **0-1 knapsack by value/weight ratio**: greedy may waste capacity.
 - **Binary tree maximum path sum**: locally best child can block the globally best path.
 
 ### 5.4 Greedy Algorithm Catalog
@@ -399,7 +399,7 @@ Greedy(C):
 |---------|----------|----------|------|
 | Coin change (standard denominations) | Largest first | ✓ when denominations divide cleanly | O(k) |
 | **Fractional knapsack** | Sort by value/weight, greedily take | ✓ always | O(n log n) |
-| 0/1 knapsack | - | **✗ use DP** | - |
+| 0-1 knapsack | - | **✗ use DP** | - |
 | **Job scheduling** (min # machines) | Earliest start time first | ✓ | O(n log n) + O(mn) |
 | **Activity selection** (max # activities, 1 machine) | **Earliest finish time first** | ✓ | O(n log n) |
 | **Huffman coding** | Repeatedly merge two lowest-freq nodes | ✓ optimal prefix code | O(n log n) |
@@ -500,15 +500,15 @@ Dijkstra(G, s):
 | **Matrix Path** (max) | `c[i,j]` = best sum to `(i,j)` | `c[i,j] = m[i,j] + max(c[i−1,j], c[i,j−1])` | `c[i,0]=c[0,j]=0` | O(n²) | O(n²) → O(n) |
 | **LCS** | `c[i,j]` = LCS of `X₁..ᵢ, Y₁..ⱼ` | match: `c[i−1,j−1]+1`; else: `max(c[i−1,j], c[i,j−1])` | `c[i,0]=c[0,j]=0` | O(mn) | O(mn) → O(min(m,n)) |
 | **Edit Distance** | `E[i,j]` = edit dist of `X₁..ᵢ, Y₁..ⱼ` | match: `E[i−1,j−1]`; else: `1 + min(E[i−1,j], E[i,j−1], E[i−1,j−1])` | `E[i,0]=i, E[0,j]=j` | O(mn) | O(mn) |
-| **0/1 Knapsack** | `K[i,w]` = max value using items 1..i, capacity w | `wᵢ > w`: `K[i−1,w]`; else: `max(K[i−1,w], K[i−1,w−wᵢ]+vᵢ)` | `K[0,w]=K[i,0]=0` | O(nC) | O(nC) |
+| **0-1 Knapsack** | `K[i,w]` = max value using items 1..i, capacity w | `wᵢ > w`: `K[i−1,w]`; else: `max(K[i−1,w], K[i−1,w−wᵢ]+vᵢ)` | `K[0,w]=K[i,0]=0` | O(nC) | O(nC) |
 | **Coin Change** (min coins) | `C[j]` = min coins for amount `j` | `C[j] = min over dᵢ ≤ j of {C[j−dᵢ] + 1}` | `C[0]=0` | O(nk) | O(n) |
 | **Floyd-Warshall** | `d[i,j,k]` via vertices `{1..k}` | `min(d[i,j,k−1], d[i,k,k−1] + d[k,j,k−1])` | `d[i,j,0]=w(i,j)` | O(n³) | O(n²) |
 
 *Table 16. Subproblems, recurrences, base cases, and complexity of classic DP problems*
 
-### 6.5 Why 0/1 Knapsack Is O(nC): Pseudo-polynomial Time
+### 6.5 Why 0-1 Knapsack Is O(nC): Pseudo-polynomial Time
 
-Input size is O(log C) bits for capacity, but the algorithm runs in O(C) = O(2^log C) of the encoding, which is exponential in the *bit length* of `C`. So 0/1 knapsack is **NP-hard** in the classical sense; the DP is only polynomial in the *numeric value*.
+Input size is O(log C) bits for capacity, but the algorithm runs in O(C) = O(2^log C) of the encoding, which is exponential in the *bit length* of `C`. So 0-1 knapsack is **NP-hard** in the classical sense; the DP is only polynomial in the *numeric value*.
 
 ### 6.6 Floyd-Warshall: Critical Loop Order
 
@@ -568,7 +568,7 @@ Problem asks for an optimum (min/max)?
 | Coin change (standard) | ✓ | ✓ | - |
 | Coin change (arbitrary) | ✗ | ✓ | - |
 | Fractional knapsack | ✓ | ✓ | - |
-| 0/1 knapsack | ✗ | ✓ | - |
+| 0-1 knapsack | ✗ | ✓ | - |
 | Shortest path (non-neg) | ✓ (Dijkstra) | ✓ (Bellman-Ford) | - |
 | Shortest path (any) | - | ✓ (Floyd-Warshall / BF) | - |
 | Sorting | - | - | ✓ (Merge/Quick) |
@@ -612,7 +612,7 @@ Problem asks for an optimum (min/max)?
 **Key DP recurrences:**
 - LCS: `c[i,j] = c[i−1,j−1] + 1` (match) / `max(c[i−1,j], c[i,j−1])` (mismatch)
 - Edit Distance: `E[i,j] = E[i−1,j−1]` (match) / `1 + min(E[i−1,j], E[i,j−1], E[i−1,j−1])` (mismatch)
-- 0/1 Knapsack: `K[i,w] = max(K[i−1,w], vᵢ + K[i−1, w−wᵢ])` (if `wᵢ ≤ w`)
+- 0-1 Knapsack: `K[i,w] = max(K[i−1,w], vᵢ + K[i−1, w−wᵢ])` (if `wᵢ ≤ w`)
 - Matrix path (max): `c[i,j] = m[i,j] + max(c[i−1,j], c[i,j−1])`
 - Coin change: `C[j] = min over dᵢ ≤ j of {C[j−dᵢ] + 1}`
 - Floyd-Warshall: `d[i,j] = min(d[i,j], d[i,k] + d[k,j])` with `k` as outer loop
@@ -665,7 +665,7 @@ Problem asks for an optimum (min/max)?
 
 **Answer:** LCS length = **3**, e.g., `"BCB"`. Trace from bottom-right, going diagonal on matches.
 
-### Problem 5: 0/1 Knapsack Trace
+### Problem 5: 0-1 Knapsack Trace
 
 **Q:** Items `(w,v) = (2,12), (1,10), (3,20), (2,15)`, capacity `C = 5`. Find `K[4,5]`.
 
@@ -677,7 +677,7 @@ Problem asks for an optimum (min/max)?
 | 3 (3,20) | 0 | 10 | 12 | 22 | 30 | 32 |
 | 4 (2,15) | 0 | 10 | 15 | 25 | 30 | **37** |
 
-*Table 23. 0/1 knapsack DP table for capacity 5*
+*Table 23. 0-1 knapsack DP table for capacity 5*
 
 **Answer:** `K[4,5] = 37`. Traceback: item 4 + item 2 + item 1 (weights 2+1+2 = 5, values 15+10+12 = 37).
 
@@ -724,7 +724,7 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 | Claiming greedy works without proof | Always try a counterexample first |
 | Wrong DP base case | Test the recurrence on `n = 0, 1, 2` by hand |
 | Off-by-one in DP tables | Declare explicitly whether 0-indexed or 1-indexed |
-| Fractional vs 0/1 knapsack | Fractional = greedy; 0/1 = DP |
+| Fractional vs 0-1 knapsack | Fractional = greedy; 0-1 = DP |
 | Quick sort `Θ(n²)` on sorted input | Use randomized or median-of-three pivot |
 | Floyd-Warshall wrong loop order | `k` must be outermost |
 | Dijkstra with negative edges | Use Bellman-Ford instead |
@@ -740,7 +740,7 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 
 ## 11. Final Checklist
 
-- [ ] Can I state the four properties of an algorithm?
+- [ ] Can I state the five properties of an algorithm?
 - [ ] Can I count elementary operations for iterative code?
 - [ ] Can I prove `f(n) = O(g(n))` by finding `c` and `n₀`?
 - [ ] Can I solve recurrences by substitution, induction, and Master Theorem?
@@ -751,11 +751,11 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 - [ ] Can I classify a new problem as D&C, Greedy, or DP?
 - [ ] Do I know when greedy fails (and can I produce a counterexample)?
 - [ ] Can I execute Kruskal, Prim, and Dijkstra on a small graph?
-- [ ] Can I fill a DP table by hand for LCS, Edit Distance, and 0/1 Knapsack?
+- [ ] Can I fill a DP table by hand for LCS, Edit Distance, and 0-1 Knapsack?
 - [ ] Can I write the DP recurrence for a new problem?
 - [ ] Do I know why Floyd-Warshall puts `k` as the outermost loop?
-- [ ] Can I explain why 0/1 Knapsack is pseudo-polynomial?
+- [ ] Can I explain why 0-1 Knapsack is pseudo-polynomial?
 
-**If every box is ticked, you are ready for the midterm. Good luck.**
+**If every box is ticked, you are ready for the midterm.**
 
 ---

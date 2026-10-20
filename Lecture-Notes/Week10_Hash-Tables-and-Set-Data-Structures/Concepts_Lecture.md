@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 11
 
@@ -219,6 +219,8 @@ $$\alpha = \frac{n}{m} \quad \text{(stored keys per slot)}.$$
 
 Under SUHA the **expected** length of each chain is exactly $\alpha$.
 
+> **[Probability and Statistics]** This value follows directly from indicator random variables and linearity of expectation, taught in Probability and Statistics. Fix one slot and let $X_i$ be 1 if key $i$ hashes to that slot and 0 otherwise; SUHA gives $E[X_i] = 1/m$, and since the chain length is $X_1 + \cdots + X_n$, its expectation is $n/m = \alpha$.
+
 | Operation | Average Case | Worst Case |
 |-----------|--------------|------------|
 | Search (unsuccessful) | $\Theta(1 + \alpha)$ | $\Theta(n)$ |
@@ -420,7 +422,7 @@ When the load factor crosses a threshold, **rehash**, i.e., resize the table:
 
 **Cost:** one rehash is $O(n)$, but it happens only after $\Theta(m)$ insertions. Across a long sequence of inserts the total work is bounded, giving **amortized $O(1)$** per insertion.
 
-> **Note:** **Connection to Week 3.** This is the same doubling argument used by the C++ `std::vector` and Python `list` for `push_back` / `append`. The dynamic-array amortization is exactly the trick that lets a hash table claim $O(1)$ insertion in spite of occasional $O(n)$ rebuilds.
+> **Note:** **Connection to Week 2.** This is the same doubling argument used by the dynamic array that Week 2 gave as its example of amortized analysis, such as the C++ `std::vector` and Python `list` for `push_back` / `append`. The dynamic-array amortization is exactly the trick that lets a hash table claim $O(1)$ insertion in spite of occasional $O(n)$ rebuilds.
 
 ### 3.3 Hash Table: Overall Complexity
 

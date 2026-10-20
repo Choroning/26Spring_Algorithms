@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Summary-Sheet.md) | [한국어](Summary-Sheet.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 ---
 
@@ -69,7 +69,7 @@ Because the exam questions are in English, write the English term in parentheses
 | Closest Pair | 최근접 쌍 | The problem of finding the two points with minimum distance among $n$ points in the plane. |
 | Greedy-Choice Property | 그리디 선택 속성 | The property that a locally optimal choice always leads to a globally optimal solution. |
 | Fractional Knapsack | 분할 가능 배낭 | A knapsack problem in which items can be split; a greedy method gives the optimal solution. |
-| 0/1 Knapsack | 0/1 배낭 | A knapsack problem in which items cannot be split; it must be solved with DP. |
+| 0-1 Knapsack | 0/1 배낭 | A knapsack problem in which items cannot be split; it must be solved with DP. |
 | Activity Selection | 활동 선택 | The problem of finding the maximum number of non-overlapping activities one machine can perform. |
 | Job Scheduling | 작업 스케줄링 | The problem of finding the minimum number of machines needed to perform all jobs. |
 | Huffman Coding | 허프만 코딩 | A compression algorithm that builds an optimal prefix code from character frequencies. |
@@ -77,7 +77,7 @@ Because the exam questions are in English, write the English term in parentheses
 | Kruskal | 크루스칼 알고리즘 | An MST algorithm that scans edges in ascending weight order and adds an edge if it creates no cycle. |
 | Prim | 프림 알고리즘 | An MST algorithm that grows a tree step by step from a start vertex. |
 | Dijkstra | 다익스트라 알고리즘 | A greedy algorithm for single-source shortest paths in graphs with nonnegative weights. |
-| Edge Relaxation | 간선 완화 | An operation that updates a distance when a path through an intermediate vertex is shorter. |
+| Edge Relaxation | 간선 이완 | An operation that updates a distance when a path through an intermediate vertex is shorter. |
 | LCS | 최장 공통 부분 수열 | The problem of finding the length (or the string) of the longest common subsequence of two strings. |
 | Edit Distance | 편집 거리 | The minimum number of insertions, deletions, and substitutions that turn one string into another. |
 | Floyd-Warshall | 플로이드-워셜 | A DP algorithm for shortest paths between all pairs of vertices. |
@@ -105,7 +105,7 @@ gcd(a, b) = gcd(b, a mod b),  gcd(a, 0) = a
 **Explanation:** The set of common divisors is preserved by $(a, b) \leftrightarrow (b, a \bmod b)$, so the maximum is also the same. The base case is $b = 0$, where $a$ is the answer. The worst-case complexity is $O(\log \min(a, b))$, and the worst case occurs for pairs of consecutive Fibonacci numbers.
 
 ### The $\log_2 n$ Theme (Halving)
-Binary Search, the Fake Coin problem, and the Poisoned Wine problem all halve the search space at each step and achieve $\log n$ performance.
+Binary Search, the Counterfeit Coin problem, and the Poisoned Wine problem all halve the search space at each step and achieve $\log n$ performance.
 
 ### Binary Search Caveat
 ```python
@@ -321,7 +321,7 @@ At each step, make the choice that looks best right now (local optimum), and nev
 |---|---|---|
 | Coins {1, 3, 4}, amount 6 | 4 + 1 + 1 = 3 coins | 3 + 3 = 2 coins |
 | Coins {1, 5, 7, 10}, amount 14 | 10 + 1 + 1 + 1 + 1 = 5 coins | 7 + 7 = 2 coins |
-| 0/1 knapsack (sorted by value/weight) | Fractions cannot be used even if capacity remains | Must be solved with DP |
+| 0-1 knapsack (sorted by value/weight) | Fractions cannot be used even if capacity remains | Must be solved with DP |
 
 *Table 7. Counterexamples in which greedy misses the optimal solution*
 
@@ -359,7 +359,7 @@ At each step, make the choice that looks best right now (local optimum), and nev
      insert(Q, N)
 3. The 0/1 path from the root to each leaf is that character's prefix code.
 ```
-**Explanation:** Repeatedly extract the two lowest-frequency nodes, merge them, and insert the new node back into the heap. Merged nodes sit deeper in the tree and receive longer codes, while high-frequency nodes sit shallower and receive shorter codes. The 0/1 path from the root to each leaf is exactly the prefix code. Optimality is proved by an exchange argument, and the key point is that the two lowest-frequency characters are always siblings in the tree.
+**Explanation:** Repeatedly extract the two lowest-frequency nodes, merge them, and insert the new node back into the heap. Nodes merged earlier (the lower-frequency ones) sit deeper in the tree and receive longer codes, while high-frequency nodes sit shallower and receive shorter codes. The 0/1 path from the root to each leaf is exactly the prefix code. Optimality is proved by an exchange argument, and the key point is that the two lowest-frequency characters are always siblings in the tree.
 
 ### Kruskal vs Prim
 | Aspect | Kruskal | Prim |
@@ -420,7 +420,7 @@ while S ≠ V:
 | Matrix path | $c[i,j]$ | $m[i,j] + \max(c[i-1,j], c[i,j-1])$ | $O(n^2)$ | $O(n^2)$ |
 | LCS | $c[i,j]$ | $+1$ on match, $\max$ on mismatch | $O(mn)$ | $O(mn)$ |
 | Edit distance | $E[i,j]$ | Diagonal on match, $1 + \min$ on mismatch | $O(mn)$ | $O(mn)$ |
-| 0/1 knapsack | $K[i,w]$ | $\max(K[i-1,w], v_i + K[i-1, w-w_i])$ | $O(nC)$ | $O(nC)$ |
+| 0-1 knapsack | $K[i,w]$ | $\max(K[i-1,w], v_i + K[i-1, w-w_i])$ | $O(nC)$ | $O(nC)$ |
 | Coin change (minimum) | $C[j]$ | $1 + \min_{d_i \leq j} C[j - d_i]$ | $O(nk)$ | $O(n)$ |
 | Floyd-Warshall | $d[i,j,k]$ | $\min(d[i,j], d[i,k] + d[k,j])$ | $O(n^3)$ | $O(n^2)$ |
 
@@ -442,7 +442,7 @@ else:            E[i][j] = 1 + min(E[i-1][j],       # delete
 ```
 **Explanation:** $E[i][j]$ is the minimum number of operations that turn $X[1..i]$ into $Y[1..j]$. If the last characters match, take the diagonal value as is (0 operations); if they do not match, add 1 to the minimum of the three paths for deletion, insertion, and substitution. The base cases are $E[i][0] = i$ (i deletions) and $E[0][j] = j$ (j insertions).
 
-### 0/1 Knapsack Recurrence
+### 0-1 Knapsack Recurrence
 ```text
 if w[i] > w:  K[i][w] = K[i-1][w]
 else:         K[i][w] = max(K[i-1][w],
@@ -540,7 +540,7 @@ Every comparison-based sort needs $\Omega(n \log n)$ comparisons in the worst ca
 | Coins (standard currency) | ✓ | ✓ | - |
 | Coins (arbitrary currency) | ✗ | ✓ | - |
 | Fractional knapsack | ✓ | ✓ | - |
-| 0/1 knapsack | ✗ | ✓ | - |
+| 0-1 knapsack | ✗ | ✓ | - |
 | Shortest path (weights ≥ 0) | ✓ (Dijkstra) | ✓ | - |
 | Shortest path (negative allowed) | - | ✓ (FW, Bellman-Ford) | - |
 | Sorting | - | - | ✓ |
@@ -608,7 +608,7 @@ The same question may appear on the exam, or the answer structure may be transpl
 
 ### Q5. Why buildHeap Is $O(n)$: Explain why it is not $O(n \log n)$ even though heapify is applied to every node.
 
-**Answer:** Intuitively, it looks like $O(n \log n)$ because an $O(\log n)$ heapify is applied to each of the $n$ nodes, but the key to the tight analysis is the observation that **leaf nodes need no heapify**. In a complete binary tree, there are about $n / 2^{h+1}$ nodes of height $h$, and the heapify cost for each such node is $O(h)$. The total cost is as follows.
+**Answer:** Intuitively, it looks like $O(n \log n)$ because an $O(\log n)$ heapify is applied to each of the $n$ nodes, but the key to the tight analysis is the observation that **most nodes lie near the leaves, so their heapify cost is small** (leaves need no heapify at all). In a complete binary tree, there are about $n / 2^{h+1}$ nodes of height $h$, and the heapify cost for each such node is $O(h)$. The total cost is as follows.
 $$ \sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot O(h) = O\left( n \sum_{h=0}^{\infty} \frac{h}{2^h} \right) = O(n \cdot 2) = O(n) $$
 This is because the infinite series $\sum h / 2^h = 2$. In other words, low-height nodes (close to the leaves) make up most of the nodes and their work is nearly constant, so the depth-weighted sum converges to a linear bound. This result is used to state the overall complexity of heap sort as $O(n) + O(n \log n) = O(n \log n)$.
 
@@ -620,7 +620,7 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 
 **Answer:** Dijkstra's algorithm is a greedy algorithm that finds single-source shortest paths in graphs with nonnegative weights in $O(m \log n)$ (with a binary heap). At each step, it finalizes the unfinalized vertex $u$ with minimum $D[u]$ and relaxes the distances of its neighbors (edge relaxation), and its greedy invariant is that once $u$ is finalized, $D[u]$ never changes afterward. With negative edges, a shorter path may be found later, which breaks this invariant, so the algorithm gives wrong answers. Bellman-Ford is a DP-style algorithm that relaxes every edge $V-1$ times; its time is $O(VE)$, but it **allows negative edges** and detects a negative cycle if a distance is updated again in the $V$-th iteration. In summary, use Dijkstra if all weights are nonnegative and speed matters, and use Bellman-Ford if there are negative edges or negative cycles must be detected. If shortest paths between all pairs are needed, choose Floyd-Warshall ($O(n^3)$).
 
-### Q8. 0/1 Knapsack: For items $(w, v) = (2, 3), (3, 4), (4, 5), (5, 6)$ and capacity $C = 5$, find the maximum value with DP and explain why greedy fails.
+### Q8. 0-1 Knapsack: For items $(w, v) = (2, 3), (3, 4), (4, 5), (5, 6)$ and capacity $C = 5$, find the maximum value with DP and explain why greedy fails.
 
 **Answer:** Defining the subproblem $K[i][w]$ as the maximum value when items $1..i$ are considered and the remaining capacity is $w$, the recurrence is $K[i][w] = \max(K[i-1][w],\; v_i + K[i-1][w - w_i])$. The base cases are $K[0][w] = K[i][0] = 0$. The table is as follows.
 
@@ -632,9 +632,9 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 | 3 (4,5) | 0 | 0 | 3 | 4 | 5 | 7 |
 | 4 (5,6) | 0 | 0 | 3 | 4 | 5 | 7 |
 
-*Table 17. DP table for the 0/1 knapsack example*
+*Table 17. DP table for the 0-1 knapsack example*
 
-The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (weight $2 + 3 = 5$, value $3 + 4 = 7$). Solving greedily (in descending value/weight ratio: item 1 is 1.5, item 2 is 1.33, item 3 is 1.25, item 4 is 1.2), after taking item 1 (2, 3), item 2 (3, 4) still fits in the remaining capacity 3, so in this particular example greedy also gets 7. In general, however, the 0/1 knapsack has cases where taking a high-ratio item leaves too little capacity for the next item and misses a combination with a larger $v$ (for example, with capacity 5 and items (4, 8), (3, 5), (2, 4), greedy gets 8 and DP gets 9), because items cannot be split. In the fractional knapsack, items can be split, so greedy is always optimal, but the 0/1 knapsack guarantees optimality only with DP. The complexity is $O(nC)$, which is pseudopolynomial time.
+The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (weight $2 + 3 = 5$, value $3 + 4 = 7$). Solving greedily (in descending value/weight ratio: item 1 is 1.5, item 2 is 1.33, item 3 is 1.25, item 4 is 1.2), after taking item 1 (2, 3), item 2 (3, 4) still fits in the remaining capacity 3, so in this particular example greedy also gets 7. In general, however, the 0-1 knapsack has cases where taking a high-ratio item leaves too little capacity for the next item and misses a combination with a larger $v$ (for example, with capacity 5 and items (4, 8), (3, 5), (2, 4), greedy that takes (4, 8) first among the equal ratios gets 8 and DP gets 9), because items cannot be split. In the fractional knapsack, items can be split, so greedy is always optimal, but the 0-1 knapsack guarantees optimality only with DP. The complexity is $O(nC)$, which is pseudopolynomial time.
 
 ### Q9. LCS Design: Find the LCS of $X$ = "AGCAT" and $Y$ = "GAC" with DP and explain why each case of the recurrence is valid.
 
@@ -683,14 +683,14 @@ def f(n):
 | Claiming greedy is optimal without proof | Always look for a counterexample first, and if there is none, prove it by an exchange argument. |
 | Getting the DP base cases wrong | Verify by tracing $n = 1, 2, 3$ by hand. |
 | Mixing up DP table indices | State explicitly whether 0-index or 1-index is used. |
-| Confusing fractional knapsack with 0/1 knapsack | Fractional is greedy, and 0/1 is DP. |
+| Confusing fractional knapsack with 0-1 knapsack | Fractional is greedy, and 0-1 is DP. |
 | Overlooking quick sort's $n^2$ worst case | Use a random pivot or Median-of-3. |
 | Changing the order of the $k$ loop in Floyd-Warshall | $k$ must be the outermost loop. |
 | Using negative edges with Dijkstra | If there are negative edges, use Bellman-Ford. |
 | Getting stuck at $cn + 1 \leq cn$ in induction | Strengthen the guess to the form $cn - d$ to create slack. |
 | Omitting the $O(n)$ space of merge sort | Always state that an auxiliary array is needed. |
 | Dropping the equality in binary search's `left <= right` | Without the equality, the last remaining element is never checked. |
-| Writing buildHeap as $O(n \log n)$ | It is actually $O(n)$, thanks to the tight analysis in which the leaf half is not processed. |
+| Writing buildHeap as $O(n \log n)$ | It is actually $O(n)$, as the tight analysis that sums the heapify costs by height shows. |
 | Losing stability in counting sort with a forward traversal | Placement must be done in a reverse traversal to guarantee stability. |
 | Confusing LCS with a substring | An LCS is a subsequence that need not be contiguous. |
 

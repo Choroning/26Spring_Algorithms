@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 
 > **Learning Objectives:**
 > 1. Build a reusable timer utility to measure algorithm execution time
@@ -216,7 +216,7 @@ It finishes in just **4 steps** instead of 10 comparisons.
 
 > **Note:** **Analogy.** Think of a set like a guest list at a party. When a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
 
-> **[Data Structures]** Python's `set` is internally implemented as a **hash table**. As learned in Data Structures, a hash table converts keys via a hash function and stores them at specific positions in an array. Thanks to this, **insertion (add) and lookup (in) are O(1) on average**. This is the key to reducing O(n²) to O(n). Finding a specific value in an array is O(n), but in a hash table it is O(1) on average. In the worst case (many hash collisions), it can degrade to O(n), but in practice it is almost always O(1).
+> **[Data Structures]** A **hash table** stores each key at the array position given by its hash value, so insertion and lookup take O(1) time on average; with many hash collisions the worst case can degrade to O(n), but in practice it almost always runs in O(1) (Week 10 covers hash tables in detail). Python's `set` is internally implemented as a hash table, so **insertion (add) and lookup (in) are O(1) on average**, and replacing the O(n) search of an array with this lookup reduces the whole duplicate check from O(n²) to O(n).
 
 **Benchmark Results**
 

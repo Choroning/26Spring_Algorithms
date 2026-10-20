@@ -23,7 +23,7 @@ This repository archives bilingual lecture notes and coursework for the Algorith
 ## 📝 About This Repository
 
 - `Lecture-Notes/` holds a lecture note for each week (`Week##`), and Weeks 1-6 also hold lab notes.
-- `Coursework/` holds the assignment solutions (web app code and reports), lab code, midterm review materials, and the team term project.
+- `Coursework/` holds the assignment solutions (web app code and reports), lab code, midterm review materials, and the team-based term project.
 - Every note comes as an English (`.md`) and Korean (`.ko.md`) pair.
 
 > **🤖 AI Agent Usage**

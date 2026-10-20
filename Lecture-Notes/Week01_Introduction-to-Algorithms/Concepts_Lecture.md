@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-19
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -57,7 +57,7 @@
 ### 1.2 What Do We Learn?
 
 - Various algorithms for various problems
-  - Greedy, Dynamic Programming, Divide and Conquer, Graph Algorithms, and so on
+  - Greedy Algorithms, Dynamic Programming, Divide and Conquer, Graph Algorithms, and so on
 - Systematic thinking through algorithmic problem solving
 - **Formal representation** of solutions
   - Flowcharts and pseudocode
@@ -107,7 +107,7 @@
 
 > **Note:** Niklaus Wirth (1934-2024) was a Swiss computer scientist who created the programming language Pascal and received the Turing Award in 1984. His book title "Algorithms + Data Structures = Programs" is a famous quote summarizing the essence of programming, emphasizing that algorithms and data structures are the two pillars of programming.
 
-> **[Data Structures]** A data structure is a structural method for efficiently storing and accessing data. Representative examples include arrays, linked lists, stacks, queues, trees, hash tables, and graphs. The concepts learned in the Data Structures course form the foundation for the Algorithms course. For example, a sorted array data structure is required to apply the binary search algorithm.
+> **[Data Structures]** A **data structure** fixes how data is stored and accessed; arrays, linked lists, stacks, queues, trees, hash tables, and graphs are typical examples. Whether an algorithm is efficient depends on the data structure that holds its data. For example, binary search applies only when the data sits in a sorted array that allows O(1) access to any position.
 
 ### 1.5 Origin of the Word "Algorithm"
 
@@ -174,7 +174,7 @@ def find_max(cards):
 
 Reading cards one by one in order like this is **Sequential Search**.
 
-> **[Data Structures]** In the code above, `cards` is an array (list), and the `for` loop iterates from index 1 to the end. As learned in Data Structures, arrays allow O(1) access by index. This algorithm visits every element once, so the time complexity is **O(n)**. This is the minimum time required to find the maximum in an unsorted array, because every element must be checked at least once.
+> **[Data Structures]** An array stores its elements in contiguous memory, so any element can be accessed by index in O(1) time, and `cards` in the code above is such an array (a Python list). The `for` loop therefore pays a constant cost per element as it visits each element once from index 1 to the end, so the time complexity is **O(n)**, and since every element of an unsorted array must be checked at least once, this is also the minimum time needed to find the maximum.
 
 > **Note:** We write O(n) to describe how an algorithm's running time grows with input size n. This notation will be covered rigorously in Week 2. Informally, O(n) means roughly proportional to n, and O(log n) means roughly proportional to log n.
 
@@ -206,7 +206,7 @@ Step 3: middle = 85  ->  85 == 85 ->  found!
 
 It finds the value with only **3 comparisons** instead of 9.
 
-> **[Data Structures]** Binary search can only be used on **sorted arrays**. As learned in Data Structures, finding an element in unsorted data requires sequential search (O(n)). Binary search is possible because comparing with the middle value lets you eliminate the other half at once. Since the search range halves at every step, the time complexity is **O(log₂ n)**.
+> **[Data Structures]** Finding an element in an unsorted array or a linked list requires sequential search (O(n)), which compares the elements one by one from the front. Binary search can be used only when the data sits in a **sorted array** whose middle element can be accessed in O(1) time, and since each comparison with the middle value eliminates the other half, the search range halves at every step and the time complexity is **O(log₂ n)**.
 
 **Code:**
 
@@ -284,7 +284,7 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 **Important question:** How can we **prove** that this greedy approach always guarantees the minimum for the Korean won coin system?
 - This will be rigorously covered in **Week 5 (Greedy Algorithms)**.
 
-> **Key Point:** The greedy algorithm does not always guarantee an optimal solution. It works well with the Korean won coin system (500, 100, 50, 10), but if the coins are [1, 3, 4] won and you need to make change for 6 won, the greedy approach selects 4+1+1 = 3 coins, while the optimal solution is 3+3 = 2 coins. For a greedy algorithm to guarantee optimality, specific conditions (the greedy choice property and optimal substructure) must be satisfied.
+> **Key Point:** The greedy algorithm does not always guarantee an optimal solution. It works well with the Korean won coin system (500, 100, 50, 10), but if the coins are [1, 3, 4] won and you need to make change for 6 won, the greedy approach selects 4+1+1, three coins, while the optimal solution is 3+3, two coins. For a greedy algorithm to guarantee optimality, specific conditions (the greedy choice property and optimal substructure) must be satisfied.
 
 ### 2.4 Euler Path (One-Stroke Drawing)
 
@@ -296,7 +296,7 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 
 *Figure 7. The seven bridges of Konigsberg*
 
-> **[Data Structures]** A graph is a core concept learned in Data Structures. It consists of a set of **vertices (nodes)** and a set of **edges** connecting them. The Euler path problem historically originates from the famous Konigsberg bridge problem (Figure 7 [6]). Euler proved that for a path traversing every edge exactly once (Euler path) to exist in a connected graph, the number of vertices with **odd degree** must be either 0 or 2. Degree refers to the number of edges connected to a vertex.
+> **[Discrete Mathematics]** A **graph** consists of a set of **vertices** and a set of **edges**, each joining two vertices, and the number of edges incident to a vertex is its **degree**. Euler recast the Konigsberg bridge problem (Figure 7 [6]) in this model and proved that for a path traversing every edge exactly once (an Euler path) to exist in a connected graph, the number of **odd-degree vertices** must be 0 or 2, so this degree condition decides in advance whether the traversal in this section is possible.
 
 The following graph (vertices 1-10) is used in the worked example below.
 
@@ -335,9 +335,9 @@ Cycle detection can be performed using **Depth-First Search (DFS)**.
 
 The key insight is that crossing a bridge prematurely can split the graph into disconnected parts, making it impossible to traverse the remaining edges. By always choosing an edge that keeps the graph connected, you ensure all edges remain reachable.
 
-> **[Data Structures]** DFS is a graph traversal method learned in Data Structures. It explores as far as possible along one path before backtracking. It is implemented using a stack or recursive calls. Conversely, BFS (Breadth-First Search) explores nodes level by level starting from the nearest, using a queue. DFS is used for cycle detection here because, in a DFS of an undirected graph, encountering an already-visited node other than the immediate predecessor (parent) means a cycle exists.
+> **Note:** **Depth-first search (DFS)** is a graph traversal method that follows one path as far as possible before backing up, implemented with a stack or recursive calls. Week 11 covers it in detail together with **breadth-first search (BFS)**, which explores vertices level by level from the nearest and is implemented with a queue.
 
-> **Note:** The principle of cycle detection via DFS is as follows. Starting DFS from the current node, if an **already-visited node is encountered** during traversal, other than by going back along the edge just used, a cycle exists. For example, starting from node 7 and following 6→5→4→3→9→7 confirms a cycle. Since DFS digs as deep as possible and then backtracks, it naturally checks whether the path returns to the starting point.
+> **Note:** The principle of cycle detection via DFS is as follows. Starting DFS from the current vertex of an undirected graph, if an **already-visited vertex is encountered** during traversal, other than by going back along the edge just used (to the immediate predecessor, the parent), a cycle exists. For example, starting from vertex 7 and following 6→5→4→3→9→7 confirms a cycle. Since DFS digs as deep as possible and then backtracks, it naturally checks whether the path returns to the starting point.
 
 ### 2.5 Maze Solving
 
@@ -497,7 +497,7 @@ Assign a 2-bit binary number to each jar.
 
 **Rule:** Servant A tastes all jars where **bit 1 = 1**. Servant B tastes all jars where **bit 0 = 1**.
 
-> **[Discrete Mathematics]** Binary is a number system using only two digits, 0 and 1. For example, decimal 5 is 101 in binary (= 1×4 + 0×2 + 1×1). All data inside computers is represented in binary. The reason binary is key to this problem is that k-bit binary numbers can represent $2^k$ different states. That is, k servants (each with 2 states: alive or dead) can distinguish among $2^k$ jars.
+> **[Discrete Mathematics]** By the **product rule**, making k choices with two outcomes each gives $2^k$ possible combinations, and the same principle lets k-bit binary numbers, which use only the digits 0 and 1 (decimal 5 = 1×4 + 0×2 + 1×1 is 101 in binary), represent $2^k$ distinct values. Each of the k servants yields one of two outcomes, death or survival, so there are $2^k$ death patterns, and mapping each pattern to the binary jar number lets k servants distinguish among $2^k$ jars.
 
 **Reading the Results:**
 

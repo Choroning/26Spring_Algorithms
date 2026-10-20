@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -165,6 +165,8 @@ Dijkstra(G, r):
 - Each vertex is extracted exactly once, so $|V|$ extractions, each $O(\log V)$, give $O(V \log V)$.
 - Each edge triggers at most one **decrease-key**, the heap operation that lowers a vertex's stored key (its $d$-value) after a successful relaxation and re-sifts it toward the root to restore the heap order, so $|E|$ updates, each $O(\log V)$, give $O(E \log V)$.
 - **Total: $O((V + E) \log V) = O(E \log V)$** for connected graphs where $E \geq V - 1$.
+
+> **[Data Structures]** A priority queue is an abstract data type that supports extracting the element with the smallest key and changing a key, and a binary min-heap implements it as a complete binary tree so that both operations take $O(\log n)$ time, the height of the tree. Dijkstra puts the vertices in the heap and calls extractMin $|V|$ times and decrease-key at most $|E|$ times, so the cost of these two heap operations is the $\log V$ factor in its running time.
 
 (With a Fibonacci heap the bound improves to $O(E + V \log V)$, which is better for dense graphs in theory.)
 
@@ -657,8 +659,8 @@ Every directed graph condenses into a DAG whose nodes are its SCCs. This fact is
 StronglyConnectedComponents(G):
 
 1. Run DFS on G and compute finish times f[v] for every vertex v.
-   (Recall from Week 11: f[v] is the time at which DFS finishes exploring v
-    — i.e., when v is colored black after all its descendants are done.)
+   (Recall from Week 11: f[v] is the time at which DFS finishes exploring v,
+    i.e., when v is colored black after all its descendants are done.)
 
 2. Construct G^R (reverse every edge in G).
 
@@ -680,7 +682,7 @@ The algorithm needs only two DFS passes and one edge reversal.
 **Step 1:** DFS on $G$, recording finish times.
 
 ```text
-Graph G — three cycles joined by ONE-WAY bridges (a clean condensation DAG):
+Graph G (three cycles joined by ONE-WAY bridges, a clean condensation DAG):
 
   Component A {1,2,3,4}:   1 --> 2 --> 3 --> 4 --> 1   (a directed 4-cycle)
   Component B {5,6,7,8}:   5 --> 6 --> 7 --> 8 --> 5   (a directed 4-cycle)
@@ -745,7 +747,7 @@ NP-completeness and approximation algorithms are covered in Week 13.
 | Edge-based formulation | $\ell^{(m)}_{ij} = \min_k (\ell^{(m-1)}_{ik} + w_{kj})$ is min-plus matrix multiplication and takes $\Theta(n^3 \log n)$ with repeated squaring. |
 | DAG shortest paths | A topological order plus one relaxation pass gives $\Theta(V + E)$. |
 | Strongly connected components | Kosaraju's algorithm runs DFS on $G$, reverses the edges, and runs DFS on $G^R$ in decreasing $f[v]$, all in $\Theta(V + E)$. |
-| Universality of relaxation | Relaxation is the universal hammer: all four shortest-path algorithms are different schedules of RELAX calls. |
+| Universality of relaxation | Relaxation is the universal basic operation: all four shortest-path algorithms are different schedules of RELAX calls. |
 | When greedy works | Greedy works only with non-negative weights; otherwise switch to DP (Bellman-Ford, Floyd-Warshall) or exploit special structure (DAG). |
 | Checking for a DAG | DAG-ShortestPath is the cheapest option when the graph has no cycles, so a topological-sort check first is almost always worthwhile. |
 | Two formulations of Floyd-Warshall | The node-based and edge-based (matrix-multiplication) formulations give the same answer; the node-based view gives the clean $\Theta(V^3)$ bound, and the edge-based view connects to a beautiful algebraic structure. |

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-20
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -150,8 +150,8 @@ So we borrow the MST (Week 11) and traverse it to construct an approximate tour.
 ```text
 1. Compute the MST of the input graph (Kruskal's or Prim's).
 2. Starting from any city, perform a DFS traversal of the MST, recording
-   the visit order. (Each tree edge is used twice — once forward, once back.)
-3. Remove duplicate cities from the visit order — keep only the first
+   the visit order. (Each tree edge is used twice: once forward, once back.)
+3. Remove duplicate cities from the visit order: keep only the first
    occurrence of each city, then append the starting city at the end.
 4. Return the resulting tour.
 ```
@@ -204,6 +204,8 @@ Let $M$ be the total MST weight, $\text{OPT}$ the optimal TSP tour length, and $
 
 **Step 1: $\text{OPT} > M$.**
 The optimal tour visits all vertices and returns to start. Removing *any one edge* from that tour leaves a spanning tree that touches all vertices, is connected, and has $|V| - 1$ edges. Since $M$ is the *minimum* spanning-tree weight, $M \leq (\text{tour} - \text{one edge})$. With positive edge weights, $(\text{tour} - \text{one edge}) < \text{OPT}$, hence $M < \text{OPT}$.
+
+> **[Discrete Mathematics]** In Discrete Mathematics a tree is a connected graph with no cycle, and a tree on $n$ vertices always has $n - 1$ edges. Removing one edge from a Hamiltonian cycle leaves a path that strings all vertices together, a connected graph with no cycle, so it is a spanning tree, and Step 1 uses this fact to compare the weight of the optimal tour with that of the MST.
 
 **Step 2: $\text{APX} \leq 2M$.**
 The DFS traversal has length exactly $2M$. Each shortcut in Step 3 replaces a sub-path $x \to y \to z$ of the traversal with the direct edge $x \to z$, and by the triangle inequality $d(x, z) \leq d(x, y) + d(y, z)$ this never increases the length.
