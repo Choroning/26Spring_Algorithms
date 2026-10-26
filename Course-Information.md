@@ -2,7 +2,7 @@
 
 [Repository Guide](README.md) | [English](Course-Information.md) | [한국어](Course-Information.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-26
 
 ## Table of Contents
 
@@ -70,22 +70,22 @@
 
 | Week | Class Dates (Tue, Thu) | Planned Topic | Lecture Decks Covered |
 |:----:|:-----|:-----|:-----|
-| 1 | 3/3, 3/5 | Introduction to Algorithms | W01_LEC_Introduction-to-Algorithms<br>W01_LAB_Coding-Agents |
-| 2 | 3/10, 3/12 | Algorithm Design and Complexity Analysis | W02_LEC_Algorithm-Design-and-Complexity-Analysis<br>W02_LAB_Complexity-Analysis-Practice<br>HW1 |
-| 3 | 3/17, 3/19 | Arrays, Stacks, Queues, and Basic Sorting Algorithms | W03_LEC_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms<br>W03_LAB_Sorting-Algorithm-Implementation-and-Benchmark<br>HW2 |
-| 4 | 3/24, 3/26 | Divide and Conquer Algorithms | W04_LEC_Divide-and-Conquer-Algorithms<br>W04_LAB_Advanced-Divide-and-Conquer<br>HW3 |
-| 5 | 3/31, 4/2 | Greedy Algorithms | W05_LEC_Greedy-Algorithms<br>W05_LAB_Greedy-Algorithms<br>HW4 |
-| 6 | 4/7, 4/9 | Dynamic Programming | W06_LEC_Dynamic-Programming<br>W06_LAB_Dynamic-Programming<br>HW5 |
-| 7 | 4/14, 4/16 | Review and Problem Solving | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
-| 8 | 4/21, 4/23 | Midterm Exam | - |
-| 9 | 4/28, 4/30 | Search Trees | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
-| 10 | 5/5, 5/7 | Hash Tables and Set Data Structures | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
-| 11 | 5/12, 5/14 | Graph Algorithms I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
-| 12 | 5/19, 5/21 | Graph Algorithms II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
-| 13 | 5/26, 5/28 | NP-Complete Problems and Approximation Algorithms | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
-| 14 | 6/2, 6/4 | Final Exam (Term Project) | W14_LEC_Approximation-Algorithms |
-| 15 | 6/9, 6/11 | Final Exam (Written) | - |
-| 16 | 6/16, 6/18 | Study Week | - |
+| W01 | 3/3, 3/5 | Introduction to Algorithms | W01_LEC_Introduction-to-Algorithms<br>W01_LAB_Coding-Agents |
+| W02 | 3/10, 3/12 | Algorithm Design and Complexity Analysis | W02_LEC_Algorithm-Design-and-Complexity-Analysis<br>W02_LAB_Complexity-Analysis-Practice<br>HW1 |
+| W03 | 3/17, 3/19 | Arrays, Stacks, Queues, and Basic Sorting Algorithms | W03_LEC_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms<br>W03_LAB_Sorting-Algorithm-Implementation-and-Benchmark<br>HW2 |
+| W04 | 3/24, 3/26 | Divide and Conquer Algorithms | W04_LEC_Divide-and-Conquer-Algorithms<br>W04_LAB_Advanced-Divide-and-Conquer<br>HW3 |
+| W05 | 3/31, 4/2 | Greedy Algorithms | W05_LEC_Greedy-Algorithms<br>W05_LAB_Greedy-Algorithms<br>HW4 |
+| W06 | 4/7, 4/9 | Dynamic Programming | W06_LEC_Dynamic-Programming<br>W06_LAB_Dynamic-Programming<br>HW5 |
+| W07 | 4/14, 4/16 | Review and Problem Solving | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
+| W08 | 4/21, 4/23 | Midterm Exam | - |
+| W09 | 4/28, 4/30 | Search Trees | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
+| W10 | 5/5, 5/7 | Hash Tables and Set Data Structures | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
+| W11 | 5/12, 5/14 | Graph Algorithms I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
+| W12 | 5/19, 5/21 | Graph Algorithms II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
+| W13 | 5/26, 5/28 | NP-Complete Problems and Approximation Algorithms | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
+| W14 | 6/2, 6/4 | Final Exam (Term Project) | W14_LEC_Approximation-Algorithms |
+| W15 | 6/9, 6/11 | Final Exam (Written) | - |
+| W16 | 6/16, 6/18 | Study Week | - |
 
 - The planned topics follow the weekly plan in the syllabus.
 - The theory decks (`W##_LEC_`) are covered in the lecture note of the `Week##` unit with the same number, and the lab decks of weeks 1-6 (`W##_LAB_`) in the lab note of the same unit. The units are listed in the [`Lecture-Notes` index](Lecture-Notes/README.md).

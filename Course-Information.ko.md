@@ -2,7 +2,7 @@
 
 [레포지토리 안내](README.ko.md) | [English](Course-Information.md) | [한국어](Course-Information.ko.md)
 
-> **최종 수정일:** 2026-10-18
+> **최종 수정일:** 2026-10-26
 
 ## 목차
 
@@ -70,22 +70,22 @@
 
 | 주차 | 수업일 (화, 목) | 계획된 주제 | 진행한 강의자료 |
 |:----:|:-----|:-----|:-----|
-| 1 | 3/3, 3/5 | 알고리즘 소개 | W01_LEC_Introduction-to-Algorithms<br>W01_LAB_Coding-Agents |
-| 2 | 3/10, 3/12 | 알고리즘 설계 및 복잡도 분석 | W02_LEC_Algorithm-Design-and-Complexity-Analysis<br>W02_LAB_Complexity-Analysis-Practice<br>HW1 |
-| 3 | 3/17, 3/19 | 배열, 스택, 큐, 기본 정렬 알고리즘 | W03_LEC_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms<br>W03_LAB_Sorting-Algorithm-Implementation-and-Benchmark<br>HW2 |
-| 4 | 3/24, 3/26 | 분할 정복 알고리즘 | W04_LEC_Divide-and-Conquer-Algorithms<br>W04_LAB_Advanced-Divide-and-Conquer<br>HW3 |
-| 5 | 3/31, 4/2 | 탐욕 알고리즘 | W05_LEC_Greedy-Algorithms<br>W05_LAB_Greedy-Algorithms<br>HW4 |
-| 6 | 4/7, 4/9 | 동적 프로그래밍 | W06_LEC_Dynamic-Programming<br>W06_LAB_Dynamic-Programming<br>HW5 |
-| 7 | 4/14, 4/16 | 복습 및 문제 풀이 | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
-| 8 | 4/21, 4/23 | 중간고사 | - |
-| 9 | 4/28, 4/30 | 탐색 트리 | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
-| 10 | 5/5, 5/7 | 해시 테이블 및 집합 자료구조 | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
-| 11 | 5/12, 5/14 | 그래프 알고리즘 I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
-| 12 | 5/19, 5/21 | 그래프 알고리즘 II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
-| 13 | 5/26, 5/28 | NP-완전 문제 및 근사 알고리즘 | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
-| 14 | 6/2, 6/4 | 기말고사 (텀 프로젝트) | W14_LEC_Approximation-Algorithms |
-| 15 | 6/9, 6/11 | 기말고사 (필기) | - |
-| 16 | 6/16, 6/18 | 자율학습 주간 | - |
+| 1주차 | 3/3, 3/5 | 알고리즘 소개 | W01_LEC_Introduction-to-Algorithms<br>W01_LAB_Coding-Agents |
+| 2주차 | 3/10, 3/12 | 알고리즘 설계 및 복잡도 분석 | W02_LEC_Algorithm-Design-and-Complexity-Analysis<br>W02_LAB_Complexity-Analysis-Practice<br>HW1 |
+| 3주차 | 3/17, 3/19 | 배열, 스택, 큐, 기본 정렬 알고리즘 | W03_LEC_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms<br>W03_LAB_Sorting-Algorithm-Implementation-and-Benchmark<br>HW2 |
+| 4주차 | 3/24, 3/26 | 분할 정복 알고리즘 | W04_LEC_Divide-and-Conquer-Algorithms<br>W04_LAB_Advanced-Divide-and-Conquer<br>HW3 |
+| 5주차 | 3/31, 4/2 | 탐욕 알고리즘 | W05_LEC_Greedy-Algorithms<br>W05_LAB_Greedy-Algorithms<br>HW4 |
+| 6주차 | 4/7, 4/9 | 동적 프로그래밍 | W06_LEC_Dynamic-Programming<br>W06_LAB_Dynamic-Programming<br>HW5 |
+| 7주차 | 4/14, 4/16 | 복습 및 문제 풀이 | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
+| 8주차 | 4/21, 4/23 | 중간고사 | - |
+| 9주차 | 4/28, 4/30 | 탐색 트리 | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
+| 10주차 | 5/5, 5/7 | 해시 테이블 및 집합 자료구조 | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
+| 11주차 | 5/12, 5/14 | 그래프 알고리즘 I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
+| 12주차 | 5/19, 5/21 | 그래프 알고리즘 II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
+| 13주차 | 5/26, 5/28 | NP-완전 문제 및 근사 알고리즘 | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
+| 14주차 | 6/2, 6/4 | 기말고사 (텀 프로젝트) | W14_LEC_Approximation-Algorithms |
+| 15주차 | 6/9, 6/11 | 기말고사 (필기) | - |
+| 16주차 | 6/16, 6/18 | 자율학습 주간 | - |
 
 - 계획된 주제는 강의계획서의 주별 학습 내용을 따른다.
 - 이론 강의자료(`W##_LEC_`)는 같은 번호의 `Week##` 단원의 강의 노트에, 1~6주차의 실습 강의자료(`W##_LAB_`)는 같은 단원의 실습 노트에 정리했으며, 단원 목록은 [`Lecture-Notes` 색인](Lecture-Notes/README.ko.md)에 있다.
