@@ -2,7 +2,7 @@
 
 [Repository Guide](README.md) | [English](Course-Information.md) | [한국어](Course-Information.ko.md)
 
-> **Last Updated:** 2026-10-26
+> **Last Updated:** 2026-10-27
 
 ## Table of Contents
 
@@ -90,7 +90,7 @@
 - The planned topics follow the weekly plan in the syllabus.
 - The theory decks (`W##_LEC_`) are covered in the lecture note of the `Week##` unit with the same number, and the lab decks of weeks 1-6 (`W##_LAB_`) in the lab note of the same unit. The units are listed in the [`Lecture-Notes` index](Lecture-Notes/README.md).
 - The week 7 decks have no unit of their own, and the midterm exam preparation materials are in the [`Coursework` index](Coursework/README.md).
-- The lab decks of weeks 9-13 accompany the team-based term project carried out in the lab sessions, so no lab notes were made for them.
+- The lab decks of weeks 9-13 accompany the team-based term project carried out in the lab sessions, so they have no lab notes.
 - HW1 to HW5 are the homework assignments given once a week in weeks 2-6, and their solutions and reports are in the `Coursework` index.
 
 ---
