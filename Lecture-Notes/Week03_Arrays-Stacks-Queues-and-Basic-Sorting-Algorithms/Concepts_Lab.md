@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -30,7 +30,7 @@
 - [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Mini Shopping Mall Sort Comparison](#31-b-1-mini-shopping-mall-sort-comparison)
 - [4. Practice Problems (Baekjoon)](#4-practice-problems-baekjoon)
-- [5. Appendix](#5-appendix)
+- [5. Connection to the Week 4 Lab](#5-connection-to-the-week-4-lab)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -51,14 +51,14 @@
 
 ### 1.2 Lab Structure
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Elementary sort implementation | 10 min |
-| **A-2** | Advanced sort implementation | 15 min |
-| **A-3** | Full algorithm benchmark | 10 min |
-| **B-1** | Mini shopping mall sort comparison | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Elementary sort implementation |
+| **A-2** | Advanced sort implementation |
+| **A-3** | Full algorithm benchmark |
+| **B-1** | Mini shopping mall sort comparison |
 
-*Table 1. Topic and time of each lab section*
+*Table 1. Topic of each lab section*
 
 ---
 
@@ -500,10 +500,9 @@ Every page load, every filter change, and every "sort by price" click would make
 
 <br>
 
-## 5. Appendix
+## 5. Connection to the Week 4 Lab
 
-- **Assignment 2**: The solution code and report of the assignment are in [HW02_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms](../../Coursework/HW02_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms/).
-- **[Week 4 Lab](../Week04_Divide-and-Conquer-Algorithms/Concepts_Lab.md)**: Covers advanced divide and conquer, including merge sort tracing, the k-th smallest element, and the closest pair of points.
+The [Week 4 Lab](../Week04_Divide-and-Conquer-Algorithms/Concepts_Lab.md) covers advanced divide and conquer, including merge sort tracing, the k-th smallest element, and the closest pair of points.
 
 ---
 

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Implement merge sort and trace its recursive execution tree
@@ -54,14 +54,14 @@
 
 ### 1.2 Lab Structure
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Merge Sort Trace | 10 min |
-| **A-2** | Finding the k-th Smallest Element | 15 min |
-| **A-3** | Closest Pair of Points | 10 min |
-| **B-1** | Autocomplete API Comparison | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Merge Sort Trace |
+| **A-2** | Finding the k-th Smallest Element |
+| **A-3** | Closest Pair of Points |
+| **B-1** | Autocomplete API Comparison |
 
-*Table 1. Topic and time of each lab section*
+*Table 1. Topic of each lab section*
 
 ---
 

@@ -48,9 +48,9 @@
 | Attendance | 0% |
 
 - Quizzes are held at the start of the first period in weeks 3-7 and 9-13, cover the previous week's material, and may appear on written exams.
-- There are five homework assignments in weeks 2-6.
+- There are five homework assignments in weeks 2-6, each building a web application that applies the algorithms learned that week.
 - Written exams are handwritten and last one hour.
-- The term project part of the final exam is a team-based term project carried out in weeks 9-13.
+- The term project part of the final exam is a team-based term project carried out in weeks 9-13. Teams of 3-4 build a web application that applies all algorithms covered in class and submit the working application, a report, and a presentation as deliverables.
 
 ---
 
@@ -59,7 +59,7 @@
 ## 4. Course Policies
 
 - Generative AI is prohibited during quizzes.
-- Generative AI tools are permitted and encouraged for assignments, and students must clearly explain their own reasoning and design choices.
+- Generative AI tools such as coding agents are permitted and actively encouraged in labs, assignments, and the term project, and in assignments students must clearly explain their own reasoning and design choices.
 - A grade is not awarded if a student misses more than one third of the total class hours.
 
 ---

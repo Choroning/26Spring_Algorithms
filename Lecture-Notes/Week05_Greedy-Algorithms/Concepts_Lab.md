@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Experimentally verify the success and failure conditions of greedy algorithms
@@ -60,14 +60,14 @@
 
 ### 1.2 Lab Structure
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Coin Change (greedy success/failure) | 10 min |
-| **A-2** | Fractional Knapsack | 10 min |
-| **A-3** | Huffman Coding | 15 min |
-| **B-1** | Meeting Room Reservation System | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Coin Change (greedy success/failure) |
+| **A-2** | Fractional Knapsack |
+| **A-3** | Huffman Coding |
+| **B-1** | Meeting Room Reservation System |
 
-*Table 1. Topic and time for each lab section*
+*Table 1. Topic of each lab section*
 
 ### 1.3 How to Run
 

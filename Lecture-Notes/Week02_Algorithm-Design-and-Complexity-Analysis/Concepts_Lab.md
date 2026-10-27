@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Build a reusable timer utility to measure algorithm execution time
@@ -22,7 +22,7 @@
   - [2.3 A-3: Execution Time Graph](#23-a-3-execution-time-graph)
 - [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Product Search API Comparison](#31-b-1-product-search-api-comparison)
-- [4. Appendix](#4-appendix)
+- [4. Connection to the Week 3 Lab](#4-connection-to-the-week-3-lab)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -42,14 +42,14 @@
 
 **Lab Structure:**
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Timer Utility | 10 min |
-| **A-2** | Finding Duplicates: O(n²) → O(n) | 15 min |
-| **A-3** | Execution Time Graph | 10 min |
-| **B-1** | Web Search API Comparison | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Timer Utility |
+| **A-2** | Finding Duplicates: O(n²) → O(n) |
+| **A-3** | Execution Time Graph |
+| **B-1** | Web Search API Comparison |
 
-*Table 1. Lab structure and time per section*
+*Table 1. Topic of each lab section*
 
 ---
 
@@ -362,10 +362,9 @@ Linear search time grows proportionally with N, while binary search time grows l
 
 <br>
 
-## 4. Appendix
+## 4. Connection to the Week 3 Lab
 
-- The solution and report for **Assignment 1** are in [`Coursework/HW01_Algorithm-Design-and-Complexity-Analysis`](../../Coursework/HW01_Algorithm-Design-and-Complexity-Analysis/).
-- The **Week 3 Lab** implements and benchmarks sorting algorithms.
+The **Week 3 Lab** implements and benchmarks sorting algorithms.
 
 ---
 

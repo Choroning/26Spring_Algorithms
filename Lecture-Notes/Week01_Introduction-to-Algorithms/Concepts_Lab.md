@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Install and run at least one AI coding agent (Gemini CLI, Claude Code, Codex CLI, or GitHub Copilot CLI)
@@ -26,9 +26,7 @@
   - [6.3 Ralph Practice](#63-ralph-practice)
 - [7. Task 5: Build a Sorting Benchmark](#7-task-5-build-a-sorting-benchmark)
   - [7.1 What to Observe](#71-what-to-observe)
-- [8. Appendix](#8-appendix)
-  - [8.1 Assignments and Term Project](#81-assignments-and-term-project)
-  - [8.2 Connection to the Week 2 Lab](#82-connection-to-the-week-2-lab)
+- [8. Connection to the Week 2 Lab](#8-connection-to-the-week-2-lab)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 - [References](#references)
@@ -40,10 +38,7 @@
 ## 1. Lab Overview
 
 - **Goal:** Install AI-based coding agents and apply them to real development tasks.
-- **Duration:** About 50 minutes.
-- **Submission:** None; this is an exploratory lab.
 - **Requirements:** A computer with a terminal (macOS Terminal, Windows PowerShell, or Linux shell), basic command-line usage such as navigating directories and running commands, and a GitHub account.
-- These tools will be used **throughout the semester** in labs and assignments.
 
 **Lab Flow:**
 
@@ -295,7 +290,7 @@ Result: 8/8, all criteria met.
 
 ## 7. Task 5: Build a Sorting Benchmark
 
-Use the agent to create a **multi-file sorting benchmark**. This task is a preview of the term project.
+Use the agent to create a **multi-file sorting benchmark**.
 
 **Example Prompt:**
 
@@ -342,25 +337,7 @@ A perfect benchmark is not the goal; the **process** is what matters.
 
 <br>
 
-## 8. Appendix
-
-### 8.1 Assignments and Term Project
-
-**Weekly Assignments (Weeks 2-6):**
-
-- In **Weeks 2-6**, an assignment is given each week.
-- Each assignment builds a **web application** applying the algorithms learned that week.
-- The goal is to experience how algorithms improve real software performance.
-
-**Team-Based Term Project (Final Exam, Weeks 9-13):**
-
-- Teams of 3-4 build a **web application** applying **all algorithms** covered in class.
-- The deliverables are a **working web app**, a **report**, and a **presentation**.
-- Agents are the primary development tool throughout the process.
-
-> **Note:** Using coding agents to their fullest extent is encouraged, because they are essential for both the assignments and the term project.
-
-### 8.2 Connection to the Week 2 Lab
+## 8. Connection to the Week 2 Lab
 
 The **Week 2 Lab** is a complexity analysis lab that compares an O(n²) solution with an O(n) solution.
 

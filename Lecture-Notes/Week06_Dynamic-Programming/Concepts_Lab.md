@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Compare naive recursion, memoization, and tabulation through the Fibonacci problem
@@ -55,14 +55,14 @@
 
 ### 1.2 Lab Structure
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Fibonacci Comparison | 10 min |
-| **A-2** | LCS and DP Table Visualization | 15 min |
-| **A-3** | 0-1 Knapsack and Traceback | 10 min |
-| **B-1** | Text Diff Viewer | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Fibonacci Comparison |
+| **A-2** | LCS and DP Table Visualization |
+| **A-3** | 0-1 Knapsack and Traceback |
+| **B-1** | Text Diff Viewer |
 
-*Table 1. Topics and time allotted for each lab section*
+*Table 1. Topic of each lab section*
 
 ### 1.3 How to Run
 
