@@ -127,8 +127,6 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
 
-예제 파일: `examples/a1_timer_util.py`
-
 > **참고:** `*args`는 Python의 가변 인자(variable arguments)이다. 이 기법을 사용하면 `measure_time(my_func, arg1, arg2)`처럼 어떤 함수든 인자와 함께 전달할 수 있다. `_`는 관례적으로 사용하지 않는 변수를 나타낸다.
 
 ### 2.2 A-2: 중복 찾기, O(n²)에서 O(n)으로
@@ -220,7 +218,7 @@ arr = [3, 1, 4, 1, 5]
 
 **벤치마크 결과**
 
-`examples/a2_find_duplicate.py`를 실행하면 다음과 같은 결과를 얻는다.
+두 함수의 실행 시간을 N = 100, 1000, 10000, 50000에서 측정하면 다음과 같은 결과를 얻는다.
 
 ```text
          N |        O(n²) |         O(n) |   Speedup
@@ -243,11 +241,7 @@ N이 2배가 되면 O(n²)은 약 4배 느려지지만, O(n)은 약 2배만 느�
 
 ### 2.3 A-3: 실행 시간 그래프
 
-`examples/a3_complexity_plot.py`를 실행하여 증가율을 시각화한다.
-
-```bash
-python examples/a3_complexity_plot.py
-```
+matplotlib으로 각 복잡도 클래스의 실행 시간 증가율을 그래프로 시각화한다.
 
 > **참고:** `matplotlib`은 Python의 대표적 데이터 시각화 라이브러리이다. 설치되어 있지 않다면 `pip install matplotlib`으로 설치할 수 있다.
 
@@ -294,12 +288,6 @@ O(n log n)은 병합 정렬(3주차) 같은 효율적인 정렬 알고리즘의 
 **설정**
 
 Flask 앱을 실행하여 웹 맥락에서 검색 전략을 비교한다.
-
-```bash
-cd examples/b1_web_search_api
-pip install flask
-python app.py
-```
 
 먼저 Flask를 설치한다(`pip install flask`). 서버가 실행되면(보통 `http://127.0.0.1:5000`) 브라우저에서 접속하거나 `curl http://127.0.0.1:5000/search/linear?q=abc`로 테스트할 수 있다.
 

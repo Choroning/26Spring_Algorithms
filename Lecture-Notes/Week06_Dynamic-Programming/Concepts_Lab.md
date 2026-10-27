@@ -17,7 +17,7 @@
 - [1. Overview](#1-overview)
   - [1.1 Lab Goals](#11-lab-goals)
   - [1.2 Lab Structure](#12-lab-structure)
-  - [1.3 How to Run](#13-how-to-run)
+  - [1.3 Environment](#13-environment)
 - [2. Type A: Algorithm Implementation](#2-type-a-algorithm-implementation)
   - [2.1 A-1: Fibonacci Comparison](#21-a-1-fibonacci-comparison)
     - [2.1.1 Problem](#211-problem)
@@ -64,19 +64,9 @@
 
 *Table 1. Topic of each lab section*
 
-### 1.3 How to Run
+### 1.3 Environment
 
-Skeleton files (with `TODO` comments) are in `examples/skeletons/`, and reference solutions are in `examples/solutions/`.
-
-```bash
-# Run skeleton (implement the TODOs first)
-python examples/skeletons/a1_fibonacci.py
-
-# Run reference solution
-python examples/solutions/a1_fibonacci.py
-```
-
-No external packages are required (standard library only). Flask is needed only for B-1.
+The Type A code uses only the standard library, so no external packages are required; Flask is needed only for B-1.
 
 ---
 
@@ -145,8 +135,6 @@ def fib_tab(n):
         dp[i] = dp[i - 1] + dp[i - 2]
     return dp[n]
 ```
-
-Run: `python examples/solutions/a1_fibonacci.py`
 
 #### 2.1.3 Performance Results
 
@@ -275,8 +263,6 @@ def backtrack_lcs(dp, x, y):
     return "".join(reversed(lcs))
 ```
 
-Run: `python examples/solutions/a2_lcs.py`
-
 #### 2.2.4 Traceback Visualization
 
 ```text
@@ -394,8 +380,6 @@ def knapsack_01(capacity, items):
     return dp[n][capacity], list(reversed(selected))
 ```
 
-Run: `python examples/solutions/a3_knapsack.py`
-
 **Time:** O(n × W), **Space:** O(n × W) (W = capacity)
 
 ---
@@ -408,12 +392,7 @@ Run: `python examples/solutions/a3_knapsack.py`
 
 #### 3.1.1 Setup
 
-Install dependencies first: `pip install flask`. Then run the Flask app:
-
-```bash
-cd examples/solutions/b1_web_diff
-python app.py
-```
+Install dependencies first with `pip install flask`, then run the Flask app.
 
 Enter two texts and the app highlights the differences based on **LCS**.
 

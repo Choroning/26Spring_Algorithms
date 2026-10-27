@@ -17,7 +17,7 @@
 - [1. Overview](#1-overview)
   - [1.1 Lab Goals](#11-lab-goals)
   - [1.2 Lab Structure](#12-lab-structure)
-  - [1.3 How to Run](#13-how-to-run)
+  - [1.3 Environment](#13-environment)
 - [2. Type A: Algorithm Implementation](#2-type-a-algorithm-implementation)
   - [2.1 A-1: Coin Change](#21-a-1-coin-change)
     - [2.1.1 Problem](#211-problem)
@@ -69,19 +69,9 @@
 
 *Table 1. Topic of each lab section*
 
-### 1.3 How to Run
+### 1.3 Environment
 
-Skeleton files (with `TODO` comments) are in `examples/skeletons/`, and reference solutions are in `examples/solutions/`.
-
-```bash
-# Run skeleton (implement the TODOs first)
-python examples/skeletons/a1_coin_change.py
-
-# Run reference solution
-python examples/solutions/a1_coin_change.py
-```
-
-No external packages are required (standard library only). Flask is needed only for B-1.
+The Type A code uses only the standard library, so no external packages are required; Flask is needed only for B-1.
 
 ---
 
@@ -144,8 +134,6 @@ def coin_change_greedy(amount, coins):
     # Success if remaining is 0, failure otherwise
     return result if remaining == 0 else None
 ```
-
-Run: `python examples/solutions/a1_coin_change.py`
 
 #### 2.1.3 DP Comparison
 
@@ -215,8 +203,6 @@ The file `a1_coin_change_greedy.py` provides a detailed comparison across multip
 | Failure 3 | [12, 9, 1] | 18 | 12+1x6 = **7** coins | 9+9 = **2** coins |
 
 *Table 4. Coin sets for which greedy is not optimal*
-
-Run: `python examples/solutions/a1_coin_change_greedy.py`
 
 **When greedy is optimal:**
 - Greedy is optimal when each coin is a multiple of smaller coins (e.g., 500, 100, 50, 10).
@@ -299,11 +285,9 @@ def fractional_knapsack(capacity, items):
     return total_value, selected
 ```
 
-Run: `python examples/solutions/a2_fractional_knapsack.py`
-
 #### 2.2.3 Extended Example
 
-The solution file also demonstrates a 5-item knapsack with capacity 40kg:
+Applying the same algorithm to a 5-item knapsack with capacity 40kg gives the following.
 
 ```text
 Knapsack capacity: 40 kg
@@ -327,7 +311,7 @@ Greedy selection process:
 
 #### 2.2.4 Fractional vs 0-1 Knapsack
 
-The solution also includes a brute force 0-1 knapsack for comparison:
+For comparison, the following code solves the 0-1 knapsack problem by brute force.
 
 ```python
 def knapsack_01_bruteforce(capacity, items):
@@ -500,11 +484,9 @@ def generate_codes(root, prefix="", codes=None):
     return codes
 ```
 
-Run: `python examples/solutions/a3_huffman.py`
-
 #### 2.3.4 Encoding and Decoding
 
-The solution also implements full encoding and decoding:
+The functions that encode and decode text with the Huffman codes are as follows.
 
 ```python
 def encode(text, codes):
@@ -534,7 +516,7 @@ Encoded: "01101110100010101101110"    (23 bits)
 Decoded: "abracadabra"                (matches original: PASS)
 ```
 
-**Prefix code verification**: The solution verifies that no code is a prefix of another, which ensures unambiguous decoding without delimiters.
+**Prefix code verification**: No Huffman code is a prefix of another, which ensures unambiguous decoding without delimiters.
 
 #### 2.3.5 Compression Results
 
@@ -549,7 +531,7 @@ Huffman:                    23       2.091
 Theoretical lower bound:    22.4     2.040
 ```
 
-**Additional examples from the solution:**
+**Results on other texts:**
 
 | Text | Huffman bits/char | Entropy | Savings vs ASCII |
 |:-----|:-----------------|:--------|:---------------------|
@@ -577,13 +559,7 @@ Theoretical lower bound:    22.4     2.040
 
 #### 3.1.1 Problem
 
-Install dependencies first: `pip install flask`. Then run the Flask app:
-
-```bash
-cd examples/solutions/b1_web_scheduler
-python app.py
-# Access: http://localhost:5000
-```
+Install dependencies first with `pip install flask`, then run the Flask app and open `http://localhost:5000`.
 
 **Problem**: Given a list of meeting requests with start/end times, find the **maximum number of non-overlapping meetings** that can be scheduled.
 

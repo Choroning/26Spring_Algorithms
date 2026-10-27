@@ -17,7 +17,7 @@
 - [1. 개요](#1-개요)
   - [1.1 실습 목표](#11-실습-목표)
   - [1.2 실습 구성](#12-실습-구성)
-  - [1.3 실행 방법](#13-실행-방법)
+  - [1.3 실행 환경](#13-실행-환경)
 - [2. Type A: 알고리즘 구현](#2-type-a-알고리즘-구현)
   - [2.1 A-1: 동전 거스름돈](#21-a-1-동전-거스름돈)
     - [2.1.1 문제](#211-문제)
@@ -69,19 +69,9 @@
 
 *표 1. 실습 섹션별 주제*
 
-### 1.3 실행 방법
+### 1.3 실행 환경
 
-스켈레톤 파일 (`TODO` 주석 포함)은 `examples/skeletons/`에, 참고 풀이는 `examples/solutions/`에 있다.
-
-```bash
-# 스켈레톤 실행 (TODO를 먼저 구현)
-python examples/skeletons/a1_coin_change.py
-
-# 참고 풀이 실행
-python examples/solutions/a1_coin_change.py
-```
-
-외부 패키지가 필요 없다 (표준 라이브러리만 사용). B-1에만 Flask가 필요하다.
+Type A의 코드는 표준 라이브러리만 사용하므로 외부 패키지가 필요 없고, B-1에만 Flask가 필요하다.
 
 ---
 
@@ -144,8 +134,6 @@ def coin_change_greedy(amount, coins):
     # 나머지가 0이면 성공, 아니면 실패
     return result if remaining == 0 else None
 ```
-
-실행: `python examples/solutions/a1_coin_change.py`
 
 #### 2.1.3 DP 비교
 
@@ -215,8 +203,6 @@ def coin_change_dp(amount, coins):
 | 실패 3 | [12, 9, 1] | 18 | 12+1x6 = **7개** | 9+9 = **2개** |
 
 *표 4. 그리디가 최적이 아닌 동전 집합*
-
-실행: `python examples/solutions/a1_coin_change_greedy.py`
 
 **그리디가 최적인 경우:**
 - 각 동전이 작은 동전의 배수이면(예: 500, 100, 50, 10) 그리디가 최적이다.
@@ -299,11 +285,9 @@ def fractional_knapsack(capacity, items):
     return total_value, selected
 ```
 
-실행: `python examples/solutions/a2_fractional_knapsack.py`
-
 #### 2.2.3 확장 예제
 
-솔루션 파일은 용량 40kg인 5개 물건 배낭도 시연한다:
+용량 40kg인 5개 물건 배낭에 같은 알고리즘을 적용하면 다음과 같다.
 
 ```text
 배낭 용량: 40kg
@@ -327,7 +311,7 @@ Copper     30.0kg     400    13.3/kg
 
 #### 2.2.4 분할 가능 vs 0-1 배낭 문제
 
-솔루션에는 비교를 위한 0-1 배낭 완전 탐색도 포함되어 있다:
+비교를 위해 0-1 배낭 문제를 완전 탐색으로 푸는 코드는 다음과 같다.
 
 ```python
 def knapsack_01_bruteforce(capacity, items):
@@ -500,11 +484,9 @@ def generate_codes(root, prefix="", codes=None):
     return codes
 ```
 
-실행: `python examples/solutions/a3_huffman.py`
-
 #### 2.3.4 인코딩과 디코딩
 
-솔루션에는 전체 인코딩과 디코딩도 구현되어 있다:
+허프만 코드로 텍스트를 인코딩하고 디코딩하는 함수는 다음과 같다.
 
 ```python
 def encode(text, codes):
@@ -534,7 +516,7 @@ def decode(encoded_text, root):
 디코딩:   "abracadabra"                 (원본과 일치: PASS)
 ```
 
-**접두사 코드 검증**: 솔루션은 어떤 코드도 다른 코드의 접두사가 아닌지 확인한다. 이 성질이 구분자 없이도 명확한 디코딩을 보장한다.
+**접두사 코드 검증**: 허프만 코드는 어떤 코드도 다른 코드의 접두사가 아니며, 이 성질이 구분자 없이도 명확한 디코딩을 보장한다.
 
 #### 2.3.5 압축 결과
 
@@ -549,7 +531,7 @@ ASCII (8비트):      88       8.000
 이론적 하한:          22.4     2.040
 ```
 
-**솔루션의 추가 예제:**
+**다른 텍스트에 적용한 결과:**
 
 | 텍스트 | 허프만 비트/문자 | 엔트로피 | ASCII 대비 절감률 |
 |:-------|:----------------|:---------|:------------------|
@@ -577,13 +559,7 @@ ASCII (8비트):      88       8.000
 
 #### 3.1.1 문제
 
-먼저 의존성을 설치한다: `pip install flask`. 그 후 Flask 앱을 실행한다:
-
-```bash
-cd examples/solutions/b1_web_scheduler
-python app.py
-# 접속: http://localhost:5000
-```
+먼저 `pip install flask`로 의존성을 설치한 뒤 Flask 앱을 실행하고 `http://localhost:5000`에 접속한다.
 
 **문제**: 시작/종료 시각이 있는 회의 요청 목록이 주어졌을 때, 스케줄링할 수 있는 **겹치지 않는 최대 회의 수**를 찾아라.
 

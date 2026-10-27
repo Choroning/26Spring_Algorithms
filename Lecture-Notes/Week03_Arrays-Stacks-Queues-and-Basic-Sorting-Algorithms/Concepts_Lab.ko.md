@@ -204,12 +204,6 @@ def insertion_sort(arr):
 >
 > 이미 정렬된 배열에서는 `a[j] > key` 조건이 바로 거짓이므로 while문이 실행되지 않아 O(n)이다.
 
-**실행 및 테스트:**
-
-```bash
-python examples/solutions/a1_basic_sorts.py
-```
-
 ### 2.2 A-2: 고급 정렬 알고리즘
 
 > **[자료구조]** 자료구조에서 다루는 **재귀(recursion)** 는 함수가 기저 사례에 도달할 때까지 더 작은 입력으로 자기 자신을 호출하는 기법이다. 아래의 병합 정렬과 퀵 정렬은 배열을 나눈 뒤 각 부분에 같은 함수를 재귀 호출하므로 재귀의 동작을 알아야 이해할 수 있으며, 재귀의 기본은 2주차 이론의 재귀 절에서 다룬다.
@@ -329,12 +323,6 @@ def quick_sort(arr):
 
 > **참고:** **안정성.** 위에서 보인 리스트 컴프리헨션 버전은 실제로 안정적이지만, 퀵 정렬은 일반적으로 불안정(unstable) 정렬로 분류된다. 표준 제자리 분할(CLRS 버전)이 같은 값을 가진 원소들의 상대적 순서를 보존하지 않기 때문이다.
 
-**실행 및 테스트:**
-
-```bash
-python examples/solutions/a2_advanced_sorts.py
-```
-
 #### 2.2.3 정렬 알고리즘 비교
 
 **안정 정렬(stable sort)** 은 키가 같은 원소들의 상대적 순서를 보존하는 정렬이다. **제자리 정렬(in-place sort)** 은 입력 배열을 제외하고 O(1)의 추가 메모리만 사용하는 정렬이다. 재귀 호출 스택이 차지하는 O(log n)은 보통 허용하므로 퀵 정렬도 제자리 정렬로 분류한다.
@@ -358,13 +346,7 @@ python examples/solutions/a2_advanced_sorts.py
 
 ### 2.3 A-3: 벤치마크
 
-**실행:**
-
-```bash
-python examples/skeletons/a3_sort_benchmark.py
-```
-
-N = 100, 1,000, 10,000, 100,000에서 실행 시간을 측정한다.
+앞에서 구현한 다섯 정렬 알고리즘의 실행 시간을 N = 100, 1,000, 10,000, 100,000에서 측정한다.
 
 ```text
 Algorithm        N=100     N=1,000    N=10,000    N=100,000
@@ -416,14 +398,6 @@ O(n²) 알고리즘은 극적으로 치솟는 반면, O(n log n) 알고리즘은
 ### 3.1 B-1: 미니 쇼핑몰 정렬 비교
 
 **설정:**
-
-Flask 앱을 실행한다.
-
-```bash
-cd examples/solutions/b1_web_sort
-pip install flask
-python app.py
-```
 
 Flask는 경량 Python 웹 프레임워크이며, `pip install flask`로 설치한다.
 

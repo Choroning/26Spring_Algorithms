@@ -17,7 +17,7 @@
 - [1. 개요](#1-개요)
   - [1.1 실습 목표](#11-실습-목표)
   - [1.2 실습 구성](#12-실습-구성)
-  - [1.3 실행 방법](#13-실행-방법)
+  - [1.3 실행 환경](#13-실행-환경)
 - [2. Type A: 알고리즘 구현](#2-type-a-알고리즘-구현)
   - [2.1 A-1: 피보나치 비교](#21-a-1-피보나치-비교)
     - [2.1.1 문제](#211-문제)
@@ -64,19 +64,9 @@
 
 *표 1. 실습 섹션별 주제*
 
-### 1.3 실행 방법
+### 1.3 실행 환경
 
-스켈레톤 파일 (`TODO` 주석 포함)은 `examples/skeletons/`에, 참고 풀이는 `examples/solutions/`에 있다.
-
-```bash
-# 스켈레톤 실행 (TODO를 먼저 구현)
-python examples/skeletons/a1_fibonacci.py
-
-# 참고 풀이 실행
-python examples/solutions/a1_fibonacci.py
-```
-
-외부 패키지가 필요 없다 (표준 라이브러리만 사용). B-1에만 Flask가 필요하다.
+Type A의 코드는 표준 라이브러리만 사용하므로 외부 패키지가 필요 없고, B-1에만 Flask가 필요하다.
 
 ---
 
@@ -145,8 +135,6 @@ def fib_tab(n):
         dp[i] = dp[i - 1] + dp[i - 2]
     return dp[n]
 ```
-
-실행: `python examples/solutions/a1_fibonacci.py`
 
 #### 2.1.3 성능 결과
 
@@ -275,8 +263,6 @@ def backtrack_lcs(dp, x, y):
     return "".join(reversed(lcs))
 ```
 
-실행: `python examples/solutions/a2_lcs.py`
-
 #### 2.2.4 역추적 시각화
 
 ```text
@@ -394,8 +380,6 @@ def knapsack_01(capacity, items):
     return dp[n][capacity], list(reversed(selected))
 ```
 
-실행: `python examples/solutions/a3_knapsack.py`
-
 **시간:** O(n × W), **공간:** O(n × W) (W는 용량)
 
 ---
@@ -408,12 +392,7 @@ def knapsack_01(capacity, items):
 
 #### 3.1.1 설정
 
-먼저 의존성을 설치한다: `pip install flask`. 그 후 Flask 앱을 실행한다:
-
-```bash
-cd examples/solutions/b1_web_diff
-python app.py
-```
+먼저 `pip install flask`로 의존성을 설치한 뒤 Flask 앱을 실행한다.
 
 두 텍스트를 입력하면 **LCS**를 기반으로 차이점을 강조 표시한다.
 

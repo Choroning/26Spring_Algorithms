@@ -127,8 +127,6 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
 
-Example file: `examples/a1_timer_util.py`
-
 > **Note:** `*args` is Python's variable arguments. This technique allows calling `measure_time(my_func, arg1, arg2)` to pass any function along with its arguments. `_` is a convention for an unused variable.
 
 ### 2.2 A-2: Finding Duplicates, from O(n²) to O(n)
@@ -220,7 +218,7 @@ It finishes in just **4 steps** instead of 10 comparisons.
 
 **Benchmark Results**
 
-Running `examples/a2_find_duplicate.py` gives results like the following.
+Measuring the execution times of the two functions at N = 100, 1000, 10000, 50000 gives results like the following.
 
 ```text
          N |        O(n^2) |         O(n) |   Speedup
@@ -243,11 +241,7 @@ When N doubles, O(n²) becomes about 4x slower, but O(n) becomes only about 2x s
 
 ### 2.3 A-3: Execution Time Graph
 
-Run `examples/a3_complexity_plot.py` to visualize growth rates.
-
-```bash
-python examples/a3_complexity_plot.py
-```
+Use matplotlib to plot the growth rate of the execution time for each complexity class.
 
 > **Note:** `matplotlib` is Python's representative data visualization library. If not installed, use `pip install matplotlib`.
 
@@ -294,12 +288,6 @@ Section 2 measured and visualized algorithm performance in isolation. This secti
 **Setup**
 
 Run the Flask app to compare search strategies in a web context.
-
-```bash
-cd examples/b1_web_search_api
-pip install flask
-python app.py
-```
 
 Install Flask first (`pip install flask`). Once the server is running (typically at `http://127.0.0.1:5000`), test with your browser or `curl http://127.0.0.1:5000/search/linear?q=abc`.
 

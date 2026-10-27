@@ -204,12 +204,6 @@ def insertion_sort(arr):
 >
 > For an already sorted array, the condition `a[j] > key` is immediately false, so the while loop does not execute, resulting in O(n).
 
-**Run and Test:**
-
-```bash
-python examples/solutions/a1_basic_sorts.py
-```
-
 ### 2.2 A-2: Advanced Sorting Algorithms
 
 > **[Data Structures]** **Recursion**, covered in Data Structures, is a technique in which a function calls itself on smaller inputs until it reaches a base case. Merge sort and quick sort below split the array and call the same function recursively on each part, so understanding them requires recursion, whose basics are covered in the recursion section of Week 2 Lecture.
@@ -329,12 +323,6 @@ def quick_sort(arr):
 
 > **Note:** **Stability.** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve the relative order of equal elements.
 
-**Run and Test:**
-
-```bash
-python examples/solutions/a2_advanced_sorts.py
-```
-
 #### 2.2.3 Sorting Algorithm Comparison
 
 A **stable** sort preserves the relative order of elements with equal keys. An **in-place** sort uses O(1) extra memory (not counting the input array). The O(log n) taken by the recursion stack is usually allowed, so quick sort is also classified as in-place.
@@ -358,13 +346,7 @@ A **stable** sort preserves the relative order of elements with equal keys. An *
 
 ### 2.3 A-3: Benchmark
 
-**Run:**
-
-```bash
-python examples/skeletons/a3_sort_benchmark.py
-```
-
-Measure execution times at N = 100, 1,000, 10,000, 100,000.
+Measure the execution times of the five sorting algorithms implemented above at N = 100, 1,000, 10,000, 100,000.
 
 ```text
 Algorithm        N=100     N=1,000    N=10,000    N=100,000
@@ -416,14 +398,6 @@ O(n²) algorithms shoot up dramatically, while O(n log n) algorithms remain near
 ### 3.1 B-1: Mini Shopping Mall Sort Comparison
 
 **Setup:**
-
-Run the Flask app.
-
-```bash
-cd examples/solutions/b1_web_sort
-pip install flask
-python app.py
-```
 
 Flask is a lightweight Python web framework, installed with `pip install flask`.
 

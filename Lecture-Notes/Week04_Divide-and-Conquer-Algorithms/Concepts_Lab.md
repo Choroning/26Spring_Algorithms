@@ -101,8 +101,6 @@ merge_sort([38, 27, 43, 3, 9, 82, 10])
 
 *Figure 1. Recursive call tree of merge sort on 7 elements*
 
-Run: `python examples/a1_merge_sort_trace.py`
-
 #### 2.1.2 Code
 
 ```python
@@ -236,8 +234,6 @@ def randomized_select(arr, left, right, k):
 ```
 
 > **Note:** From Step 2 on, Figure 2 recomputes k as a relative index within the subarray. The code above keeps absolute indices into the original array, so it does not change k when it recurses.
-
-File: `examples/a2_kth_smallest.py`
 
 #### 2.2.4 Performance Comparison
 
@@ -384,7 +380,7 @@ def _closest_dc(pts):
 
 #### 2.3.4 Performance Comparison
 
-Run: `examples/a3_closest_pair.py`
+The execution times of brute force and divide and conquer compare as follows for each input size.
 
 ```text
 N       Brute Force     Divide & Conquer  Speedup
@@ -424,14 +420,7 @@ Time
 
 #### 3.1.1 Setup
 
-Install dependencies first with `pip install flask`. Flask is a lightweight Python web framework.
-
-Run the Flask app.
-
-```bash
-cd examples/b1_web_autocomplete
-python app.py
-```
+Install dependencies first with `pip install flask`, then run the Flask app. Flask is a lightweight Python web framework.
 
 The app performs prefix search over a dictionary of **100,000 words**.
 

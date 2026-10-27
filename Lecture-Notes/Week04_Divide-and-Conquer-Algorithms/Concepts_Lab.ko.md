@@ -101,8 +101,6 @@ merge_sort([38, 27, 43, 3, 9, 82, 10])
 
 *그림 1. 7개 원소에 대한 병합 정렬의 재귀 호출 트리*
 
-실행: `python examples/a1_merge_sort_trace.py`
-
 #### 2.1.2 코드
 
 ```python
@@ -236,8 +234,6 @@ def randomized_select(arr, left, right, k):
 ```
 
 > **참고:** 그림 2는 단계 2부터 부분 배열 안의 상대 인덱스로 k를 다시 계산한다. 위 코드는 원래 배열의 절대 인덱스를 그대로 쓰므로 재귀할 때 k를 바꾸지 않는다.
-
-파일: `examples/a2_kth_smallest.py`
 
 #### 2.2.4 성능 비교
 
@@ -384,7 +380,7 @@ def _closest_dc(pts):
 
 #### 2.3.4 성능 비교
 
-실행: `examples/a3_closest_pair.py`
+완전 탐색과 분할 정복의 실행 시간을 입력 크기별로 비교하면 다음과 같다.
 
 ```text
 N       완전 탐색         분할 정복       속도 향상
@@ -424,14 +420,7 @@ N       완전 탐색         분할 정복       속도 향상
 
 #### 3.1.1 설정
 
-먼저 `pip install flask`로 의존성을 설치한다. Flask는 경량 Python 웹 프레임워크이다.
-
-Flask 앱을 실행한다.
-
-```bash
-cd examples/b1_web_autocomplete
-python app.py
-```
+먼저 `pip install flask`로 의존성을 설치한 뒤 Flask 앱을 실행한다. Flask는 경량 Python 웹 프레임워크이다.
 
 **100,000개 단어** 사전에 대해 접두사 검색을 수행한다.
 
