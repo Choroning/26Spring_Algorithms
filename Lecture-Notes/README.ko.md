@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../README.ko.md) | [English](README.md) | [한국어](README.ko.md)
 
-> **최종 수정일:** 2026-10-20
+> **최종 수정일:** 2026-10-27
 
 | 단원 | 주제 | 문서 |
 |:-----|:-----|:-----|
@@ -16,5 +16,5 @@
 | [10주차 해시 테이블과 집합 자료구조](Week10_Hash-Tables-and-Set-Data-Structures/) | 해시 함수와 충돌, 분리 연쇄법과 개방 주소법, 선형 조사와 군집화, 이중 해싱, 부하율과 재해싱, Set과 Map 자료구조, 해시 테이블과 BST의 비교 | [강의 노트](Week10_Hash-Tables-and-Set-Data-Structures/Concepts_Lecture.ko.md) |
 | [11주차 그래프 알고리즘 I](Week11_Graph-Algorithms-I/) | 그래프의 유형, 인접 행렬, 인접 리스트, 인접 배열 표현, DFS와 BFS, BFS의 최단 홉 수 경로, In-Degree 방법과 DFS 기반 방법의 위상 정렬, Prim과 Kruskal의 최소 신장 트리 | [강의 노트](Week11_Graph-Algorithms-I/Concepts_Lecture.ko.md) |
 | [12주차 그래프 알고리즘 II](Week12_Graph-Algorithms-II/) | 최단 경로의 최적 부분 구조와 이완, Dijkstra 알고리즘, Bellman-Ford 알고리즘, Floyd-Warshall 알고리즘, DAG 최단 경로, 강결합 요소와 Kosaraju 알고리즘 | [강의 노트](Week12_Graph-Algorithms-II/Concepts_Lecture.ko.md) |
-| [13주차 NP-완비성과 근사 알고리즘](Week13_NP-Completeness-and-Approximation-Algorithms/) | 문제의 복잡도 분류, 결정 문제와 최적화 문제, 클래스 P와 NP, 다항 시간 환원, NP-Hard와 NP-Complete, NP-완비성 증명, 근사 비율과 간접 최적해 기법, TSP, Vertex Cover, Bin Packing, Job Scheduling, k-Clustering의 근사 알고리즘 | [강의 노트](Week13_NP-Completeness-and-Approximation-Algorithms/Concepts_Lecture.ko.md) |
+| [13주차 NP-완비성과 근사 알고리즘](Week13_NP-Completeness-and-Approximation-Algorithms/) | 문제의 복잡도 분류, 결정 문제와 최적화 문제, 클래스 P와 NP, 다항 시간 환원, NP-Hard와 NP-Complete, NP-완비성 증명, NP-Complete 문제의 실전 대처와 근사 알고리즘 개요 | [강의 노트](Week13_NP-Completeness-and-Approximation-Algorithms/Concepts_Lecture.ko.md) |
 | [14주차 근사 알고리즘](Week14_Approximation-Algorithms/) | 근사 비율과 간접 최적해 기법, TSP의 MST 기반 2-근사, Vertex Cover의 Maximal-Matching 2-근사, Bin Packing의 네 가지 그리디 휴리스틱, Job Scheduling의 2-근사, k-Clustering의 Farthest-First 2-근사 | [강의 노트](Week14_Approximation-Algorithms/Concepts_Lecture.ko.md) |

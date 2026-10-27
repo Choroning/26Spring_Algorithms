@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Build a reusable timer utility to measure algorithm execution time
@@ -22,7 +22,7 @@
   - [2.3 A-3: Execution Time Graph](#23-a-3-execution-time-graph)
 - [3. Type B: Web Code Analysis](#3-type-b-web-code-analysis)
   - [3.1 B-1: Product Search API Comparison](#31-b-1-product-search-api-comparison)
-- [4. Appendix](#4-appendix)
+- [4. Connection to the Week 3 Lab](#4-connection-to-the-week-3-lab)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -42,14 +42,14 @@
 
 **Lab Structure:**
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Timer Utility | 10 min |
-| **A-2** | Finding Duplicates: O(n²) → O(n) | 15 min |
-| **A-3** | Execution Time Graph | 10 min |
-| **B-1** | Web Search API Comparison | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Timer Utility |
+| **A-2** | Finding Duplicates: O(n²) → O(n) |
+| **A-3** | Execution Time Graph |
+| **B-1** | Web Search API Comparison |
 
-*Table 1. Lab structure and time per section*
+*Table 1. Topic of each lab section*
 
 ---
 
@@ -126,8 +126,6 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     elapsed, _ = measure_time(sum_list, data)
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
-
-Example file: `examples/a1_timer_util.py`
 
 > **Note:** `*args` is Python's variable arguments. This technique allows calling `measure_time(my_func, arg1, arg2)` to pass any function along with its arguments. `_` is a convention for an unused variable.
 
@@ -220,7 +218,7 @@ It finishes in just **4 steps** instead of 10 comparisons.
 
 **Benchmark Results**
 
-Running `examples/a2_find_duplicate.py` gives results like the following.
+Measuring the execution times of the two functions at N = 100, 1000, 10000, 50000 gives results like the following.
 
 ```text
          N |        O(n^2) |         O(n) |   Speedup
@@ -243,11 +241,7 @@ When N doubles, O(n²) becomes about 4x slower, but O(n) becomes only about 2x s
 
 ### 2.3 A-3: Execution Time Graph
 
-Run `examples/a3_complexity_plot.py` to visualize growth rates.
-
-```bash
-python examples/a3_complexity_plot.py
-```
+Use matplotlib to plot the growth rate of the execution time for each complexity class.
 
 > **Note:** `matplotlib` is Python's representative data visualization library. If not installed, use `pip install matplotlib`.
 
@@ -294,12 +288,6 @@ Section 2 measured and visualized algorithm performance in isolation. This secti
 **Setup**
 
 Run the Flask app to compare search strategies in a web context.
-
-```bash
-cd examples/b1_web_search_api
-pip install flask
-python app.py
-```
 
 Install Flask first (`pip install flask`). Once the server is running (typically at `http://127.0.0.1:5000`), test with your browser or `curl http://127.0.0.1:5000/search/linear?q=abc`.
 
@@ -362,10 +350,9 @@ Linear search time grows proportionally with N, while binary search time grows l
 
 <br>
 
-## 4. Appendix
+## 4. Connection to the Week 3 Lab
 
-- The solution and report for **Assignment 1** are in [`Coursework/HW01_Algorithm-Design-and-Complexity-Analysis`](../../Coursework/HW01_Algorithm-Design-and-Complexity-Analysis/).
-- The **Week 3 Lab** implements and benchmarks sorting algorithms.
+The **Week 3 Lab** implements and benchmarks sorting algorithms.
 
 ---
 

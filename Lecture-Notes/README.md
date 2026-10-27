@@ -2,7 +2,7 @@
 
 [Repository Guide](../README.md) | [English](README.md) | [한국어](README.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-27
 
 | Unit | Topics | Documents |
 |:-----|:-----|:-----|
@@ -16,5 +16,5 @@
 | [Week 10 Hash Tables and Set Data Structures](Week10_Hash-Tables-and-Set-Data-Structures/) | Hash functions and collisions, separate chaining and open addressing, linear probing and clustering, double hashing, load factor and rehashing, set and map data structures, hash tables versus BSTs | [Lecture notes](Week10_Hash-Tables-and-Set-Data-Structures/Concepts_Lecture.md) |
 | [Week 11 Graph Algorithms I](Week11_Graph-Algorithms-I/) | Graph types, adjacency matrix, adjacency list, and adjacency array representations, DFS and BFS, shortest hop-count paths with BFS, topological sorting by the in-degree and DFS-based methods, Prim's and Kruskal's minimum spanning trees | [Lecture notes](Week11_Graph-Algorithms-I/Concepts_Lecture.md) |
 | [Week 12 Graph Algorithms II](Week12_Graph-Algorithms-II/) | Optimal substructure of shortest paths and relaxation, Dijkstra's algorithm, the Bellman-Ford algorithm, the Floyd-Warshall algorithm, DAG shortest paths, strongly connected components and Kosaraju's algorithm | [Lecture notes](Week12_Graph-Algorithms-II/Concepts_Lecture.md) |
-| [Week 13 NP-Completeness and Approximation Algorithms](Week13_NP-Completeness-and-Approximation-Algorithms/) | Complexity classes of problems, decision and optimization problems, the classes P and NP, polynomial-time reductions, NP-hard and NP-complete, NP-completeness proofs, approximation ratio and the indirect-optimal technique, approximation algorithms for TSP, vertex cover, bin packing, job scheduling, and k-clustering | [Lecture notes](Week13_NP-Completeness-and-Approximation-Algorithms/Concepts_Lecture.md) |
+| [Week 13 NP-Completeness and Approximation Algorithms](Week13_NP-Completeness-and-Approximation-Algorithms/) | Complexity classes of problems, decision and optimization problems, the classes P and NP, polynomial-time reductions, NP-hard and NP-complete, NP-completeness proofs, handling NP-complete problems in practice and an overview of approximation algorithms | [Lecture notes](Week13_NP-Completeness-and-Approximation-Algorithms/Concepts_Lecture.md) |
 | [Week 14 Approximation Algorithms](Week14_Approximation-Algorithms/) | Approximation ratio and the indirect-optimal technique, the MST-based 2-approximation for TSP, the maximal-matching 2-approximation for vertex cover, four greedy heuristics for bin packing, a 2-approximation for job scheduling, the farthest-first 2-approximation for k-clustering | [Lecture notes](Week14_Approximation-Algorithms/Concepts_Lecture.md) |

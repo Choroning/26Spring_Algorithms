@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-18
+> **Last Updated:** 2026-10-27
 
 > **Learning Objectives:**
 > 1. Implement merge sort and trace its recursive execution tree
@@ -54,14 +54,14 @@
 
 ### 1.2 Lab Structure
 
-| Section | Topic | Time |
-|:--------|:------|:-----|
-| **A-1** | Merge Sort Trace | 10 min |
-| **A-2** | Finding the k-th Smallest Element | 15 min |
-| **A-3** | Closest Pair of Points | 10 min |
-| **B-1** | Autocomplete API Comparison | 15 min |
+| Section | Topic |
+|:--------|:------|
+| **A-1** | Merge Sort Trace |
+| **A-2** | Finding the k-th Smallest Element |
+| **A-3** | Closest Pair of Points |
+| **B-1** | Autocomplete API Comparison |
 
-*Table 1. Topic and time of each lab section*
+*Table 1. Topic of each lab section*
 
 ---
 
@@ -100,8 +100,6 @@ merge_sort([38, 27, 43, 3, 9, 82, 10])
 ```
 
 *Figure 1. Recursive call tree of merge sort on 7 elements*
-
-Run: `python examples/a1_merge_sort_trace.py`
 
 #### 2.1.2 Code
 
@@ -236,8 +234,6 @@ def randomized_select(arr, left, right, k):
 ```
 
 > **Note:** From Step 2 on, Figure 2 recomputes k as a relative index within the subarray. The code above keeps absolute indices into the original array, so it does not change k when it recurses.
-
-File: `examples/a2_kth_smallest.py`
 
 #### 2.2.4 Performance Comparison
 
@@ -384,7 +380,7 @@ def _closest_dc(pts):
 
 #### 2.3.4 Performance Comparison
 
-Run: `examples/a3_closest_pair.py`
+The execution times of brute force and divide and conquer compare as follows for each input size.
 
 ```text
 N       Brute Force     Divide & Conquer  Speedup
@@ -424,14 +420,7 @@ Time
 
 #### 3.1.1 Setup
 
-Install dependencies first with `pip install flask`. Flask is a lightweight Python web framework.
-
-Run the Flask app.
-
-```bash
-cd examples/b1_web_autocomplete
-python app.py
-```
+Install dependencies first with `pip install flask`, then run the Flask app. Flask is a lightweight Python web framework.
 
 The app performs prefix search over a dictionary of **100,000 words**.
 
