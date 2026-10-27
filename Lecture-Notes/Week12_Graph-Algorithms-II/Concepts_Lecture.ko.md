@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-20
+> **최종 수정일:** 2026-10-27
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -727,7 +727,7 @@ DFS 경로는 $1 \to 2 \to 3 \to 4$이고($4 \to 1$이 후행 간선이므로 4�
 
 이것이 교과서적인 **2-패스 DFS** 기법이며, DFS finish time을 전역적으로 의미 있는 작업에 아름답고 경제적으로 사용한 예이다.
 
-NP-완비성과 근사 알고리즘은 13주차에서 다룬다.
+NP-완비성은 13주차에서, 근사 알고리즘은 14주차에서 다룬다.
 
 ---
 

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -203,7 +203,7 @@ By the triangle inequality, each shortcut is no longer than the path it replaces
 Let $M$ be the total MST weight, $\text{OPT}$ the optimal TSP tour length, and $\text{APX}$ the approximate tour length.
 
 **Step 1: $\text{OPT} > M$.**
-The optimal tour visits all vertices and returns to start. Removing *any one edge* from that tour leaves a spanning tree that touches all vertices, is connected, and has $|V| - 1$ edges. Since $M$ is the *minimum* spanning-tree weight, $M \leq (\text{tour} - \text{one edge})$. With positive edge weights, $(\text{tour} - \text{one edge}) < \text{OPT}$, hence $M < \text{OPT}$.
+The optimal tour visits all vertices and returns to start. Removing *any one edge* from that tour leaves a spanning tree that touches all vertices, is connected, and has $|V| - 1$ edges. Since $M$ is the *minimum* spanning-tree weight, $M \leq (\text{tour} - \text{one edge})$. With positive edge weights, $(\text{tour} - \text{one edge}) < \text{OPT}$, hence $M < \text{OPT}$. When all edge weights are positive, the usual case, the ratio is strictly $< 2$. If zero-weight edges are allowed, we only get $M \leq \text{OPT}$ and the bound weakens to $\leq 2$.
 
 > **[Discrete Mathematics]** In Discrete Mathematics a tree is a connected graph with no cycle, and a tree on $n$ vertices always has $n - 1$ edges. Removing one edge from a Hamiltonian cycle leaves a path that strings all vertices together, a connected graph with no cycle, so it is a spanning tree, and Step 1 uses this fact to compare the weight of the optimal tour with that of the MST.
 
@@ -247,6 +247,12 @@ A **vertex cover** of a graph $G = (V, E)$ is a subset $S \subseteq V$ such that
 - In general, if one vertex touches all edges, that single vertex is the minimum cover. A triangle has no such vertex, so its minimum cover has size 2.
 - $\{2\}$ alone is not a vertex cover because edge $(1,3)$ is uncovered.
 
+In Figure 2, (a) is a graph $G$ with the clique $\{u, v, x, y\}$ and (b) is its complement graph $\overline{G}$. In $\overline{G}$, $\{w, z\}$ is a vertex cover because every edge has at least one endpoint in it.
+
+![Figure 2. Vertex cover example](../../images/Week13_ch34_p43.png)
+
+*Figure 2. Vertex cover example*
+
 ### 3.2 Maximal-Matching Approach
 
 **Key insight:** instead of an expensive set-cover-style reduction, use a **maximal matching**.
@@ -282,7 +288,7 @@ A **vertex cover** of a graph $G = (V, E)$ is a subset $S \subseteq V$ such that
    7 --- 8 --- 9
 ```
 
-*Figure 2. Example graph with 9 vertices and 16 edges*
+*Figure 3. Example graph with 9 vertices and 16 edges*
 
 If the edges are examined in the order $(1,2), (2,3), (4,5), (5,6), (7,8), (8,9), (1,4), (4,7), (2,5), (5,8), (3,6), (6,9), (2,4), (3,5), (5,7), (6,8)$, the greedy maximal matching selects the 4 edges $M = \{(1,2), (4,5), (7,8), (3,6)\}$. The algorithm returns the $2 \times 4 = 8$ endpoints $\{1, 2, 3, 4, 5, 6, 7, 8\}$. Partitioning the vertices into the cliques $\{1, 2, 4\}$, $\{3, 5, 6\}$, $\{7, 8\}$, and $\{9\}$ shows that an independent set contains at most one vertex from each clique, so it has at most 4 vertices, and every vertex cover therefore has at least $9 - 4 = 5$ vertices. Since $\{2, 4, 5, 6, 8\}$ is a vertex cover of size 5, the optimum is 5.
 
@@ -415,7 +421,7 @@ $$
 \implies 2 \cdot \text{OPT} > \text{OPT}'. \qquad \blacksquare
 $$
 
-> **Note:** **Improvement in practice.** Sorting items in *decreasing* size first (First Fit Decreasing, Best Fit Decreasing) yields a much better asymptotic result near $\frac{11}{9}\,\text{OPT} + O(1)$. Large items are placed first and small items act as filler for the leftover gaps.
+> **Note:** **Improvement in practice.** Sorting items in *decreasing* size first (First Fit Decreasing, Best Fit Decreasing) yields a much better asymptotic result near $\frac{11}{9}\,\text{OPT} + O(1)$, compared with $1.7\,\text{OPT}$ for First Fit. Large items are placed first and small items act as filler for the leftover gaps.
 
 ---
 
@@ -480,7 +486,7 @@ Let job $i$ be the job that determines the makespan, that is, the job that finis
 1. **Volume bound:** $\text{OPT} \geq \dfrac{\sum_j t_j}{m}$. Even with perfect load balancing, some machine must run at least the average.
 2. **Per-job bound:** $\text{OPT} \geq t_i$. Any schedule must also process job $i$ somewhere, taking $t_i$ time.
 
-**Proof.** Job $i$ was placed on the earliest-finishing machine at placement time, so its start time $T$ is at most the average of all machine finishing times at that moment. Since job $i$ was not yet assigned, that average is in turn at most the overall average.
+**Proof.** Job $i$ was placed on the earliest-finishing machine at placement time, so its start time $T$ is at most the average of all machine finishing times at that moment. Since job $i$ was not yet assigned, that average is in turn at most the sum of all job times except $t_i$ divided by $m$.
 
 $$
 T \leq \frac{\sum_{j \neq i} t_j}{m} \leq \frac{\sum_j t_j}{m} \leq \text{OPT}.
@@ -646,7 +652,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
    <details>
    <summary>Answer</summary>
 
-   The triangle inequality is used in **algorithm Step 3** (shortcut) and **proof Step 2** ($\text{APX} \leq 2M$). When replacing a sub-path $x \to y \to z$ of the DFS traversal with the direct edge $x \to z$, we need $d(x, z) \leq d(x, y) + d(y, z)$. Otherwise a shortcut could be *longer* than the path it replaces, breaking the $\text{APX} \leq 2M$ bound. **Without the triangle inequality**, general TSP cannot be approximated to any constant factor unless $P = NP$, because a HAM-CYCLE reduction constructs instances with arbitrarily bad gaps. Metric TSP is the well-behaved case where the triangle inequality makes shortcutting safe.
+   The triangle inequality is used in **algorithm Step 3** (shortcut) and **proof Step 2** ($\text{APX} \leq 2M$). When replacing a sub-path $x \to y \to z$ of the DFS traversal with the direct edge $x \to z$, we need $d(x, z) \leq d(x, y) + d(y, z)$. Otherwise a shortcut could be *longer* than the path it replaces, breaking the $\text{APX} \leq 2M$ bound. **Without the triangle inequality**, general TSP cannot be approximated to any constant factor unless $P = NP$, because for any constant $\rho$, transforming a HAM-CYCLE instance $G$ into a TSP instance that gives weight 1 to the edges of $G$ and weight $\rho|V| + 1$ to all other edges lets a $\rho$-approximation algorithm decide HAM-CYCLE. Metric TSP is the well-behaved case where the triangle inequality makes shortcutting safe.
 
    </details>
 
@@ -728,5 +734,14 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
     <summary>Answer</summary>
 
     Both **process the large items or jobs first** and let the small ones act as filler for the leftover gaps at the end. In an arbitrary order, small items occupy resources early, forcing later large items into their own nearly empty bins or machines. Sorting in *decreasing* order places big items first, when there is plenty of room, and then lets small items precisely fill the remaining space. As a result FFD achieves $\frac{11}{9}\,\text{OPT}+O(1)$ and LPT a $\frac{4}{3}$-approximation, beating the 2-approximation of plain FF and the plain greedy. The general lesson is that in many greedy approximations, handling the chunky items first lets small items serve as load fine-tuning, greatly improving packing and scheduling efficiency.
+
+    </details>
+
+13. **LPT improvement for Job Scheduling:** Sketch why scheduling jobs in **Longest Processing Time First** order achieves a $4/3$ approximation instead of $2$.
+
+    <details>
+    <summary>Answer</summary>
+
+    With LPT, the job $i$ that determines the makespan was assigned *after* all larger jobs, so it is among the smaller jobs. There are two cases. **Case A:** if $t_i \leq \text{OPT}/3$, then reusing the volume bound $T \leq \text{OPT}$ from the 2-approximation proof gives $\text{APX} = T + t_i \leq \text{OPT} + \text{OPT}/3 = (4/3)\,\text{OPT}$. **Case B:** if $t_i > \text{OPT}/3$, then every job processed up to and including job $i$ also has size $> \text{OPT}/3$ (LPT processed them earlier, so they are at least as large). Each optimal machine can hold at most two such jobs (three would exceed $\text{OPT}$), so there are at most $2m$ such jobs. For such instances, with at most $2m$ jobs and at most two jobs per optimal machine, LPT is known to produce an optimal schedule, so $\text{APX} = \text{OPT} \leq (4/3)\,\text{OPT}$. Either way $\text{APX} \leq (4/3)\cdot\text{OPT}$. Conceptually, putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
 
     </details>

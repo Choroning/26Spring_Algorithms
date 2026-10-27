@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-10-27
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -727,7 +727,7 @@ So $u$ and $v$ are in the **same SCC of $G^R$** as well: reversing edges does no
 
 This is the textbook **two-pass DFS** trick, a beautifully economical use of DFS finish times for a globally meaningful task.
 
-NP-completeness and approximation algorithms are covered in Week 13.
+NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
 
 ---
 
