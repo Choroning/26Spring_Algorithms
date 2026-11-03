@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Install and run at least one AI coding agent (Gemini CLI, Claude Code, Codex CLI, or GitHub Copilot CLI)
@@ -64,11 +64,12 @@ A **coding agent** is an AI-based CLI tool that generates code by **understandin
 
 **Workflow:**
 
-```text
-Read            →  Plan            →  Act             →  Verify
-Files & Context    Decide what       Edit & Execute     Check results
-                   to do
-                         ← Iterate →
+```mermaid
+flowchart LR
+    R["Read (files & context)"] --> P["Plan (decide what to do)"]
+    P --> A["Act (edit & execute)"]
+    A --> V["Verify (check results)"]
+    V -->|"Iterate"| R
 ```
 
 *Figure 1. The read, plan, act, and verify loop of a coding agent*
@@ -244,9 +245,10 @@ At Korea's first **Ralphton** hackathon, 13 participants set up their harnesses 
 
 **The Evolution of Engineering:**
 
-```text
-Prompt Engineering → Context Engineering → Harness Engineering
-  (What to say)        (What to provide)     (How to verify)
+```mermaid
+flowchart LR
+    P["Prompt Engineering (what to say)"] --> C["Context Engineering (what to provide)"]
+    C --> H["Harness Engineering (how to verify)"]
 ```
 
 *Figure 4. The evolution from prompt to context to harness engineering*

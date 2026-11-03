@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -70,11 +70,10 @@
 
 - Given an **input** (problem), it produces the desired **output** (result) through a **finite number of steps**.
 
-```text
-┌───────┐      ┌─────────────┐      ┌────────┐
-│ Input  │ ───► │  Algorithm   │ ───► │ Output │
-│(Problem)│      │(Finite Steps)│      │(Result)│
-└───────┘      └─────────────┘      └────────┘
+```mermaid
+flowchart LR
+    I["Input (Problem)"] --> A["Algorithm (Finite Steps)"]
+    A --> O["Output (Result)"]
 ```
 
 *Figure 1. An algorithm turning input into output through finite steps*
@@ -300,16 +299,20 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 
 The following graph (vertices 1-10) is used in the worked example below.
 
-```text
-        1
-       / \
-      2   10
-      |     \
-      3---9--7
-      |   |  |
-      4   8  6
-       \ /  /
-        5--+
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n1 --- n10(("10"))
+    n2 --- n3(("3"))
+    n10 --- n7(("7"))
+    n3 --- n9(("9"))
+    n9 --- n7
+    n3 --- n4(("4"))
+    n9 --- n8(("8"))
+    n7 --- n6(("6"))
+    n4 --- n5(("5"))
+    n8 --- n5
+    n6 --- n5
 ```
 
 *Figure 8. The ten-vertex graph used in the worked example*
