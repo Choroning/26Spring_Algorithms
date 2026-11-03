@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -212,20 +212,33 @@ def insertion_sort(arr):
 
 **Idea**: Split the array in half, recursively sort each half, then merge.
 
-```text
-         [38, 27, 43, 3, 9, 82, 10]
-                    /     \
-         [38, 27, 43, 3]   [9, 82, 10]
-            /     \           /     \
-       [38, 27]  [43, 3]  [9, 82]  [10]
-        /   \     /   \    /   \      |
-      [38] [27] [43]  [3] [9] [82]  [10]
-        \   /     \   /    \   /      |
-       [27, 38]  [3, 43]  [9, 82]  [10]
-            \     /           \     /
-        [3, 27, 38, 43]   [9, 10, 82]
-                    \     /
-         [3, 9, 10, 27, 38, 43, 82]
+```mermaid
+graph TD
+    a["[38, 27, 43, 3, 9, 82, 10]"] --> b1["[38, 27, 43, 3]"]
+    a --> b2["[9, 82, 10]"]
+    b1 --> c1["[38, 27]"]
+    b1 --> c2["[43, 3]"]
+    b2 --> c3["[9, 82]"]
+    b2 --> c4["[10]"]
+    c1 --> d1["[38]"]
+    c1 --> d2["[27]"]
+    c2 --> d3["[43]"]
+    c2 --> d4["[3]"]
+    c3 --> d5["[9]"]
+    c3 --> d6["[82]"]
+    d1 --> e1["[27, 38]"]
+    d2 --> e1
+    d3 --> e2["[3, 43]"]
+    d4 --> e2
+    d5 --> e3["[9, 82]"]
+    d6 --> e3
+    c4 --> e4["[10]"]
+    e1 --> f1["[3, 27, 38, 43]"]
+    e2 --> f1
+    e3 --> f2["[9, 10, 82]"]
+    e4 --> f2
+    f1 --> g["[3, 9, 10, 27, 38, 43, 82]"]
+    f2 --> g
 ```
 
 *Figure 4. Split and merge tree of merge sort*
