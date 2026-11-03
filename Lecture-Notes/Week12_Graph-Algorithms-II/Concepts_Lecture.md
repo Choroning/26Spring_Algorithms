@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -118,10 +118,14 @@ RELAX(u, v, w):
 - **Before RELAX:** $d[v]$ is some upper bound on the true shortest distance.
 - **After RELAX:** either the bound stayed the same, or it tightened to use the path $\dots \to u \to v$.
 
-```text
-   (a) Successful relaxation                  (b) No change
-     d[u]=5  --(2)-->  d[v]=9                   d[u]=5  --(2)-->  d[v]=6
-     becomes d[v] = 5+2 = 7                     5+2 = 7 ≥ 6  →  no update
+```mermaid
+graph LR
+    subgraph a["(a) Successful relaxation"]
+        au["d[u] = 5"] -->|"2"| av["d[v] = 9 → 7"]
+    end
+    subgraph b["(b) No change"]
+        bu["d[u] = 5"] -->|"2"| bv["d[v] = 6 (5 + 2 = 7 ≥ 6, no update)"]
+    end
 ```
 
 *Figure 3. Relaxation that updates the distance and relaxation with no change*
@@ -203,10 +207,11 @@ The `prev[]` array records each vertex's predecessor on the shortest-path tree, 
 
 ### 2.4 Why Dijkstra Fails with Negative Weights
 
-```text
-    A ───(1)───> B ──(-2)──> C
-    │                        ^
-    └────────(0)─────────────┘
+```mermaid
+graph LR
+    A(("A")) -->|"1"| B(("B"))
+    B -->|"-2"| C(("C"))
+    A -->|"0"| C
 ```
 
 *Figure 5. Counterexample graph with a negative edge on which Dijkstra's algorithm fails*
@@ -636,20 +641,25 @@ The next figure shows a different graph: the constraint graph the textbook uses 
 - A directed graph is **strongly connected** if for every ordered pair of vertices $(u, v)$ there exists a path $u \to v$ **and** a path $v \to u$.
 - A **Strongly Connected Component (SCC)** of a directed graph $G$ is a **maximal** subgraph that is strongly connected; adding any other vertex loses strong connectivity.
 
-```text
-Example:
-    1 --> 2 --> 3 --> 4
-    ^     |     ^     |
-    |     v     |     v
-    6 <-- 5     8 <-- 7
-          |           |
-          v           v
-          9 --> 10    (dead end)
-
-SCCs: {1, 2, 5, 6}, {3, 4, 7, 8}, {9}, {10}
+```mermaid
+graph LR
+    n1(("1")) --> n2(("2"))
+    n2 --> n3(("3"))
+    n3 --> n4(("4"))
+    n2 --> n5(("5"))
+    n5 --> n6(("6"))
+    n6 --> n1
+    n4 --> n7(("7"))
+    n7 --> n8(("8"))
+    n8 --> n3
+    n5 --> n9(("9"))
+    n7 --> n10(("10 (dead end)"))
+    n9 --> n10
 ```
 
 *Figure 10. Directed graph made up of four strongly connected components*
+
+The SCCs are {1, 2, 5, 6}, {3, 4, 7, 8}, {9}, and {10}.
 
 Every directed graph condenses into a DAG whose nodes are its SCCs. This fact is tremendously useful for analyzing call graphs, dependency tangles, and dataflow systems.
 
@@ -681,16 +691,25 @@ The algorithm needs only two DFS passes and one edge reversal.
 
 **Step 1:** DFS on $G$, recording finish times.
 
-```text
-Graph G (three cycles joined by ONE-WAY bridges, a clean condensation DAG):
-
-  Component A {1,2,3,4}:   1 --> 2 --> 3 --> 4 --> 1   (a directed 4-cycle)
-  Component B {5,6,7,8}:   5 --> 6 --> 7 --> 8 --> 5   (a directed 4-cycle)
-  Component C {9,10}:      9 <--> 10                    (a 2-cycle: 9->10, 10->9)
-
-  Bridges (one-directional, NO return path):
-       3 --> 5    (A → B)
-       7 --> 9    (B → C)
+```mermaid
+graph LR
+    subgraph A["Component A {1, 2, 3, 4}"]
+        n1(("1")) --> n2(("2"))
+        n2 --> n3(("3"))
+        n3 --> n4(("4"))
+        n4 --> n1
+    end
+    subgraph B["Component B {5, 6, 7, 8}"]
+        n5(("5")) --> n6(("6"))
+        n6 --> n7(("7"))
+        n7 --> n8(("8"))
+        n8 --> n5
+    end
+    subgraph C["Component C {9, 10}"]
+        n9(("9")) <--> n10(("10"))
+    end
+    n3 -->|"bridge (A → B)"| n5
+    n7 -->|"bridge (B → C)"| n9
 ```
 
 *Figure 11. Graph made of three cycles joined by one-way bridges*
