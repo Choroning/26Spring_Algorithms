@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
 
@@ -105,14 +105,22 @@ For a greedy algorithm to produce an **optimal** solution, two properties must h
 
 **Binary Tree Maximum Path Sum:**
 
-```text
-             10
-          /      \
-      36           15
-     /  \         /  \
-    3    18     35    2
-   / \   / \   / \   / \
-  30 45 55 50 32 67 38 33
+```mermaid
+graph TD
+    n10["10"] --> n36["36"]
+    n10 --> n15["15"]
+    n36 --> n3["3"]
+    n36 --> n18["18"]
+    n15 --> n35["35"]
+    n15 --> n2["2"]
+    n3 --> n30["30"]
+    n3 --> n45["45"]
+    n18 --> n55["55"]
+    n18 --> n50["50"]
+    n35 --> n32["32"]
+    n35 --> n67["67"]
+    n2 --> n38["38"]
+    n2 --> n33["33"]
 ```
 
 *Figure 1. Binary tree maximum path sum example in which greedy misses the optimal path*
@@ -478,14 +486,14 @@ Step 3: Q = [A:450, 480]
 
 **Resulting tree and codes:**
 
-```text
-        930
-       /   \
-     A:450  480          A  = 0    (1 bit)
-           /   \         C  = 10   (2 bits)
-        210   C:270      T  = 110  (3 bits)
-       /   \             G  = 111  (3 bits)
-     T:90  G:120
+```mermaid
+graph TD
+    r["930"] -->|"0"| A["A:450, code 0 (1 bit)"]
+    r -->|"1"| n480["480"]
+    n480 -->|"0"| n210["210"]
+    n480 -->|"1"| C["C:270, code 10 (2 bits)"]
+    n210 -->|"0"| T["T:90, code 110 (3 bits)"]
+    n210 -->|"1"| G["G:120, code 111 (3 bits)"]
 ```
 
 *Figure 5. Huffman tree and the code for each character*
@@ -698,12 +706,13 @@ With negative edges, a vertex that has already been finalized may later become r
 
 **Edge relaxation** is the core operation (lines 6-8):
 
-```text
-        s -----> ... -----> vmin -----> w
-        |         D[vmin]        wt     |
-        |                               |
-        +---------> ... ------------->  w
-                     D[w] (current)
+```mermaid
+graph LR
+    s(("s")) --> d1["..."]
+    d1 -->|"D[vmin]"| vmin(("vmin"))
+    vmin -->|"wt"| w(("w"))
+    s --> d2["..."]
+    d2 -->|"D[w] (current)"| w
 ```
 
 *Figure 12. Edge relaxation: the path through vmin versus the current path*

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Experimentally verify the success and failure conditions of greedy algorithms
@@ -394,20 +394,16 @@ Step 4: Merge 'a'(5) + [6]    = [11]
 
 #### 2.3.2 Huffman Tree
 
-```text
-              [11]
-             /    \
-          (0)     (1)
-          /         \
-       'a'(5)       [6]
-                   /    \
-                 (0)    (1)
-                /         \
-             [2]          [4]
-           /   \         /   \
-         (0)   (1)     (0)   (1)
-         /       \     /       \
-      'c'(1)  'd'(1) 'b'(2)  'r'(2)
+```mermaid
+graph TD
+    r["[11]"] -->|"0"| a["'a'(5)"]
+    r -->|"1"| n6["[6]"]
+    n6 -->|"0"| n2["[2]"]
+    n6 -->|"1"| n4["[4]"]
+    n2 -->|"0"| c["'c'(1)"]
+    n2 -->|"1"| d["'d'(1)"]
+    n4 -->|"0"| b["'b'(2)"]
+    n4 -->|"1"| rr["'r'(2)"]
 ```
 
 *Figure 2. Huffman tree for "abracadabra"*
