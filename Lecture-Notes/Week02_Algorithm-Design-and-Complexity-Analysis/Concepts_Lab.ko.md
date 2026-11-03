@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **최종 수정일:** 2026-10-27
+> **최종 수정일:** 2026-11-04
 
 > **학습 목표:**
 > 1. 알고리즘 실행 시간을 측정하는 재사용 가능한 타이머 유틸리티를 만들 수 있다
@@ -70,14 +70,10 @@
 - 평균 경과 시간과 함수의 결과를 모두 반환한다.
 - `time.perf_counter()`를 사용하여 고해상도 타이밍을 수행한다.
 
-```text
- measure_time(func, *args, repeat=3)
-       |
-       v
-  func(*args)를 3번 실행
-       |
-       v
-  (평균_시간, 결과) 반환
+```mermaid
+flowchart TD
+    A["measure_time(func, *args, repeat=3)"] --> B["func(*args)를 3번 실행"]
+    B --> C["(평균_시간, 결과) 반환"]
 ```
 
 *그림 1. measure_time의 실행 흐름*
@@ -300,16 +296,16 @@ Flask 앱을 실행하여 웹 맥락에서 검색 전략을 비교한다.
 
 *표 2. 선형 탐색과 이진 탐색 엔드포인트*
 
-```text
- 클라이언트                        서버
-    |                            |
-    |  GET /search/linear?q=abc  |
-    |--------------------------->|  N개 상품 전부 스캔...
-    |<---------------------------|  찾음! (느림)
-    |                            |
-    |  GET /search/binary?q=abc  |
-    |--------------------------->|  정렬된 리스트에서 이진 탐색...
-    |<---------------------------|  찾음! (빠름)
+```mermaid
+sequenceDiagram
+    participant C as 클라이언트
+    participant S as 서버
+    C->>S: GET /search/linear?q=abc
+    Note right of S: N개 상품 전부 스캔...
+    S-->>C: 찾음! (느림)
+    C->>S: GET /search/binary?q=abc
+    Note right of S: 정렬된 리스트에서 이진 탐색...
+    S-->>C: 찾음! (빠름)
 ```
 
 *그림 4. 두 검색 엔드포인트의 요청과 응답 흐름*

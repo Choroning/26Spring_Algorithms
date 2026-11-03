@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 6, 7, 8, 10
 
@@ -72,10 +72,11 @@
 
 - A linked list is a sequence of **nodes**, and each node contains data and a pointer to the next node.
 
-```text
-┌──────┬───┐    ┌──────┬───┐    ┌──────┬───┐
-│ data │  ─┼───►│ data │  ─┼───►│ data │ / │
-└──────┴───┘    └──────┴───┘    └──────┴───┘
+```mermaid
+graph LR
+    n1["data"] --> n2["data"]
+    n2 --> n3["data"]
+    n3 --> nil["NULL"]
 ```
 
 *Figure 1. Node links of a linked list*
@@ -674,13 +675,22 @@ The full proof involves summing over all possible pivot positions and using inte
 
 **Heap**: A complete binary tree with the heap property, stored in an array.
 
-```text
-   Min Heap Example      Max Heap Example
-          3                     9
-        /   \                 /   \
-       6     4               7     8
-      / \   /               / \   /
-     8   9 7               3   6 4
+```mermaid
+graph TD
+    subgraph min["Min Heap Example"]
+        a3["3"] --> a6["6"]
+        a3 --> a4["4"]
+        a6 --> a8["8"]
+        a6 --> a9["9"]
+        a4 --> a7["7"]
+    end
+    subgraph max["Max Heap Example"]
+        b9["9"] --> b7["7"]
+        b9 --> b8["8"]
+        b7 --> b3["3"]
+        b7 --> b6["6"]
+        b8 --> b4["4"]
+    end
 ```
 
 *Figure 17. Examples of a min heap and a max heap*
@@ -755,20 +765,43 @@ heapify(A[], k, n)                   ▷ Fix heap rooted at A[k]
 
 Building a min heap from `A = [7, 9, 4, 8, 6, 3]`:
 
-```text
-(a) Start          (b) heapify(3)   (c) heapify(2)
-     7                 7                7
-   /   \             /   \            /   \
-  9     4           9     3          6     3
- / \   /           / \   /          / \   /
-8   6 3           8   6 4          8   9 4
-
-(d) heapify(1)   (e) Final Heap
-     3                 3
-   /   \             /   \
-  6     4           6     4
- / \   /           / \   /
-8   9 7           8   9 7
+```mermaid
+graph TD
+    subgraph a["(a) Start"]
+        a1["7"] --> a2["9"]
+        a1 --> a3["4"]
+        a2 --> a4["8"]
+        a2 --> a5["6"]
+        a3 --> a6["3"]
+    end
+    subgraph b["(b) heapify(3)"]
+        b1["7"] --> b2["9"]
+        b1 --> b3["3"]
+        b2 --> b4["8"]
+        b2 --> b5["6"]
+        b3 --> b6["4"]
+    end
+    subgraph c["(c) heapify(2)"]
+        c1["7"] --> c2["6"]
+        c1 --> c3["3"]
+        c2 --> c4["8"]
+        c2 --> c5["9"]
+        c3 --> c6["4"]
+    end
+    subgraph d["(d) heapify(1)"]
+        d1["3"] --> d2["6"]
+        d1 --> d3["4"]
+        d2 --> d4["8"]
+        d2 --> d5["9"]
+        d3 --> d6["7"]
+    end
+    subgraph e["(e) Final Heap"]
+        e1["3"] --> e2["6"]
+        e1 --> e3["4"]
+        e2 --> e4["8"]
+        e2 --> e5["9"]
+        e3 --> e6["7"]
+    end
 ```
 
 *Figure 19. Building a min heap with buildHeap*

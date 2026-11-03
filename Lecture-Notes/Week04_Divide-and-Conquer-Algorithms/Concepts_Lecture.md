@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 4, 7, 9, 33
 
@@ -91,24 +91,14 @@ An algorithm that **divides** the input of a given problem and **conquers (solve
 
 ### 1.2 Divide and Conquer Diagram
 
-```text
-          ┌──────────┐
-          │ Problem  │
-          └────┬─────┘
-               ↓ Divide
-       ┌───────┴───────┐
-  ┌────┴────┐     ┌────┴────┐
-  │Subprob 1│     │Subprob 2│
-  └────┬────┘     └────┬────┘
-       ↓ Conquer       ↓ Conquer
-  ┌────┴────┐     ┌────┴────┐
-  │Subsol 1 │     │Subsol 2 │
-  └────┬────┘     └────┬────┘
-       └───────┬───────┘
-               ↓ Combine
-          ┌────┴─────┐
-          │ Solution │
-          └──────────┘
+```mermaid
+flowchart TD
+    P["Problem"] -->|"Divide"| S1["Subprob 1"]
+    P -->|"Divide"| S2["Subprob 2"]
+    S1 -->|"Conquer"| T1["Subsol 1"]
+    S2 -->|"Conquer"| T2["Subsol 2"]
+    T1 -->|"Combine"| R["Solution"]
+    T2 -->|"Combine"| R
 ```
 
 *Figure 1. Divide, conquer, and combine steps of divide and conquer*
@@ -860,14 +850,18 @@ The preceding sections covered several successful applications of divide and con
 
 **Fibonacci:** $F(n) = F(n-1) + F(n-2)$
 
-```text
-                    F(6)
-                  /     \
-              F(5)      F(4)
-            /    \      /    \
-          F(4)   F(3)  F(3)  F(2)
-         /   \   / \   / \
-       F(3) F(2) ...  ...
+```mermaid
+graph TD
+    f6["F(6)"] --> f5["F(5)"]
+    f6 --> f4a["F(4)"]
+    f5 --> f4b["F(4)"]
+    f5 --> f3a["F(3)"]
+    f4a --> f3b["F(3)"]
+    f4a --> f2a["F(2)"]
+    f4b --> f3c["F(3)"]
+    f4b --> f2b["F(2)"]
+    f3a --> e1["..."]
+    f3b --> e2["..."]
 ```
 
 *Figure 11. Part of the Fibonacci recursion tree for computing F(6)*

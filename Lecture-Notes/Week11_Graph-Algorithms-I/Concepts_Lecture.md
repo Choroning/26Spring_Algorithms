@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 21, 22, 23
 
@@ -68,12 +68,13 @@ A **graph** models relationships between objects using **vertices** and **edges*
   - $E$ is the set of **edges** (connections).
 - Two vertices connected by an edge are **adjacent**.
 
-```text
-     1 --- 2
-     |   / |
-     |  /  |
-     | /   |
-     3 --- 4
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n1 --- n3(("3"))
+    n2 --- n3
+    n2 --- n4(("4"))
+    n3 --- n4
 ```
 
 *Figure 1. Undirected graph with four vertices and five edges*
@@ -93,13 +94,26 @@ A **graph** models relationships between objects using **vertices** and **edges*
 
 *Table 1. Four types of graphs with examples*
 
-```text
-Undirected:          Directed:           Weighted:
-  1 --- 2            1 --> 2             1 --5-- 2
-  |     |            |     ^             |       |
-  3 --- 4            v     |             3       7
-                     3 --> 4             |       |
-                                         3 --2-- 4
+```mermaid
+graph TD
+    subgraph u["Undirected"]
+        u1(("1")) --- u2(("2"))
+        u1 --- u3(("3"))
+        u2 --- u4(("4"))
+        u3 --- u4
+    end
+    subgraph d["Directed"]
+        d1(("1")) --> d2(("2"))
+        d1 --> d3(("3"))
+        d3 --> d4(("4"))
+        d4 --> d2
+    end
+    subgraph w["Weighted"]
+        w1(("1")) ---|"5"| w2(("2"))
+        w1 ---|"3"| w3(("3"))
+        w2 ---|"7"| w4(("4"))
+        w3 ---|"2"| w4
+    end
 ```
 
 *Figure 2. Examples of undirected, directed, and weighted graphs*
@@ -268,18 +282,19 @@ There are two fundamental ways to systematically visit every vertex:
 
 *Table 3. Strategy, data structure, and time complexity of BFS and DFS*
 
-```text
-         1
-        /|\
-       2  3  4
-      /|     |
-     5  6    7
-
-BFS from 1: 1 -> 2, 3, 4 -> 5, 6, 7
-DFS from 1: 1 -> 2 -> 5 -> 6 -> 3 -> 4 -> 7
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n1 --- n3(("3"))
+    n1 --- n4(("4"))
+    n2 --- n5(("5"))
+    n2 --- n6(("6"))
+    n4 --- n7(("7"))
 ```
 
 *Figure 10. BFS and DFS visiting orders on a tree*
+
+BFS from 1 visits 1 → 2, 3, 4 → 5, 6, 7, and DFS from 1 visits 1 → 2 → 5 → 6 → 3 → 4 → 7.
 
 > **Key Point:** BFS and DFS are the **foundation** of almost every graph algorithm. Connected components, cycle detection, topological sort, shortest hop paths, and SCC decomposition are all one of these two with a little extra bookkeeping.
 
@@ -465,19 +480,17 @@ Both have the same asymptotic time, but they explore the graph in fundamentally 
 - Multiple valid orderings may exist for the same DAG.
 - A graph admits a topological order **if and only if** it is a DAG.
 
-```text
-DAG:
-   A --> B --> D
-   |          ^
-   v         /
-   C -------
-
-Topological orders:
-   A, B, C, D    (valid)
-   A, C, B, D    (valid)
+```mermaid
+graph LR
+    A(("A")) --> B(("B"))
+    B --> D(("D"))
+    A --> C(("C"))
+    C --> D
 ```
 
 *Figure 14. DAG and two valid topological orders*
+
+Both A, B, C, D and A, C, B, D are valid topological orders of this DAG.
 
 > **Note:** **Use cases.** Topological sorting is used for course prerequisites, build systems (e.g., `make`, `ninja`), package managers, recipe steps, and spreadsheet recomputation order.
 
@@ -580,18 +593,19 @@ Result: A → C → B → D ✓
 **Minimum Spanning Tree (MST):**
 - An MST is a spanning tree with the **minimum total edge weight** among all spanning trees of $G$.
 
-```text
-Problem: connect all cities with minimum road cost.
-
-   Cities (vertices):       Goal: connect all cities using
-     A --5-- B                    the FEWEST, CHEAPEST roads
-     |\ /|                  
-     | X  |                  MST = pick n-1 edges with minimum
-     |/ \|                         total weight that keep
-     C --3-- D                     the graph connected
+```mermaid
+graph TD
+    A(("A")) ---|"5"| B(("B"))
+    A --- C(("C"))
+    A --- D(("D"))
+    B --- C
+    B --- D
+    C ---|"3"| D
 ```
 
 *Figure 17. MST problem of connecting all cities with minimum road cost*
+
+The goal is to connect all cities using the fewest and cheapest roads: an MST picks the n-1 edges with minimum total weight that keep the graph connected.
 
 > **Note:** **Surprising fact.** MST is one of the few optimization problems where a **greedy** algorithm is provably optimal. The greedy choice is justified by the **cut property**: for any partition of $V$ into $(S, V \setminus S)$, the minimum-weight edge crossing the cut belongs to *some* MST. Prim's and Kruskal's are two different ways to apply this property.
 
@@ -638,17 +652,16 @@ Prim(G, r)                            // G = (V, E), r = start vertex
 
 ### 4.4 Prim's Algorithm: Worked Example
 
-```text
-Weighted Graph:
-        A --8-- B
-       / \     / \
-      3   5   9   7
-     /     \ /     \
-    C --2-- D --6-- E
-     \_____________/
-            4
-
-Edges: (A,B,8) (A,C,3) (A,D,5) (B,D,9) (B,E,7) (C,D,2) (C,E,4) (D,E,6)
+```mermaid
+graph TD
+    A(("A")) ---|"8"| B(("B"))
+    A ---|"3"| C(("C"))
+    A ---|"5"| D(("D"))
+    B ---|"9"| D
+    B ---|"7"| E(("E"))
+    C ---|"2"| D
+    C ---|"4"| E
+    D ---|"6"| E
 ```
 
 *Figure 18. Weighted graph for the Prim's algorithm example*
@@ -679,22 +692,12 @@ MST total weight: 3 + 2 + 4 + 7 = 16
 
 **Resulting MST:**
 
-```text
-   MST (weight = 16):
-     A         B
-     |         |
-     |3        |7
-     |         |
-     C         |
-     |\        |
-     | \2      |
-     |  D      |
-     |         |
-    4|         |
-     |         |
-     E---------+
-
-MST edges: A-C(3), C-D(2), C-E(4), E-B(7)
+```mermaid
+graph TD
+    A(("A")) ---|"3"| C(("C"))
+    C ---|"2"| D(("D"))
+    C ---|"4"| E(("E"))
+    E ---|"7"| B(("B"))
 ```
 
 *Figure 19. MST produced by Prim's algorithm*
@@ -754,17 +757,12 @@ Step 6: Edge (B,E,7), B and E in different sets → ADD
 MST total weight: 2 + 3 + 4 + 7 = 16
 ```
 
-```text
-MST (weight = 16):
-   A         B
-   |         |
-  3|        7|
-   |         |
-   C---------E
-   |       4
-  2|
-   |
-   D
+```mermaid
+graph TD
+    A(("A")) ---|"3"| C(("C"))
+    C ---|"2"| D(("D"))
+    C ---|"4"| E(("E"))
+    E ---|"7"| B(("B"))
 ```
 
 *Figure 20. MST produced by Kruskal's algorithm*

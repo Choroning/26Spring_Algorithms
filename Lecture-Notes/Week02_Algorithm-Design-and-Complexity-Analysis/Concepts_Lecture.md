@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
 
@@ -55,10 +55,10 @@
 - The problems covered in this course are solved **using computers**.
 - An algorithm takes **input** and produces **output** (a solution).
 
-```text
-┌───────┐      ┌─────────────┐      ┌────────┐
-│ Input  │ ───► │  Algorithm   │ ───► │ Output │
-└───────┘      └─────────────┘      └────────┘
+```mermaid
+flowchart LR
+    I["Input"] --> A["Algorithm"]
+    A --> O["Output"]
 ```
 
 *Figure 1. An algorithm taking input and producing output*
@@ -206,34 +206,16 @@ FindMax(A[], n)
 
 **Flowchart:**
 
-```text
-  ┌─────────┐
-  │  Start   │
-  └────┬────┘
-       ▼
-  ┌─────────┐
-  │max=A[0] │
-  │ i = 1   │
-  └────┬────┘
-       ▼
-  ◇ i < n ? ◇──No──► ┌────────────┐
-       │             │ return max │
-       Yes           └────────────┘
-       ▼
-  ◇ A[i]>max? ◇
-  │           │
-  Yes        No
-  ▼           │
-┌────────┐    │
-│max=A[i]│    │
-└───┬────┘    │
-    │◄────────┘
-    ▼
-┌────────┐
-│i = i+1 │
-└───┬────┘
-    │
-    └──► (back to i < n ?)
+```mermaid
+flowchart TD
+    S(["Start"]) --> I["max = A[0], i = 1"]
+    I --> C1{"i < n ?"}
+    C1 -->|"No"| R["return max"]
+    C1 -->|"Yes"| C2{"A[i] > max ?"}
+    C2 -->|"Yes"| U["max = A[i]"]
+    C2 -->|"No"| N["i = i + 1"]
+    U --> N
+    N --> C1
 ```
 
 *Figure 4. Flowchart for finding the maximum*

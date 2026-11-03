@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review-Detailed.md) | [한국어](Review-Detailed.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 
 ---
 
@@ -944,14 +944,14 @@ Step 3: Q = [A:450, N2:480]
 ```
 
 Tree:
-```text
-           Root:930
-           /      \
-       A:450      N2:480
-                  /    \
-               N1:210   C:270
-               /   \
-            T:90   G:120
+```mermaid
+graph TD
+    root["Root:930"] --> A["A:450"]
+    root --> n2["N2:480"]
+    n2 --> n1["N1:210"]
+    n2 --> C["C:270"]
+    n1 --> T["T:90"]
+    n1 --> G["G:120"]
 ```
 
 *Figure 2. Huffman tree for frequencies A:450, C:270, G:120, T:90*
@@ -1324,16 +1324,14 @@ Recognize the pattern; the recurrence writes itself.
 
 ### 7.2 Decision flow: which paradigm for this problem?
 
-```text
-Does the problem ask for an optimum (min / max / count)?
-├── No  → D&C or brute force
-└── Yes
-    ├── Can you prove a safe greedy choice (greedy-choice property)?
-    │    ├── Yes → Greedy (and prove correctness!)
-    │    └── No  → proceed
-    ├── Do subproblems overlap (same subproblem recurs many times)?
-    │    ├── Yes → DP
-    │    └── No  → D&C
+```mermaid
+flowchart TD
+    q1{"Does the problem ask for an optimum (min / max / count)?"} -->|"No"| dc1["D&C or brute force"]
+    q1 -->|"Yes"| q2{"Can you prove a safe greedy choice (greedy-choice property)?"}
+    q2 -->|"Yes"| gr["Greedy (and prove correctness)"]
+    q2 -->|"No"| q3{"Do subproblems overlap (same subproblem recurs many times)?"}
+    q3 -->|"Yes"| dp["DP"]
+    q3 -->|"No"| dc2["D&C"]
 ```
 
 *Figure 4. Decision flow for choosing a paradigm*

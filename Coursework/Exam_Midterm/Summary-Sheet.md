@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Summary-Sheet.md) | [한국어](Summary-Sheet.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 
 ---
 
@@ -493,30 +493,16 @@ Every comparison-based sort needs $\Omega(n \log n)$ comparisons in the worst ca
 
 ## 9. Paradigm Decision Flow
 
-```text
-     Read the problem
-             │
-             ▼
-        Small constraints? (n ≤ hundreds)
-           ╱   ╲
-        Yes     No
-         │       │
-         ▼       ▼
-   Brute force  Splittable into independent subproblems?
-                   ╱   ╲
-                Yes     No
-                 │       │
-                 ▼       ▼
-    Divide and conquer  Local optimum = global optimum?
-                           ╱   ╲
-                        Yes     No
-                         │       │
-                         ▼       ▼
-                      Greedy   Overlapping subproblems +
-                               optimal substructure?
-                                         │
-                                         ▼
-                                        DP
+```mermaid
+flowchart TD
+    r["Read the problem"] --> q1{"Small constraints? (n ≤ hundreds)"}
+    q1 -->|"Yes"| bf["Brute force"]
+    q1 -->|"No"| q2{"Splittable into independent subproblems?"}
+    q2 -->|"Yes"| dc["Divide and conquer"]
+    q2 -->|"No"| q3{"Local optimum = global optimum?"}
+    q3 -->|"Yes"| gr["Greedy"]
+    q3 -->|"No"| q4{"Overlapping subproblems + optimal substructure?"}
+    q4 --> dp["DP"]
 ```
 
 *Figure 1. Paradigm decision flow based on problem properties*

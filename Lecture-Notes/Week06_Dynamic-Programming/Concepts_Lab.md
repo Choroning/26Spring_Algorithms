@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Compare naive recursion, memoization, and tabulation through the Fibonacci problem
@@ -92,22 +92,25 @@ F(n) = F(n-1) + F(n-2)   for n >= 2
 
 **Why is naive recursion so slow?**
 
-```text
-                    F(5)
-                   /    \
-               F(4)      F(3)
-              /    \     /    \
-          F(3)   F(2)  F(2)  F(1)
-         /   \   / \   / \
-       F(2) F(1) ...  ...
-       / \
-     F(1) F(0)
-
-Overlapping subproblems!  F(3) computed 2 times, F(2) computed 3 times...
-Total calls for F(n): O(2^n)
+```mermaid
+graph TD
+    f5["F(5)"] --> f4["F(4)"]
+    f5 --> f3a["F(3)"]
+    f4 --> f3b["F(3)"]
+    f4 --> f2a["F(2)"]
+    f3a --> f2b["F(2)"]
+    f3a --> f1a["F(1)"]
+    f3b --> f2c["F(2)"]
+    f3b --> f1b["F(1)"]
+    f2c --> f1c["F(1)"]
+    f2c --> f0["F(0)"]
+    f2a --> e1["..."]
+    f2b --> e2["..."]
 ```
 
 *Figure 1. Call tree of naive recursion computing F(5)*
+
+Overlapping subproblems appear: F(3) is computed 2 times and F(2) 3 times, so the total number of calls for F(n) is O(2^n).
 
 #### 2.1.2 Three Approaches
 

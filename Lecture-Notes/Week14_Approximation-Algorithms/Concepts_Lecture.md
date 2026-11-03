@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -279,13 +279,24 @@ In Figure 2, (a) is a graph $G$ with the clique $\{u, v, x, y\}$ and (b) is its 
 
 **Worked example.**
 
-```text
-9-vertex graph:
-   1 --- 2 --- 3
-   |   / |   / |
-   4 --- 5 --- 6
-   |   / |   / |
-   7 --- 8 --- 9
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n2 --- n3(("3"))
+    n1 --- n4(("4"))
+    n2 --- n4
+    n2 --- n5(("5"))
+    n3 --- n5
+    n3 --- n6(("6"))
+    n4 --- n5
+    n5 --- n6
+    n4 --- n7(("7"))
+    n5 --- n7
+    n5 --- n8(("8"))
+    n6 --- n8
+    n6 --- n9(("9"))
+    n7 --- n8
+    n8 --- n9
 ```
 
 *Figure 3. Example graph with 9 vertices and 16 edges*

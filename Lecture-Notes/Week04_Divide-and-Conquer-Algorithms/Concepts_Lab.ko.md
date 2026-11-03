@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **최종 수정일:** 2026-10-27
+> **최종 수정일:** 2026-11-04
 
 > **학습 목표:**
 > 1. 병합 정렬을 구현하고 재귀 실행 트리를 추적할 수 있다
@@ -435,20 +435,12 @@ N       완전 탐색         분할 정복       속도 향상
 
 여기서 k는 매칭 결과 수이다.
 
-```text
-  사용자 입력: "pre"
-            |
-            v
-  +-------------------+     +-------------------+
-  | 선형 탐색         |     | 이진 탐색         |
-  | 100K개 단어를     |     | O(log n)으로      |
-  | 하나씩 스캔       |     | "pre" 영역으로    |
-  | 쿼리당 O(n)       |     | 바로 점프         |
-  +-------------------+     +-------------------+
-            |                         |
-            v                         v
-  [predict, prefix,         [predict, prefix,
-   prepare, present, ...]    prepare, present, ...]
+```mermaid
+flowchart TD
+    U["사용자 입력: #quot;pre#quot;"] --> L["선형 탐색: 100K개 단어를 하나씩 스캔, 쿼리당 O(n)"]
+    U --> B["이진 탐색: O(log n)으로 #quot;pre#quot; 영역으로 바로 점프"]
+    L --> RL["[predict, prefix, prepare, present, ...]"]
+    B --> RB["[predict, prefix, prepare, present, ...]"]
 ```
 
 *그림 6. 선형 탐색과 이진 탐색의 자동완성 처리 흐름*

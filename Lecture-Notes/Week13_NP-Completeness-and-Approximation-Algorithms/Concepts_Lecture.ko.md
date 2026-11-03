@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-27
+> **최종 수정일:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -278,20 +278,29 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 
 **변환:** HAM-CYCLE의 입력 $G$를 받아 같은 정점 위의 완전 그래프 $G'$을 구성한다. 간선 가중치는 다음과 같다.
 
-```text
-  HAM-CYCLE 인스턴스           TSP 인스턴스
-  (4 정점, 5 간선)              (완전, 6 간선 모두 가중)
-
-    a --- b                      a --1-- b
-    |   / |        ═══>          |1\∞ /1 |1
-    |  /  |                      |  \/   |
-    c --- d                      c --1-- d
-
-  G의 간선        → 가중치 1                K = |V|
-  G에 없는 간선   → 가중치 ∞ (또는 2|V|)
+```mermaid
+graph LR
+    subgraph g["HAM-CYCLE 인스턴스 (4 정점, 5 간선)"]
+        a(("a")) --- b(("b"))
+        a --- c(("c"))
+        b --- c
+        b --- d(("d"))
+        c --- d
+    end
+    subgraph gp["TSP 인스턴스 (완전, 6 간선 모두 가중)"]
+        a2(("a")) ---|"1"| b2(("b"))
+        a2 ---|"1"| c2(("c"))
+        b2 ---|"1"| c2
+        b2 ---|"1"| d2(("d"))
+        c2 ---|"1"| d2
+        a2 ---|"∞"| d2
+    end
+    g ==> gp
 ```
 
 *그림 4. HAM-CYCLE 인스턴스를 TSP 인스턴스로 바꾸는 변환*
+
+G의 간선은 가중치 1, G에 없는 간선은 가중치 ∞(또는 2|V|)를 받고, K = |V|로 둔다.
 
 - 그림의 $G$에 없는 간선은 $a$와 $d$를 잇는 간선 하나뿐이므로, $G'$에서는 이 간선의 가중치만 ∞(또는 $2|V|$)이고 나머지 다섯 간선의 가중치는 1이다.
 - $G$가 Hamilton 사이클을 가질 **필요충분조건**은 $G'$이 가중치 $|V|$ 이하인 투어를 가지는 것이다.
@@ -360,21 +369,17 @@ $$\text{모든 } L \in NP \text{ 에 대해: } \quad L \leq_P A.$$
 - 다항 시간 환원 $C \leq_P A$를 구성한다.
 - **양방향**으로 Yes/No가 보존됨을 증명한다.
 
-```text
-  다항 시간 환원
-    α (C 의 인스턴스) ────f────> β = f(α) (A 의 인스턴스)
-                                          │
-                                  A 의 알고리즘
-                                          │
-                                          ▼
-       Yes  ◄────────────────────────► Yes
-       No   ◄────────────────────────► No
-
-  "A 를 다항 시간에 풀 수 있다면,
-   C 도 다항 시간에 풀 수 있다."
+```mermaid
+flowchart LR
+    alpha["α (C의 인스턴스)"] -->|"다항 시간 환원 f"| beta["β = f(α) (A의 인스턴스)"]
+    beta --> alg["A의 알고리즘"]
+    alg --> ansB["Yes / No (β)"]
+    ansB <-->|"같은 답"| ansA["Yes / No (α)"]
 ```
 
 *그림 7. 다항 시간 환원에서 Yes/No 답이 보존되는 구조*
+
+A를 다항 시간에 풀 수 있다면 C도 다항 시간에 풀 수 있다.
 
 $\leq_P$의 추이성에 의해, *모든* NP 문제가 $C$로 환원되고 $C$가 $A$로 환원되므로 *모든* NP 문제가 $A$로 환원된다. 따라서 $A$는 NP-Hard이다. $A \in NP$와 합치면 $A$는 NP-Complete이다.
 
@@ -396,14 +401,25 @@ $\leq_P$의 추이성에 의해, *모든* NP 문제가 $C$로 환원되고 $C$�
 - $G$를 그대로 복사하고 모든 간선에 **가중치 1**을 할당한다.
 - $K = |V| - 1$로 둔다.
 
-```text
-  HAM-PATH-2-POINTS 인스턴스        LONGEST-PATH 인스턴스
-
-  s --- a --- b                     s -1- a -1- b
-  |           |          ═══>       |           |
-  c --- d --- t                     c -1- d -1- t
-
-  "Hamilton s→t 경로?"              "가중치 ≥ |V|-1 인 단순 s→t 경로?"
+```mermaid
+graph LR
+    subgraph g["HAM-PATH-2-POINTS 인스턴스: Hamilton s → t 경로?"]
+        s(("s")) --- a(("a"))
+        a --- b(("b"))
+        s --- c(("c"))
+        c --- d(("d"))
+        d --- t(("t"))
+        b --- t
+    end
+    subgraph gp["LONGEST-PATH 인스턴스: 가중치 ≥ |V| - 1인 단순 s → t 경로?"]
+        s2(("s")) ---|"1"| a2(("a"))
+        a2 ---|"1"| b2(("b"))
+        s2 ---|"1"| c2(("c"))
+        c2 ---|"1"| d2(("d"))
+        d2 ---|"1"| t2(("t"))
+        b2 ---|"1"| t2
+    end
+    g ==> gp
 ```
 
 *그림 8. HAM-PATH-2-POINTS 인스턴스를 LONGEST-PATH 인스턴스로 바꾸는 변환*
@@ -446,20 +462,15 @@ $\leq_P$의 추이성에 의해, *모든* NP 문제가 $C$로 환원되고 $C$�
 
 이후의 NP-완비성 증명은 Cook의 결과를 재사용하여 **알려진 NP-Complete 문제로부터 환원**한다.
 
-```text
-  CIRCUIT-SAT
-      ↓ (환원)
-     SAT
-      ↓
-   3-CNF-SAT
-   /       \
- CLIQUE   SUBSET-SUM
-   ↓
- VERTEX-COVER
-   ↓
- HAM-CYCLE
-   ↓
-  TSP
+```mermaid
+graph TD
+    cs["CIRCUIT-SAT"] -->|"환원"| sat["SAT"]
+    sat --> cnf["3-CNF-SAT"]
+    cnf --> cl["CLIQUE"]
+    cnf --> ss["SUBSET-SUM"]
+    cl --> vc["VERTEX-COVER"]
+    vc --> hc["HAM-CYCLE"]
+    hc --> tsp["TSP"]
 ```
 
 *그림 11. CIRCUIT-SAT에서 TSP와 SUBSET-SUM까지의 환원 사슬*
