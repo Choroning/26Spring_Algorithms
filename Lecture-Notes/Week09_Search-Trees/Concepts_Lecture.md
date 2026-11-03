@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 12, 13, 18
 
@@ -61,13 +61,16 @@
 
 A **tree** is a root node together with zero or more **subtrees**, which makes it a recursive structure.
 
-```text
-            [A]             "A tree of n nodes
-           / | \             = root + subtrees"
-         /   |   \
-       [B]  [C]  [D]        Each subtree is itself
-       / \      / | \       a smaller tree.
-     [E] [F]  [G][H][I]
+```mermaid
+graph TD
+    A["A"] --> B["B"]
+    A --> C["C"]
+    A --> D["D"]
+    B --> E["E"]
+    B --> F["F"]
+    D --> G["G"]
+    D --> H["H"]
+    D --> I["I"]
 ```
 
 *Figure 1. Recursive structure of a tree made of a root and subtrees*
@@ -106,16 +109,18 @@ A BST is a binary tree that maintains a **sorted order**:
 
 $$\text{left subtree} < \text{root} < \text{right subtree}$$
 
-```text
-              [15]
-             /    \
-          [6]      [18]
-         /   \     /   \
-       [3]  [7]  [17] [20]
-       / \    \
-     [2] [4] [13]
-              /
-            [9]
+```mermaid
+graph TD
+    n15["15"] --> n6["6"]
+    n15 --> n18["18"]
+    n6 --> n3["3"]
+    n6 --> n7["7"]
+    n18 --> n17["17"]
+    n18 --> n20["20"]
+    n3 --> n2["2"]
+    n3 --> n4["4"]
+    n7 --> n13["13"]
+    n13 --> n9["9"]
 ```
 
 *Figure 2. Example of a binary search tree*
@@ -144,14 +149,13 @@ TREE-SEARCH(x, k):
 
 **Example (search for 13):**
 
-```text
-             [15]         15: 13 < 15, go left
-            /    \
-          [6]    [18]     6: 13 > 6, go right
-         /   \
-       [3]  [7]           7: 13 > 7, go right
-              \
-             [13]  <- found
+```mermaid
+graph TD
+    n15["15"] -->|"13 < 15, go left"| n6["6"]
+    n15 --> n18["18"]
+    n6 --> n3["3"]
+    n6 -->|"13 > 6, go right"| n7["7"]
+    n7 -->|"13 > 7, go right"| n13["13 (found)"]
 ```
 
 *Figure 3. Path of searching for key 13 in a BST*
@@ -197,18 +201,12 @@ So expected search and insert are both $O(\log n)$, matching binary search on a 
 
 What if keys arrive in **sorted order**?
 
-```text
-Insert: 1, 2, 3, 4, 5
-
-    [1]
-      \
-      [2]
-        \
-        [3]
-          \
-          [4]
-            \
-            [5]
+```mermaid
+graph TD
+    n1["1"] --> n2["2"]
+    n2 --> n3["3"]
+    n3 --> n4["4"]
+    n4 --> n5["5"]
 ```
 
 *Figure 4. Degenerate BST from inserting 1, 2, 3, 4, 5 in sorted order*
@@ -236,48 +234,72 @@ Deletion is more delicate than search or insert. Let $z$ be the node to delete.
 
 **Case 1: no children.** Simply remove $z$.
 
-```text
-    [5]          [5]
-   /   \   =>   /   \
- [3]   [7]    [3]   [7]
-   \
-   [4]  <- delete 4
+```mermaid
+graph TD
+    subgraph b["Before (delete 4)"]
+        bn5["5"] --> bn3["3"]
+        bn5 --> bn7["7"]
+        bn3 --> bn4["4"]
+    end
+    subgraph a["After"]
+        an5["5"] --> an3["3"]
+        an5 --> an7["7"]
+    end
 ```
 
 *Figure 6. Deleting node 4, which has no children*
 
 **Case 2: one child.** Splice $z$ out by replacing it with its only child.
 
-```text
-    [5]          [5]
-   /   \   =>   /   \
- [3]   [7]    [4]   [7]
-   \
-   [4]  <- delete 3, replaced by 4
+```mermaid
+graph TD
+    subgraph b["Before (delete 3)"]
+        bn5["5"] --> bn3["3"]
+        bn5 --> bn7["7"]
+        bn3 --> bn4["4"]
+    end
+    subgraph a["After (3 replaced by 4)"]
+        an5["5"] --> an4["4"]
+        an5 --> an7["7"]
+    end
 ```
 
 *Figure 7. Deleting node 3, which has one child*
 
 **Case 3: two children.** Replace $z$'s key with its **in-order successor** (the smallest key in $z$'s right subtree), then delete the successor (which has at most one child, reducing to Case 1 or 2).
 
-```text
-Delete 6:
-         [15]                     [15]
-        /    \                  /     \
-     [6]      [18]           [7]      [18]
-    /   \     /   \    =>   /  \      /   \
-  [3]  [7]  [17] [20]     [3] [13]  [17] [20]
-  / \    \                / \  /
-[2] [4] [13]            [2][4][9]
-         /
-       [9]
-
-Step 1: in-order successor of 6 = 7 (smallest in right subtree)
-Step 2: replace 6's key with 7
-Step 3: delete original node 7 (has at most one child)
+```mermaid
+graph TD
+    subgraph b["Before (delete 6)"]
+        bn15["15"] --> bn6["6"]
+        bn15 --> bn18["18"]
+        bn6 --> bn3["3"]
+        bn6 --> bn7["7"]
+        bn18 --> bn17["17"]
+        bn18 --> bn20["20"]
+        bn3 --> bn2["2"]
+        bn3 --> bn4["4"]
+        bn7 --> bn13["13"]
+        bn13 --> bn9["9"]
+    end
+    subgraph a["After"]
+        an15["15"] --> an7["7"]
+        an15 --> an18["18"]
+        an7 --> an3["3"]
+        an7 --> an13["13"]
+        an18 --> an17["17"]
+        an18 --> an20["20"]
+        an3 --> an2["2"]
+        an3 --> an4["4"]
+        an13 --> an9["9"]
+    end
 ```
 
 *Figure 8. Deleting node 6, which has two children, by replacing it with its in-order successor 7*
+
+1. The in-order successor of 6 is 7, the smallest key in the right subtree.
+2. Replace the key of 6 with 7.
+3. Delete the original node 7, which has at most one child.
 
 > **Note:** **Why successor?** The in-order successor is the next larger value, so substituting it preserves the BST property: every key in the left subtree is still less, every key in the right subtree is still greater.
 
@@ -337,21 +359,24 @@ Every RBT must satisfy the five properties in Table 4. In Figure 9, (a) draws ea
 
 *Table 4. Five properties of a red-black tree*
 
-```text
-             [7:B]
-           /       \
-       [3:R]       [18:R]
-       /   \       /    \
-    [1:B] [5:B] [10:B] [22:B]
-                   \
-                  [15:R]
-
-B = Black, R = Red
-Property 4: red 18 has black children 10, 22  ok
-Property 5: every root-to-leaf path has 2 black nodes  ok
+```mermaid
+graph TD
+    n7["7 (black)"] --> n3["3 (red)"]
+    n7 --> n18["18 (red)"]
+    n3 --> n1["1 (black)"]
+    n3 --> n5["5 (black)"]
+    n18 --> n10["10 (black)"]
+    n18 --> n22["22 (black)"]
+    n10 --> n15["15 (red)"]
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class n7,n1,n5,n10,n22 black
+    class n3,n18,n15 red
 ```
 
 *Figure 10. Red-black tree satisfying the five properties*
+
+Property 4 holds because the red node 18 has the black children 10 and 22, and Property 5 holds because every root-to-leaf path contains 2 black nodes.
 
 ### 3.3 Why RBT Guarantees O(log n)
 
@@ -374,30 +399,39 @@ When inserting a new key:
 2. **Color the new node red.** This preserves Property 5 (black-height unchanged).
 3. If the new node becomes the root (insertion into an empty tree), Property 2 breaks, which is fixed by coloring the root black. Otherwise the only property that can break is **Property 4**: a red child of a red parent. This is called the **Double Red** problem, and it must be fixed.
 
-```text
-Insert 4 into:
-
-    [7:B]              [7:B]
-   /     \            /     \
- [3:B]  [18:B]  =>  [3:B]  [18:B]
-                       \
-                      [4:R]   <- new node, always red
-
-No violation here. If 4's parent had been red, a fix-up would be needed.
+```mermaid
+graph TD
+    subgraph b["Before"]
+        bn7["7 (black)"] --> bn3["3 (black)"]
+        bn7 --> bn18["18 (black)"]
+    end
+    subgraph a["After inserting 4"]
+        an7["7 (black)"] --> an3["3 (black)"]
+        an7 --> an18["18 (black)"]
+        an3 --> an4["4, new node (red)"]
+    end
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class bn7,bn3,bn18,an7,an3,an18 black
+    class an4 red
 ```
 
 *Figure 11. Inserting a new red node 4 under a black parent*
+
+There is no violation here. If the parent of 4 had been red, a fix-up would be needed.
 
 ### 3.5 Double Red: Terminology
 
 When Double Red occurs, name the relevant nodes:
 
-```text
-        [G]          G = grandparent
-       /   \
-     [P]   [U]      P = parent,  U = uncle
-     /
-   [N]               N = newly inserted (red), P also red
+```mermaid
+graph TD
+    G["G = grandparent"] --> P["P = parent (red)"]
+    G --> U["U = uncle"]
+    P --> N["N = newly inserted (red)"]
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class P,N red
 ```
 
 *Figure 12. Nodes G, P, U, N involved in a Double Red*
@@ -423,21 +457,27 @@ When $U$ is black, locally rotate $N$, $P$, $G$. The left rotation in Figure 13 
 2. The **median** becomes the new local root (colored **black**); the other two become its children (colored **red**).
 3. The original subtrees are reattached in the only order consistent with the BST property.
 
-```text
-Before (G=7, P=3, N=5):       After restructuring:
-
-      [7:B]                       [5:B]
-     /     \                     /     \
-   [3:R]  [8:B]          =>   [3:R]   [7:R]
-      \                                  \
-     [5:R]                              [8:B]
-
-Sorted: 3, 5, 7
-Median: 5 -> new local root (black)
-Others: 3, 7 -> children (red)
+```mermaid
+graph TD
+    subgraph b["Before (G = 7, P = 3, N = 5)"]
+        bn7["7 (black)"] --> bn3["3 (red)"]
+        bn7 --> bn8["8 (black)"]
+        bn3 --> bn5["5 (red)"]
+    end
+    subgraph a["After restructuring"]
+        an5["5 (black)"] --> an3["3 (red)"]
+        an5 --> an7["7 (red)"]
+        an7 --> an8["8 (black)"]
+    end
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class bn7,bn8,an5,an8 black
+    class bn3,bn5,an3,an7 red
 ```
 
 *Figure 14. Restructuring when the uncle is black*
+
+Sorted, the keys are 3, 5, 7. The median 5 becomes the new local root (black), and 3 and 7 become its children (red).
 
 > **Note:** **Why this works.** Restructuring is a **local** operation: it needs one rotation if $N$ and $P$ are both left children or both right children, and two rotations otherwise (as in Figure 14), so the work is $O(1)$. The black-height of the local root is unchanged, so the fix does **not** propagate upward.
 
@@ -449,21 +489,27 @@ When $U$ is red, swap colors:
 2. $G$ becomes **red**.
 3. If $G$ is the root, force it **black**. Otherwise, $G$ may now form a new Double Red with its own parent, so repeat the fix-up at $G$.
 
-```text
-Before:                   After recoloring:
-
-      [7:B]                   [7:R] <- may cause
-     /     \                 /     \    new Double Red
-   [3:R]  [8:R]    =>     [3:B]   [8:B]
-   /                       /
- [1:R]                  [1:R]
-
-P=3 and U=8 become black; G=7 becomes red.
-If 7 is the root, force it black.
-If 7's parent is also red, repeat the fix-up upward.
+```mermaid
+graph TD
+    subgraph b["Before"]
+        bn7["7 (black)"] --> bn3["3 (red)"]
+        bn7 --> bn8["8 (red)"]
+        bn3 --> bn1["1 (red)"]
+    end
+    subgraph a["After recoloring (7 may cause a new Double Red)"]
+        an7["7 (red)"] --> an3["3 (black)"]
+        an7 --> an8["8 (black)"]
+        an3 --> an1["1 (red)"]
+    end
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class bn7,an3,an8 black
+    class bn3,bn8,bn1,an7,an1 red
 ```
 
 *Figure 15. Recoloring when the uncle is red*
+
+P = 3 and U = 8 become black and G = 7 becomes red. If 7 is the root, it is forced black; if the parent of 7 is also red, the fix-up is repeated upward.
 
 > **Note:** **Why this works.** Recoloring preserves Property 5 (black count on every path through $G$ is unchanged) but may push the violation up two levels at a time. It can therefore propagate at most $O(\log n)$ times before reaching the root.
 
@@ -471,34 +517,42 @@ If 7's parent is also red, repeat the fix-up upward.
 
 Insertion sequence: 7, 3, 8, 1, 5
 
-```text
-Step 1: insert 7    Step 2: insert 3    Step 3: insert 8
-   [7:B]               [7:B]                [7:B]
-                       /                   /     \
-                    [3:R]               [3:R]   [8:R]
-
-Step 4: insert 1 -> Double Red (N=1, P=3, U=8)
-Uncle 8 is RED -> Recoloring
-
-       [7:B]                   [7:B]
-      /     \       =>        /     \
-   [3:R]   [8:R]           [3:B]   [8:B]
-    /                       /
- [1:R]                   [1:R]
-
-Step 5: insert 5 -> Double Red (N=5, P=3, U=8)
-Now U=8 is BLACK -> Restructuring
-
-      [7:B]            sort {N=5, P=3, G=7} = 3, 5, 7
-     /     \           median 5 -> new local root (black)
-   [3:B]  [8:B]
-      \
-     [5:R]
-                       [5:B]
-                      /     \
-Result:            [3:R]   [7:R]
-                              \
-                             [8:B]
+```mermaid
+graph TD
+    subgraph s1["Step 1: insert 7"]
+        s1n7["7 (black)"]
+    end
+    subgraph s2["Step 2: insert 3"]
+        s2n7["7 (black)"] --> s2n3["3 (red)"]
+    end
+    subgraph s3["Step 3: insert 8"]
+        s3n7["7 (black)"] --> s3n3["3 (red)"]
+        s3n7 --> s3n8["8 (red)"]
+    end
+    subgraph s4["Step 4: insert 1, Double Red (N = 1, P = 3, U = 8)"]
+        s4n7["7 (black)"] --> s4n3["3 (red)"]
+        s4n7 --> s4n8["8 (red)"]
+        s4n3 --> s4n1["1 (red)"]
+    end
+    subgraph s4b["Step 4: uncle 8 is red, recoloring"]
+        s4bn7["7 (black)"] --> s4bn3["3 (black)"]
+        s4bn7 --> s4bn8["8 (black)"]
+        s4bn3 --> s4bn1["1 (red)"]
+    end
+    subgraph s5["Step 5: insert 5, Double Red (N = 5, P = 3, U = 8)"]
+        s5n7["7 (black)"] --> s5n3["3 (black)"]
+        s5n7 --> s5n8["8 (black)"]
+        s5n3 --> s5n5["5 (red)"]
+    end
+    subgraph s5b["Step 5: uncle 8 is black, restructuring (median 5 becomes the local root)"]
+        s5bn5["5 (black)"] --> s5bn3["3 (red)"]
+        s5bn5 --> s5bn7["7 (red)"]
+        s5bn7 --> s5bn8["8 (black)"]
+    end
+    classDef black fill:#222222,stroke:#000000,color:#ffffff
+    classDef red fill:#c0392b,stroke:#922b21,color:#ffffff
+    class s1n7,s2n7,s3n7,s4n7,s4bn7,s4bn3,s4bn8,s5n7,s5n3,s5n8,s5bn5,s5bn8 black
+    class s2n3,s3n3,s3n8,s4n3,s4n8,s4n1,s4bn1,s5n5,s5bn3,s5bn7 red
 ```
 
 *Figure 16. Red-black tree example inserting 7, 3, 8, 1, 5 in order*
