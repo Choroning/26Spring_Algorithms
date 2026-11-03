@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Implement merge sort and trace its recursive execution tree
@@ -435,20 +435,12 @@ The app performs prefix search over a dictionary of **100,000 words**.
 
 Here, k is the number of matching results.
 
-```text
-  User input: "pre"
-            |
-            v
-  +-------------------+      +-------------------+
-  | Linear Search     |      | Binary Search     |
-  | Scan all 100K     |      | Jump to "pre"     |
-  | words one by one  |      | region in O(log n)|
-  | O(n) per query    |      |                   |
-  +-------------------+      +-------------------+
-            |                          |
-            v                          v
-  [predict, prefix,          [predict, prefix,
-   prepare, present, ...]     prepare, present, ...]
+```mermaid
+flowchart TD
+    U["User input: #quot;pre#quot;"] --> L["Linear Search: scan all 100K words one by one, O(n) per query"]
+    U --> B["Binary Search: jump to the #quot;pre#quot; region in O(log n)"]
+    L --> RL["[predict, prefix, prepare, present, ...]"]
+    B --> RB["[predict, prefix, prepare, present, ...]"]
 ```
 
 *Figure 6. Autocomplete processing flow of linear search and binary search*
