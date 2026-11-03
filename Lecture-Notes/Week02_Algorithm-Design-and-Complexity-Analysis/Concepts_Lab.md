@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 
 > **Learning Objectives:**
 > 1. Build a reusable timer utility to measure algorithm execution time
@@ -70,14 +70,10 @@
 - It returns both the average elapsed time and the function's result.
 - It uses `time.perf_counter()` for high-resolution timing.
 
-```text
- measure_time(func, *args, repeat=3)
-       |
-       v
-  Execute func(*args) 3 times
-       |
-       v
-  Return (average_time, result)
+```mermaid
+flowchart TD
+    A["measure_time(func, *args, repeat=3)"] --> B["Execute func(*args) 3 times"]
+    B --> C["Return (average_time, result)"]
 ```
 
 *Figure 1. Execution flow of measure_time*
@@ -300,16 +296,16 @@ Install Flask first (`pip install flask`). Once the server is running (typically
 
 *Table 2. Linear-search and binary-search endpoints*
 
-```text
- Client                          Server
-    |                            |
-    |  GET /search/linear?q=abc  |
-    |--------------------------->|  Scan all N products...
-    |<---------------------------|  Found! (slow)
-    |                            |
-    |  GET /search/binary?q=abc  |
-    |--------------------------->|  Binary search on sorted list...
-    |<---------------------------|  Found! (fast)
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    C->>S: GET /search/linear?q=abc
+    Note right of S: Scan all N products...
+    S-->>C: Found! (slow)
+    C->>S: GET /search/binary?q=abc
+    Note right of S: Binary search on sorted list...
+    S-->>C: Found! (fast)
 ```
 
 *Figure 4. Request and response flow of the two search endpoints*
