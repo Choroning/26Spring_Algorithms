@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -92,15 +92,26 @@ The longest simple path problem in an unweighted directed graph is an example wi
 
 ### 1.3 DP vs Divide-and-Conquer
 
-```text
-Divide & Conquer           DP
-
-       A                    A
-      / \                  / \
-     B   C                B   C
-    /|   |\              /|\ /|\
-   D E   F G            D  E F  G
-                        (shared!)
+```mermaid
+graph TD
+    subgraph dc["Divide & Conquer"]
+        a1["A"] --> b1["B"]
+        a1 --> c1["C"]
+        b1 --> d1["D"]
+        b1 --> e1["E"]
+        c1 --> f1["F"]
+        c1 --> g1["G"]
+    end
+    subgraph dp["DP"]
+        a2["A"] --> b2["B"]
+        a2 --> c2["C"]
+        b2 --> d2["D"]
+        b2 --> e2["E (shared)"]
+        b2 --> f2["F (shared)"]
+        c2 --> e2
+        c2 --> f2
+        c2 --> g2["G"]
+    end
 ```
 
 *Figure 2. Independent subproblems in divide-and-conquer and shared subproblems in DP*
@@ -157,16 +168,23 @@ fib(n):
 
 **Call tree for fib(7):** the redundancy is enormous.
 
-```text
-              fib(7)
-            /        \
-        fib(6)       fib(5)        <- fib(5) computed twice
-        /    \        /   \
-    fib(5) fib(4)  fib(4) fib(3)   <- fib(4) computed 3 times
-     ...    ...     ...    ...      <- fib(3) computed 5 times!
+```mermaid
+graph TD
+    f7["fib(7)"] --> f6["fib(6)"]
+    f7 --> f5a["fib(5)"]
+    f6 --> f5b["fib(5)"]
+    f6 --> f4a["fib(4)"]
+    f5a --> f4b["fib(4)"]
+    f5a --> f3["fib(3)"]
+    f5b --> e1["..."]
+    f4a --> e2["..."]
+    f4b --> e3["..."]
+    f3 --> e4["..."]
 ```
 
 *Figure 5. Call tree of naive recursion computing fib(7)*
+
+fib(5) is computed twice, fib(4) 3 times, and fib(3) 5 times.
 
 **Time complexity:** exponential, $O(2^n)$.
 

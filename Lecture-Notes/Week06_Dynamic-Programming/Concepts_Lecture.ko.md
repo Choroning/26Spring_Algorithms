@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-20
+> **최종 수정일:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -92,15 +92,26 @@
 
 ### 1.3 DP vs 분할 정복
 
-```text
-    분할 정복                DP
-
-       A                    A
-      / \                  / \
-     B   C                B   C
-    /|   |\              /|\ /|\
-   D E   F G            D  E F  G
-                          (공유!)
+```mermaid
+graph TD
+    subgraph dc["분할 정복"]
+        a1["A"] --> b1["B"]
+        a1 --> c1["C"]
+        b1 --> d1["D"]
+        b1 --> e1["E"]
+        c1 --> f1["F"]
+        c1 --> g1["G"]
+    end
+    subgraph dp["DP"]
+        a2["A"] --> b2["B"]
+        a2 --> c2["C"]
+        b2 --> d2["D"]
+        b2 --> e2["E (공유)"]
+        b2 --> f2["F (공유)"]
+        c2 --> e2
+        c2 --> f2
+        c2 --> g2["G"]
+    end
 ```
 
 *그림 2. 분할 정복의 독립 부분 문제와 DP의 공유 부분 문제*
@@ -157,16 +168,23 @@ fib(n):
 
 **fib(7)의 호출 트리:** 중복 계산이 매우 많다.
 
-```text
-              fib(7)
-            /        \
-        fib(6)       fib(5)        <- fib(5)가 두 번 계산됨
-        /    \        /   \
-    fib(5) fib(4)  fib(4) fib(3)   <- fib(4)가 3번 계산됨
-     ...    ...     ...    ...      <- fib(3)이 5번 계산됨!
+```mermaid
+graph TD
+    f7["fib(7)"] --> f6["fib(6)"]
+    f7 --> f5a["fib(5)"]
+    f6 --> f5b["fib(5)"]
+    f6 --> f4a["fib(4)"]
+    f5a --> f4b["fib(4)"]
+    f5a --> f3["fib(3)"]
+    f5b --> e1["..."]
+    f4a --> e2["..."]
+    f4b --> e3["..."]
+    f3 --> e4["..."]
 ```
 
 *그림 5. 순진한 재귀로 fib(7)을 계산할 때의 호출 트리*
+
+fib(5)는 두 번, fib(4)는 3번, fib(3)은 5번 계산된다.
 
 **시간 복잡도:** 지수 시간인 $O(2^n)$이다.
 
