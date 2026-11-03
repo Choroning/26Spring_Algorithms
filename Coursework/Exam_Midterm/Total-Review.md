@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 
 ---
 
@@ -185,11 +185,10 @@ These three points are the core of Week 1, and the later weeks build more comple
 
 An **algorithm** is a systematic problem-solving procedure that takes an input and produces the desired output through a finite number of steps.
 
-```text
-┌─────────┐      ┌────────────────┐      ┌──────────┐
-│  Input  │ ───→ │   Algorithm    │ ───→ │  Output  │
-│(Problem)│      │ (finite steps) │      │ (Result) │
-└─────────┘      └────────────────┘      └──────────┘
+```mermaid
+flowchart LR
+    I["Input (Problem)"] --> A["Algorithm (finite steps)"]
+    A --> O["Output (Result)"]
 ```
 
 *Figure 1. Relationship among input, algorithm, and output*
@@ -1525,12 +1524,12 @@ FloydWarshall(W, n):
 
 ### 7.1 The Thread Running Through the Semester
 
-```text
-  Problem solving
-     ↕
-  Divide and conquer ←→ Recursive thinking ←→ Recurrences
-     ↕
-  Paradigm choice (Greedy / DP / D&C)
+```mermaid
+graph TD
+    ps["Problem solving"] <--> dc["Divide and conquer"]
+    dc <--> rt["Recursive thinking"]
+    rt <--> rec["Recurrences"]
+    dc <--> pc["Paradigm choice (Greedy / DP / D&C)"]
 ```
 
 *Figure 8. The flow of concepts running through the whole semester*
@@ -1633,16 +1632,14 @@ $T(n) = a T(n/b) + f(n)$, $h = n^{\log_b a}$:
 
 ### 8.2 Decision Flowchart
 
-```text
-Does the problem ask for an optimal value?
-├── No → D&C (sorting, searching, k-th element, etc.)
-└── Yes
-    ├── Can a safe greedy choice be proved?
-    │   └── Yes → Greedy
-    └── No
-        ├── Do subproblems overlap?
-        │   └── Yes → DP
-        └── No → D&C
+```mermaid
+flowchart TD
+    q1{"Does the problem ask for an optimal value?"} -->|"No"| dc1["D&C (sorting, searching, k-th element, etc.)"]
+    q1 -->|"Yes"| q2{"Can a safe greedy choice be proved?"}
+    q2 -->|"Yes"| gr["Greedy"]
+    q2 -->|"No"| q3{"Do subproblems overlap?"}
+    q3 -->|"Yes"| dp["DP"]
+    q3 -->|"No"| dc2["D&C"]
 ```
 
 *Figure 9. Flowchart for choosing a paradigm from the properties of a problem*
@@ -1859,30 +1856,16 @@ DP:     7 + 7             = 2 coins  ← optimal!
 
 #### Paradigm Decision Flowchart
 
-```text
-             Read the problem
-                     │
-                     ▼
-     Small constraints (n ≤ hundreds)?
-                   ╱    ╲
-               Yes        No
-                 │         │
-                 ▼         ▼
-            Brute force  Split into independent subproblems?
-                           ╱         ╲
-                        Yes           No
-                         │             │
-                         ▼             ▼
-                Divide and conquer  Local optimum = global optimum?
-                                   ╱        ╲
-                                Yes          No
-                                 │            │
-                                 ▼            ▼
-                              Greedy     Overlapping subproblems +
-                                         optimal substructure?
-                                              │
-                                              ▼
-                                             DP
+```mermaid
+flowchart TD
+    r["Read the problem"] --> q1{"Small constraints (n ≤ hundreds)?"}
+    q1 -->|"Yes"| bf["Brute force"]
+    q1 -->|"No"| q2{"Split into independent subproblems?"}
+    q2 -->|"Yes"| dc["Divide and conquer"]
+    q2 -->|"No"| q3{"Local optimum = global optimum?"}
+    q3 -->|"Yes"| gr["Greedy"]
+    q3 -->|"No"| q4{"Overlapping subproblems + optimal substructure?"}
+    q4 --> dp["DP"]
 ```
 
 *Figure 10. Flowchart for choosing a paradigm from the problem's conditions*

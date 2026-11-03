@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review.md) | [한국어](Review.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-04
 
 ---
 
@@ -549,14 +549,14 @@ From `c[m, n]`:
 
 ### 7.2 Which Technique? Decision Flow
 
-```text
-Problem asks for an optimum (min/max)?
-├── No  → D&C or brute force
-└── Yes
-    ├── Safe greedy choice provable? → Greedy (prove correctness!)
-    └── No
-        ├── Subproblems overlap?    → DP
-        └── Independent subproblems → D&C
+```mermaid
+flowchart TD
+    q1{"Problem asks for an optimum (min/max)?"} -->|"No"| dc1["D&C or brute force"]
+    q1 -->|"Yes"| q2{"Safe greedy choice provable?"}
+    q2 -->|"Yes"| gr["Greedy (prove correctness)"]
+    q2 -->|"No"| q3{"Subproblems overlap?"}
+    q3 -->|"Yes"| dp["DP"]
+    q3 -->|"No (independent subproblems)"| dc2["D&C"]
 ```
 
 *Figure 2. Decision flow for choosing a design technique*
