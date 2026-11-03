@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-27
+> **Last Updated:** 2026-11-04
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -278,20 +278,29 @@ The two problems have identical answers for every input (the standard digit-sum 
 
 **Transformation:** take the HAM-CYCLE input $G$ and build a complete graph $G'$ on the same vertices. The edge weights are as follows.
 
-```text
-  HAM-CYCLE instance          TSP instance
-  (4 vertices, 5 edges)       (complete, all 6 edges weighted)
-
-    a --- b                    a --1-- b
-    |   / |        ===>        |1\∞ /1 |1
-    |  /  |                    |  \/   |
-    c --- d                    c --1-- d
-
-  Edge of G        → weight 1                Set K = |V|
-  Edge NOT in G    → weight ∞ (or 2|V|)
+```mermaid
+graph LR
+    subgraph g["HAM-CYCLE instance (4 vertices, 5 edges)"]
+        a(("a")) --- b(("b"))
+        a --- c(("c"))
+        b --- c
+        b --- d(("d"))
+        c --- d
+    end
+    subgraph gp["TSP instance (complete, all 6 edges weighted)"]
+        a2(("a")) ---|"1"| b2(("b"))
+        a2 ---|"1"| c2(("c"))
+        b2 ---|"1"| c2
+        b2 ---|"1"| d2(("d"))
+        c2 ---|"1"| d2
+        a2 ---|"∞"| d2
+    end
+    g ==> gp
 ```
 
 *Figure 4. Transforming a HAM-CYCLE instance into a TSP instance*
+
+Each edge of G gets weight 1, each edge not in G gets weight ∞ (or 2|V|), and K = |V|.
 
 - The only edge missing from $G$ in the figure is the one joining $a$ and $d$, so in $G'$ only that edge has weight ∞ (or $2|V|$) and the other five edges have weight 1.
 - $G$ has a Hamiltonian cycle **iff** $G'$ has a tour of weight $\leq |V|$.
@@ -360,21 +369,17 @@ In words, $A$ is **at least as hard as every problem in NP**. Crucially, $A$ doe
 - Construct a polynomial-time reduction $C \leq_P A$.
 - Prove the Yes/No answers are preserved **in both directions**.
 
-```text
-  Polynomial-time reduction
-    α (instance of C) ────f────> β = f(α) (instance of A)
-                                         │
-                                  algorithm for A
-                                         │
-                                         ▼
-       Yes  ◄────────────────────────► Yes
-       No   ◄────────────────────────► No
-
-  "If A could be solved in polynomial time,
-   then C could also be solved in polynomial time."
+```mermaid
+flowchart LR
+    alpha["α (instance of C)"] -->|"polynomial-time reduction f"| beta["β = f(α) (instance of A)"]
+    beta --> alg["algorithm for A"]
+    alg --> ansB["Yes / No (β)"]
+    ansB <-->|"same answer"| ansA["Yes / No (α)"]
 ```
 
 *Figure 7. How a polynomial-time reduction preserves Yes/No answers*
+
+If A could be solved in polynomial time, then C could also be solved in polynomial time.
 
 By transitivity of $\leq_P$, since *every* NP problem reduces to $C$ and $C$ reduces to $A$, *every* NP problem reduces to $A$. Therefore $A$ is NP-Hard. Combined with $A \in NP$, $A$ is NP-Complete.
 
@@ -396,14 +401,25 @@ By transitivity of $\leq_P$, since *every* NP problem reduces to $C$ and $C$ red
 - Copy $G$ unchanged and assign **weight 1** to every edge.
 - Set $K = |V| - 1$.
 
-```text
-  HAM-PATH-2-POINTS instance         LONGEST-PATH instance
-
-  s --- a --- b                       s -1- a -1- b
-  |           |          ═══>         |           |
-  c --- d --- t                       c -1- d -1- t
-
-  "Hamiltonian s→t path?"             "Simple s→t path of weight ≥ |V|-1 ?"
+```mermaid
+graph LR
+    subgraph g["HAM-PATH-2-POINTS instance: Hamiltonian s → t path?"]
+        s(("s")) --- a(("a"))
+        a --- b(("b"))
+        s --- c(("c"))
+        c --- d(("d"))
+        d --- t(("t"))
+        b --- t
+    end
+    subgraph gp["LONGEST-PATH instance: simple s → t path of weight ≥ |V| - 1?"]
+        s2(("s")) ---|"1"| a2(("a"))
+        a2 ---|"1"| b2(("b"))
+        s2 ---|"1"| c2(("c"))
+        c2 ---|"1"| d2(("d"))
+        d2 ---|"1"| t2(("t"))
+        b2 ---|"1"| t2
+    end
+    g ==> gp
 ```
 
 *Figure 8. Transforming a HAM-PATH-2-POINTS instance into a LONGEST-PATH instance*
@@ -446,20 +462,15 @@ The first NP-Completeness proof was the one Cook (1971) gave for **SAT** *direct
 
 Subsequent NP-Completeness proofs reuse Cook's result by **reducing from a known NP-Complete problem**.
 
-```text
-  CIRCUIT-SAT
-      ↓ (reduction)
-     SAT
-      ↓
-   3-CNF-SAT
-   /       \
- CLIQUE   SUBSET-SUM
-   ↓
- VERTEX-COVER
-   ↓
- HAM-CYCLE
-   ↓
-  TSP
+```mermaid
+graph TD
+    cs["CIRCUIT-SAT"] -->|"reduction"| sat["SAT"]
+    sat --> cnf["3-CNF-SAT"]
+    cnf --> cl["CLIQUE"]
+    cnf --> ss["SUBSET-SUM"]
+    cl --> vc["VERTEX-COVER"]
+    vc --> hc["HAM-CYCLE"]
+    hc --> tsp["TSP"]
 ```
 
 *Figure 11. Reduction chain from CIRCUIT-SAT to TSP and SUBSET-SUM*
