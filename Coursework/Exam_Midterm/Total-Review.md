@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-10
 
 ---
 
@@ -1315,7 +1315,7 @@ Approach every DP problem with the following six steps.
 | Memoization | About 0.005 ms, $O(n)$ |
 | Tabulation | About 0.003 ms, $O(n)$ |
 
-*Table 22. Running time of each Fibonacci implementation for $n = 30$*
+*Table 22. Running time for $`n = 30`$ by Fibonacci implementation*
 
 #### 6.5.2 Longest Common Subsequence (LCS)
 
@@ -1567,7 +1567,7 @@ $T(n) = a T(n/b) + f(n)$, $h = n^{\log_b a}$:
 | $f = \Theta(h)$ | $\Theta(h \log n)$ (Case 2) |
 | $f = \Omega(h \cdot n^\varepsilon)$ + regularity | $\Theta(f)$ (Case 3) |
 
-*Table 26. Results of the Master Theorem by comparing $f$ with $h$*
+*Table 26. Results of comparing $`f`$ with $`h`$ in the Master Theorem*
 
 #### 7.2.4 Recurrence Catalog
 
