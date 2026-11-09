@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-10
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -197,7 +197,7 @@ Source $s$. In each row, the **bolded** $d$-value identifies the vertex to be ex
 | (e)  | $t$       | 0      | 8      | **9**  | 5      | 7      |
 | (f)  | $x$       | 0      | 8      | 9      | 5      | 7      |
 
-*Table 2. Distance estimates per iteration of Dijkstra's algorithm from source $s$*
+*Table 2. Distance estimates from source $`s`$ per iteration of Dijkstra's algorithm*
 
 The `prev[]` array records each vertex's predecessor on the shortest-path tree, allowing the actual path to be reconstructed by walking backwards from any destination.
 
@@ -274,7 +274,7 @@ The trace below relaxes the edges in one fixed order reused every pass, $(x,t), 
 | (d) i=3 | 0      | 2      | 4      | 7      | -2     |
 | (e) i=4 | 0      | 2      | 4      | 7      | -2     |
 
-*Table 3. Distance estimates per pass of the Bellman-Ford algorithm from source $s$*
+*Table 3. Distance estimates from source $`s`$ per pass of the Bellman-Ford algorithm*
 
 After Phase 2 no value tightens further, so there is **no negative cycle**. The recorded `prev[]` defines the shortest-path tree. Final distances are independent of the relaxation order; only the per-pass progression depends on it.
 
@@ -303,7 +303,7 @@ $$d_v^{\,k} = \min\Bigl\{\, d_v^{\,k-1},\; \min_{(u, v) \in E} \bigl\{\, d_u^{\,
                                        d_{u4}^{k-1} + w4 }
 ```
 
-*Figure 7. Edges entering vertex $v$ and the Bellman-Ford recurrence*
+*Figure 7. Edges entering vertex $`v`$ and the Bellman-Ford recurrence*
 
 **Goal:** $d_t^{\,|V|-1}$ for all vertices $t$ (since a simple shortest path uses at most $|V| - 1$ edges).
 
@@ -362,7 +362,7 @@ Floyd-Warshall takes an **adjacency matrix** $W$ where:
 | **4** | 2   | ∞   | -5  | 0   | ∞   |
 | **5** | ∞   | ∞   | ∞   | 6   | 0   |
 
-*Table 6. Input adjacency matrix $W$ for the Floyd-Warshall example*
+*Table 6. Input adjacency matrix $`W`$ for the Floyd-Warshall example*
 
 ### 3.3 Node-Based Recurrence
 
@@ -376,7 +376,7 @@ $$d_{ij}^{\,(k)} = \text{shortest distance from } i \text{ to } j \text{ using o
          (d_{ik}^{(k-1)})  (d_{kj}^{(k-1)})
 ```
 
-*Figure 8. Path that avoids vertex $k$ and path that uses $k$ once*
+*Figure 8. Path that avoids vertex $`k`$ and path that uses $`k`$ once*
 
 **Recurrence:**
 
@@ -427,7 +427,7 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 | **4** | 2   | ∞   | -5  | 0   | ∞   |
 | **5** | ∞   | ∞   | ∞   | 6   | 0   |
 
-*Table 7. Distance matrix $D^{(0)}$ with no intermediate vertices*
+*Table 7. Distance matrix $`D^{(0)}`$ with no intermediate vertices*
 
 **$D^{(1)}$: allow vertex 1 as an intermediate.** $d_{ij}^{(1)} = \min\{d_{ij}^{(0)},\, d_{i1}^{(0)} + d_{1j}^{(0)}\}$.
 
@@ -442,7 +442,7 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 | **4** | 2   | **5** | -5  | 0   | **-2** |
 | **5** | ∞   | ∞     | ∞   | 6   | 0      |
 
-*Table 8. Distance matrix $D^{(1)}$ with vertex 1 allowed as an intermediate*
+*Table 8. Distance matrix $`D^{(1)}`$ with vertex 1 allowed as an intermediate*
 
 **$D^{(2)}$: allow {1, 2} as intermediates.** $d_{ij}^{(2)} = \min\{d_{ij}^{(1)},\, d_{i2}^{(1)} + d_{2j}^{(1)}\}$.
 
@@ -457,7 +457,7 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 | **4** | 2   | 5   | -5  | 0     | -2     |
 | **5** | ∞   | ∞   | ∞   | 6     | 0      |
 
-*Table 9. Distance matrix $D^{(2)}$ with {1, 2} allowed as intermediates*
+*Table 9. Distance matrix $`D^{(2)}`$ with {1, 2} allowed as intermediates*
 
 **$D^{(3)}$: allow {1, 2, 3} as intermediates.** $d_{ij}^{(3)} = \min\{d_{ij}^{(2)},\, d_{i3}^{(2)} + d_{3j}^{(2)}\}$.
 
@@ -471,7 +471,7 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 | **4** | 2   | **-1** | -5  | 0   | -2  |
 | **5** | ∞   | ∞      | ∞   | 6   | 0   |
 
-*Table 10. Distance matrix $D^{(3)}$ with {1, 2, 3} allowed as intermediates*
+*Table 10. Distance matrix $`D^{(3)}`$ with {1, 2, 3} allowed as intermediates*
 
 > **Note:** **In-place computation is safe.** As noted in Section 3.4, at iteration $k$ the only entries read are $d_{ik}$ and $d_{kj}$, those in row $k$ and column $k$. But $d_{kk}^{(k)} = d_{kk}^{(k-1)} = 0$ (no negative cycle), so $d_{ik}^{(k)} = d_{ik}^{(k-1)}$ and $d_{kj}^{(k)} = d_{kj}^{(k-1)}$: row $k$ and column $k$ are *unchanged* by the $k$-th pass. Overwriting $d_{ij}$ in place therefore reads the same values whether or not it has already been updated in the same pass, so a single matrix suffices. Re-running the $D^{(0)} \to D^{(5)}$ example with one in-place array reproduces the matrix in Section 3.6 exactly.
 
@@ -487,7 +487,7 @@ After computing $D^{(4)}$ and $D^{(5)}$, the **all-pairs shortest distances** ar
 | **4** | 2   | -1  | -5  | 0   | -2  |
 | **5** | 8   | 5   | 1   | 6   | 0   |
 
-*Table 11. Final distance matrix $D^{(5)}$ with all-pairs shortest distances*
+*Table 11. Final distance matrix $`D^{(5)}`$ with all-pairs shortest distances*
 
 **Path reconstruction example:** reconstruct the shortest path $1 \to 2$, whose cost is 1.
 
