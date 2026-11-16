@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Summary-Sheet.md) | [한국어](Summary-Sheet.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-16
 
 ---
 
@@ -126,6 +126,7 @@ while left <= right:     # equality is required
 ## 3. Week 2: Complexity Analysis
 
 ### Definitions of Asymptotic Notation
+
 $$ O(g(n)) = \{ f : \exists c > 0, n_0 \geq 0, \forall n \geq n_0, f(n) \leq c \cdot g(n) \} $$
 
 - **O:** An upper bound, meaning the function grows at most this fast.
@@ -383,7 +384,7 @@ while S ≠ V:
 ```
 **Explanation:** It computes the shortest distance $D[v]$ from the source vertex $s$ to each vertex. In each iteration, the unfinalized vertex $u$ with minimum $D$ is added to the finalized set $S$, and edge relaxation is performed on the neighbors of $u$. Thanks to the nonnegative weight assumption, the invariant holds that the $D$ value of a vertex in $S$ never changes afterward.
 
-**Negative edge caution:** With negative edges, an already finalized $D[u]$ may later become smaller, which breaks the greedy invariant. In that case, the Bellman-Ford algorithm ($O(VE)$) must be used.
+**Negative edge caution:** With negative edges, an already finalized $D[u]$ may later become smaller, which breaks the greedy invariant. In that case, the Bellman-Ford algorithm ($`O(VE)`$) must be used.
 
 ---
 
@@ -482,6 +483,7 @@ for k = 1 to n:     # k must be the outermost loop
 For a polynomial $f(n) = \sum a_i n^i$, choosing $c = \sum |a_i|$ and $n_0 = 1$ works in most cases.
 
 ### Euclidean GCD
+
 $$ \gcd(a, b) = \gcd(b, a \bmod b),  \gcd(a, 0) = a $$
 
 ### Comparison-Based Sorting Lower Bound
@@ -543,18 +545,33 @@ flowchart TD
 
 ### Example 1: Master Theorem
 Find the complexity of $T(n) = 4T(n/2) + n$.
+
+<details>
+<summary>Show solution</summary>
+
 - Since $a = 4$ and $b = 2$, $n^{\log_b a} = n^2$.
 - Since $f(n) = n = O(n^{2 - 1})$, this is Case 1.
 - Therefore, $T(n) = \Theta(n^2)$.
 
+</details>
+
 ### Example 2: Greedy vs DP
-Compare the two for coins {1, 3, 4} and amount 6.
+Find the minimum number of coins that make amount 6 with coins {1, 3, 4} by greedy and by DP, and compare the two.
+
+<details>
+<summary>Show solution</summary>
+
 - **Greedy:** 4 + 1 + 1 gives 3 coins.
 - **DP:** $C[6] = 1 + \min(C[5], C[3], C[2]) = 1 + \min(2, 1, 2) = 2$, so 3 + 3 gives 2 coins.
 - In this example, greedy is not optimal.
 
+</details>
+
 ### Example 3: LCS Table
 Find the LCS of $X$ = "ABCB" and $Y$ = "BDCAB".
+
+<details>
+<summary>Show solution</summary>
 
 | | "" | B | D | C | A | B |
 |---|---|---|---|---|---|---|
@@ -568,6 +585,8 @@ Find the LCS of $X$ = "ABCB" and $Y$ = "BDCAB".
 
 The answer is length 3, and an example LCS is "BCB".
 
+</details>
+
 ---
 
 <br>
@@ -578,35 +597,75 @@ The same question may appear on the exam, or the answer structure may be transpl
 
 ### Q1. Big-O Proof: Prove that $2n^2 + 3n + 5 = O(n^2)$.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** By the definition of Big-O, the proof is complete once constants $c$ and $n_0$ are given. With $c = 10$ and $n_0 = 1$, for all $n \geq 1$ we have $2n^2 + 3n + 5 \leq 2n^2 + 3n^2 + 5n^2 = 10n^2 = c \cdot n^2$. Therefore, by definition, $2n^2 + 3n + 5 = O(n^2)$. This means that $f$ does not grow asymptotically faster than $g$, and the key point is that it is an upper bound that ignores constant factors. Note that this expression is also $\Theta(n^2)$, so in an actual answer it is more informative to use the tighter Θ notation whenever possible.
+
+</details>
 
 ### Q2. Master Theorem: Find the time complexity of $T(n) = 3T(n/2) + n^2$.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** In the standard form $T(n) = a T(n/b) + f(n)$ of the master theorem, $a = 3$ and $b = 2$, so the comparison function is $h(n) = n^{\log_2 3} \approx n^{1.585}$. Comparing $f(n) = n^2$ with $h(n)$, $n^2 = \Omega(n^{1.585 + \varepsilon})$ holds with $\varepsilon \approx 0.4$. The regularity condition $a f(n/b) \leq c f(n)$ holds as $3 (n/2)^2 = 0.75 n^2 \leq 0.75 n^2$ for $c = 0.75 < 1$, so this is Case 3. Therefore, $T(n) = \Theta(f(n)) = \Theta(n^2)$. In this case, the work at the root dominates the recursive cost, which is a structure in which the cost of each level of the recursion tree decreases geometrically.
+
+</details>
 
 ### Q3. Lower Bound for Comparison Sorting: Using the decision tree model, explain why every comparison-based sort needs $\Omega(n \log n)$ comparisons in the worst case.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** Any comparison-based sort can be modeled as a decision tree, where each internal node corresponds to one comparison asking whether $A[i] \leq A[j]$, and each leaf corresponds to one possible output permutation. Since there are $n!$ permutations of $n$ elements, the decision tree must have at least $n!$ leaves. A binary tree of height $h$ has at most $2^h$ leaves, so $2^h \geq n!$. Taking logarithms of both sides gives $h \geq \log_2(n!) = \Theta(n \log n)$ (by Stirling's approximation), and since the height of the tree equals the worst-case number of comparisons, $\Omega(n \log n)$ is the lower bound. This lower bound is **a limit of the comparison model itself**, and the same reasoning explains why counting sort and radix sort can achieve $O(n)$ by using information about the value range or the digits.
+
+</details>
 
 ### Q4. Quick Sort Worst Case: Explain when quick sort becomes $\Theta(n^2)$ and how to avoid it.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** Each call of quick sort partitions around a pivot and then processes the two regions recursively. The worst case occurs when the partition is completely unbalanced as $0 : n-1$, and the recurrence then becomes $T(n) = T(n-1) + \Theta(n) = \Theta(n^2)$. A typical worst-case input is **an already sorted array with Lomuto partitioning that uses the last element as the pivot**. There are three avoidance strategies. (1) A **random pivot** picks a random index and swaps it with the last element, lowering the probability of the worst case and giving $\Theta(n \log n)$ on average. (2) **Median-of-3** uses the median of the first, middle, and last elements as the pivot, handling already sorted input safely. (3) **Introsort** switches to heap sort when the recursion depth exceeds $2 \log n$, guaranteeing $O(n \log n)$ in the worst case, and C++ STL `std::sort` uses this method. As a tradeoff, quick sort is in-place and cache-friendly, so it is faster than merge sort on average, but the worst-case risk must always be managed.
+
+</details>
 
 ### Q5. Why buildHeap Is $O(n)$: Explain why it is not $O(n \log n)$ even though heapify is applied to every node.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** Intuitively, it looks like $O(n \log n)$ because an $O(\log n)$ heapify is applied to each of the $n$ nodes, but the key to the tight analysis is the observation that **most nodes lie near the leaves, so their heapify cost is small** (leaves need no heapify at all). In a complete binary tree, there are about $n / 2^{h+1}$ nodes of height $h$, and the heapify cost for each such node is $O(h)$. The total cost is as follows.
-$$ \sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot O(h) = O\left( n \sum_{h=0}^{\infty} \frac{h}{2^h} \right) = O(n \cdot 2) = O(n) $$
+
+$\displaystyle \sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot O(h) = O\left( n \sum_{h=0}^{\infty} \frac{h}{2^h} \right) = O(n \cdot 2) = O(n)$
+
 This is because the infinite series $\sum h / 2^h = 2$. In other words, low-height nodes (close to the leaves) make up most of the nodes and their work is nearly constant, so the depth-weighted sum converges to a linear bound. This result is used to state the overall complexity of heap sort as $O(n) + O(n \log n) = O(n \log n)$.
+
+</details>
 
 ### Q6. Greedy Optimality Proof for Activity Selection: Prove that the greedy method that selects the earliest finishing activity (EFT) first is optimal.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** Prove it by an exchange argument. Let the greedy solution be $G = \{g_1, g_2, \ldots, g_k\}$ and an arbitrary optimal solution be $O = \{o_1, o_2, \ldots, o_m\}$, both sorted by finish time in ascending order. Since greedy first selects the activity that **finishes earliest among all activities**, $\text{finish}(g_1) \leq \text{finish}(o_1)$ holds. Therefore, replacing $o_1$ with $g_1$ in $O$ keeps the later activities non-overlapping and does not change the size. That is, $O' = \{g_1, o_2, \ldots, o_m\}$ is also an optimal solution. Applying this argument inductively, optimality is preserved even if every element of $O$ is replaced by a greedy choice, so $|G| = |O|$. The key intuition is that choosing the activity that finishes earliest leaves the most time for later activities, and this establishes both the greedy-choice property and optimal substructure. The complexity is dominated by sorting by finish time, giving $O(n \log n)$.
+
+</details>
 
 ### Q7. Dijkstra vs Bellman-Ford: Explain the difference between the two shortest path algorithms and when to use each.
 
-**Answer:** Dijkstra's algorithm is a greedy algorithm that finds single-source shortest paths in graphs with nonnegative weights in $O(m \log n)$ (with a binary heap). At each step, it finalizes the unfinalized vertex $u$ with minimum $D[u]$ and relaxes the distances of its neighbors (edge relaxation), and its greedy invariant is that once $u$ is finalized, $D[u]$ never changes afterward. With negative edges, a shorter path may be found later, which breaks this invariant, so the algorithm gives wrong answers. Bellman-Ford is a DP-style algorithm that relaxes every edge $V-1$ times; its time is $O(VE)$, but it **allows negative edges** and detects a negative cycle if a distance is updated again in the $V$-th iteration. In summary, use Dijkstra if all weights are nonnegative and speed matters, and use Bellman-Ford if there are negative edges or negative cycles must be detected. If shortest paths between all pairs are needed, choose Floyd-Warshall ($O(n^3)$).
+<details>
+<summary>Show solution</summary>
+
+**Answer:** Dijkstra's algorithm is a greedy algorithm that finds single-source shortest paths in graphs with nonnegative weights in $O(m \log n)$ (with a binary heap). At each step, it finalizes the unfinalized vertex $u$ with minimum $D[u]$ and relaxes the distances of its neighbors (edge relaxation), and its greedy invariant is that once $u$ is finalized, $D[u]$ never changes afterward. With negative edges, a shorter path may be found later, which breaks this invariant, so the algorithm gives wrong answers. Bellman-Ford is a DP-style algorithm that relaxes every edge $V-1$ times; its time is $O(VE)$, but it **allows negative edges** and detects a negative cycle if a distance is updated again in the $V$-th iteration. In summary, use Dijkstra if all weights are nonnegative and speed matters, and use Bellman-Ford if there are negative edges or negative cycles must be detected. If shortest paths between all pairs are needed, choose Floyd-Warshall ($`O(n^3)`$).
+
+</details>
 
 ### Q8. 0-1 Knapsack: For items $(w, v) = (2, 3), (3, 4), (4, 5), (5, 6)$ and capacity $C = 5$, find the maximum value with DP and explain why greedy fails.
+
+<details>
+<summary>Show solution</summary>
 
 **Answer:** Defining the subproblem $K[i][w]$ as the maximum value when items $1..i$ are considered and the remaining capacity is $w$, the recurrence is $K[i][w] = \max(K[i-1][w],\; v_i + K[i-1][w - w_i])$. The base cases are $K[0][w] = K[i][0] = 0$. The table is as follows.
 
@@ -622,10 +681,19 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 
 The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (weight $2 + 3 = 5$, value $3 + 4 = 7$). Solving greedily (in descending value/weight ratio: item 1 is 1.5, item 2 is 1.33, item 3 is 1.25, item 4 is 1.2), after taking item 1 (2, 3), item 2 (3, 4) still fits in the remaining capacity 3, so in this particular example greedy also gets 7. In general, however, the 0-1 knapsack has cases where taking a high-ratio item leaves too little capacity for the next item and misses a combination with a larger $v$ (for example, with capacity 5 and items (4, 8), (3, 5), (2, 4), greedy that takes (4, 8) first among the equal ratios gets 8 and DP gets 9), because items cannot be split. In the fractional knapsack, items can be split, so greedy is always optimal, but the 0-1 knapsack guarantees optimality only with DP. The complexity is $O(nC)$, which is pseudopolynomial time.
 
+</details>
+
 ### Q9. LCS Design: Find the LCS of $X$ = "AGCAT" and $Y$ = "GAC" with DP and explain why each case of the recurrence is valid.
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** Define the subproblem $c[i][j]$ as the LCS length of $X[1..i]$ and $Y[1..j]$. The recurrence is as follows.
-$$ c[i][j] = \begin{cases} 0 & i=0 \text{ or } j=0 \\ c[i-1][j-1] + 1 & X[i] = Y[j] \\ \max(c[i-1][j],\; c[i][j-1]) & X[i] \neq Y[j] \end{cases} $$
+
+- $c[i][j] = 0$ ($i = 0$ or $j = 0$)
+- $c[i][j] = c[i-1][j-1] + 1$ ($X[i] = Y[j]$)
+- $c[i][j] = \max(c[i-1][j], c[i][j-1])$ ($X[i] \neq Y[j]$)
+
 The justification for each branch is as follows. (1) If the characters **match**, including that character in the LCS is always optimal. Using the last characters of both strings leaves the problem of adding 1 to the LCS of $X[1..i-1]$ and $Y[1..j-1]$. (2) If the characters **do not match**, at least one of $X[i]$ and $Y[j]$ is not in the LCS, so take the larger of the two cases $c[i-1][j]$ and $c[i][j-1]$. The table is as follows.
 
 | | "" | G | A | C |
@@ -641,6 +709,8 @@ The justification for each branch is as follows. (1) If the characters **match**
 
 The answer is $c[5][3] = 2$, and example LCSs are "GA" or "AC". Backtracking starts at $c[m][n]$, moves diagonally and records the character on a match, and otherwise moves toward the larger of $c[i-1][j]$ and $c[i][j-1]$. Both time and space complexity are $O(mn)$. LCS is used in Git diff, DNA sequence alignment, variants of edit distance, and more.
 
+</details>
+
 ### Q10. Loop Complexity Analysis: Find the time complexity of the following function and explain the reasoning.
 
 ```python
@@ -654,7 +724,12 @@ def f(n):
     return count
 ```
 
+<details>
+<summary>Show solution</summary>
+
 **Answer:** The key is to distinguish the growth patterns of the two loops. The outer `while` doubles $i$ with `i *= 2`, so it repeats about $\log_2 n$ times (exactly $\lceil \log_2 n \rceil$ times for $n > 1$) until the condition $i < n$ turns into $i \geq n$. The inner `for` increases $j$ by 1 from 0 to $n-1$, so it runs exactly $n$ times each time. Therefore, the total number of operations is $n \cdot \log_2 n = \Theta(n \log n)$. The general principle is that **a loop that changes by multiplication or division is $O(\log n)$**, as with `i *= 2` or `i /= 2`, and **a loop that changes by addition is $O(n)$**, as with `i += 1`; when they are nested, the product of the two counts is the overall complexity. For example, substituting $n = 16$, the outer loop runs 4 times with $i = 1, 2, 4, 8$ and the inner loop runs 16 times each time, so `count = 64`, which matches $n \log_2 n = 16 \cdot 4 = 64$.
+
+</details>
 
 ---
 

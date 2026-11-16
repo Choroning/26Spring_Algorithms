@@ -23,7 +23,7 @@ This repository archives lecture notes and coursework for the Algorithms course.
 ## 📝 About This Repository
 
 - `Lecture-Notes/` holds a lecture note for each week (`Week##`), and Weeks 1-6 also hold lab notes.
-- `Coursework/` holds the assignment solutions (web app code and reports), lab code, midterm review materials, and the team-based term project.
+- `Coursework/` holds the assignments (handouts, explanations, and web app solution code), lab code with its explanation, midterm review materials, and the team-based term project.
 - Every note comes as an English (`.md`) and Korean (`.ko.md`) pair.
 
 > **🤖 Use of Generative AI Tools**

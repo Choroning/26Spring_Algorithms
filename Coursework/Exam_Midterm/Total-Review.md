@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-11-10
+> **Last Updated:** 2026-11-16
 
 ---
 
@@ -12,7 +12,7 @@
   - [1.1 The Questions to Answer](#11-the-questions-to-answer)
   - [1.2 Definition of an Algorithm](#12-definition-of-an-algorithm)
   - [1.3 Euclidean GCD: The Oldest Algorithm](#13-euclidean-gcd-the-oldest-algorithm)
-  - [1.4 Classical Problems and the $\log_2 n$ Motif](#14-classical-problems-and-the-log_2-n-motif)
+  - [1.4 Classical Problems and the log₂ n Motif](#14-classical-problems-and-the-log_2-n-motif)
     - [1.4.1 Binary Search](#141-binary-search)
     - [1.4.2 Poisoned Wine and Binary Encoding](#142-poisoned-wine-and-binary-encoding)
     - [1.4.3 Counterfeit Coin (1,024 Coins)](#143-counterfeit-coin-1024-coins)
@@ -39,11 +39,11 @@
     - [3.1.2 Stack: LIFO](#312-stack-lifo)
     - [3.1.3 Queue: FIFO](#313-queue-fifo)
     - [3.1.4 Heap: Priority Queue](#314-heap-priority-queue)
-  - [3.2 Basic Sorting: $\Theta(n^2)$](#32-basic-sorting-thetan2)
+  - [3.2 Basic Sorting: Θ(n²)](#32-basic-sorting-thetan2)
     - [3.2.1 Selection Sort](#321-selection-sort)
     - [3.2.2 Bubble Sort](#322-bubble-sort)
     - [3.2.3 Insertion Sort](#323-insertion-sort)
-  - [3.3 Advanced Sorting: $\Theta(n \log n)$](#33-advanced-sorting-thetan-log-n)
+  - [3.3 Advanced Sorting: Θ(n log n)](#33-advanced-sorting-thetan-log-n)
     - [3.3.1 Merge Sort](#331-merge-sort)
     - [3.3.2 Quick Sort](#332-quick-sort)
     - [3.3.3 Heap Sort](#333-heap-sort)
@@ -57,8 +57,8 @@
   - [4.1 The Divide-and-Conquer Paradigm](#41-the-divide-and-conquer-paradigm)
   - [4.2 Catalog of Representative Algorithms](#42-catalog-of-representative-algorithms)
   - [4.3 The Selection Problem](#43-the-selection-problem)
-    - [4.3.1 Randomized Select: Expected $\Theta(n)$](#431-randomized-select-expected-thetan)
-    - [4.3.2 Median of Medians: Worst-Case $\Theta(n)$](#432-median-of-medians-worst-case-thetan)
+    - [4.3.1 Randomized Select: Expected Θ(n)](#431-randomized-select-expected-thetan)
+    - [4.3.2 Median of Medians: Worst-Case Θ(n)](#432-median-of-medians-worst-case-thetan)
   - [4.4 Closest Pair of Points](#44-closest-pair-of-points)
   - [4.5 When Divide and Conquer Fails](#45-when-divide-and-conquer-fails)
   - [4.6 Wrap-Up](#46-wrap-up)
@@ -460,6 +460,7 @@ Proof that $T(n) = O(n \log n)$ for $T(n) = 2T(n/2) + n$:
 **Inductive hypothesis:** $T(n/2) \leq c(n/2) \log(n/2)$.
 
 **Inductive step:**
+
 $$
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
@@ -866,7 +867,7 @@ The big picture of Week 3 is as follows. Data structures (arrays, linked lists, 
 
 ### 4.3 The Selection Problem
 
-**Problem definition:** Find the $i$-th smallest element of an unsorted array. The question is whether this can be done without sorting the whole array ($O(n \log n)$).
+**Problem definition:** Find the $i$-th smallest element of an unsorted array. The question is whether this can be done without sorting the whole array ($`O(n \log n)`$).
 
 #### 4.3.1 Randomized Select: Expected $\Theta(n)$
 
@@ -917,7 +918,7 @@ as the result.
 **Brute force:** Checking every pair takes $O(n^2)$. Is there a better way?
 
 **Divide-and-conquer strategy:**
-1. Sort the points by x-coordinate (preprocessing in $O(n \log n)$).
+1. Sort the points by x-coordinate (preprocessing in $`O(n \log n)`$).
 2. Split into left and right around the median x.
 3. Recurse on each half to obtain $d_L, d_R$.
 4. Set $d = \min(d_L, d_R)$.
@@ -949,7 +950,7 @@ The recurrence is $T(n) = T(n-1) + T(n-2) + O(1)$, whose solution $O(\phi^n) \ap
 
 ### 4.6 Wrap-Up
 
-The big picture of Week 4 is as follows. Divide and conquer is the paradigm that recursively solves independent subproblems and combines the results. Representative algorithms include merge sort ($\Theta(n \log n)$), binary search ($\Theta(\log n)$), quick sort (average $\Theta(n \log n)$), randomized select ($\Theta(n)$), median of medians (worst-case $\Theta(n)$), and closest pair ($O(n \log^2 n)$). Problems with overlapping subproblems, such as Fibonacci, are solved with DP.
+The big picture of Week 4 is as follows. Divide and conquer is the paradigm that recursively solves independent subproblems and combines the results. Representative algorithms include merge sort ($`\Theta(n \log n)`$), binary search ($`\Theta(\log n)`$), quick sort (average $`\Theta(n \log n)`$), randomized select ($`\Theta(n)`$), median of medians (worst-case $`\Theta(n)`$), and closest pair ($`O(n \log^2 n)`$). Problems with overlapping subproblems, such as Fibonacci, are solved with DP.
 
 ---
 
@@ -1193,7 +1194,7 @@ Dijkstra(G, s):
 
 **Greedy invariant:** If $u \in S$, then $D[u]$ is the true shortest distance from $s$ to $u$.
 
-**Why it fails with negative edges:** Dijkstra assumes that a finalized $D[u]$ never changes afterward. With negative edges, however, a shorter path may be discovered later, breaking this assumption. In that case, the Bellman-Ford algorithm ($O(VE)$) must be used.
+**Why it fails with negative edges:** Dijkstra assumes that a finalized $D[u]$ never changes afterward. With negative edges, however, a shorter path may be discovered later, breaking this assumption. In that case, the Bellman-Ford algorithm ($`O(VE)`$) must be used.
 
 **Similarity to Prim's algorithm:**
 
@@ -1326,6 +1327,7 @@ Approach every DP problem with the following six steps.
 **Subproblem:** $c[i][j]$ is the length of the LCS of $X[1..i]$ and $Y[1..j]$.
 
 **Recurrence:**
+
 $$
 c[i,j] = \begin{cases}
 0 & i = 0 \text{ or } j = 0 \\
@@ -1367,6 +1369,7 @@ $$
 **Subproblem:** $E[i][j]$ is the minimum number of operations to turn $X[1..i]$ into $Y[1..j]$.
 
 **Recurrence:**
+
 $$
 E[i,j] = \begin{cases}
 j & i = 0 \quad (\text{insert j}) \\
@@ -1408,6 +1411,7 @@ $$
 **Subproblem:** $K[i, w]$ is the maximum value when considering items $1..i$ with capacity $w$.
 
 **Recurrence:**
+
 $$
 K[i, w] = \begin{cases}
 0 & i = 0 \text{ or } w = 0 \\
@@ -1708,7 +1712,7 @@ Big-O, recurrences, and the Master Theorem (Week 2) are the tools for analyzing 
 
 ✗ "Dijkstra finds shortest paths."
 
-✓ "Dijkstra works only with **non-negative edges**. With negative edges, a finalized $D[u]$ may later become smaller, which breaks the greedy invariant. In that case, Bellman-Ford ($O(VE)$) must be used."
+✓ "Dijkstra works only with **non-negative edges**. With negative edges, a finalized $D[u]$ may later become smaller, which breaks the greedy invariant. In that case, Bellman-Ford ($`O(VE)`$) must be used."
 
 #### Pattern 5: Real-World Examples
 
@@ -1770,6 +1774,9 @@ The following are **three representative exam question types**.
 
 $$ T(n) = 4T(n/2) + n $$
 
+<details>
+<summary>Show solution</summary>
+
 **Solution:**
 - $a = 4$, $b = 2$, $f(n) = n$
 - $n^{\log_b a} = n^{\log_2 4} = n^2$
@@ -1777,9 +1784,14 @@ $$ T(n) = 4T(n/2) + n $$
 - $f(n) = O(n^{2-\varepsilon})$ ($\varepsilon = 1$) → **Case 1**
 - **Answer:** $T(n) = \Theta(n^2)$.
 
+</details>
+
 #### Example 2: Greedy vs DP (Coin Change)
 
 **Problem:** With denominations $\{1, 3, 4\}$ and an amount of 6 cents, find the way to make the amount with the fewest coins using greedy and DP, and compare the results.
+
+<details>
+<summary>Show solution</summary>
 
 **Greedy solution:**
 - 4 (remaining: 2), 1 (remaining: 1), 1 (remaining: 0)
@@ -1798,9 +1810,14 @@ $$ T(n) = 4T(n/2) + n $$
 
 **Conclusion:** Greedy finds 3 coins and DP finds 2, so greedy is not optimal for these denominations.
 
+</details>
+
 #### Example 3: DP
 
 **Problem:** Find the LCS of $X$ = `ABCB` and $Y$ = `BDCAB` with a DP table.
+
+<details>
+<summary>Show solution</summary>
 
 **Table:**
 
@@ -1818,21 +1835,34 @@ $$ T(n) = 4T(n/2) + n $$
 
 **Backtracking:** When the characters match, move diagonally and include the character; otherwise, move to whichever of the two neighbors has the larger value.
 
+</details>
+
 ### 9.3 Ten Paradigm Identification Exercises
 
-These problems come from Week 7 Lab Exercise 2 and train the ability to decide which paradigm to use for a problem on the exam.
+These problems come from Week 7 Lab Exercise 2 and train the ability to decide which paradigm to use for a problem on the exam. For each problem, first decide the suitable paradigm and the reason, then open the folded answer to check.
 
 #### Problems 1-5
 
-| # | Problem | Paradigm | Reason |
-|---|---|---|---|
-| 1 | Two Sum (n ≤ 100) | **Brute force** | $n^2 = 10{,}000$, so $O(n^2)$ is acceptable |
-| 2 | Maximum subarray sum | **DP** (Kadane) or D&C | `dp[i] = max(a[i], dp[i-1]+a[i])` |
-| 3 | Closest pair of points ($n \leq 10^5$) | **Divide and conquer** | Split by x, recurse on each half, check the strip. $O(n \log n)$ |
-| 4 | Coin change {1, 5, 7, 10} | **DP** | Non-standard denominations, so greedy fails |
-| 5 | Activity selection | **Greedy** | Sort by finish time ascending; EFT optimality is proved |
+| # | Problem |
+|---|---|
+| 1 | Two Sum (n ≤ 100) |
+| 2 | Maximum subarray sum |
+| 3 | Closest pair of points ($n \leq 10^5$) |
+| 4 | Coin change {1, 5, 7, 10} |
+| 5 | Activity selection |
 
-*Table 35. Paradigm identification exercises 1-5 and the paradigm for each*
+*Table 35. Paradigm identification exercises 1-5*
+
+<details>
+<summary>Answer</summary>
+
+| # | Paradigm | Reason |
+|---|---|---|
+| 1 | **Brute force** | $n^2 = 10{,}000$, so $O(n^2)$ is acceptable |
+| 2 | **DP** (Kadane) or D&C | `dp[i] = max(a[i], dp[i-1]+a[i])` |
+| 3 | **Divide and conquer** | Split by x, recurse on each half, check the strip. $O(n \log n)$ |
+| 4 | **DP** | Non-standard denominations, so greedy fails |
+| 5 | **Greedy** | Sort by finish time ascending; EFT optimality is proved |
 
 **Problem 4:**
 ```text
@@ -1842,17 +1872,32 @@ Greedy: 10 + 1 + 1 + 1 + 1 = 5 coins
 DP:     7 + 7             = 2 coins  ← optimal!
 ```
 
+</details>
+
 #### Problems 6-10
 
-| # | Problem | Paradigm | Reason |
-|---|---|---|---|
-| 6 | Permutation in String | **Brute force** (sliding window) | Check every window of length `len(s1)` |
-| 7 | Longest increasing subsequence (LIS) | **DP** | `dp[i]` = length of the LIS ending at index i |
-| 8 | Multiplying large numbers | **Divide and conquer** (Karatsuba) | Split the digits, 3 multiplications. $O(n^{1.585})$ |
-| 9 | Minimum number of meeting rooms | **Greedy** | Event sweep: start +1, end -1, track the maximum |
-| 10 | Edit distance | **DP** | A 2D table similar to LCS. `dp[i][j]` = minimum operations for the prefixes |
+| # | Problem |
+|---|---|
+| 6 | Permutation in String |
+| 7 | Longest increasing subsequence (LIS) |
+| 8 | Multiplying large numbers |
+| 9 | Minimum number of meeting rooms |
+| 10 | Edit distance |
 
-*Table 36. Paradigm identification exercises 6-10 and the paradigm for each*
+*Table 36. Paradigm identification exercises 6-10*
+
+<details>
+<summary>Answer</summary>
+
+| # | Paradigm | Reason |
+|---|---|---|
+| 6 | **Brute force** (sliding window) | Check every window of length `len(s1)` |
+| 7 | **DP** | `dp[i]` = length of the LIS ending at index i |
+| 8 | **Divide and conquer** (Karatsuba) | Split the digits, 3 multiplications. $O(n^{1.585})$ |
+| 9 | **Greedy** | Event sweep: start +1, end -1, track the maximum |
+| 10 | **DP** | A 2D table similar to LCS. `dp[i][j]` = minimum operations for the prefixes |
+
+</details>
 
 #### Paradigm Decision Flowchart
 
@@ -1893,6 +1938,9 @@ def mystery(n):
     return count
 ```
 
+<details>
+<summary>Show solution</summary>
+
 **Solution:**
 ```text
 Outer loop: i = 1, 2, 4, 8, ..., until i ≥ n
@@ -1917,9 +1965,14 @@ count = 16 × 4 = 64
 
 **Key point:** The `i *= 2` pattern repeats $\log n$ times and the `i += 1` pattern repeats $n$ times; these patterns appear frequently on exams.
 
+</details>
+
 #### Review 2: Merge Sort
 
 **Problem:** Implement merge sort and count the number of merge operations.
+
+<details>
+<summary>Show solution</summary>
 
 ```python
 def merge_sort(arr):
@@ -1948,9 +2001,14 @@ def merge_sort(arr):
 
 **Example:** The input `[38, 27, 43, 3, 9, 82, 10]` is sorted into `[3, 9, 10, 27, 38, 43, 82]`, and the merge count is 6, equal to the number of internal nodes of the recursion tree, $n-1$.
 
+</details>
+
 #### Review 3: Finding the Maximum with Divide and Conquer
 
 **Problem:** Find the maximum of an array with divide and conquer and count the comparisons.
+
+<details>
+<summary>Show solution</summary>
 
 ```python
 def find_max_dc(arr):
@@ -1977,9 +2035,14 @@ def find_max_dc(arr):
 
 **Takeaway:** The $n - 1$ comparisons equal those of a sequential scan. Divide and conquer is not necessarily faster, and finding the maximum is inherently $\Theta(n)$.
 
+</details>
+
 #### Review 4: Activity Selection
 
 **Problem:** From a list of (start, end) lectures, select the **maximum number** of lectures that fit in one lecture room.
+
+<details>
+<summary>Show solution</summary>
 
 ```python
 def activity_selection(lectures):
@@ -2002,9 +2065,14 @@ def activity_selection(lectures):
 
 **Key point:** It is a greedy algorithm based on EFT (Earliest Finish Time), and its time complexity is $O(n \log n)$, dominated by sorting.
 
+</details>
+
 #### Review 5: Climbing Stairs DP
 
 **Problem:** There are $n$ stairs, and stair $i$ costs `cost[i]`. You climb 1 or 2 stairs at a time, starting from stair 0 or 1. Find the **minimum cost** to reach the top.
+
+<details>
+<summary>Show solution</summary>
 
 ```python
 def min_cost_climbing(cost):
@@ -2033,6 +2101,8 @@ def min_cost_climbing(cost):
 **Complexity:** $O(n)$ time and $O(1)$ space (keeping two variables is enough).
 
 **Generalization:** Even in 2D DP, if the recurrence refers only to the previous row or the previous column, the space can be reduced to a 1D array.
+
+</details>
 
 ### 9.5 Thirty Self-Check Questions
 
@@ -2081,21 +2151,47 @@ def min_cost_climbing(cost):
 ### 9.6 Calculation Practice
 
 #### Master Theorem
-The solution of $T(n) = 7T(n/2) + n^2$ is found as follows.
+Solve $T(n) = 7T(n/2) + n^2$.
+
+<details>
+<summary>Show solution</summary>
+
 - Since $a = 7$ and $b = 2$, $n^{\log_2 7} \approx n^{2.81}$.
 - Since $f(n) = n^2 = O(n^{2.81 - \varepsilon})$, it falls under Case 1.
 - Therefore $T(n) = \Theta(n^{\log_2 7})$.
 
+</details>
+
 #### LCS
-The LCS of $X$ = `ABCB` and $Y$ = `BDCAB` can be found by filling the table: $c[4][5] = 3$, and the LCS is `BCB`.
+Fill the table to find the LCS length of $X$ = `ABCB` and $Y$ = `BDCAB` and one LCS.
+
+<details>
+<summary>Answer</summary>
+
+$c[4][5] = 3$, and the LCS is `BCB`.
+
+</details>
 
 #### 0-1 Knapsack
-For items $(w, v) = (2,12), (1,10), (3,20), (2,15)$ and capacity $C = 5$, the maximum value is $K[4][5] = 37$ in the table, with items 4, 2, and 1 selected for a total weight of 5kg.
+For items $(w, v) = (2,12), (1,10), (3,20), (2,15)$ and capacity $C = 5$, find the maximum value and the selected items.
+
+<details>
+<summary>Answer</summary>
+
+The maximum value is $K[4][5] = 37$ in the table, with items 4, 2, and 1 selected for a total weight of 5kg.
+
+</details>
 
 #### Big-O Proof
-$5n^3 + 2n^2 + 7 = O(n^3)$ is proved as follows.
+Prove that $5n^3 + 2n^2 + 7 = O(n^3)$.
+
+<details>
+<summary>Show solution</summary>
+
 - Set $c = 14$ and $n_0 = 1$.
 - For all $n \geq 1$, $5n^3 + 2n^2 + 7 \leq 5n^3 + 2n^3 + 7n^3 = 14n^3$ holds.
+
+</details>
 
 ### 9.7 Pseudocode Check
 

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review.md) | [한국어](Review.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-16
 
 ---
 
@@ -625,17 +625,30 @@ flowchart TD
 
 **Q:** Determine the complexity of `T(n) = 4T(n/2) + n`.
 
+<details>
+<summary>Show solution</summary>
+
 **A:** `a = 4, b = 2, f(n) = n, n^(logᵦ a) = n²`. Since `n = O(n^(2−1))`, **Case 1** → `T(n) = Θ(n²)`.
+
+</details>
 
 ### Problem 2: Big-O Proof
 
 **Q:** Prove `5n³ + 2n² + 7 = O(n³)`.
 
+<details>
+<summary>Show solution</summary>
+
 **A:** With `c = 5 + 2 + 7 = 14` and `n₀ = 1`: for all `n ≥ 1`, `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³ = c·n³`. ∎
+
+</details>
 
 ### Problem 3: Greedy vs DP (Coin Change)
 
 **Q:** Coins `{1, 3, 4}`, amount 6. Compare greedy and DP.
+
+<details>
+<summary>Show solution</summary>
 
 **Greedy:** 4 + 1 + 1 = 3 coins.
 
@@ -649,9 +662,14 @@ flowchart TD
 
 `C[6] = min(C[5], C[3], C[2]) + 1 = min(2, 1, 2) + 1 = 2` → optimal is **{3, 3}** (2 coins).
 
+</details>
+
 ### Problem 4: LCS Fill and Traceback
 
 **Q:** LCS of `X = "ABCB"`, `Y = "BDCAB"`.
+
+<details>
+<summary>Show solution</summary>
 
 |     |   | B | D | C | A | B |
 |-----|---|---|---|---|---|---|
@@ -665,9 +683,14 @@ flowchart TD
 
 **Answer:** LCS length = **3**, e.g., `"BCB"`. Trace from bottom-right, going diagonal on matches.
 
+</details>
+
 ### Problem 5: 0-1 Knapsack Trace
 
 **Q:** Items `(w,v) = (2,12), (1,10), (3,20), (2,15)`, capacity `C = 5`. Find `K[4,5]`.
+
+<details>
+<summary>Show solution</summary>
 
 | i \ w | 0 | 1 | 2 | 3 | 4 | 5 |
 |-------|---|---|---|---|---|---|
@@ -681,15 +704,25 @@ flowchart TD
 
 **Answer:** `K[4,5] = 37`. Traceback: item 4 + item 2 + item 1 (weights 2+1+2 = 5, values 15+10+12 = 37).
 
+</details>
+
 ### Problem 6: Quick Sort Worst Case
 
 **Q:** What input makes Quick Sort with last-element pivot run in `Θ(n²)`? How does randomized pivot avoid this?
 
+<details>
+<summary>Show solution</summary>
+
 **A:** Already-sorted (or reverse-sorted) input: every partition is `0 : (n−1)`, giving `T(n) = T(n−1) + Θ(n) = Θ(n²)`. Randomized pivot selects a uniform random index first; the probability of repeated worst-case partitions is negligible, restoring expected `Θ(n log n)`.
+
+</details>
 
 ### Problem 7: Dijkstra with Negative Edges
 
 **Q:** Give a graph where Dijkstra's algorithm gives a wrong answer.
+
+<details>
+<summary>Show solution</summary>
 
 **A:** Directed edges: `s→a = 4, s→b = 2, a→b = −5`.
 - Step 1: Finalize `s`. Relax: `D[a] = 4, D[b] = 2`.
@@ -698,9 +731,14 @@ flowchart TD
 
 Dijkstra returns `D[b] = 2`. True shortest path: `s → a → b = 4 − 5 = −1`. The greedy invariant that a finalized distance is optimal breaks as soon as a negative edge from an unfinalized vertex can still improve an already-finalized vertex.
 
+</details>
+
 ### Problem 8: Activity Selection
 
 **Q:** Activities `(s, f)`: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`. Apply earliest-finish-time.
+
+<details>
+<summary>Show solution</summary>
 
 Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 - Pick `(1,3)` → `last = 3`
@@ -711,6 +749,8 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 - `(8,10)`: `8 ≥ 7` → pick; `last = 10`
 
 **Answer:** 3 activities, `{(1,3), (4,7), (8,10)}`.
+
+</details>
 
 ---
 

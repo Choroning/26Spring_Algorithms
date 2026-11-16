@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review-Detailed.md) | [한국어](Review-Detailed.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-16
 
 ---
 
@@ -1442,18 +1442,31 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 
 **Q.** Find the complexity of `T(n) = 4T(n/2) + n`.
 
+<details>
+<summary>Show solution</summary>
+
 **Solution.** `a = 4, b = 2, f(n) = n`. `n^(log_b a) = n^(log₂ 4) = n²`. Compare `f(n) = n` with `n²`: `n = O(n^(2−1))` with `ε = 1`. **Case 1**. Answer: `T(n) = Θ(n²)`.
+
+</details>
 
 ### Problem 2: Big-O Proof
 
 **Q.** Prove `5n³ + 2n² + 7 = O(n³)`.
 
+<details>
+<summary>Show solution</summary>
+
 **Solution.** Take `c = 5 + 2 + 7 = 14, n₀ = 1`. For all `n ≥ 1`:
 `5n³ + 2n² + 7 ≤ 5n³ + 2n³ + 7n³ = 14n³ = c · n³`. ∎
+
+</details>
 
 ### Problem 3: Greedy vs DP (Coin Change)
 
 **Q.** Coins `{1, 3, 4}`, amount 6. Compare greedy and DP solutions.
+
+<details>
+<summary>Show solution</summary>
 
 **Greedy:** `4 + 1 + 1 = 3` coins.
 
@@ -1469,9 +1482,14 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 
 **Discussion.** The greedy-choice property fails for `{1, 3, 4}`: committing to the 4 blocks the better option of two 3s. This is a canonical exam pitfall.
 
+</details>
+
 ### Problem 4: LCS
 
 **Q.** Find the LCS of `X = "ABCB"` and `Y = "BDCAB"`.
+
+<details>
+<summary>Show solution</summary>
 
 |     |   | B | D | C | A | B |
 |-----|---|---|---|---|---|---|
@@ -1485,9 +1503,14 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 
 **Answer.** Length 3, LCS = `"BCB"` (one of several). Trace from `c[4, 5]` diagonally when characters match.
 
+</details>
+
 ### Problem 5: 0-1 Knapsack
 
 **Q.** Items `(w, v) = (2, 12), (1, 10), (3, 20), (2, 15)`, capacity 5. Find `K[4, 5]` and the chosen items.
+
+<details>
+<summary>Show solution</summary>
 
 | i \ w | 0 | 1 | 2 | 3 | 4 | 5 |
 |-------|---|---|---|---|---|---|
@@ -1501,17 +1524,27 @@ Without optimal substructure, none of these paradigms apply; you are looking at 
 
 **Answer.** `K[4, 5] = 37`. Traceback: items 1, 2, 4 with total weight 5 and total value 37.
 
+</details>
+
 ### Problem 6: Quick Sort Worst Case
 
 **Q.** What input makes quick sort (last-element pivot) `Θ(n²)`? How does randomized pivot selection fix this?
+
+<details>
+<summary>Show solution</summary>
 
 **A.** An already-sorted (or reverse-sorted) array. Every partition call produces a `0 : (n−1)` split. The recurrence becomes `T(n) = T(n−1) + Θ(n) = Θ(n²)`.
 
 Randomized pivot: pick a uniform random index `r'` in `[p..r]`, swap `A[r'] ↔ A[r]`, then run standard partition. The probability of repeated worst-case splits is negligible; expected time becomes `Θ(n log n)`. The guarantee is over the algorithm's randomness, not over the input.
 
+</details>
+
 ### Problem 7: Dijkstra with Negative Edges
 
 **Q.** Give a small graph where Dijkstra returns an incorrect shortest distance.
+
+<details>
+<summary>Show solution</summary>
 
 **A.** Directed edges `s → a = 4, s → b = 2, a → b = −5`.
 
@@ -1521,9 +1554,14 @@ Randomized pivot: pick a uniform random index `r'` in `[p..r]`, swap `A[r'] ↔ 
 
 Dijkstra returns `D[b] = 2`. True shortest distance: `s → a → b = 4 − 5 = −1`. The greedy invariant that a finalized distance is optimal fails the moment a negative edge can still improve an already-finalized vertex.
 
+</details>
+
 ### Problem 8: Activity Selection
 
 **Q.** Activities `(s, f)`: `(1, 3), (2, 5), (4, 7), (1, 8), (5, 9), (8, 10)`. Apply earliest-finish-time.
+
+<details>
+<summary>Show solution</summary>
 
 Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 
@@ -1536,9 +1574,14 @@ Sorted by finish: `(1,3), (2,5), (4,7), (1,8), (5,9), (8,10)`.
 
 **Answer.** 3 activities: `{(1, 3), (4, 7), (8, 10)}`.
 
+</details>
+
 ### Problem 9: Merge Sort Recurrence by Substitution
 
 **Q.** Solve `T(n) = 2T(n/2) + n`, `T(1) = 1`, without using the Master Theorem.
+
+<details>
+<summary>Show solution</summary>
 
 **A.** Assume `n = 2ᵏ`. Unroll:
 ```text
@@ -1548,9 +1591,14 @@ T(n) = 2T(n/2) + n
 ```
 Set `2ᵏ = n` (so `k = log₂ n`): `T(n) = n · T(1) + n log₂ n = n + n log n = Θ(n log n)`. ∎
 
+</details>
+
 ### Problem 10: Huffman Coding
 
 **Q.** Build a Huffman code for `A:5, B:9, C:12, D:13, E:16, F:45`. Compute average bits per character.
+
+<details>
+<summary>Show solution</summary>
 
 **Construction.**
 ```text
@@ -1581,9 +1629,14 @@ One valid code tree (left=0, right=1):
 
 Total bits = 5·4 + 9·4 + 12·3 + 13·3 + 16·3 + 45·1 = 20 + 36 + 36 + 39 + 48 + 45 = **224**. Average = 224 / 100 = **2.24 bits/char**.
 
+</details>
+
 ### Problem 11: MST by Kruskal
 
 **Q.** Apply Kruskal to edges `(A,B,4), (A,C,1), (B,C,2), (B,D,5), (C,D,3)`. Compute the MST.
+
+<details>
+<summary>Show solution</summary>
 
 Sort edges by weight: `(A,C,1), (B,C,2), (C,D,3), (A,B,4), (B,D,5)`.
 
@@ -1593,9 +1646,14 @@ Sort edges by weight: `(A,C,1), (B,C,2), (C,D,3), (A,B,4), (B,D,5)`.
 
 MST weight: `1 + 2 + 3 = 6`. Edges skipped: `(A,B,4)` and `(B,D,5)` would create cycles.
 
+</details>
+
 ### Problem 12: Induction Proof of a Recurrence
 
 **Q.** Prove by induction that `T(n) = T(n/2) + 1, T(1) = 1` satisfies `T(n) = O(log n)`.
+
+<details>
+<summary>Show solution</summary>
 
 **Guess:** `T(n) ≤ c log₂(n) + d` for constants `c, d` we will fix.
 
@@ -1610,6 +1668,8 @@ T(n) = T(n/2) + 1
 ```
 
 Choose `c = 1, d = 1`. ∎
+
+</details>
 
 ---
 
