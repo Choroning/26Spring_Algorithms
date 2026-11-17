@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review.md) | [한국어](Review.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-18
 
 ---
 
@@ -229,7 +229,7 @@ T(n) = 2T(n/2) + n
 
 ### 3.2 Sorting: The Complete Table
 
-| Algorithm | Worst | Average | Best | Space | Stable? | Key note |
+| Algorithm | Worst | Average | Best | Space | Stable | Key note |
 |-----------|-------|---------|------|-------|---------|----------|
 | **Selection** | Θ(n²) | Θ(n²) | Θ(n²) | O(1) | No | Always same; min #swaps |
 | **Bubble** | Θ(n²) | Θ(n²) | **Θ(n)** (optimized) | O(1) | Yes | Best Θ(n) only if `swapped` flag used |
@@ -344,7 +344,7 @@ Average `Θ(n)`, worst `Θ(n²)`.
 2. Recursively compute median `M` of these medians.
 3. Partition around `M`; recurse on the side with rank `i`.
 
-**Why groups of 5?** At least `3n/10` elements are guaranteed `≤ M`, **and** at least `3n/10` elements are guaranteed `≥ M` (each as a separate bound). So the recursive call in step 3 is on at most `7n/10` elements. The recurrence `T(n) = T(n/5) + T(7n/10) + Θ(n)` gives linear time because `1/5 + 7/10 = 9/10 < 1`.
+**Reason for groups of 5.** At least `3n/10` elements are guaranteed `≤ M`, **and** at least `3n/10` elements are guaranteed `≥ M` (each as a separate bound). So the recursive call in step 3 is on at most `7n/10` elements. The recurrence `T(n) = T(n/5) + T(7n/10) + Θ(n)` gives linear time because `1/5 + 7/10 = 9/10 < 1`.
 
 ### 4.4 Closest Pair of Points (D&C)
 
@@ -354,7 +354,7 @@ Average `Θ(n)`, worst `Θ(n²)`.
 4. Check the **strip** of width `2d` around the dividing line, sorted by y.
 5. For each strip point, only its **next 7 neighbors** by y can be closer than `d`.
 
-**Why at most 7?** In a `2d × d` rectangle any two points are `≥ d` apart; at most 8 such points can exist, so each point checks 7 others.
+**Reason for at most 7.** In a `2d × d` rectangle any two points are `≥ d` apart; at most 8 such points can exist, so each point checks 7 others.
 
 `T(n) = 2T(n/2) + O(n log n) = O(n log² n)` (pre-sorting by y can improve to `O(n log n)`).
 
@@ -395,7 +395,7 @@ Greedy(C):
 
 ### 5.4 Greedy Algorithm Catalog
 
-| Problem | Strategy | Correct? | Time |
+| Problem | Strategy | Correct | Time |
 |---------|----------|----------|------|
 | Coin change (standard denominations) | Largest first | ✓ when denominations divide cleanly | O(k) |
 | **Fractional knapsack** | Sort by value/weight, greedily take | ✓ always | O(n log n) |
@@ -540,14 +540,14 @@ From `c[m, n]`:
 |--------|------------------|--------|----------------------|
 | Approach | Split, recurse, combine | One locally-best choice at each step | Solve all subproblems, combine optimally |
 | Subproblems | Independent (tree) | N/A (no recursion on subproblems) | **Overlapping** (DAG) |
-| Guaranteed optimal? | Problem-dependent | Only with greedy-choice property | Yes (with optimal substructure) |
+| Guaranteed optimal | Problem-dependent | Only with greedy-choice property | Yes (with optimal substructure) |
 | Typical time | Often O(n log n) | Often O(n log n) or O(n) | Often O(n²) or O(n³) |
 | Space | O(log n) stack | O(1) to O(n) | O(n) to O(n²) table |
 | Typical use | Sorting, searching | Scheduling, MST, shortest paths | Sequence problems, knapsack, chain optimization |
 
 *Table 17. Comparison of divide and conquer, greedy, and dynamic programming*
 
-### 7.2 Which Technique? Decision Flow
+### 7.2 Choosing a Technique: Decision Flow
 
 ```mermaid
 flowchart TD

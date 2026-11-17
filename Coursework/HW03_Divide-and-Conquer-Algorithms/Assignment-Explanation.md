@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 4, 33
 
@@ -41,7 +41,7 @@
   - [5.3 Running Time Comparison](#53-running-time-comparison)
 - [6. Analysis Questions of the Report](#6-analysis-questions-of-the-report)
   - [6.1 Time Complexity of Divide and Conquer](#61-time-complexity-of-divide-and-conquer)
-  - [6.2 Is Checking Only the Strip Enough](#62-is-checking-only-the-strip-enough)
+  - [6.2 Justification for Checking Only the Strip](#62-justification-for-checking-only-the-strip)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -500,7 +500,7 @@ $$
 
 In the measurements of Section 5.3, when n grew 50 times, the time of brute force grew about 987 times and that of divide and conquer about 25 times. Both values are smaller than the theoretical values 2,525 and 171, but the difference in growth between the two methods is clear. If, as in Section 6.6 of the [Week 4 Lecture](../../Lecture-Notes/Week04_Divide-and-Conquer-Algorithms/Concepts_Lecture.md), the y order is maintained during the recursion instead of sorting the strip every time, the combine step becomes O(n) and the time drops further to T(n) = 2T(n/2) + O(n) = O(n log n) (case 2 of the master theorem).
 
-### 6.2 Is Checking Only the Strip Enough
+### 6.2 Justification for Checking Only the Strip
 
 The question asks why checking only the strip is sufficient. The answer has two parts, correctness and efficiency.
 

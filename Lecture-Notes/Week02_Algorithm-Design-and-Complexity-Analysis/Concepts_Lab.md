@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 
 > **Learning Objectives:**
 > 1. Build a reusable timer utility to measure algorithm execution time
@@ -78,7 +78,7 @@ flowchart TD
 
 *Figure 1. Execution flow of measure_time*
 
-> **Note:** `time.perf_counter()` is the most precise time measurement function in Python. It has higher resolution than `time.time()`, enabling accurate measurement of even very short execution times. The reason for running multiple times is to reduce **measurement noise** caused by OS scheduling, cache effects, etc.
+`time.perf_counter()` is the most precise time measurement function in Python. It has higher resolution than `time.time()`, enabling accurate measurement of even very short execution times. The reason for running multiple times is to reduce **measurement noise** caused by OS scheduling, cache effects, etc.
 
 **Solution**
 
@@ -123,7 +123,7 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
 
-> **Note:** `*args` is Python's variable arguments. This technique allows calling `measure_time(my_func, arg1, arg2)` to pass any function along with its arguments. `_` is a convention for an unused variable.
+`*args` is Python's variable arguments. This technique allows calling `measure_time(my_func, arg1, arg2)` to pass any function along with its arguments. `_` is a convention for an unused variable.
 
 ### 2.2 A-2: Finding Duplicates, from O(n²) to O(n)
 
@@ -180,7 +180,7 @@ N = 5:   arr = [3, 1, 4, 1, 5]
                                     Total: 10 = n(n-1)/2
 ```
 
-> **Note:** This double-loop pattern is very common in data structures and algorithms. The key is that $j$ starts at $i+1$. This prevents redundant comparison of both (i, j) and (j, i). The comparison count $\frac{n(n-1)}{2}$ equals $\binom{n}{2}$ (the number of ways to choose 2 items from n) in combinatorics.
+This double-loop pattern is very common in data structures and algorithms. The key is that $j$ starts at $i+1$. This prevents redundant comparison of both (i, j) and (j, i). The comparison count $\frac{n(n-1)}{2}$ equals $\binom{n}{2}$ (the number of ways to choose 2 items from n) in combinatorics.
 
 **Hash Set O(n)**
 
@@ -208,7 +208,7 @@ Step 4: x=1  seen={3,1,4}   → 1 found! Return True
 
 It finishes in just **4 steps** instead of 10 comparisons.
 
-> **Note:** **Analogy.** Think of a set like a guest list at a party. When a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
+Think of a set like a guest list at a party. When a new guest arrives, you can instantly check whether their name is already on the list, without scanning every name one by one. Python's `set` works similarly using a technique called hashing.
 
 > **[Data Structures]** A **hash table** stores each key at the array position given by its hash value, so insertion and lookup take O(1) time on average; with many hash collisions the worst case can degrade to O(n), but in practice it almost always runs in O(1) (Week 10 covers hash tables in detail). Python's `set` is internally implemented as a hash table, so **insertion (add) and lookup (in) are O(1) on average**, and replacing the O(n) search of an array with this lookup reduces the whole duplicate check from O(n²) to O(n).
 
@@ -233,13 +233,13 @@ When N doubles, O(n²) becomes about 4x slower, but O(n) becomes only about 2x s
 
 > **Key Point:** The mathematical basis for this result is that Speedup ≈ O(n²) / O(n) is proportional to n²/n = **n**. That is, as N grows, the speedup also increases linearly. Taking the proportionality constant as 1 predicts about 50,000x at N=50,000; the measured value (15,000x) is smaller because of constant factors, but it grows in proportion to N in the same way. In the table, too, the speedup grows 10x whenever N grows 10x. This is the process of confirming with real data that algorithm choice matters.
 
-> **Note:** The actual benchmark speedup may differ from the theoretical value (~n) for the following reasons. (1) Hash table constant overhead is non-negligible for small N, (2) CPU cache effects can make array traversal faster than expected, and (3) Python's `set` is implemented in C, so its constant factor is much smaller than a Python double loop. The theoretical complexity and measured values agree in trend but differ in exact multipliers.
+The actual benchmark speedup may differ from the theoretical value (~n) for the following reasons. (1) Hash table constant overhead is non-negligible for small N, (2) CPU cache effects can make array traversal faster than expected, and (3) Python's `set` is implemented in C, so its constant factor is much smaller than a Python double loop. The theoretical complexity and measured values agree in trend but differ in exact multipliers.
 
 ### 2.3 A-3: Execution Time Graph
 
 Use matplotlib to plot the growth rate of the execution time for each complexity class.
 
-> **Note:** `matplotlib` is Python's representative data visualization library. If not installed, use `pip install matplotlib`.
+`matplotlib` is Python's representative data visualization library. If not installed, use `pip install matplotlib`.
 
 ```text
 Time
@@ -310,9 +310,9 @@ sequenceDiagram
 
 *Figure 4. Request and response flow of the two search endpoints*
 
-> **Note:** Binary search works by repeatedly halving the search space. It compares the target with the middle element, then searches only the left or right half. This halving process takes at most about log₂(n) steps. Week 4 covers it in detail.
+Binary search works by repeatedly halving the search space. It compares the target with the middle element, then searches only the left or right half. This halving process takes at most about log₂(n) steps. Week 4 covers it in detail.
 
-> **Note:** Flask is Python's lightweight web framework. It is used here to **experience how algorithm choice affects response time in a real web service**. The `?q=name` in the GET request is a query parameter that passes the product name to search for. Linear search checks all products from beginning to end, while binary search halves the search space at each step on sorted data.
+Flask is Python's lightweight web framework. It is used here to **experience how algorithm choice affects response time in a real web service**. The `?q=name` in the GET request is a query parameter that passes the product name to search for. Linear search checks all products from beginning to end, while binary search halves the search space at each step on sorted data.
 
 **Measuring the Difference**
 

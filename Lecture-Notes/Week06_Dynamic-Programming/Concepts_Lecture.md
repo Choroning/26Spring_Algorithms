@@ -20,7 +20,7 @@
 
 - [1. Foundations of Dynamic Programming](#1-foundations-of-dynamic-programming)
   - [1.1 Recursive Solutions: Light and Shadow](#11-recursive-solutions-light-and-shadow)
-  - [1.2 What is Dynamic Programming?](#12-what-is-dynamic-programming)
+  - [1.2 The Concept of Dynamic Programming](#12-the-concept-of-dynamic-programming)
   - [1.3 DP vs Divide-and-Conquer](#13-dp-vs-divide-and-conquer)
   - [1.4 Two DP Implementation Strategies](#14-two-dp-implementation-strategies)
   - [1.5 Example: Fibonacci Numbers](#15-example-fibonacci-numbers)
@@ -64,7 +64,7 @@
 
 > **Key Point:** **Overlapping subproblems** cause exponential redundant computation.
 
-### 1.2 What is Dynamic Programming?
+### 1.2 The Concept of Dynamic Programming
 
 **Dynamic Programming (DP)** avoids redundant computation as follows.
 
@@ -152,7 +152,7 @@ Top-Down (Memoization)          Bottom-Up (Tabulation)
 └──────────────────────┘        └──────────────────────┘
 ```
 
-> **Note:** **When to use which?** Memoization is easier to implement (just add caching to recursion) and avoids solving unnecessary subproblems. Tabulation avoids recursion overhead and is typically faster in practice. Most DP problems can be solved either way.
+> **Note:** **Choosing between them.** Memoization is easier to implement (just add caching to recursion) and avoids solving unnecessary subproblems. Tabulation avoids recursion overhead and is typically faster in practice. Most DP problems can be solved either way.
 
 ### 1.5 Example: Fibonacci Numbers
 

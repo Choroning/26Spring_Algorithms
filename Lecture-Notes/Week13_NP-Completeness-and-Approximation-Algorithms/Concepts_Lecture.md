@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -138,7 +138,7 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 *Table 2. Weights and values of the items in the 0-1 Knapsack example*
 
 - For $C = 20$, items $`\{2, 3, 4\}`$ weigh 19 and have value 50.
-- **Why is it NP-Complete despite the DP?** The Week 6 DP solution runs in $O(nC)$. But $C$ can be encoded in $\log C$ bits, so the DP is *pseudo-polynomial*: polynomial in the *value* of $C$, but exponential in its *bit-length*.
+- **Reason it is NP-Complete despite the DP:** The Week 6 DP solution runs in $O(nC)$. But $C$ can be encoded in $\log C$ bits, so the DP is *pseudo-polynomial*: polynomial in the *value* of $C$, but exponential in its *bit-length*.
 
 **Graph problems:**
 

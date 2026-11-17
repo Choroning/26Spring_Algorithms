@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 11
 
@@ -19,7 +19,7 @@
 ## Table of Contents
 
 - [1. Hashing Fundamentals](#1-hashing-fundamentals)
-  - [1.1 What is Hashing?](#11-what-is-hashing)
+  - [1.1 The Concept of Hashing](#11-the-concept-of-hashing)
   - [1.2 Hash Table Structure](#12-hash-table-structure)
   - [1.3 Hash Functions](#13-hash-functions)
   - [1.4 Properties of a Good Hash Function](#14-properties-of-a-good-hash-function)
@@ -37,7 +37,7 @@
   - [3.3 Hash Table: Overall Complexity](#33-hash-table-overall-complexity)
 - [4. Sets, Maps, and Comparisons](#4-sets-maps-and-comparisons)
   - [4.1 Set and Map Data Structures](#41-set-and-map-data-structures)
-  - [4.2 Hash Table vs BST: When to Use Which](#42-hash-table-vs-bst-when-to-use-which)
+  - [4.2 Hash Table vs BST: Choosing by Situation](#42-hash-table-vs-bst-choosing-by-situation)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -47,7 +47,7 @@
 
 ## 1. Hashing Fundamentals
 
-### 1.1 What is Hashing?
+### 1.1 The Concept of Hashing
 
 **Hashing** transforms data of **arbitrary size** into data of **fixed size**.
 
@@ -434,11 +434,11 @@ When the load factor crosses a threshold, **rehash**, i.e., resize the table:
 
 *Table 10. Average and worst-case complexity of hash table operations*
 
-**Why $O(1)$ on average?**
+**Reason for $O(1)$ on average**
 - Under SUHA the expected chain (or probe) length is $\Theta(1 + \alpha)$.
 - Rehashing keeps $\alpha = O(1)$, so each operation costs $O(1)$.
 
-**When does the $O(n)$ worst case actually appear?**
+**Cases where the $O(n)$ worst case actually appears**
 - A poorly chosen hash function that maps too many keys to the same slot.
 - An **adversarial** input crafted to exploit a known hash function. This is a real concern in web servers (hash-flooding DoS attacks), so many languages now randomize their hash seed at startup.
 
@@ -483,7 +483,7 @@ print("Bob" in phone)  # O(1)
 
 These are among the most heavily used data structures in coding interviews and competitive programming, and many algorithmic problems reduce to choosing the right Set or Map.
 
-### 4.2 Hash Table vs BST: When to Use Which
+### 4.2 Hash Table vs BST: Choosing by Situation
 
 | Criterion | Hash Table | Balanced BST (e.g., RBT in Week 9) |
 |-----------|------------|-----------------------------------|

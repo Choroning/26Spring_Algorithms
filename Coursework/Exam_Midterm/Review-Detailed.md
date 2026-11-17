@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Review-Detailed.md) | [한국어](Review-Detailed.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-18
 
 ---
 
@@ -73,7 +73,7 @@ Every major algorithm you have seen sits somewhere on that chain. Internalizing 
 
 ## 1. Foundations (Week 1)
 
-### 1.1 What exactly is an algorithm?
+### 1.1 A precise definition of an algorithm
 
 An algorithm is a **systematic, finite, unambiguous procedure** that, given an input satisfying some precondition, produces an output satisfying some postcondition. Every step must be mechanically executable; no "handle appropriately" or "choose wisely."
 
@@ -129,7 +129,7 @@ def gcd(a, b):
 
 **Why termination is guaranteed.** Every iteration `b` strictly decreases and stays non-negative, so it must hit 0 in a finite number of steps.
 
-**How fast?** Worst case `O(log min(a, b))` iterations. The worst case occurs on consecutive Fibonacci numbers. This is a classical result, rarely tested in detail but worth remembering: Fibonacci-like pairs are the worst inputs for GCD.
+**Speed.** Worst case `O(log min(a, b))` iterations. The worst case occurs on consecutive Fibonacci numbers. This is a classical result, rarely tested in detail but worth remembering: Fibonacci-like pairs are the worst inputs for GCD.
 
 ### 1.4 Classical problems and the log₂(n) theme
 
@@ -184,7 +184,7 @@ Search `85` in `[15, 20, 25, 35, 45, 55, 60, 75, 85, 90]`:
 
 Three comparisons to search 10 items. For `n = 10⁶`, binary search needs at most 20 comparisons; sequential search needs up to a million.
 
-> **Note:** **Why `left <= right` (inclusive)?** When the search window narrows to a single element (`left == right`), we still need to inspect that element. Dropping the equality would introduce an off-by-one bug where the target is missed if it lands on the last position. This is the single most common coding-test pitfall for binary search.
+> **Note:** **Reason for `left <= right` (inclusive).** When the search window narrows to a single element (`left == right`), we still need to inspect that element. Dropping the equality would introduce an off-by-one bug where the target is missed if it lands on the last position. This is the single most common coding-test pitfall for binary search.
 
 #### 1.4.3 The Euler circuit condition
 
@@ -215,7 +215,7 @@ Given `n` coins, one slightly lighter, find the fake with a balance scale.
 
 Each weighing eliminates half the candidates → `log₂ n` weighings. This is the first divide-and-conquer analysis in this range.
 
-> **Note:** **Why not three-way splits?** You *can* do better with thirds: split into 3 piles, weigh two of them, determine the lighter pile. This gives `log₃ n` weighings, asymptotically still `O(log n)`, just a different constant. The log-function is what matters, not the base.
+> **Note:** **Three-way splits.** You *can* do better with thirds: split into 3 piles, weigh two of them, determine the lighter pile. This gives `log₃ n` weighings, asymptotically still `O(log n)`, just a different constant. The log-function is what matters, not the base.
 
 #### 1.4.5 Poisoned wine: binary encoding
 
@@ -650,7 +650,7 @@ heapify(A, k, n):           // sift A[k] down within A[1..n]
 
 because `Σ h/2^h` converges to a constant. Most nodes are near the leaves where heapify does almost nothing.
 
-**Why start at `⌊n/2⌋`?** Nodes indexed `⌊n/2⌋ + 1` through `n` are leaves; they are already trivially heaps of size 1. We only need to run heapify on internal nodes, from the deepest one up to the root, so the children subtrees are heaps by the time heapify reaches their parent.
+**Reason to start at `⌊n/2⌋`.** Nodes indexed `⌊n/2⌋ + 1` through `n` are leaves; they are already trivially heaps of size 1. We only need to run heapify on internal nodes, from the deepest one up to the root, so the children subtrees are heaps by the time heapify reaches their parent.
 
 **Extraction phase.** Swap the root (min or max) with the last element, shrink the heap by 1, heapify the new root. Each extraction is `O(log n)`; `n − 1` extractions total → `O(n log n)`.
 
@@ -696,7 +696,7 @@ radixSort(A[1..n], k):
 
 Process digits from **LSD to MSD** (least to most significant). Each pass is stable, so the ordering from earlier (less significant) passes is preserved whenever later passes tie.
 
-**Why not MSD first?** MSD-first would sort by the most significant digit, but then within each group you would need to recursively sort by the remaining digits, which is a different algorithm (MSD radix sort, more complex). LSD radix sort with a stable subroutine is the simple classic.
+**Reason not to start from MSD.** MSD-first would sort by the most significant digit, but then within each group you would need to recursively sort by the remaining digits, which is a different algorithm (MSD radix sort, more complex). LSD radix sort with a stable subroutine is the simple classic.
 
 **Trace on `[0123, 2154, 0222, 0004, 0283, 1560, 1061, 2150]`:**
 
@@ -704,7 +704,7 @@ After sorting by the 1's digit, then 10's, then 100's, then 1000's, you get the 
 
 ### 3.6 Complete sorting comparison
 
-| Algorithm | Worst | Average | Best | Space | Stable? | Key takeaway |
+| Algorithm | Worst | Average | Best | Space | Stable | Key takeaway |
 |-----------|-------|---------|------|-------|---------|--------------|
 | Selection | Θ(n²) | Θ(n²) | Θ(n²) | O(1) | No | Always same; min # swaps |
 | Bubble | Θ(n²) | Θ(n²) | **Θ(n)** | O(1) | Yes | Best Θ(n) needs `swapped` flag |
@@ -798,7 +798,7 @@ LINEAR-SELECT(A, p, r, i):
     6. Recurse on the appropriate side
 ```
 
-**Why groups of 5.** After step 4, at least half of the `⌈n/5⌉` group medians are `≤ M`. Each such group contributes at least 3 elements `≤ M` (the group median plus the 2 smaller in its group). So at least
+**Reason for groups of 5.** After step 4, at least half of the `⌈n/5⌉` group medians are `≤ M`. Each such group contributes at least 3 elements `≤ M` (the group median plus the 2 smaller in its group). So at least
 
 ```text
 3 · ⌈⌈n/5⌉ / 2⌉ ≈ 3n/10
@@ -808,7 +808,7 @@ elements are `≤ M`. By symmetry, at least `3n/10` are `≥ M`. The recursive c
 
 **The recurrence.** `T(n) = T(n/5) + T(7n/10) + Θ(n)`. Since `1/5 + 7/10 = 9/10 < 1`, this is **linear** by the recurrence "sum of fractions < 1 ⇒ `O(n)`" rule. Prove by induction: guess `T(n) ≤ cn`, show it holds if `c` is chosen so that the constants work out.
 
-**Why exactly 5?** Groups of 3 give `T(n) = T(n/3) + T(2n/3) + Θ(n)`, where `1/3 + 2/3 = 1`, so the geometric sum diverges and the time is not linear. Groups of 7 would work too but waste time sorting within each group. 5 is the smallest size that buys linear time.
+**Reason for exactly 5.** Groups of 3 give `T(n) = T(n/3) + T(2n/3) + Θ(n)`, where `1/3 + 2/3 = 1`, so the geometric sum diverges and the time is not linear. Groups of 7 would work too but waste time sorting within each group. 5 is the smallest size that buys linear time.
 
 **Practical note.** Median of medians is asymptotically optimal, but the constants are large. Randomized select wins in practice.
 
@@ -828,7 +828,7 @@ Given `n` points in the plane, find the pair with minimum Euclidean distance.
 
 **The strip check: the key idea.** Sort strip points by y-coordinate. For each point `P`, only points within y-distance `d` above it can be closer than `d`. A rectangle of width `2d` and height `d` above `P` can contain at most 7 other points. Therefore, checking only the next 7 points in y-order is sufficient.
 
-**Why at most 7 other points?** Subdivide the `2d × d` rectangle into 8 cells of size `(d/2) × (d/2)`. Any two points in the same cell are at distance `≤ (d/2) · √2 < d`, contradicting `d_L, d_R ≥ d`. So each cell holds at most 1 point → at most 8 points in the rectangle, meaning the point itself plus at most 7 others.
+**Reason for at most 7 other points.** Subdivide the `2d × d` rectangle into 8 cells of size `(d/2) × (d/2)`. Any two points in the same cell are at distance `≤ (d/2) · √2 < d`, contradicting `d_L, d_R ≥ d`. So each cell holds at most 1 point → at most 8 points in the rectangle, meaning the point itself plus at most 7 others.
 
 **Complexity.** Each strip check is `O(n)` per recursive call (with y-sorting `O(n log n)` per call in the basic version). Recurrence: `T(n) = 2T(n/2) + O(n log n) → T(n) = O(n log² n)`. A more careful implementation that maintains y-sorted order through the recursion achieves `O(n log n)`.
 
@@ -885,7 +885,7 @@ Both properties must be **proven** for a given problem; intuition is not enough.
 
 ### 5.4 The greedy algorithm catalog
 
-| Problem | Strategy | Optimal? | Time |
+| Problem | Strategy | Optimal | Time |
 |---------|----------|----------|------|
 | Coin change (standard denominations) | Largest coin first | ✓ when denominations divide cleanly | O(k) |
 | **Fractional knapsack** | Sort by value/weight, take greedily | ✓ always | O(n log n) |
@@ -972,7 +972,7 @@ Codes (left = 0, right = 1): `A = 0`, `C = 10`, `T = 110`, `G = 111`.
 
 Naive 8-bit ASCII: 930 × 8 = 7,440 bits. Huffman is 1,620 / 7,440 ≈ 22%, about a 5x compression.
 
-**Why optimal.** Proof by exchange argument on the two least-frequent symbols: in any optimal prefix-code tree, there is an optimal solution in which the two deepest leaves are the two least-frequent symbols, and they are siblings. Merging them first is therefore safe.
+**Reason it is optimal.** Proof by exchange argument on the two least-frequent symbols: in any optimal prefix-code tree, there is an optimal solution in which the two deepest leaves are the two least-frequent symbols, and they are siblings. Merging them first is therefore safe.
 
 ### 5.7 MST algorithms
 
@@ -1017,7 +1017,7 @@ Prim(G, start):
 
 **Complexity.** `O(n²)` with a linear scan for the min-distance vertex; `O(m log n)` with a binary heap (each edge triggers at most one `decrease-key`).
 
-#### 5.7.3 When to use which?
+#### 5.7.3 Choosing by situation
 
 - **Kruskal:** sparse graphs where `m` is close to `n`. Sorting `m` edges is cheap.
 - **Prim:** dense graphs where `m ≈ n²`. Linear scan without sorting edges is faster.
@@ -1057,7 +1057,7 @@ Dijkstra(G, s):
 
 ## 6. Dynamic Programming (Week 6)
 
-### 6.1 What DP is, precisely
+### 6.1 A precise definition of DP
 
 Dynamic programming solves problems by:
 
@@ -1322,7 +1322,7 @@ Recognize the pattern; the recurrence writes itself.
 
 *Table 28. Comparison of divide and conquer, greedy, and dynamic programming*
 
-### 7.2 Decision flow: which paradigm for this problem?
+### 7.2 Decision flow: choosing a paradigm for the problem
 
 ```mermaid
 flowchart TD

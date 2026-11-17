@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 
 > **Learning Objectives:**
 > 1. Experimentally verify the success and failure conditions of greedy algorithms
@@ -41,7 +41,7 @@
     - [3.1.2 Solution](#312-solution)
     - [3.1.3 Greedy Code](#313-greedy-code)
     - [3.1.4 Brute Force Comparison](#314-brute-force-comparison)
-- [4. When Does Greedy Work?](#4-when-does-greedy-work)
+- [4. Conditions Under Which Greedy Works](#4-conditions-under-which-greedy-works)
 - [Summary](#summary)
 - [Self-Check Questions](#self-check-questions)
 
@@ -109,7 +109,7 @@ Optimal (DP):
   3 -> 3     = 2 coins  <-- fewer coins!
 ```
 
-**Why does greedy fail?** This coin set does not form a divisor relationship (4 is not a multiple of 3), and picking the locally best coin 4 blocks the globally better combination 3 + 3.
+**Reason greedy fails.** This coin set does not form a divisor relationship (4 is not a multiple of 3), and picking the locally best coin 4 blocks the globally better combination 3 + 3.
 
 #### 2.1.2 Greedy Code
 
@@ -172,7 +172,7 @@ def coin_change_dp(amount, coins):
 
 **Key takeaway:**
 
-| Coin set | Greedy | DP | Same? |
+| Coin set | Greedy | DP | Same |
 |:---------|:-------|:---|:------|
 | [500, 100, 50, 10] | Optimal | Optimal | Yes |
 | [1, 3, 4] | 3 coins | **2 coins** | **No** |
@@ -537,7 +537,7 @@ Theoretical lower bound:    22.4     2.040
 
 *Table 6. Huffman compression results for each text*
 
-**Why is Huffman greedy?**
+**Reason Huffman is greedy**
 
 - At each step, merge the **two least frequent** nodes.
 - This locally optimal choice leads to a globally optimal prefix code.
@@ -683,7 +683,7 @@ def bruteforce_schedule(meetings):
 
 <br>
 
-## 4. When Does Greedy Work?
+## 4. Conditions Under Which Greedy Works
 
 For greedy to guarantee an optimal solution, the following two conditions must hold.
 

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 6, 7, 8, 10
 
@@ -90,14 +90,14 @@ typedef struct ListNode {
 } ListNode;
 ```
 
-> **Note:** In Python, linked lists are implemented using classes.
-> ```python
-> class ListNode:
->     def __init__(self, data, next=None):
->         self.data = data
->         self.next = next  # Reference to the next node
-> ```
-> C's pointer (`*link`) corresponds to Python's object reference (`self.next`).
+In Python, linked lists are implemented using classes.
+```python
+class ListNode:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next  # Reference to the next node
+```
+C's pointer (`*link`) corresponds to Python's object reference (`self.next`).
 
 - The operations are insertion, deletion, and search, and all of them are O(n) in the worst case when the cost of searching for the position is included.
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
@@ -190,9 +190,9 @@ bottom → │  A  │
 
 *Table 1. Classification of sorting algorithms by complexity*
 
-> **Note:** There are two perspectives on understanding algorithms.
-> - **Flow-based**: Follow the execution steps one by one.
-> - **Relational**: Observe how each step transforms the state (deeper understanding).
+There are two perspectives on understanding algorithms.
+- **Flow-based**: Follow the execution steps one by one.
+- **Relational**: Observe how each step transforms the state (deeper understanding).
 
 > **Key Point:** Sorting algorithms are a core topic in the field of algorithms because (1) they are the most frequently used operation in practice, (2) they encompass core concepts like divide and conquer, recursion, and complexity analysis, and (3) there is the theoretically important result of the lower bound for comparison-based sorting (Ω(n log n)).
 
@@ -247,7 +247,7 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
 > **Key Point:** The key characteristic of selection sort is that regardless of the input state (already sorted, reversed, random), it is **always Θ(n²)**. Best, average, and worst cases are all the same. The number of comparisons is always n(n-1)/2, and only the number of swaps varies (up to n-1, or 0 if already sorted).
 
-> **Note:** This section explains selection sort as finding the maximum and sending it to the back, while Week 3 Lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
+This section explains selection sort as finding the maximum and sending it to the back, while Week 3 Lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
 
 ### 2.3 Selection Sort: Step-by-Step Example
 
@@ -288,7 +288,7 @@ In each iteration:
 
 - Each round, the **maximum** bubbles up to the end.
 
-> **Note:** "Bubble sort" gets its name from how the largest element rises to the top (right) like a bubble rising in water.
+"Bubble sort" gets its name from how the largest element rises to the top (right) like a bubble rising in water.
 
 ### 2.5 Bubble Sort: Pseudocode
 
@@ -310,7 +310,7 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
 - **Worst case**: Θ(n²), **Average case**: Θ(n²)
 
-> **Note:** Bubble sort has a useful optimization. If **no swaps occur** during an entire pass, the array is already sorted and can terminate immediately. With this optimization, the **best case (already sorted input) becomes Θ(n)**. The `swapped` flag in the Python code of Week 3 Lab is precisely this optimization.
+Bubble sort has a useful optimization. If **no swaps occur** during an entire pass, the array is already sorted and can terminate immediately. With this optimization, the **best case (already sorted input) becomes Θ(n)**. The `swapped` flag in the Python code of Week 3 Lab is precisely this optimization.
 
 ### 2.6 Bubble Sort: Step-by-Step Example
 
@@ -348,7 +348,7 @@ In each iteration:
 
 - Each element is inserted into the already **sorted** subarray.
 
-> **Note:** Insertion sort works the same way as sorting the cards in your hand during a card game. When you receive a new card, you insert it into the correct position among the already sorted cards. This intuitive approach is precisely insertion sort.
+Insertion sort works the same way as sorting the cards in your hand during a card game. When you receive a new card, you insert it into the correct position among the already sorted cards. This intuitive approach is precisely insertion sort.
 
 ### 2.8 Insertion Sort: Pseudocode
 
@@ -417,7 +417,7 @@ insertionSort(A, n) {       selectionSort(A, n) {       bubbleSort(A, n) {
 }                           }                           }
 ```
 
-> **Note:** The key difference among the three algorithms is that insertion sort does its work **after** the recursive call, while selection sort and bubble sort do their work **before** the recursive call.
+The key difference among the three algorithms is that insertion sort does its work **after** the recursive call, while selection sort and bubble sort do their work **before** the recursive call.
 
 > **Key Point:** This recursive structure is very important. All three algorithms follow the same recurrence $T(n) = T(n-1) + \Theta(n)$, which solves to $T(n) = \Theta(n) + \Theta(n-1) + ... + \Theta(1) = \Theta(n^2)$. The fundamental cause of O(n²) is the structure where **the problem size decreases by only 1 at each step**. O(n log n) algorithms (merge, quick) split the problem **in half** (quick sort when the partition is balanced), giving $T(n) = 2T(n/2) + \Theta(n)$, which is much faster.
 
@@ -477,7 +477,7 @@ merge(A[], p, q, r)              ▷ Merge A[p...q] and A[q+1...r]
 }
 ```
 
-> **Key Point:** The core of the merge function is combining two **already sorted** arrays. It compares elements from the front of both arrays and places the smaller one into the result array. Since both sides are sorted, this process completes in O(n). This merge is precisely the Combine step.
+The core of the merge function is combining two **already sorted** arrays. It compares elements from the front of both arrays and places the smaller one into the result array. Since both sides are sorted, this process completes in O(n). This merge is precisely the Combine step.
 
 ### 3.3 Merge Sort: Merge Process Example
 
@@ -527,7 +527,7 @@ $$T(n) = \Theta(n \log n)$$
 > **Key Point:** Merge sort is **always** Θ(n log n); worst, average, and best cases are all the same.
 > The trade-off is that **O(n) extra space** is needed for the temporary array.
 
-> **Note:** Applying the Master Theorem from Week 2 to this recurrence: a=2, b=2, f(n)=n, so $n^{\log_2 2} = n$, and $f(n) = \Theta(n^{\log_b a})$, giving **Case 2**. Therefore $T(n) = \Theta(n \log n)$. Whether solved by repeated substitution or the Master Theorem, the result is the same.
+Applying the Master Theorem from Week 2 to this recurrence: a=2, b=2, f(n)=n, so $n^{\log_2 2} = n$, and $f(n) = \Theta(n^{\log_b a})$, giving **Case 2**. Therefore $T(n) = \Theta(n \log n)$. Whether solved by repeated substitution or the Master Theorem, the result is the same.
 
 ### 3.5 Quick Sort: Idea
 
@@ -581,8 +581,8 @@ partition(A[], p, r)
 }
 ```
 
-> **Note:** `i` marks the boundary: all elements from index p through `i` are <= pivot.
-> `j` scans the array from left to right.
+`i` marks the boundary: all elements from index p through `i` are <= pivot.
+`j` scans the array from left to right.
 
 **Partition Invariant**: At every point during the loop, elements A[p..i] are <= pivot, elements A[i+1..j-1] are > pivot, and elements A[j..r-1] are unexamined.
 
@@ -590,9 +590,9 @@ partition(A[], p, r)
 
 *Figure 12. Partition invariant of PARTITION*
 
-> **Note:** An intuitive way to understand the partition function: `i` points to the end of the region <= pivot, and `j` points to the start of the unexamined region. When A[j] <= pivot, i is incremented to expand the <= pivot region, and A[j] is swapped into that position. At the end, placing the pivot at position i+1 ensures everything to its left is <= pivot and everything to its right is > pivot.
+An intuitive way to understand the partition function: `i` points to the end of the region <= pivot, and `j` points to the start of the unexamined region. When A[j] <= pivot, i is incremented to expand the <= pivot region, and A[j] is swapped into that position. At the end, placing the pivot at position i+1 ensures everything to its left is <= pivot and everything to its right is > pivot.
 
-> **Note:** The reason `i = p - 1` for initialization: i tracks the last index of the <= pivot region. Initially, no elements have been identified as <= pivot, so the end of the region is placed **just before** the array start (p-1). When the first element with A[j] <= pivot is found, i increases to p, finally pointing to a valid index.
+The reason `i = p - 1` for initialization: i tracks the last index of the <= pivot region. Initially, no elements have been identified as <= pivot, so the end of the region is placed **just before** the array start (p-1). When the first element with A[j] <= pivot is found, i increases to p, finally pointing to a valid index.
 
 ### 3.7 Quick Sort: Partition Example
 
@@ -669,7 +669,7 @@ T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
 
 The full proof involves summing over all possible pivot positions and using integral approximation. The key takeaway is that random pivot selection makes the expected number of comparisons $O(n \log n)$, the same order as merge sort's guaranteed performance.
 
-> **Note:** Why an unbalanced split like 1:9 is acceptable: even when the problem size shrinks by 9/10 each time, solving $n \times (9/10)^k = 1$ gives $k = \log_{10/9}(n)$, which is $O(\log n)$ (only the base differs). What actually causes problems is when an **extreme imbalance** like 0:(n-1) repeats every time.
+Why an unbalanced split like 1:9 is acceptable: even when the problem size shrinks by 9/10 each time, solving $n \times (9/10)^k = 1$ gives $k = \log_{10/9}(n)$, which is $O(\log n)$ (only the base differs). What actually causes problems is when an **extreme imbalance** like 0:(n-1) repeats every time.
 
 ### 3.10 Heap Sort: Heap Review
 
@@ -721,11 +721,11 @@ heapSort(A[], n)              ▷ Sort A[1...n]
 1. `buildHeap`: Transforms an arbitrary array into a heap. **O(n)**
 2. `heapify`: Fixes the heap property at a single node. **O(log n)**
 
-> **Key Point:** O(n log n) is guaranteed even in the **worst case**, which is a difference from quick sort.
+O(n log n) is guaranteed even in the **worst case**, which is a difference from quick sort.
 
-> **Note:** How heap sort works: (1) Turn the entire array into a heap (buildHeap). (2) Move the heap's root (min or max) to the end of the array. (3) Reduce the heap size by 1 and restore the heap property (heapify). Repeating this sorts the array.
+How heap sort works: (1) Turn the entire array into a heap (buildHeap). (2) Move the heap's root (min or max) to the end of the array. (3) Reduce the heap size by 1 and restore the heap property (heapify). Repeating this sorts the array.
 
-> **Note:** This implementation uses a **min heap** (producing descending order). For **ascending** sort, use a **max heap** instead and replace min comparisons with max comparisons. The textbook (CLRS) uses a max heap for ascending sort.
+This implementation uses a **min heap** (producing descending order). For **ascending** sort, use a **max heap** instead and replace min comparisons with max comparisons. The textbook (CLRS) uses a max heap for ascending sort.
 
 ### 3.12 Heap Sort: buildHeap and heapify
 
@@ -757,9 +757,9 @@ heapify(A[], k, n)                   ▷ Fix heap rooted at A[k]
 }
 ```
 
-> **Note:** The reason buildHeap is O(n) is not intuitive. The rationale for why it is O(n) rather than O(n log n): leaf nodes (half of all nodes) require no heapify, height-1 nodes only go down 1 level, height-2 nodes only go down 2 levels. The total sum is $\sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h$, and this series sums to O(n). A mathematically rigorous proof is in Section 6.3 of the textbook (CLRS).
+The reason buildHeap is O(n) is not intuitive. The rationale for why it is O(n) rather than O(n log n): leaf nodes (half of all nodes) require no heapify, height-1 nodes only go down 1 level, height-2 nodes only go down 2 levels. The total sum is $\sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h$, and this series sums to O(n). A mathematically rigorous proof is in Section 6.3 of the textbook (CLRS).
 
-> **Note:** The reason for starting at `floor(n/2)`: Nodes from index floor(n/2)+1 through n are all **leaf nodes** (nodes with no children). Leaf nodes are trivially heaps of size 1, so heapify is unnecessary. Therefore, applying heapify in reverse order from the last internal node floor(n/2) down to root (1) propagates the heap property from bottom to top.
+The reason for starting at `floor(n/2)`: Nodes from index floor(n/2)+1 through n are all **leaf nodes** (nodes with no children). Leaf nodes are trivially heaps of size 1, so heapify is unnecessary. Therefore, applying heapify in reverse order from the last internal node floor(n/2) down to root (1) propagates the heap property from bottom to top.
 
 ### 3.13 Heap Sort: buildHeap Example
 
@@ -806,7 +806,7 @@ graph TD
 
 *Figure 19. Building a min heap with buildHeap*
 
-> **Note:** buildHeap processes nodes **bottom-up** (from floor(n/2) to 1).
+buildHeap processes nodes **bottom-up** (from floor(n/2) to 1).
 
 ![Figure 20. Operation of BUILD-MAX-HEAP](../../images/Week03_ch06_p08.png)
 
@@ -831,7 +831,7 @@ Result (descending): [9, 8, 7, 6, 4, 3]
 > **Key Point:** Min heap → **descending** order.
 > Max heap → **ascending** order.
 
-> **Note:** With a min heap, the smallest element is extracted first and placed at the end of the array. After all extractions, the array is in descending order because the smallest elements, which are extracted first, occupy the rightmost positions.
+With a min heap, the smallest element is extracted first and placed at the end of the array. After all extractions, the array is in descending order because the smallest elements, which are extracted first, occupy the rightmost positions.
 
 ![Figure 22. Sorting phase of HEAPSORT](../../images/Week03_ch06_p11.png)
 
@@ -882,7 +882,7 @@ heapSort(A[], n)
 
 **Theorem**: Any comparison-based sorting algorithm requires at least **Ω(n log n)** comparisons in the worst case.
 
-> **Key Point:** This means selection, bubble, insertion, merge, quick, and heap sort **cannot be faster than** O(n log n) in the worst case as long as they use only comparisons.
+This means selection, bubble, insertion, merge, quick, and heap sort **cannot be faster than** O(n log n) in the worst case as long as they use only comparisons.
 
 **However**: If elements have **special properties**, comparisons can be bypassed entirely.
 
@@ -895,9 +895,9 @@ heapSort(A[], n)
 
 > **Key Point:** This lower bound theorem is proven using the **decision tree** model. A comparison-based sort asks `A[i] <= A[j]?` (yes/no) at each step. Since there are n! possible orderings of n elements, at least log₂(n!) comparisons are needed to distinguish them all. By Stirling's approximation, log₂(n!) = Θ(n log n). That is, **a sort that uses only comparisons cannot finish with fewer than Ω(n log n) comparisons in the worst case**.
 
-> **Note:** Stirling's approximation states that $n! \approx (n/e)^n \cdot \sqrt{2\pi n}$, so $\log_2(n!) \approx n \cdot \log_2(n) - n \cdot \log_2(e)$, which is $\Theta(n \log n)$.
+Stirling's approximation states that $n! \approx (n/e)^n \cdot \sqrt{2\pi n}$, so $\log_2(n!) \approx n \cdot \log_2(n) - n \cdot \log_2(e)$, which is $\Theta(n \log n)$.
 
-> **Note:** To understand the decision tree concretely, consider sorting n=3 elements [a, b, c]. There are 3! = 6 possible orderings. Each comparison (`a <= b?`) is an internal node of the tree, and each leaf is one permutation (sorting result). The minimum height of a binary tree with 6 leaves is ⌈log₂ 6⌉ = 3, so at least 3 comparisons are needed. In general, the height of a binary tree with n! leaves is at least log₂(n!) = Θ(n log n).
+To understand the decision tree concretely, consider sorting n=3 elements [a, b, c]. There are 3! = 6 possible orderings. Each comparison (`a <= b?`) is an internal node of the tree, and each leaf is one permutation (sorting result). The minimum height of a binary tree with 6 leaves is ⌈log₂ 6⌉ = 3, so at least 3 comparisons are needed. In general, the height of a binary tree with n! leaves is at least log₂(n!) = Θ(n log n).
 
 ### 4.2 Radix Sort
 
@@ -914,9 +914,9 @@ radixSort(A[], n, k)           ▷ Elements have at most k digits
 
 **Stable Sort**: A sort that preserves the **original relative order** of elements with equal keys.
 
-> **Note:** Why stability is important in radix sort: After sorting by the 1's digit, when sorting by the 10's digit, elements with the same 10's digit must already be ordered by their 1's digit. If the sort is not stable, this order breaks and the final result becomes incorrect.
+Why stability is important in radix sort: After sorting by the 1's digit, when sorting by the 10's digit, elements with the same 10's digit must already be ordered by their 1's digit. If the sort is not stable, this order breaks and the final result becomes incorrect.
 
-> **Note:** Processing from LSD to MSD works because each round's stable sort preserves the ordering established by all previous rounds. After sorting by the i-th digit, elements are correctly ordered by the combination of digits 1 through i.
+Processing from LSD to MSD works because each round's stable sort preserves the ordering established by all previous rounds. After sorting by the i-th digit, elements are correctly ordered by the combination of digits 1 through i.
 
 ### 4.3 Radix Sort: Example
 
@@ -970,7 +970,7 @@ countingSort(A[], B[], n)        ▷ A[1...n]: input, B[1...n]: output
 
 > **Key Point:** The core idea of counting sort: (1) Count how many times each value appears. (2) Compute the cumulative sum, which directly tells where each value should go in the result array. (3) Traverse the original array from back to front, placing each element in its correct position in the result array (traversing from back to front ensures stability). Since no comparisons are made, the Ω(n log n) lower bound is bypassed.
 
-> **Note:** Why traversing from back to front ensures stability: The cumulative sum C[v] points to the last position where a value v should go. By traversing from back to front, among elements with the same value, **the one later in the original** is placed first at the later position in the result array, and C[v] decrements to leave earlier positions for the rest. Traversing from front to back would reverse the relative order. Since radix sort depends on counting sort's stability, this traversal direction is very important.
+Why traversing from back to front ensures stability: The cumulative sum C[v] points to the last position where a value v should go. By traversing from back to front, among elements with the same value, **the one later in the original** is placed first at the later position in the result array, and C[v] decrements to leave earlier positions for the rest. Traversing from front to back would reverse the relative order. Since radix sort depends on counting sort's stability, this traversal direction is very important.
 
 ### 4.5 Counting Sort: Example
 
@@ -1002,7 +1002,7 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 ### 4.6 Complexity Comparison: All Sorting Algorithms
 
-| Algorithm | Worst | Average | Best | Space | Stable? | Note |
+| Algorithm | Worst | Average | Best | Space | Stable | Note |
 |:----------|:------|:--------|:-----|:------|:--------|:-----|
 | **Selection Sort** | Θ(n²) | Θ(n²) | Θ(n²) | O(1) | No | Always same complexity |
 | **Bubble Sort** | Θ(n²) | Θ(n²) | Θ(n) | O(1) | Yes | Best Θ(n) with optimization |
@@ -1015,19 +1015,19 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when }k = O(n)\text{)}$$
 
 *Table 9. Complexity, space, and stability of all sorting algorithms*
 
-> **Key Point:** The lower bound for comparison-based sorting is **Ω(n log n)**.
-> Linear-time sorts bypass this by exploiting input structure rather than comparisons.
+The lower bound for comparison-based sorting is **Ω(n log n)**.
+Linear-time sorts bypass this by exploiting input structure rather than comparisons.
 
 > **Note:** The k in Table 9 means different things for different algorithms. For counting sort, k is the value range, and in the Θ(nk) time of radix sort, k is the number of digits. The O(n + k) space of radix sort refers to the output and count arrays of the counting sort used for each digit, so there k should be read as the number of values one digit can take (the base). Also, the O(k) space of counting sort counts only the count array; including the output array B, it is O(n + k).
 
-> **Note:** **Key points of Table 9.** The properties in Table 9 that guide the choice of a sorting algorithm are as follows.
-> - Always O(n²): Selection sort
-> - Best-case O(n) among elementary sorts: Bubble (with optimization), Insertion
-> - Always O(n log n): Merge, Heap
-> - Worst-case O(n²) among advanced sorts: Quick (but average is the fastest)
-> - Requires O(n) extra space: Merge
-> - In-place: Selection, Bubble, Insertion, Heap
-> - Stable: Bubble, Insertion, Merge, Counting, Radix
+**Key points of Table 9:** The properties in Table 9 that guide the choice of a sorting algorithm are as follows.
+- Always O(n²): Selection sort
+- Best-case O(n) among elementary sorts: Bubble (with optimization), Insertion
+- Always O(n log n): Merge, Heap
+- Worst-case O(n²) among advanced sorts: Quick (but average is the fastest)
+- Requires O(n) extra space: Merge
+- In-place: Selection, Bubble, Insertion, Heap
+- Stable: Bubble, Insertion, Merge, Counting, Radix
 
 ---
 

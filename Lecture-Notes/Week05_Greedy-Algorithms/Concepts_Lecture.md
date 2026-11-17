@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
 
@@ -19,7 +19,7 @@
 ## Table of Contents
 
 - [1. Greedy Algorithm Fundamentals](#1-greedy-algorithm-fundamentals)
-  - [1.1 What is a Greedy Algorithm?](#11-what-is-a-greedy-algorithm)
+  - [1.1 The Concept of a Greedy Algorithm](#11-the-concept-of-a-greedy-algorithm)
   - [1.2 Key Properties for Greedy Correctness](#12-key-properties-for-greedy-correctness)
   - [1.3 When Greedy Fails: Binary Tree Path Sum](#13-when-greedy-fails-binary-tree-path-sum)
   - [1.4 When Greedy Fails: Non-Standard Coin Change](#14-when-greedy-fails-non-standard-coin-change)
@@ -61,7 +61,7 @@
 
 ## 1. Greedy Algorithm Fundamentals
 
-### 1.1 What is a Greedy Algorithm?
+### 1.1 The Concept of a Greedy Algorithm
 
 A type of algorithm for solving **optimization problems**.
 
@@ -133,7 +133,7 @@ graph TD
 
 The greedy choice at the root (36 > 15) locks us out of the best path.
 
-> **Key Point:** This example illustrates the fundamental weakness of greedy: a locally optimal choice (picking 36 over 15) can prevent us from reaching the globally optimal solution. Without the greedy-choice property, greedy algorithms may produce suboptimal results.
+This example illustrates the fundamental weakness of greedy: a locally optimal choice (picking 36 over 15) can prevent us from reaching the globally optimal solution. Without the greedy-choice property, greedy algorithms may produce suboptimal results.
 
 ### 1.4 When Greedy Fails: Non-Standard Coin Change
 
@@ -160,7 +160,7 @@ Non-standard denominations (e.g., add 160-won coin):
 
 *Table 1. Real-world applications of greedy algorithms*
 
-> **Note:** Every time a phone finds a route, a file gets compressed, or a network cable is laid, a greedy algorithm is likely at work.
+Every time a phone finds a route, a file gets compressed, or a network cable is laid, a greedy algorithm is likely at work.
 
 ---
 
@@ -193,7 +193,7 @@ CoinChange(W):
 
 **Time complexity**: O(k) if the count of each denomination is computed by division (quotient and remainder), where k is the number of denomination types (constant in practice). If coins are subtracted one at a time as in the pseudocode above, the number of iterations also grows with the number of coins returned.
 
-> **Note:** The greedy strategy here is straightforward: always use the largest denomination possible. This works because each Korean won denomination is a multiple of the next smaller one, ensuring that choosing a larger coin never blocks a better solution.
+The greedy strategy here is straightforward: always use the largest denomination possible. This works because each Korean won denomination is a multiple of the next smaller one, ensuring that choosing a larger coin never blocks a better solution.
 
 ---
 
@@ -214,8 +214,8 @@ CoinChange(W):
 2. Sort items by value-per-weight in **decreasing** order.
 3. Take items greedily: whole items if they fit, a fraction otherwise.
 
-> **Note:** In **0-1 knapsack**, items cannot be divided (take it or leave it), so it requires **DP** or backtracking.
-> In **fractional knapsack**, items can be divided, so it is solved optimally by **greedy**.
+In **0-1 knapsack**, items cannot be divided (take it or leave it), so it requires **DP** or backtracking.
+In **fractional knapsack**, items can be divided, so it is solved optimally by **greedy**.
 
 ### 3.2 Fractional Knapsack: Algorithm
 
@@ -435,7 +435,7 @@ ActivitySelection(jobs):
 - No separator needed between codes
 - Unambiguous decoding by reading bits left to right
 
-> **Note:** Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
+Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
 
 ![Figure 4. Trees for fixed-length and variable-length codes](../../images/Week05_ch16_p17.png)
 
@@ -730,7 +730,7 @@ The textbook's Figure 24.3 shows the two cases of edge relaxation: in (a) the d 
 
 *Figure 13. Two cases of edge relaxation*
 
-> **Key Point:** Edge relaxation is the fundamental building block of shortest-path algorithms. It checks whether going through a newly finalized vertex provides a shorter path to its neighbors. Dijkstra's greedy-choice property ensures that once a vertex is finalized, its distance value is optimal.
+Edge relaxation is the fundamental building block of shortest-path algorithms. It checks whether going through a newly finalized vertex provides a shorter path to its neighbors. Dijkstra's greedy-choice property ensures that once a vertex is finalized, its distance value is optimal.
 
 ### 8.3 Dijkstra: Execution Trace
 
@@ -767,7 +767,7 @@ The textbook's Figure 24.6 shows the execution of Dijkstra's algorithm step by s
 
 > **Note:** **Rule of Thumb.** Try greedy first. If you can prove the greedy-choice property, use it. Otherwise, fall back to DP.
 
-> **Note:** DP is usually described as bottom-up (tabulation), but it can also be implemented top-down (memoization). Greedy is called top-down in the sense that it makes a choice first and then solves the remaining subproblem.
+DP is usually described as bottom-up (tabulation), but it can also be implemented top-down (memoization). Greedy is called top-down in the sense that it makes a choice first and then solves the remaining subproblem.
 
 ---
 

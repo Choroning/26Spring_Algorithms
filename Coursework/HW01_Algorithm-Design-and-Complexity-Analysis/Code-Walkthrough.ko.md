@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Code-Walkthrough.md) | [한국어](Code-Walkthrough.ko.md)
 
-> **최종 수정일:** 2026-11-16
+> **최종 수정일:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 11
 
@@ -175,7 +175,7 @@ ADJECTIVES = [
 
 16\~18번 줄은 구역을 나누는 주석이다. 20\~29번 줄의 `CATEGORIES`는 분류 이름을 키로, (최저가, 최고가) 튜플을 값으로 하는 딕셔너리이다. Python 3.7부터 딕셔너리는 넣은 순서를 지키므로, 4.2절의 반복문은 Electronics부터 Office Supplies까지 이 순서대로 분류를 돈다. 이 순서가 4.3절에서 어떤 분류가 잘려 나가는지를 정한다.
 
-| 분류 | 가격 범위 | 상품 목록에 남는가 |
+| 분류 | 가격 범위 | 상품 목록 잔류 여부 |
 |:-----|:-----|:-----|
 | Electronics | 50\~2000 | 180개 모두 남음 |
 | Books | 5\~80 | 180개 모두 남음 |

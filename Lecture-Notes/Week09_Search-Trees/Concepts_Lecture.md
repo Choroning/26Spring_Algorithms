@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 12, 13, 18
 
@@ -301,7 +301,7 @@ graph TD
 2. Replace the key of 6 with 7.
 3. Delete the original node 7, which has at most one child.
 
-> **Note:** **Why successor?** The in-order successor is the next larger value, so substituting it preserves the BST property: every key in the left subtree is still less, every key in the right subtree is still greater.
+> **Note:** **Reason for the successor.** The in-order successor is the next larger value, so substituting it preserves the BST property: every key in the left subtree is still less, every key in the right subtree is still greater.
 
 ### 2.7 BST Deletion: Complexity
 

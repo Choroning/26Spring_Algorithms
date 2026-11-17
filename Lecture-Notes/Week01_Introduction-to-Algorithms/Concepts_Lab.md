@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 
 > **Learning Objectives:**
 > 1. Install and run at least one AI coding agent (Gemini CLI, Claude Code, Codex CLI, or GitHub Copilot CLI)
@@ -15,13 +15,13 @@
 ## Table of Contents
 
 - [1. Lab Overview](#1-lab-overview)
-- [2. What Is a Coding Agent?](#2-what-is-a-coding-agent)
+- [2. The Concept of a Coding Agent](#2-the-concept-of-a-coding-agent)
   - [2.1 Available Agents](#21-available-agents)
 - [3. Task 1: Install a Coding Agent](#3-task-1-install-a-coding-agent)
 - [4. Task 2: File Organization](#4-task-2-file-organization)
 - [5. Task 3: GitHub Repository Documentation](#5-task-3-github-repository-documentation)
 - [6. Task 4: The Ralph Technique](#6-task-4-the-ralph-technique)
-  - [6.1 What Is the Ralph Technique?](#61-what-is-the-ralph-technique)
+  - [6.1 The Concept of the Ralph Technique](#61-the-concept-of-the-ralph-technique)
   - [6.2 The Ralphton Hackathon](#62-the-ralphton-hackathon)
   - [6.3 Ralph Practice](#63-ralph-practice)
 - [7. Task 5: Build a Sorting Benchmark](#7-task-5-build-a-sorting-benchmark)
@@ -58,7 +58,7 @@ Why coding agents in an algorithms course? Understanding how to effectively use 
 
 <br>
 
-## 2. What Is a Coding Agent?
+## 2. The Concept of a Coding Agent
 
 A **coding agent** is an AI-based CLI tool that generates code by **understanding context**. A CLI (Command-Line Interface) is a text-based interface where you type commands instead of clicking buttons.
 
@@ -81,7 +81,7 @@ flowchart LR
 
 > **Key Point:** Coding agents are AI tools that have advanced rapidly in recent times. What distinguishes them from conversational AI like ChatGPT is their ability to **directly access the file system** and **execute commands**. That is, instead of copying and pasting code, the agent reads and modifies files directly.
 
-> **Note:** **A concrete example.** When you ask the agent to "write a bubble_sort function," (1) Read: it examines the project's existing file structure and code, (2) Plan: it decides to add the function to sorting.py, (3) Act: it directly edits the file to write the code, (4) Verify: it runs the written code to check for errors. The key difference from ChatGPT's web interface is that the agent modifies files **directly** without any copy-paste.
+**A concrete example:** When you ask the agent to "write a bubble_sort function," (1) Read: it examines the project's existing file structure and code, (2) Plan: it decides to add the function to sorting.py, (3) Act: it directly edits the file to write the code, (4) Verify: it runs the written code to check for errors. The key difference from ChatGPT's web interface is that the agent modifies files **directly** without any copy-paste.
 
 ### 2.1 Available Agents
 
@@ -95,7 +95,7 @@ flowchart LR
 
 Another option is **OpenCode**, an open-source harness that can use models from many providers, including open-source LLMs.
 
-> **Note:** If you have no particular preference, **Gemini CLI** is recommended because it is free and easy to set up.
+If you have no particular preference, **Gemini CLI** is recommended because it is free and easy to set up.
 
 ---
 
@@ -124,9 +124,9 @@ gemini --version    # or: claude --version
 - Check that you can authenticate (Gemini uses a Google account, Claude uses an Anthropic account).
 - Confirm a response with a simple prompt: `"What is 2 + 2?"`
 
-> **Note:** `npm` is Node.js's package manager. To run the commands above, Node.js must be installed first. The `-g` flag stands for "global," meaning it installs system-wide so the command can be used from anywhere.
+`npm` is Node.js's package manager. To run the commands above, Node.js must be installed first. The `-g` flag stands for "global," meaning it installs system-wide so the command can be used from anywhere.
 
-> **Note:** Node.js is required for some coding agents. Install the LTS version from https://nodejs.org and verify the installation with `node --version` in your terminal.
+Node.js is required for some coding agents. Install the LTS version from https://nodejs.org and verify the installation with `node --version` in your terminal.
 
 ---
 
@@ -193,7 +193,7 @@ Use the agent to **generate a README.md** for an existing codebase.
 - Are the setup instructions correct and complete?
 - Is anything missing, such as a license, a contribution guide, or screenshots?
 
-> **Note:** Save this README, because Task 4 improves it.
+Save this README, because Task 4 improves it.
 
 ---
 
@@ -201,7 +201,7 @@ Use the agent to **generate a README.md** for an existing codebase.
 
 ## 6. Task 4: The Ralph Technique
 
-### 6.1 What Is the Ralph Technique?
+### 6.1 The Concept of the Ralph Technique
 
 The **Ralph technique** is a **bash script loop** created by Geoffrey Huntley, named after **Ralph Wiggum** from *The Simpsons*. It automates AI coding agents by running them **repeatedly** until a task is completed.
 

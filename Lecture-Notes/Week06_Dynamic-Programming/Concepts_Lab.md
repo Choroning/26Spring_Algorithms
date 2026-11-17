@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 
 > **Learning Objectives:**
 > 1. Compare naive recursion, memoization, and tabulation through the Fibonacci problem
@@ -90,7 +90,7 @@ F(1) = 1
 F(n) = F(n-1) + F(n-2)   for n >= 2
 ```
 
-**Why is naive recursion so slow?**
+**Reason naive recursion is so slow**
 
 ```mermaid
 graph TD

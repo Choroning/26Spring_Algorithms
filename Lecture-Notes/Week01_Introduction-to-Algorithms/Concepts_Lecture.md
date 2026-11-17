@@ -18,9 +18,9 @@
 
 ## Table of Contents
 
-- [1. What Is an Algorithm?](#1-what-is-an-algorithm)
-  - [1.1 Why Study Algorithms?](#11-why-study-algorithms)
-  - [1.2 What Do We Learn?](#12-what-do-we-learn)
+- [1. The Concept of an Algorithm](#1-the-concept-of-an-algorithm)
+  - [1.1 Reasons to Study Algorithms](#11-reasons-to-study-algorithms)
+  - [1.2 Course Contents](#12-course-contents)
   - [1.3 Definition of an Algorithm](#13-definition-of-an-algorithm)
   - [1.4 Algorithm vs Data Structure](#14-algorithm-vs-data-structure)
   - [1.5 Origin of the Word "Algorithm"](#15-origin-of-the-word-algorithm)
@@ -41,9 +41,9 @@
 
 <br>
 
-## 1. What Is an Algorithm?
+## 1. The Concept of an Algorithm
 
-### 1.1 Why Study Algorithms?
+### 1.1 Reasons to Study Algorithms
 
 - Algorithms are one of the **most important subjects** in computer science.
 - Algorithms train you in **how to think** as a programmer.
@@ -54,7 +54,7 @@
 - Formal representation of problems and solutions
 - Analysis of program efficiency and complexity
 
-### 1.2 What Do We Learn?
+### 1.2 Course Contents
 
 - Various algorithms for various problems
   - Greedy Algorithms, Dynamic Programming, Divide and Conquer, Graph Algorithms, and so on
@@ -83,7 +83,7 @@ flowchart LR
 - The algorithm describes the process of transforming input into output.
 - The algorithm must be correct. That is, for every valid input, it must eventually terminate and produce the correct output.
 
-> **Note:** Each step of an algorithm must be **unambiguous**. That is, what action to take in any given situation must not be vague. An expression like "handle appropriately according to the situation" is not an algorithm.
+Each step of an algorithm must be **unambiguous**. That is, what action to take in any given situation must not be vague. An expression like "handle appropriately according to the situation" is not an algorithm.
 
 ### 1.4 Algorithm vs Data Structure
 
@@ -104,7 +104,7 @@ flowchart LR
 - Sorted words → Binary search (fast)
 - The **data structure** (whether sorted or not) determines which **algorithm** is efficient.
 
-> **Note:** Niklaus Wirth (1934-2024) was a Swiss computer scientist who created the programming language Pascal and received the Turing Award in 1984. His book title "Algorithms + Data Structures = Programs" is a famous quote summarizing the essence of programming, emphasizing that algorithms and data structures are the two pillars of programming.
+Niklaus Wirth (1934-2024) was a Swiss computer scientist who created the programming language Pascal and received the Turing Award in 1984. His book title "Algorithms + Data Structures = Programs" is a famous quote summarizing the essence of programming, emphasizing that algorithms and data structures are the two pillars of programming.
 
 > **[Data Structures]** A **data structure** fixes how data is stored and accessed; arrays, linked lists, stacks, queues, trees, hash tables, and graphs are typical examples. Whether an algorithm is efficient depends on the data structure that holds its data. For example, binary search applies only when the data sits in a sorted array that allows O(1) access to any position.
 
@@ -138,7 +138,7 @@ Example: gcd(48, 18)
 
 The algorithm is simple, finite, and correct. These are the hallmarks of a good algorithm.
 
-> **Note:** `a % b` is the remainder of dividing a by b. This algorithm works because of the mathematical property GCD(a, b) = GCD(b, a mod b). When b becomes 0, the value of a at that point is the greatest common divisor. This algorithm converges very quickly; even in the worst case, approximately log(min(a,b)) iterations are sufficient.
+`a % b` is the remainder of dividing a by b. This algorithm works because of the mathematical property GCD(a, b) = GCD(b, a mod b). When b becomes 0, the value of a at that point is the greatest common divisor. This algorithm converges very quickly; even in the worst case, approximately log(min(a,b)) iterations are sufficient.
 
 ---
 
@@ -175,7 +175,7 @@ Reading cards one by one in order like this is **Sequential Search**.
 
 > **[Data Structures]** An array stores its elements in contiguous memory, so any element can be accessed by index in O(1) time, and `cards` in the code above is such an array (a Python list). The `for` loop therefore pays a constant cost per element as it visits each element once from index 1 to the end, so the time complexity is **O(n)**, and since every element of an unsorted array must be checked at least once, this is also the minimum time needed to find the maximum.
 
-> **Note:** We write O(n) to describe how an algorithm's running time grows with input size n. This notation will be covered rigorously in Week 2. Informally, O(n) means roughly proportional to n, and O(log n) means roughly proportional to log n.
+We write O(n) to describe how an algorithm's running time grows with input size n. This notation will be covered rigorously in Week 2. Informally, O(n) means roughly proportional to n, and O(log n) means roughly proportional to log n.
 
 ### 2.2 Finding a Specific Number (Binary Search)
 
@@ -227,7 +227,7 @@ def binary_search(arr, target):
 
 **Comparison:**
 
-| Method | Requires Sorting? | Worst Case (n items) |
+| Method | Requires Sorting | Worst Case (n items) |
 |:-------|:-----------------|:---------------------|
 | Sequential Search | No | n comparisons |
 | Binary Search | Yes | log₂(n) comparisons |
@@ -236,9 +236,9 @@ def binary_search(arr, target):
 
 For n = 1,000,000, sequential search makes up to 1,000,000 comparisons and binary search about 20.
 
-> **Note:** `(left + right) // 2` computes the middle index using integer division. `left` and `right` are the indices of both ends of the current search range. It returns the index if found, and -1 if not found. In practice, binary search is used very frequently, and Python's standard library provides it via the `bisect` module.
+`(left + right) // 2` computes the middle index using integer division. `left` and `right` are the indices of both ends of the current search range. It returns the index if found, and -1 if not found. In practice, binary search is used very frequently, and Python's standard library provides it via the `bisect` module.
 
-> **Note:** The reason `left <= right` includes the equality (=) is that when the search range has narrowed to a single element (`left == right`), that element still needs to be checked. Removing the equality (`left < right`) would cause a bug where the last element is not examined, and a present value would not be found. Boundary conditions in binary search are a common source of mistakes in coding tests.
+The reason `left <= right` includes the equality (=) is that when the search range has narrowed to a single element (`left == right`), that element still needs to be checked. Removing the equality (`left < right`) would cause a bug where the last element is not examined, and a present value would not be found. Boundary conditions in binary search are a common source of mistakes in coding tests.
 
 ### 2.3 Coin Change Problem
 
@@ -338,9 +338,9 @@ Cycle detection can be performed using **Depth-First Search (DFS)**.
 
 The key insight is that crossing a bridge prematurely can split the graph into disconnected parts, making it impossible to traverse the remaining edges. By always choosing an edge that keeps the graph connected, you ensure all edges remain reachable.
 
-> **Note:** **Depth-first search (DFS)** is a graph traversal method that follows one path as far as possible before backing up, implemented with a stack or recursive calls. Week 11 covers it in detail together with **breadth-first search (BFS)**, which explores vertices level by level from the nearest and is implemented with a queue.
+**Depth-first search (DFS)** is a graph traversal method that follows one path as far as possible before backing up, implemented with a stack or recursive calls. Week 11 covers it in detail together with **breadth-first search (BFS)**, which explores vertices level by level from the nearest and is implemented with a queue.
 
-> **Note:** The principle of cycle detection via DFS is as follows. Starting DFS from the current vertex of an undirected graph, if an **already-visited vertex is encountered** during traversal, other than by going back along the edge just used (to the immediate predecessor, the parent), a cycle exists. For example, starting from vertex 7 and following 6→5→4→3→9→7 confirms a cycle. Since DFS digs as deep as possible and then backtracks, it naturally checks whether the path returns to the starting point.
+The principle of cycle detection via DFS is as follows. Starting DFS from the current vertex of an undirected graph, if an **already-visited vertex is encountered** during traversal, other than by going back along the edge just used (to the immediate predecessor, the parent), a cycle exists. For example, starting from vertex 7 and following 6→5→4→3→9→7 confirms a cycle. Since DFS digs as deep as possible and then backtracks, it naturally checks whether the path returns to the starting point.
 
 ### 2.5 Maze Solving
 
@@ -363,11 +363,11 @@ How do you **reliably** find the exit without thread or a map?
 
 It is a simple and elegant algorithm that needs no markings or thread.
 
-**Why does it work?** If all walls are connected, the wall forms one connected boundary. Following the wall traverses the entire boundary, including the exit, so you will inevitably reach it.
+**Reason it works.** If all walls are connected, the wall forms one connected boundary. Following the wall traverses the entire boundary, including the exit, so you will inevitably reach it.
 
 > **Note:** The right-hand rule does not always work. It can fail when there are **independent islands (disconnected wall segments)** inside the maze. In such mazes, more sophisticated maze-solving algorithms like the Tremaux algorithm are needed. However, for simple mazes where all walls are connected, the right-hand rule works reliably.
 
-> **Note:** From a graph-theoretic perspective, the right-hand rule is a **variant of DFS (Depth-First Search)**. Following the wall corresponds to traversing edges of a graph in one direction, and turning back at dead ends corresponds to DFS backtracking.
+From a graph-theoretic perspective, the right-hand rule is a **variant of DFS (Depth-First Search)**. Following the wall corresponds to traversing edges of a graph in one direction, and turning back at dead ends corresponds to DFS backtracking.
 
 ### 2.6 Counterfeit Coin Problem
 
@@ -441,7 +441,7 @@ Step 10:    1 vs   1  ->  left is lighter -> found!
 
 This is the **Divide and Conquer** strategy, covered in depth in **Week 4**.
 
-> **Note:** There is an even more efficient method. If you split into thirds instead of halves, it takes log₃(n) weighings (split coins into 3 groups, place only 2 groups on the scale, and the lighter group can be identified). But the key point here is the principle of divide and conquer: reducing the problem size by a constant ratio at each step yields logarithmic performance.
+There is an even more efficient method. If you split into thirds instead of halves, it takes log₃(n) weighings (split coins into 3 groups, place only 2 groups on the scale, and the lighter group can be identified). But the key point here is the principle of divide and conquer: reducing the problem size by a constant ratio at each step yields logarithmic performance.
 
 **Comparison:**
 
@@ -455,7 +455,7 @@ For n = 1,024 coins:
 
 *Table 4. Worst-case weighings of the three approaches for 1,024 coins*
 
-**Why is Approach C so good?**
+**Reasons Approach C is so good**
 - Each weighing **eliminates half** of the remaining coins.
 - The number of weighings is log₂(n).
 
@@ -485,11 +485,11 @@ How many servants are needed for **8** jars? What about **1,000**?
 
 1 servant can identify the poisoned jar among **2** jars.
 
-**Can 4 jars be handled with 2 servants?**
+**Handling 4 jars with 2 servants**
 
 Assign a 2-bit binary number to each jar.
 
-| Jar | Binary | Servant A tastes? | Servant B tastes? |
+| Jar | Binary | Servant A tastes | Servant B tastes |
 |:----|:-------|:-----------------|:-----------------|
 | 0 | 00 | No | No |
 | 1 | 01 | No | Yes |
@@ -506,7 +506,7 @@ Assign a 2-bit binary number to each jar.
 
 After one week, check who died.
 
-| A died? | B died? | Binary | Poisoned Jar |
+| A died | B died | Binary | Poisoned Jar |
 |:--------|:--------|:-------|:-------------|
 | No | No | 00 | Jar 0 |
 | No | Yes | 01 | Jar 1 |
@@ -519,7 +519,7 @@ The **death pattern** directly encodes the **binary number** of the poisoned jar
 
 **8 jars (3 servants):**
 
-| Jar | Binary | A tastes? | B tastes? | C tastes? |
+| Jar | Binary | A tastes | B tastes | C tastes |
 |:----|:-------|:----------|:----------|:----------|
 | 0 | 000 | No | No | No |
 | 1 | 001 | No | No | Yes |
@@ -551,9 +551,9 @@ This is the power of **binary encoding**, a fundamentally different way of think
 
 > **Note:** This problem is related to **Information Theory**. Each servant provides 1 bit of information: alive or dead. To distinguish among n jars, log₂(n) bits of information are needed, so at least log₂(n) servants are required. In this way, a logarithm can also be interpreted as the minimum amount of information needed to distinguish the cases.
 
-> **Note:** When n is not exactly a power of 2, **⌈log₂(n)⌉** (ceiling) servants are needed. For example, if n=5, log₂(5) ≈ 2.32, so 3 servants are needed. 3 bits (8 states) can distinguish among 5 jars. The remaining 3 states (binary 101, 110, 111) are simply unused.
+When n is not exactly a power of 2, **⌈log₂(n)⌉** (ceiling) servants are needed. For example, if n=5, log₂(5) ≈ 2.32, so 3 servants are needed. 3 bits (8 states) can distinguish among 5 jars. The remaining 3 states (binary 101, 110, 111) are simply unused.
 
-> **Note:** For the 5-jar case specifically, assign binary numbers 000-100 to jars 0-4, using 3 servants. Binary numbers 101(5), 110(6), 111(7) are unused. If only Servant A dies (100), jar 4 is poisoned; if nobody dies (000), jar 0 is poisoned. In this way, with k servants, as long as $2^k$ exceeds the number of jars, some codes remain unused but the scheme works without issues.
+For the 5-jar case specifically, assign binary numbers 000-100 to jars 0-4, using 3 servants. Binary numbers 101(5), 110(6), 111(7) are unused. If only Servant A dies (100), jar 4 is poisoned; if nobody dies (000), jar 0 is poisoned. In this way, with k servants, as long as $2^k$ exceeds the number of jars, some codes remain unused but the scheme works without issues.
 
 ---
 

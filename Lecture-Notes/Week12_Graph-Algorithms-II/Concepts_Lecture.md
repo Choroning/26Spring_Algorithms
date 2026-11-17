@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -633,10 +633,10 @@ The next figure shows a different graph: the constraint graph the textbook uses 
 *Table 13. Problem type, negative-weight support, time, and technique of shortest-path algorithms*
 
 **Decision flow:**
-1. **Is the graph a DAG?** Use DAG-ShortestPath (linear time, accepts negative weights).
-2. **Are all weights non-negative?** Use Dijkstra (efficient single-source).
-3. **Can weights be negative?** Use Bellman-Ford (also detects negative cycles).
-4. **Do you need all pairs?** Use Floyd-Warshall if the graph is dense or weights may be negative; otherwise run Dijkstra $|V|$ times.
+1. **If the graph is a DAG:** Use DAG-ShortestPath (linear time, accepts negative weights).
+2. **If all weights are non-negative:** Use Dijkstra (efficient single-source).
+3. **If weights can be negative:** Use Bellman-Ford (also detects negative cycles).
+4. **If all pairs are needed:** Use Floyd-Warshall if the graph is dense or weights may be negative; otherwise run Dijkstra $|V|$ times.
 
 ---
 
@@ -879,7 +879,7 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
 
     </details>
 
-11. **Why finish-time ordering?** Why does Kosaraju require *decreasing* finish-time order in step 3? What would go wrong with arbitrary order, or with *increasing* finish-time order?
+11. **Reason for finish-time ordering:** Why does Kosaraju require *decreasing* finish-time order in step 3? What would go wrong with arbitrary order, or with *increasing* finish-time order?
 
     <details>
     <summary>Answer</summary>

@@ -8,7 +8,7 @@
 
 ## Table of Contents
 
-- [1. What Is an Algorithm?](#1-what-is-an-algorithm)
+- [1. The Concept of an Algorithm](#1-the-concept-of-an-algorithm)
   - [1.1 The Questions to Answer](#11-the-questions-to-answer)
   - [1.2 Definition of an Algorithm](#12-definition-of-an-algorithm)
   - [1.3 Euclidean GCD: The Oldest Algorithm](#13-euclidean-gcd-the-oldest-algorithm)
@@ -19,7 +19,7 @@
   - [1.5 Euler Circuits and Graphs](#15-euler-circuits-and-graphs)
   - [1.6 Wrap-Up](#16-wrap-up)
 - [2. Complexity Analysis: Big-O, Recurrences, and the Master Theorem](#2-complexity-analysis-big-o-recurrences-and-the-master-theorem)
-  - [2.1 Why Analyze Complexity?](#21-why-analyze-complexity)
+  - [2.1 Reasons to Analyze Complexity](#21-reasons-to-analyze-complexity)
     - [2.1.1 The RAM Model](#211-the-ram-model)
     - [2.1.2 Four Types of Complexity Analysis](#212-four-types-of-complexity-analysis)
   - [2.2 Asymptotic Notation](#22-asymptotic-notation)
@@ -169,7 +169,7 @@
 
 <br>
 
-## 1. What Is an Algorithm?
+## 1. The Concept of an Algorithm
 
 ### 1.1 The Questions to Answer
 
@@ -342,7 +342,7 @@ The big picture of Week 1 is as follows. An algorithm is a systematic procedure 
 
 ## 2. Complexity Analysis: Big-O, Recurrences, and the Master Theorem
 
-### 2.1 Why Analyze Complexity?
+### 2.1 Reasons to Analyze Complexity
 
 Given two algorithms for the same problem, one needs a way to compare which one is faster independently of hardware. Running time (in seconds) depends on hardware, but the number of basic operations is an intrinsic property of the algorithm, so the operation count is expressed as a function of the input size $n$.
 
@@ -913,7 +913,7 @@ as the result.
 
 **Recurrence:** $T(n) = T(n/5) + T(7n/10) + \Theta(n)$, and since $1/5 + 7/10 = 9/10 < 1$, the geometric series converges to $\Theta(n)$.
 
-**Why groups of 5:** With groups of 3, $1/3 + 2/3 = 1$, which does not converge. 5 is the smallest group size that guarantees convergence.
+**Reason for groups of 5:** With groups of 3, $1/3 + 2/3 = 1$, which does not converge. 5 is the smallest group size that guarantees convergence.
 
 ### 4.4 Closest Pair of Points
 
@@ -1056,7 +1056,7 @@ ActivitySelection(jobs):
 
 **Explanation:** After sorting by finish time, it traverses the activities and selects only those whose **start time is at or after** the finish time of the last selected activity (`last_finish`). Each time it selects one, it updates `last_finish`. Sorting in $O(n \log n)$ plus a linear scan in $O(n)$ gives $O(n \log n)$. It is concise because it checks each activity only once.
 
-**Why EFT:** Choosing the activity that finishes earliest leaves the most time for the remaining activities.
+**Reason for EFT:** Choosing the activity that finishes earliest leaves the most time for the remaining activities.
 
 **Exchange argument proof:** Compare an optimal solution $O$ with the greedy solution $G$. The first activity $g_1$ of $G$ finishes earliest among all activities, so $\text{finish}(g_1) \leq \text{finish}(o_1)$. By induction, one can show that $G$ selects at least as many activities as $O$.
 

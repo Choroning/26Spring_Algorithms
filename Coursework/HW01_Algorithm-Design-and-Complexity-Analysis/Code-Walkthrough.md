@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Code-Walkthrough.md) | [한국어](Code-Walkthrough.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 11
 
@@ -175,7 +175,7 @@ ADJECTIVES = [
 
 Lines 16-18 are a comment that marks a section. `CATEGORIES` on lines 20-29 is a dictionary with category names as keys and (minimum price, maximum price) tuples as values. Since Python 3.7, dictionaries keep insertion order, so the loop of Section 4.2 visits the categories in this order, from Electronics to Office Supplies. This order determines which categories are cut off in Section 4.3.
 
-| Category | Price range | Remains in the product list? |
+| Category | Price range | Remains in the product list |
 |:-----|:-----|:-----|
 | Electronics | 50-2000 | All 180 remain |
 | Books | 5-80 | All 180 remain |

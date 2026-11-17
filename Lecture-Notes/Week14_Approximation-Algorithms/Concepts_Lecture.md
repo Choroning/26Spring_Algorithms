@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -19,7 +19,7 @@
 ## Table of Contents
 
 - [1. Approximation Algorithms: Foundations](#1-approximation-algorithms-foundations)
-  - [1.1 Why Approximation Algorithms?](#11-why-approximation-algorithms)
+  - [1.1 The Need for Approximation Algorithms](#11-the-need-for-approximation-algorithms)
   - [1.2 Approximation Ratio](#12-approximation-ratio)
   - [1.3 The Indirect-Optimal Technique](#13-the-indirect-optimal-technique)
 - [2. TSP: MST-Based 2-Approximation](#2-tsp-mst-based-2-approximation)
@@ -60,7 +60,7 @@
 
 ## 1. Approximation Algorithms: Foundations
 
-### 1.1 Why Approximation Algorithms?
+### 1.1 The Need for Approximation Algorithms
 
 NP-Complete problems appear *everywhere* in the real world, in routing, scheduling, packing, covering, and clustering, yet no polynomial-time algorithm has ever been found for any of them. As Week 13 showed, if even one were solved in polynomial time, all of them would be. So what do we actually do in practice?
 

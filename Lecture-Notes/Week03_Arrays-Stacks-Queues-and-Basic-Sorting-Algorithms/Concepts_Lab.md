@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -40,7 +40,7 @@
 
 ## 1. Overview
 
-> **Note:** This lab focuses on sorting algorithms. Arrays, stacks, queues, and heaps are covered in [Week 3 Lecture](Concepts_Lecture.md).
+This lab focuses on sorting algorithms. Arrays, stacks, queues, and heaps are covered in [Week 3 Lecture](Concepts_Lecture.md).
 
 ### 1.1 Lab Goals
 
@@ -90,7 +90,7 @@ Done!                     [11, 12, 22, 25, 34, 64, 90]
 
 **Complexity**: O(n²). It always scans all of the remaining elements.
 
-> **Note:** Week 3 Lecture explains selection sort as finding the maximum and sending it to the back, while this lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
+Week 3 Lecture explains selection sort as finding the maximum and sending it to the back, while this lab finds the minimum and brings it to the front. Both are selection sort with the same complexity. Only the direction differs; the core principle (fixing one element per round) is the same.
 
 **Solution:**
 
@@ -112,7 +112,7 @@ print(selection_sort([64, 34, 25, 12, 22, 11, 90]))
 # Output: [11, 12, 22, 25, 34, 64, 90]
 ```
 
-> **Note:** `arr[:]` is a **shallow copy** of the array. It sorts a copy without modifying the original array. `a[i], a[min_idx] = a[min_idx], a[i]` is Python's simultaneous assignment, swapping two values without a separate temporary variable.
+`arr[:]` is a **shallow copy** of the array. It sorts a copy without modifying the original array. `a[i], a[min_idx] = a[min_idx], a[i]` is Python's simultaneous assignment, swapping two values without a separate temporary variable.
 
 #### 2.1.2 Bubble Sort
 
@@ -159,7 +159,7 @@ The `swapped` flag enables early termination, giving a best case of O(n) for alr
 
 Here, `i` is the pass number (0, 1, 2, ...). After pass `i`, the last `i` elements are already in their final positions, so the inner loop only needs to go up to index `n-i-2` (i.e., `range(0, n-i-1)`).
 
-> **Note:** The reason for `n - i - 1`: After each pass, one more element is fixed at the right end, so the last i elements need not be compared in the i-th pass. This optimization does not affect correctness but reduces unnecessary comparisons.
+The reason for `n - i - 1`: After each pass, one more element is fixed at the right end, so the last i elements need not be compared in the i-th pass. This optimization does not affect correctness but reduces unnecessary comparisons.
 
 #### 2.1.3 Insertion Sort
 
@@ -196,13 +196,13 @@ def insertion_sort(arr):
     return a
 ```
 
-> **Note:** Line-by-line analysis:
-> - `key = a[i]`: Store the element to be inserted.
-> - `while j >= 0 and a[j] > key`: Loop while encountering elements larger than key.
-> - `a[j + 1] = a[j]`: Shift the larger element one position to the right.
-> - `a[j + 1] = key`: Insert key into the vacant position.
->
-> For an already sorted array, the condition `a[j] > key` is immediately false, so the while loop does not execute, resulting in O(n).
+Line-by-line analysis:
+- `key = a[i]`: Store the element to be inserted.
+- `while j >= 0 and a[j] > key`: Loop while encountering elements larger than key.
+- `a[j + 1] = a[j]`: Shift the larger element one position to the right.
+- `a[j + 1] = key`: Insert key into the vacant position.
+
+For an already sorted array, the condition `a[j] > key` is immediately false, so the while loop does not execute, resulting in O(n).
 
 ### 2.2 A-2: Advanced Sorting Algorithms
 
@@ -277,9 +277,9 @@ def _merge(left, right):
     return result
 ```
 
-> **Note:** In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
+In the `_merge` function, the `<=` (including equality) in `left[i] <= right[j]` is important. Changing it to `<` could alter the relative order of elements with equal values, breaking **stability**. When a stable sort is needed, `<=` must be used.
 
-> **Note:** Figure 4 splits the 7 elements into 4 on the left and 3 on the right. The code above computes `mid = len(arr) // 2 = 3`, so the left half is [38, 27, 43] and the right half is [3, 9, 82, 10]. The intermediate subarrays therefore differ from the figure, but the final result is the same.
+Figure 4 splits the 7 elements into 4 on the left and 3 on the right. The code above computes `mid = len(arr) // 2 = 3`, so the left half is [38, 27, 43] and the right half is [3, 9, 82, 10]. The intermediate subarrays therefore differ from the figure, but the final result is the same.
 
 **Merge trace (merging [27, 38] and [3, 43]):** i=0, j=0: compare 27 vs 3 -> take 3. i=0, j=1: compare 27 vs 43 -> take 27. i=1, j=1: compare 38 vs 43 -> take 38. Take remaining 43. Result: [3, 27, 38, 43].
 
@@ -322,25 +322,25 @@ def quick_sort(arr):
     return quick_sort(left) + middle + quick_sort(right)
 ```
 
-> **Note:** This implementation differs from the in-place partition in Week 3 Lecture. It uses list comprehensions for a **concise but space-consuming** version. The trade-offs are as follows.
-> - **Pros**: The code is very short and easy to understand, and it handles elements equal to the pivot separately.
-> - **Cons**: It creates new lists at each call, using O(n) extra space.
->
-> In practice, the in-place approach from Week 3 Lecture is more memory-efficient, but for coding tests, this concise version is quick to implement.
+This implementation differs from the in-place partition in Week 3 Lecture. It uses list comprehensions for a **concise but space-consuming** version. The trade-offs are as follows.
+- **Pros**: The code is very short and easy to understand, and it handles elements equal to the pivot separately.
+- **Cons**: It creates new lists at each call, using O(n) extra space.
 
-> **Note:** The differences in pivot selection are as follows.
-> - **Week 3 Lecture (CLRS)**: An in-place Lomuto partition that uses the last element as pivot.
-> - **This code**: A 3-way partition (< / == / >) that uses the middle element as pivot.
->
-> Choosing the middle element as pivot gives balanced partitions even on already sorted input, so it avoids the worst case caused by sorted input (other inputs can still trigger the worst case). The CLRS approach is the standard partition assumed by the quick sort analysis in Week 3 and Week 4 Lectures, so it is worth distinguishing the two methods. Figure 5 uses 43 as the pivot to illustrate the 3-way partition, but this code takes the element at index `len(arr) // 2` as the pivot, so its first pivot for the same array is actually 3.
+In practice, the in-place approach from Week 3 Lecture is more memory-efficient, but for coding tests, this concise version is quick to implement.
 
-> **Note:** **Stability.** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve the relative order of equal elements.
+The differences in pivot selection are as follows.
+- **Week 3 Lecture (CLRS)**: An in-place Lomuto partition that uses the last element as pivot.
+- **This code**: A 3-way partition (< / == / >) that uses the middle element as pivot.
+
+Choosing the middle element as pivot gives balanced partitions even on already sorted input, so it avoids the worst case caused by sorted input (other inputs can still trigger the worst case). The CLRS approach is the standard partition assumed by the quick sort analysis in Week 3 and Week 4 Lectures, so it is worth distinguishing the two methods. Figure 5 uses 43 as the pivot to illustrate the 3-way partition, but this code takes the element at index `len(arr) // 2` as the pivot, so its first pivot for the same array is actually 3.
+
+**Stability:** The list comprehension version shown above is actually stable, but quick sort is generally classified as unstable because the standard in-place partition (CLRS version) does not preserve the relative order of equal elements.
 
 #### 2.2.3 Sorting Algorithm Comparison
 
 A **stable** sort preserves the relative order of elements with equal keys. An **in-place** sort uses O(1) extra memory (not counting the input array). The O(log n) taken by the recursion stack is usually allowed, so quick sort is also classified as in-place.
 
-| Algorithm | Best | Average | Worst | Stable? | In-Place? |
+| Algorithm | Best | Average | Worst | Stable | In-Place |
 |:----------|:-----|:--------|:------|:--------|:----------|
 | Selection | O(n²) | O(n²) | O(n²) | No | Yes |
 | Bubble | O(n) | O(n²) | O(n²) | Yes | Yes |
@@ -377,7 +377,7 @@ Quick Sort       0.001s    0.003s     0.03s       0.3s
 
 > **Key Point:** At N=100, all algorithms take 0.001s with no difference, but at N=10,000, O(n²) takes several seconds while O(n log n) takes tens of milliseconds, a difference of **over 100x**. At N=100,000, O(n²) takes minutes to tens of minutes while O(n log n) is under 1 second. This gap shows clearly that algorithm choice matters.
 
-> **Note:** At N=100,000, O(n²) algorithms may take several minutes to over 10 minutes. The program has not frozen; it actually takes that long. If time is short, you can test O(n²) algorithms only up to N=10,000 and run only O(n log n) algorithms for N=100,000.
+At N=100,000, O(n²) algorithms may take several minutes to over 10 minutes. The program has not frozen; it actually takes that long. If time is short, you can test O(n²) algorithms only up to N=10,000 and run only O(n log n) algorithms for N=100,000.
 
 **Visualizing the Gap:**
 
@@ -481,7 +481,7 @@ Every page load, every filter change, and every "sort by price" click would make
 
 *Table 4. Baekjoon practice problems on sorting*
 
-> **Note:** "Sort Numbers 2" (problem 2751) has N up to 1,000,000, so O(n²) algorithms will result in time limit exceeded. You must use an O(n log n) algorithm (merge sort, quick sort, or Python's `sorted()`). The "Algorithm Class" series (23881, 23968, 24051, 24090, 24060) are problems that track intermediate states of the sorting process, making them excellent for verifying that you accurately understand each algorithm's step-by-step behavior.
+"Sort Numbers 2" (problem 2751) has N up to 1,000,000, so O(n²) algorithms will result in time limit exceeded. You must use an O(n log n) algorithm (merge sort, quick sort, or Python's `sorted()`). The "Algorithm Class" series (23881, 23968, 24051, 24090, 24060) are problems that track intermediate states of the sorting process, making them excellent for verifying that you accurately understand each algorithm's step-by-step behavior.
 
 ---
 

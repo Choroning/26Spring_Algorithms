@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-11-17
+> **최종 수정일:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -243,7 +243,7 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 - **Clay Millennium Prize**는 어느 쪽이든 증명하면 100만 달러의 상금을 준다.
 - 연구자들의 압도적인 합의는 $P \neq NP$이지만, 이는 *증명되지 않았다*.
 
-> **참고:** **왜 누구나 관심을 갖는가.** $P = NP$라면 NP에 속하는 모든 문제(인수분해, SAT, TSP, vertex cover, 그리고 모든 NP-Complete 문제)를 다항 시간에 풀 수 있게 된다. 현재의 암호학은 안전성의 근거를 잃는다. 계획, 일정, 신약 개발 등 모든 것을 최적화할 수 있다. $P \neq NP$를 증명하는 데 평생을 바친 연구자가 많지만 아무도 성공하지 못했다.
+> **참고:** **누구나 관심을 갖는 이유.** $P = NP$라면 NP에 속하는 모든 문제(인수분해, SAT, TSP, vertex cover, 그리고 모든 NP-Complete 문제)를 다항 시간에 풀 수 있게 된다. 현재의 암호학은 안전성의 근거를 잃는다. 계획, 일정, 신약 개발 등 모든 것을 최적화할 수 있다. $P \neq NP$를 증명하는 데 평생을 바친 연구자가 많지만 아무도 성공하지 못했다.
 
 ### 2.4 다항 시간 환원
 
@@ -448,7 +448,7 @@ graph LR
 
 *그림 9. 3-SAT에서 CLIQUE로의 환원 그래프 구성*
 
-**왜 동작하는가.** $G_\phi$의 크기 $m$인 clique은 같은 절의 정점끼리 연결되지 않으므로 절마다 리터럴을 하나씩 고르고, 모순 쌍이 연결되지 않으므로 모순 없이 고른다. clique에 속한 리터럴을 모두 True로 두면 모든 절이 만족된다. 역으로 만족 할당에서 절마다 참인 리터럴을 하나씩 고르면 그 선택은 clique을 이룬다.
+**동작하는 이유.** $G_\phi$의 크기 $m$인 clique은 같은 절의 정점끼리 연결되지 않으므로 절마다 리터럴을 하나씩 고르고, 모순 쌍이 연결되지 않으므로 모순 없이 고른다. clique에 속한 리터럴을 모두 True로 두면 모든 절이 만족된다. 역으로 만족 할당에서 절마다 참인 리터럴을 하나씩 고르면 그 선택은 clique을 이룬다.
 
 구성은 다항 시간이다. 따라서 $\text{3-SAT} \leq_P \text{CLIQUE}$이고 CLIQUE은 NP-Hard이다.
 

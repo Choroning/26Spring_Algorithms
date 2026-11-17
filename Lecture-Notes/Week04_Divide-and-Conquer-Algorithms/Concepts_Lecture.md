@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 4, 7, 9, 33
 
@@ -113,7 +113,7 @@ Each division halves the subproblem size:
 - ...
 - After $k$ divisions: each size $= n/2^k$
 
-**When does the division stop?**
+**Stopping point of the division**
 $$n/2^k = 1 \implies k = \log_2 n$$
 
 Total number of divisions $= \log_2 n$
@@ -128,7 +128,7 @@ Total number of divisions $= \log_2 n$
 
 The method of conquering depends on the specific problem.
 
-> **Note:** **Concrete Examples of Combine.** In merge sort, combine means merging two sorted lists ($`O(n)`$). In binary search, combine is trivial (just return the result). In the closest pair problem, combine requires a careful strip analysis. The combine step often determines the overall complexity of the algorithm.
+**Concrete Examples of Combine:** In merge sort, combine means merging two sorted lists ($`O(n)`$). In binary search, combine is trivial (just return the result). In the closest pair problem, combine requires a careful strip analysis. The combine step often determines the overall complexity of the algorithm.
 
 ### 1.5 Classification of Divide and Conquer Algorithms
 
@@ -170,7 +170,7 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 *Figure 2. Recursion tree of the Master Theorem*
 
-> **Note:** The recursion tree is a key tool for visually understanding divide and conquer recurrences. Summing the costs from root to leaves across all levels gives the total time complexity. The Master Theorem simplifies this summation into a comparison between $f(n)$ and $n^{\log_b a}$.
+The recursion tree is a key tool for visually understanding divide and conquer recurrences. Summing the costs from root to leaves across all levels gives the total time complexity. The Master Theorem simplifies this summation into a comparison between $f(n)$ and $n^{\log_b a}$.
 
 ### 1.7 Master Theorem: Three Cases
 
@@ -195,13 +195,13 @@ Here $\varepsilon$ is some positive constant ($`\varepsilon > 0`$) for which the
 
 **Worked Example:** For $T(n) = 3T(n/4) + cn^2$: $a=3$, $b=4$, $f(n)=cn^2$. Compute $n^{\log_4 3} \approx n^{0.79}$. Since $f(n) = cn^2$ grows polynomially faster than $n^{0.79}$ (i.e., $f(n) = \Omega(n^{\log_4 3 + \varepsilon})$ for $`\varepsilon \approx 1.21`$), this is **Case 3**, giving $T(n) = \Theta(n^2)$. The regularity condition also holds because $3f(n/4) = \frac{3}{16}f(n)$.
 
-> **Note:** **Procedure for Applying the Master Theorem.** The Master Theorem is applied in the following order.
-> 1. Identify $a$, $b$, and $f(n)$ from the recurrence.
-> 2. Compute $n^{\log_b a}$.
-> 3. Compare $f(n)$ with $n^{\log_b a}$ to determine Case 1, 2, or 3.
-> 4. Apply the formula for the corresponding case.
->
-> The time complexity of most divide and conquer algorithms expressed as recurrences can be found with this procedure.
+**Procedure for Applying the Master Theorem:** The Master Theorem is applied in the following order.
+1. Identify $a$, $b$, and $f(n)$ from the recurrence.
+2. Compute $n^{\log_b a}$.
+3. Compare $f(n)$ with $n^{\log_b a}$ to determine Case 1, 2, or 3.
+4. Apply the formula for the corresponding case.
+
+The time complexity of most divide and conquer algorithms expressed as recurrences can be found with this procedure.
 
 ### 1.8 Other Divide and Conquer Recurrence Patterns
 
@@ -249,7 +249,7 @@ The textbook's Figure 2.4 shows merge sort merging sorted subarrays from the bot
 
 *Figure 5. Operation tree of merge sort*
 
-> **Note:** The key to merge sort is the MERGE process covered in Week 3. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
+The key to merge sort is the MERGE process covered in Week 3. To merge two sorted arrays into one, repeatedly compare the first elements of each array, place the smaller one into the result array, and advance the pointer. This process takes $\Theta(n)$.
 
 **MERGE Procedure:**
 
@@ -281,7 +281,7 @@ MERGE(A, p, q, r)
 
 *Table 4. Merge trace of [27, 38] and [3, 43]*
 
-> **Note:** The sentinel value ∞ eliminates the need for boundary checks. When one array is exhausted, the ∞ in its next slot is larger than any element, so the remaining elements of the other array are copied in order.
+The sentinel value ∞ eliminates the need for boundary checks. When one array is exhausted, the ∞ in its next slot is larger than any element, so the remaining elements of the other array are copied in order.
 
 ### 2.2 Merge Sort: Recurrence and Analysis
 
@@ -300,7 +300,7 @@ $$T(n) = \Theta(n \log n)$$
 
 **Space complexity:** $O(n)$ (auxiliary array for merging)
 
-> **Note:** Merge sort is always $\Theta(n \log n)$. Unlike quick sort, it has no worst case, which is an advantage, but the $O(n)$ extra space requirement is a disadvantage.
+Merge sort is always $\Theta(n \log n)$. Unlike quick sort, it has no worst case, which is an advantage, but the $O(n)$ extra space requirement is a disadvantage.
 
 ### 2.3 Merge Sort: Step-by-Step Example
 
@@ -437,7 +437,7 @@ Returns the final index of the pivot. The textbook's Figure 7.2 shows the four r
 
 *Figure 8. Two cases in one iteration of the partition procedure*
 
-> **Note:** Variable `i` tracks the last index of the region of elements ≤ pivot. As `j` scans the array, whenever an element ≤ pivot is found, `i` is incremented and `A[i]` and `A[j]` are swapped to include that element in the left region.
+Variable `i` tracks the last index of the region of elements ≤ pivot. As `j` scans the array, whenever an element ≤ pivot is found, `i` is incremented and `A[i]` and `A[j]` are swapped to include that element in the left region.
 
 ### 4.3 Partition: Step-by-Step Example
 
@@ -506,7 +506,7 @@ $$T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + \Theta(n) = \Theta(n \lo
 T(n) \le \max\{T(k-1),\ T(n-k)\} + \Theta(n)
 ```
 
-> **Note:** The selection problem asks whether the $i$-th element can be found without sorting the entire array. Sorting takes $O(n \log n)$, but selection algorithms solve it in $O(n)$.
+The selection problem asks whether the $i$-th element can be found without sorting the entire array. Sorting takes $O(n \log n)$, but selection algorithms solve it in $O(n)$.
 
 ### 5.2 Randomized Selection
 
@@ -836,7 +836,7 @@ $$T(n) = O(n \log^2 n)$$
 
 A more refined implementation (pre-sorting by y-coordinate) can improve this to $O(n \log n)$.
 
-> **Note:** The difference between $O(n \log^2 n)$ and $O(n \log n)$ comes down to whether the strip points are sorted each time ($`O(n \log n)`$) or whether y-coordinate sorting is maintained throughout the recursion.
+The difference between $O(n \log^2 n)$ and $O(n \log n)$ comes down to whether the strip points are sorted each time ($`O(n \log n)`$) or whether y-coordinate sorting is maintained throughout the recursion.
 
 ---
 

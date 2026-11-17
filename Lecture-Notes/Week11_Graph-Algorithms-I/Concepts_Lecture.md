@@ -19,7 +19,7 @@
 ## Table of Contents
 
 - [1. Graph Basics and Representations](#1-graph-basics-and-representations)
-  - [1.1 What is a Graph?](#11-what-is-a-graph)
+  - [1.1 The Concept of a Graph](#11-the-concept-of-a-graph)
   - [1.2 Types of Graphs](#12-types-of-graphs)
   - [1.3 Adjacency Matrix](#13-adjacency-matrix)
   - [1.4 Adjacency Matrix: Directed and Weighted Examples](#14-adjacency-matrix-directed-and-weighted-examples)
@@ -59,7 +59,7 @@
 
 ## 1. Graph Basics and Representations
 
-### 1.1 What is a Graph?
+### 1.1 The Concept of a Graph
 
 A **graph** models relationships between objects using **vertices** and **edges**.
 
