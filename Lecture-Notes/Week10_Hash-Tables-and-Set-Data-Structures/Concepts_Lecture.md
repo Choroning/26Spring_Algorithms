@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-10-20
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 11
 
@@ -154,9 +154,9 @@ A **collision** occurs when two different keys produce the same hash value.
 
 *Figure 5. Keys 25 and 55 colliding at index 5*
 
-**Pigeonhole principle:** the key space is generally much larger than the index space ($|U| \gg m$), so by counting alone some pair of keys must share a slot.
+**Pigeonhole principle:** the key space is generally much larger than the index space ($`|U| \gg m`$), so by counting alone some pair of keys must share a slot.
 
-Even with $n \ll m$, the **birthday paradox** tells us collisions arise far earlier than intuition suggests: among about $\sqrt{m}$ random keys (more precisely about $1.18\sqrt{m}$), the probability of *some* collision is already about $1/2$.
+Even with $n \ll m$, the **birthday paradox** tells us collisions arise far earlier than intuition suggests: among about $\sqrt{m}$ random keys (more precisely about $`1.18\sqrt{m}`$), the probability of *some* collision is already about $1/2$.
 
 The practical question is therefore not how to avoid collisions but **how to resolve them efficiently**. Table 3 lists the two main families.
 
@@ -258,7 +258,7 @@ Because all entries live in **one contiguous array** (no per-element nodes), ope
 
 ### 2.4 Linear Probing: Example
 
-Insert keys $\{25, 37, 42, 55, 73\}$ into a table of size $m = 10$ using $h(k) = k \bmod 10$:
+Insert keys $`\{25, 37, 42, 55, 73\}`$ into a table of size $m = 10$ using $h(k) = k \bmod 10$:
 
 ```text
 Step 1: Insert 25 → h(25)=5              Step 2: Insert 37 → h(37)=7
@@ -396,7 +396,7 @@ $$\alpha = \frac{n}{m}.$$
 
 When the load factor crosses a threshold, **rehash**, i.e., resize the table:
 
-1. Allocate a **new table** of size $m' \approx 2m$ (typically the next prime after $2m$).
+1. Allocate a **new table** of size $m' \approx 2m$ (typically the next prime after $`2m`$).
 2. **Recompute** $h(k)$ for every existing key using the new table size.
 3. **Reinsert** all elements into the new table.
 4. **Free** the old table.
@@ -463,13 +463,22 @@ Hash tables power two of the most ubiquitous abstractions in programming:
 - Examples: Python `dict`, Java `HashMap`, C++ `unordered_map`.
 
 ```python
-# Python Set example                  # Python Dict (Map) example
-visited = set()                        phone = {}
-visited.add("A")                       phone["Alice"] = "010-1234"
-visited.add("B")                       phone["Bob"]   = "010-5678"
-visited.add("A")   # duplicate!        print(phone["Alice"])  # O(1)
-print(len(visited))    # 2             print("Bob" in phone)  # O(1)
+# Python Set example
+visited = set()
+visited.add("A")
+visited.add("B")
+visited.add("A")   # duplicate!
+print(len(visited))    # 2
 print("A" in visited)  # True, O(1)
+```
+
+```python
+# Python Dict (Map) example
+phone = {}
+phone["Alice"] = "010-1234"
+phone["Bob"]   = "010-5678"
+print(phone["Alice"])  # O(1)
+print("Bob" in phone)  # O(1)
 ```
 
 These are among the most heavily used data structures in coding interviews and competitive programming, and many algorithmic problems reduce to choosing the right Set or Map.
@@ -527,7 +536,7 @@ These are among the most heavily used data structures in coding interviews and c
    <details>
    <summary>Answer</summary>
 
-   $k \bmod 2^p$ depends only on the **lower $p$ bits** of $k$, so any structure in the higher bits is thrown away. If keys share a common low-bit pattern they all collide into a tiny subset of slots. **Example with $m = 8$:** keys $\{8, 16, 24, 32, 40, 48, \ldots\}$ are all $\equiv 0 \pmod 8$, so every key collides at slot 0 regardless of how many slots remain. A **prime $m$** not close to a power of 2 mixes high and low bits and avoids this trap (textbook Section 11.3).
+   $k \bmod 2^p$ depends only on the **lower $p$ bits** of $k$, so any structure in the higher bits is thrown away. If keys share a common low-bit pattern they all collide into a tiny subset of slots. **Example with $m = 8$:** keys $`\{8, 16, 24, 32, 40, 48, \ldots\}`$ are all $\equiv 0 \pmod 8$, so every key collides at slot 0 regardless of how many slots remain. A **prime $m$** not close to a power of 2 mixes high and low bits and avoids this trap (textbook Section 11.3).
 
    </details>
 
@@ -536,7 +545,7 @@ These are among the most heavily used data structures in coding interviews and c
    <details>
    <summary>Answer</summary>
 
-   The classic **birthday paradox** answer is $n \approx 23$, far smaller than $m = 365$. The reason is combinatorial: with $n$ insertions there are $\binom{n}{2} \approx n^2/2$ **pairs** of keys, and each pair collides with probability $1/m$. The probability of no collision is therefore about $e^{-n^2/(2m)}$, which drops to 1/2 around $n \approx \sqrt{2m \ln 2} \approx 1.18\sqrt{m}$ (the expected number of collisions reaches 1 around $n \approx \sqrt{2m}$). The 1/2-probability threshold scales as $\Theta(\sqrt{m})$, not $\Theta(m)$, so collisions arise *much* earlier than naive intuition suggests.
+   The classic **birthday paradox** answer is $n \approx 23$, far smaller than $m = 365$. The reason is combinatorial: with $n$ insertions there are $\binom{n}{2} \approx n^2/2$ **pairs** of keys, and each pair collides with probability $1/m$. The probability of no collision is therefore about $e^{-n^2/(2m)}$, which drops to 1/2 around $n \approx \sqrt{2m \ln 2} \approx 1.18\sqrt{m}$ (the expected number of collisions reaches 1 around $`n \approx \sqrt{2m}`$). The 1/2-probability threshold scales as $\Theta(\sqrt{m})$, not $\Theta(m)$, so collisions arise *much* earlier than naive intuition suggests.
 
    </details>
 
@@ -549,7 +558,7 @@ These are among the most heavily used data structures in coding interviews and c
 
    </details>
 
-4. **Linear probing trace:** Insert $\{4, 14, 24, 25, 35\}$ into a table of size $m = 10$ with $h(k) = k \bmod 10$ using linear probing. Draw the final table and report the probe count for each insertion.
+4. **Linear probing trace:** Insert $`\{4, 14, 24, 25, 35\}`$ into a table of size $m = 10$ with $h(k) = k \bmod 10$ using linear probing. Draw the final table and report the probe count for each insertion.
 
    <details>
    <summary>Answer</summary>

@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **최종 수정일:** 2026-11-16
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16
 
@@ -335,9 +335,9 @@ def generate():
 
 프런트엔드의 `refreshTimeline`(`app.js` 14\~54번 줄)은 8시부터 24시까지의 고정된 16시간 범위에 예약을 막대로 그린다. 막대의 왼쪽 위치와 너비는 다음과 같이 백분율로 정한다.
 
-$$
+```math
 \text{left} = \frac{s - 8}{16} \times 100\%, \qquad \text{width} = \max\left(\frac{f - s}{16} \times 100\%,\ 2\%\right)
-$$
+```
 
 화면의 막대는 시작 시간 순서(같으면 종료 시간 순서)로 위에서 아래로 놓인다(25번 줄). 이 순서는 알고리즘이 예약을 보는 종료 시간 순서와 다르다. 이름이 선택된 예약 목록에 있으면 `selected` 클래스(파란색 `#4a90d9`), 없으면 `rejected` 클래스(회색 `#ccc`)를 붙인다(34\~35번 줄, `style.css` 137\~144번 줄). 이 판정은 예약 이름으로 하므로 이름이 같은 예약이 둘 있으면 하나만 선택되어도 둘 다 파랗게 칠해진다.
 

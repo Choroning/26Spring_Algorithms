@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Summary-Sheet.md) | [한국어](Summary-Sheet.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 
 ---
 
@@ -127,7 +127,9 @@ while left <= right:     # equality is required
 
 ### Definitions of Asymptotic Notation
 
-$$ O(g(n)) = \{ f : \exists c > 0, n_0 \geq 0, \forall n \geq n_0, f(n) \leq c \cdot g(n) \} $$
+```math
+O(g(n)) = \{ f : \exists c > 0, n_0 \geq 0, \forall n \geq n_0, f(n) \leq c \cdot g(n) \}
+```
 
 - **O:** An upper bound, meaning the function grows at most this fast.
 - **Ω:** A lower bound, meaning the function grows at least this fast.
@@ -458,7 +460,7 @@ for k = 1 to n:     # k must be the outermost loop
         for j = 1 to n:
             D[i][j] = min(D[i][j], D[i][k] + D[k][j])
 ```
-**Explanation:** It gradually expands the set of allowed intermediate vertices as $\{1\} \to \{1, 2\} \to \cdots \to \{1..n\}$ and updates the shortest distance of every pair $i \to j$. The key idea is to check, for every $(i, j)$ at each stage, whether going through vertex $k$ makes the path shorter. $k$ must be the outermost loop because the update for each $k$ must be based on the results that use only $\{1..k-1\}$ as intermediate vertices. Negative edges are allowed, but there must be no negative cycle. The complexity is $\Theta(n^3)$.
+**Explanation:** It gradually expands the set of allowed intermediate vertices as $`\{1\} \to \{1, 2\} \to \cdots \to \{1..n\}`$ and updates the shortest distance of every pair $i \to j$. The key idea is to check, for every $(i, j)$ at each stage, whether going through vertex $k$ makes the path shorter. $k$ must be the outermost loop because the update for each $k$ must be based on the results that use only $`\{1..k-1\}`$ as intermediate vertices. Negative edges are allowed, but there must be no negative cycle. The complexity is $\Theta(n^3)$.
 
 ---
 
@@ -649,7 +651,7 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 <details>
 <summary>Show solution</summary>
 
-**Answer:** Prove it by an exchange argument. Let the greedy solution be $G = \{g_1, g_2, \ldots, g_k\}$ and an arbitrary optimal solution be $O = \{o_1, o_2, \ldots, o_m\}$, both sorted by finish time in ascending order. Since greedy first selects the activity that **finishes earliest among all activities**, $\text{finish}(g_1) \leq \text{finish}(o_1)$ holds. Therefore, replacing $o_1$ with $g_1$ in $O$ keeps the later activities non-overlapping and does not change the size. That is, $O' = \{g_1, o_2, \ldots, o_m\}$ is also an optimal solution. Applying this argument inductively, optimality is preserved even if every element of $O$ is replaced by a greedy choice, so $|G| = |O|$. The key intuition is that choosing the activity that finishes earliest leaves the most time for later activities, and this establishes both the greedy-choice property and optimal substructure. The complexity is dominated by sorting by finish time, giving $O(n \log n)$.
+**Answer:** Prove it by an exchange argument. Let the greedy solution be $`G = \{g_1, g_2, \ldots, g_k\}`$ and an arbitrary optimal solution be $`O = \{o_1, o_2, \ldots, o_m\}`$, both sorted by finish time in ascending order. Since greedy first selects the activity that **finishes earliest among all activities**, $\text{finish}(g_1) \leq \text{finish}(o_1)$ holds. Therefore, replacing $o_1$ with $g_1$ in $O$ keeps the later activities non-overlapping and does not change the size. That is, $`O' = \{g_1, o_2, \ldots, o_m\}`$ is also an optimal solution. Applying this argument inductively, optimality is preserved even if every element of $O$ is replaced by a greedy choice, so $|G| = |O|$. The key intuition is that choosing the activity that finishes earliest leaves the most time for later activities, and this establishes both the greedy-choice property and optimal substructure. The complexity is dominated by sorting by finish time, giving $O(n \log n)$.
 
 </details>
 
@@ -667,7 +669,7 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 <details>
 <summary>Show solution</summary>
 
-**Answer:** Defining the subproblem $K[i][w]$ as the maximum value when items $1..i$ are considered and the remaining capacity is $w$, the recurrence is $K[i][w] = \max(K[i-1][w],\; v_i + K[i-1][w - w_i])$. The base cases are $K[0][w] = K[i][0] = 0$. The table is as follows.
+**Answer:** Defining the subproblem $K[i][w]$ as the maximum value when items $1..i$ are considered and the remaining capacity is $w$, the recurrence is $`K[i][w] = \max(K[i-1][w],\; v_i + K[i-1][w - w_i])`$. The base cases are $K[0][w] = K[i][0] = 0$. The table is as follows.
 
 | $i \backslash w$ | 0 | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|---|
@@ -679,7 +681,7 @@ This is because the infinite series $\sum h / 2^h = 2$. In other words, low-heig
 
 *Table 17. DP table for the 0-1 knapsack example*
 
-The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (weight $2 + 3 = 5$, value $3 + 4 = 7$). Solving greedily (in descending value/weight ratio: item 1 is 1.5, item 2 is 1.33, item 3 is 1.25, item 4 is 1.2), after taking item 1 (2, 3), item 2 (3, 4) still fits in the remaining capacity 3, so in this particular example greedy also gets 7. In general, however, the 0-1 knapsack has cases where taking a high-ratio item leaves too little capacity for the next item and misses a combination with a larger $v$ (for example, with capacity 5 and items (4, 8), (3, 5), (2, 4), greedy that takes (4, 8) first among the equal ratios gets 8 and DP gets 9), because items cannot be split. In the fractional knapsack, items can be split, so greedy is always optimal, but the 0-1 knapsack guarantees optimality only with DP. The complexity is $O(nC)$, which is pseudopolynomial time.
+The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (weight $2 + 3 = 5$, value $`3 + 4 = 7`$). Solving greedily (in descending value/weight ratio: item 1 is 1.5, item 2 is 1.33, item 3 is 1.25, item 4 is 1.2), after taking item 1 (2, 3), item 2 (3, 4) still fits in the remaining capacity 3, so in this particular example greedy also gets 7. In general, however, the 0-1 knapsack has cases where taking a high-ratio item leaves too little capacity for the next item and misses a combination with a larger $v$ (for example, with capacity 5 and items (4, 8), (3, 5), (2, 4), greedy that takes (4, 8) first among the equal ratios gets 8 and DP gets 9), because items cannot be split. In the fractional knapsack, items can be split, so greedy is always optimal, but the 0-1 knapsack guarantees optimality only with DP. The complexity is $O(nC)$, which is pseudopolynomial time.
 
 </details>
 
@@ -690,9 +692,9 @@ The maximum value is $K[4][5] = 7$, and the selected items are items 1 and 2 (we
 
 **Answer:** Define the subproblem $c[i][j]$ as the LCS length of $X[1..i]$ and $Y[1..j]$. The recurrence is as follows.
 
-- $c[i][j] = 0$ ($i = 0$ or $j = 0$)
-- $c[i][j] = c[i-1][j-1] + 1$ ($X[i] = Y[j]$)
-- $c[i][j] = \max(c[i-1][j], c[i][j-1])$ ($X[i] \neq Y[j]$)
+- $c[i][j] = 0$ ($i = 0$ or $`j = 0`$)
+- $c[i][j] = c[i-1][j-1] + 1$ ($`X[i] = Y[j]`$)
+- $c[i][j] = \max(c[i-1][j], c[i][j-1])$ ($`X[i] \neq Y[j]`$)
 
 The justification for each branch is as follows. (1) If the characters **match**, including that character in the LCS is always optimal. Using the last characters of both strings leaves the problem of adding 1 to the LCS of $X[1..i-1]$ and $Y[1..j-1]$. (2) If the characters **do not match**, at least one of $X[i]$ and $Y[j]$ is not in the LCS, so take the larger of the two cases $c[i-1][j]$ and $c[i][j-1]$. The table is as follows.
 
@@ -727,7 +729,7 @@ def f(n):
 <details>
 <summary>Show solution</summary>
 
-**Answer:** The key is to distinguish the growth patterns of the two loops. The outer `while` doubles $i$ with `i *= 2`, so it repeats about $\log_2 n$ times (exactly $\lceil \log_2 n \rceil$ times for $n > 1$) until the condition $i < n$ turns into $i \geq n$. The inner `for` increases $j$ by 1 from 0 to $n-1$, so it runs exactly $n$ times each time. Therefore, the total number of operations is $n \cdot \log_2 n = \Theta(n \log n)$. The general principle is that **a loop that changes by multiplication or division is $O(\log n)$**, as with `i *= 2` or `i /= 2`, and **a loop that changes by addition is $O(n)$**, as with `i += 1`; when they are nested, the product of the two counts is the overall complexity. For example, substituting $n = 16$, the outer loop runs 4 times with $i = 1, 2, 4, 8$ and the inner loop runs 16 times each time, so `count = 64`, which matches $n \log_2 n = 16 \cdot 4 = 64$.
+**Answer:** The key is to distinguish the growth patterns of the two loops. The outer `while` doubles $i$ with `i *= 2`, so it repeats about $\log_2 n$ times (exactly $\lceil \log_2 n \rceil$ times for $`n > 1`$) until the condition $i < n$ turns into $i \geq n$. The inner `for` increases $j$ by 1 from 0 to $n-1$, so it runs exactly $n$ times each time. Therefore, the total number of operations is $n \cdot \log_2 n = \Theta(n \log n)$. The general principle is that **a loop that changes by multiplication or division is $O(\log n)$**, as with `i *= 2` or `i /= 2`, and **a loop that changes by addition is $O(n)$**, as with `i += 1`; when they are nested, the product of the two counts is the overall complexity. For example, substituting $n = 16$, the outer loop runs 4 times with $i = 1, 2, 4, 8$ and the inner loop runs 16 times each time, so `count = 64`, which matches $n \log_2 n = 16 \cdot 4 = 64$.
 
 </details>
 

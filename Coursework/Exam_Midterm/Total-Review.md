@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 
 ---
 
@@ -217,7 +217,7 @@ Niklaus Wirth's law "Algorithm + Data Structure = Program" summarizes this relat
 
 $$ \gcd(a, b) = \gcd(b, a \bmod b), \quad \gcd(a, 0) = a $$
 
-**Why it holds:** Let $a = q \cdot b + r$ ($r = a \bmod b$). Then the set of common divisors of $(a, b)$ is identical to that of $(b, r)$. Therefore the two pairs also have the same greatest common divisor.
+**Why it holds:** Let $a = q \cdot b + r$ ($`r = a \bmod b`$). Then the set of common divisors of $(a, b)$ is identical to that of $(b, r)$. Therefore the two pairs also have the same greatest common divisor.
 
 **Implementation:**
 
@@ -283,7 +283,7 @@ def binary_search(arr, target):
 
 **If the equality in `left <= right` is omitted,** the case where only one element remains in the interval (`left == right`) is not checked, and an existing key is missed. The equality includes the step that checks a single element.
 
-**Comparison:** With one million elements, sequential search needs up to 1,000,000 comparisons in the worst case, whereas binary search needs only about 20 ($\log_2 10^6 \approx 20$).
+**Comparison:** With one million elements, sequential search needs up to 1,000,000 comparisons in the worst case, whereas binary search needs only about 20 ($`\log_2 10^6 \approx 20`$).
 
 #### 1.4.2 Poisoned Wine and Binary Encoding
 
@@ -367,13 +367,15 @@ The worst case is used most often because it guarantees performance. The promise
 
 ### 2.2 Asymptotic Notation
 
-The exact operation count (e.g., $T(n) = 3n^2 + 100n + 5000$) depends on implementation details, but when $n$ is large enough, only the highest-order term matters. Asymptotic notation is the tool that expresses this observation rigorously.
+The exact operation count (e.g., $`T(n) = 3n^2 + 100n + 5000`$) depends on implementation details, but when $n$ is large enough, only the highest-order term matters. Asymptotic notation is the tool that expresses this observation rigorously.
 
 #### 2.2.1 Big-O: Asymptotic Upper Bound
 
 **Definition:**
 
-$$ O(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \leq c \cdot g(n) \} $$
+```math
+O(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \leq c \cdot g(n) \}
+```
 
 Intuitively, it means that $f$ does not grow faster than $g$, ignoring constant factors.
 
@@ -383,7 +385,9 @@ Intuitively, it means that $f$ does not grow faster than $g$, ignoring constant 
 
 #### 2.2.2 Big-Omega: Asymptotic Lower Bound
 
-$$ \Omega(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \geq c \cdot g(n) \} $$
+```math
+\Omega(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \geq c \cdot g(n) \}
+```
 
 Intuitively, it means that $f$ does not grow slower than $g$.
 
@@ -437,7 +441,7 @@ Expand the recurrence step by step, find the pattern, and generalize.
 
 Assume $T(n) = 2T(n/2) + n$, $T(1) = 1$, $n = 2^k$:
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
  &= 2(2T(n/4) + n/2) + n = 4T(n/4) + 2n \\
@@ -445,7 +449,7 @@ T(n) &= 2T(n/2) + n \\
  &\vdots \\
  &= 2^k T(n/2^k) + kn
 \end{aligned}
-$$
+```
 
 Since $2^k = n$, $k = \log_2 n$:
 
@@ -461,7 +465,7 @@ Proof that $T(n) = O(n \log n)$ for $T(n) = 2T(n/2) + n$:
 
 **Inductive step:**
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
  &\leq 2 \cdot c(n/2) \log(n/2) + n \\
@@ -469,13 +473,13 @@ T(n) &= 2T(n/2) + n \\
  &= cn \log n - cn + n \\
  &\leq cn \log n \quad (c \geq 1)
 \end{aligned}
-$$
+```
 
 **Common mistake:** When a leftover term remains in the inductive step, as in $cn \log n + 1$, do not dismiss it on the grounds that it is Big-O anyway. Instead, **strengthen** the guess to $cn \log n - d$ to leave room for absorbing the leftover term.
 
 #### 2.3.3 Method 3: The Master Theorem
 
-**Form:** $T(n) = a \cdot T(n/b) + f(n)$ ($a \geq 1$, $b > 1$)
+**Form:** $T(n) = a \cdot T(n/b) + f(n)$ ($a \geq 1$, $`b > 1`$)
 
 **Comparison function:** $h(n) = n^{\log_b a}$ (the leaf cost of the recursion tree)
 
@@ -1007,7 +1011,7 @@ The simple rule is to choose the largest denomination first, and for a standard 
 
 The knapsack problem in which items can be divided has an optimal greedy solution.
 
-**Strategy:** Sort the items in descending order of value per unit weight ($v_i/w_i$) and put them into the knapsack in that order.
+**Strategy:** Sort the items in descending order of value per unit weight ($`v_i/w_i`$) and put them into the knapsack in that order.
 
 ```text
 FractionalKnapsack(items, C):
@@ -1190,7 +1194,7 @@ Dijkstra(G, s):
                 parent[v] = u
 ```
 
-**Explanation:** It maintains the shortest distances $D[\cdot]$ from $s$, and at each step **finalizes the vertex $u$ with the minimum $D$ among the vertices not yet finalized** (adding it to the set $S$). It then performs **edge relaxation** on each neighbor $v$ of $u$, updating $D[v]$ if the path through $u$ is shorter than the current $D[v]$. Thanks to the non-negative weight assumption, the greedy invariant holds: the $D$ value of a vertex added to $S$ never changes afterward.
+**Explanation:** It maintains the shortest distances $D[\cdot]$ from $s$, and at each step **finalizes the vertex $u$ with the minimum $D$ among the vertices not yet finalized** (adding it to the set $`S`$). It then performs **edge relaxation** on each neighbor $v$ of $u$, updating $D[v]$ if the path through $u$ is shorter than the current $D[v]$. Thanks to the non-negative weight assumption, the greedy invariant holds: the $D$ value of a vertex added to $S$ never changes afterward.
 
 **Greedy invariant:** If $u \in S$, then $D[u]$ is the true shortest distance from $s$ to $u$.
 
@@ -1308,7 +1312,7 @@ Approach every DP problem with the following six steps.
 
 **Complexity:** $O(n)$ time and $O(n)$ space. Keeping only two variables reduces the space to $O(1)$.
 
-**Measured comparison ($n = 30$):**
+**Measured comparison ($`n = 30`$):**
 
 | Method | Time |
 |---|---|
@@ -1328,13 +1332,13 @@ Approach every DP problem with the following six steps.
 
 **Recurrence:**
 
-$$
+```math
 c[i,j] = \begin{cases}
 0 & i = 0 \text{ or } j = 0 \\
 c[i-1, j-1] + 1 & X[i] = Y[j] \\
 \max(c[i-1, j], c[i, j-1]) & X[i] \neq Y[j]
 \end{cases}
-$$
+```
 
 **Example:** The DP table for $X$ = `ABCBDAB` and $Y$ = `BDCAB` is as follows.
 
@@ -1370,14 +1374,14 @@ $$
 
 **Recurrence:**
 
-$$
+```math
 E[i,j] = \begin{cases}
 j & i = 0 \quad (\text{insert j}) \\
 i & j = 0 \quad (\text{delete i}) \\
 E[i-1, j-1] & X[i] = Y[j] \\
 1 + \min(E[i-1, j], E[i, j-1], E[i-1, j-1]) & \text{else}
 \end{cases}
-$$
+```
 
 - $E[i-1, j] + 1$ denotes a deletion.
 - $E[i, j-1] + 1$ denotes an insertion.
@@ -1406,19 +1410,19 @@ $$
 
 #### 6.5.4 0-1 Knapsack
 
-**Problem definition:** Given $n$ items (each with weight $w_i$ and value $v_i$) and a knapsack capacity $C$, maximize the total value under the condition that items cannot be divided.
+**Problem definition:** Given $n$ items (each with weight $w_i$ and value $`v_i`$) and a knapsack capacity $C$, maximize the total value under the condition that items cannot be divided.
 
 **Subproblem:** $K[i, w]$ is the maximum value when considering items $1..i$ with capacity $w$.
 
 **Recurrence:**
 
-$$
+```math
 K[i, w] = \begin{cases}
 0 & i = 0 \text{ or } w = 0 \\
 K[i-1, w] & w_i > w \\
 \max(K[i-1, w], K[i-1, w - w_i] + v_i) & \text{else}
 \end{cases}
-$$
+```
 
 **Decision:** For each item, decide whether to include it in the knapsack or exclude it.
 
@@ -1435,7 +1439,7 @@ $$
 
 *Figure 7. DP table of a 0-1 knapsack with capacity 5*
 
-**How to read the table:** Row $i$ means that only items $1..i$ are considered, and column $w$ is the current knapsack capacity. Each cell is the maximum value obtainable under those conditions. Row 0 and column 0 are base cases (no items or zero capacity), so their value is 0. An interior cell takes the larger of $K[i-1][w]$, the value without item $i$, and $v_i + K[i-1][w - w_i]$, the value with it. For example, $K[3][4] = \max(K[2][4] = 22,\; 20 + K[2][4-3] = 20 + 10 = 30) = 30$.
+**How to read the table:** Row $i$ means that only items $1..i$ are considered, and column $w$ is the current knapsack capacity. Each cell is the maximum value obtainable under those conditions. Row 0 and column 0 are base cases (no items or zero capacity), so their value is 0. An interior cell takes the larger of $K[i-1][w]$, the value without item $i$, and $v_i + K[i-1][w - w_i]$, the value with it. For example, $`K[3][4] = \max(K[2][4] = 22,\; 20 + K[2][4-3] = 20 + 10 = 30) = 30`$.
 
 **Answer:** $K[4][5] = 37$.
 
@@ -1453,9 +1457,9 @@ $$
 
 **Subproblem:** $C[j]$ is the minimum number of coins that make the amount $j$.
 
-**Recurrence:** $C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}$, with $C[0] = 0$.
+**Recurrence:** $`C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}`$, with $C[0] = 0$.
 
-**Example:** With denominations $\{1, 3, 4\}$ and amount 6, the DP table is as follows.
+**Example:** With denominations $`\{1, 3, 4\}`$ and amount 6, the DP table is as follows.
 
 | $j$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 |---|---|---|---|---|---|---|---|
@@ -1471,9 +1475,9 @@ $$
 
 **Problem definition:** Given a weighted directed graph, find the shortest distance between every pair of vertices.
 
-**Subproblem:** $d[i, j, k]$ is the shortest distance among paths from $i$ to $j$ that use only $\{1, \ldots, k\}$ as intermediate vertices.
+**Subproblem:** $d[i, j, k]$ is the shortest distance among paths from $i$ to $j$ that use only $`\{1, \ldots, k\}`$ as intermediate vertices.
 
-**Recurrence:** $d[i, j, k] = \min(d[i, j, k-1],\; d[i, k, k-1] + d[k, j, k-1])$.
+**Recurrence:** $`d[i, j, k] = \min(d[i, j, k-1],\; d[i, k, k-1] + d[k, j, k-1])`$.
 
 **Implementation** (without a 3D array, to save space):
 ```text
@@ -1486,7 +1490,7 @@ FloydWarshall(W, n):
     return D
 ```
 
-**Explanation:** $D$ is a 2D array that stores the all-pairs shortest distances when the set of intermediate vertices is $\{1..k\}$. Increasing $k$ one at a time, it checks for every $(i, j)$ whether the path through $k$ is shorter and updates accordingly. The reason overwriting the same 2D array $D$ instead of using a 3D array still gives the correct answer is that, during the $k$-th update, $D[i][k]$ and $D[k][j]$ keep the same values even if they are updated in the current iteration (passing through a vertex to reach itself is meaningless).
+**Explanation:** $D$ is a 2D array that stores the all-pairs shortest distances when the set of intermediate vertices is $`\{1..k\}`$. Increasing $k$ one at a time, it checks for every $(i, j)$ whether the path through $k$ is shorter and updates accordingly. The reason overwriting the same 2D array $D$ instead of using a 3D array still gives the correct answer is that, during the $k$-th update, $D[i][k]$ and $D[k][j]$ keep the same values even if they are updated in the current iteration (passing through a vertex to reach itself is meaningless).
 
 **Loop order:** $k$ must be the outermost loop. Because $k$ expands the set of allowed intermediate vertices, changing the order gives a wrong answer.
 
@@ -1760,7 +1764,7 @@ This table collects, week by week, the core information that must be found faste
 | Wrong base case in a DP recurrence | Verify by tracing small inputs (n=1, 2, 3) |
 | Off-by-one errors in a DP table | **State explicitly** whether it is 0-indexed or 1-indexed |
 | Confusing fractional vs 0-1 knapsack | Fractional = greedy, 0-1 = DP |
-| Overlooking quick sort's worst case ($n^2$) | Avoid it with a random pivot or median-of-3 |
+| Overlooking quick sort's worst case ($`n^2`$) | Avoid it with a random pivot or median-of-3 |
 
 *Table 32. Common exam mistakes and how to avoid them*
 
@@ -1781,21 +1785,21 @@ $$ T(n) = 4T(n/2) + n $$
 - $a = 4$, $b = 2$, $f(n) = n$
 - $n^{\log_b a} = n^{\log_2 4} = n^2$
 - Compare $f(n) = n$ vs $n^2$
-- $f(n) = O(n^{2-\varepsilon})$ ($\varepsilon = 1$) → **Case 1**
+- $f(n) = O(n^{2-\varepsilon})$ ($`\varepsilon = 1`$) → **Case 1**
 - **Answer:** $T(n) = \Theta(n^2)$.
 
 </details>
 
 #### Example 2: Greedy vs DP (Coin Change)
 
-**Problem:** With denominations $\{1, 3, 4\}$ and an amount of 6 cents, find the way to make the amount with the fewest coins using greedy and DP, and compare the results.
+**Problem:** With denominations $`\{1, 3, 4\}`$ and an amount of 6 cents, find the way to make the amount with the fewest coins using greedy and DP, and compare the results.
 
 <details>
 <summary>Show solution</summary>
 
 **Greedy solution:**
 - 4 (remaining: 2), 1 (remaining: 1), 1 (remaining: 0)
-- Result: $\{4, 1, 1\}$ = **3 coins**
+- Result: $`\{4, 1, 1\}`$ = **3 coins**
 
 **DP solution:**
 
@@ -1806,7 +1810,7 @@ $$ T(n) = 4T(n/2) + n $$
 *Table 33. DP table filled up to amount 6 with denominations {1, 3, 4}*
 
 - $C(6) = 1 + \min(C(5), C(3), C(2)) = 1 + \min(2, 1, 2) = 2$
-- Result: $\{3, 3\}$ = **2 coins**
+- Result: $`\{3, 3\}`$ = **2 coins**
 
 **Conclusion:** Greedy finds 3 coins and DP finds 2, so greedy is not optimal for these denominations.
 
@@ -1847,7 +1851,7 @@ These problems come from Week 7 Lab Exercise 2 and train the ability to decide w
 |---|---|
 | 1 | Two Sum (n ≤ 100) |
 | 2 | Maximum subarray sum |
-| 3 | Closest pair of points ($n \leq 10^5$) |
+| 3 | Closest pair of points ($`n \leq 10^5`$) |
 | 4 | Coin change {1, 5, 7, 10} |
 | 5 | Activity selection |
 
@@ -2027,7 +2031,7 @@ def find_max_dc(arr):
     return helper(arr, 0, len(arr) - 1), comparisons[0]
 ```
 
-**Explanation:** It splits the array in half, recursively finds the maximum of the left and right halves, and returns the larger of the two with **one comparison**. The base case is a single element (`lo == hi`). The recurrence $T(n) = 2T(n/2) + 1$ falls under Case 1 of the Master Theorem ($f(n)=1$, $n^{\log_2 2}=n$), giving $\Theta(n)$. The number of comparisons is the number of internal nodes of the recursion tree, $n - 1$, which is exactly the minimum.
+**Explanation:** It splits the array in half, recursively finds the maximum of the left and right halves, and returns the larger of the two with **one comparison**. The base case is a single element (`lo == hi`). The recurrence $T(n) = 2T(n/2) + 1$ falls under Case 1 of the Master Theorem ($f(n)=1$, $`n^{\log_2 2}=n`$), giving $\Theta(n)$. The number of comparisons is the number of internal nodes of the recursion tree, $n - 1$, which is exactly the minimum.
 
 **Example:** The maximum of `[3, 7, 2, 9, 1, 8, 4, 6, 5]` is 9, and the total number of comparisons is 8, equal to $n - 1$, which is optimal.
 

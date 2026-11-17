@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -296,13 +296,13 @@ Let $X_m = \langle x_1, x_2, \ldots, x_m \rangle$ and $Y_n = \langle y_1, y_2, \
 
 Define $c[i, j]$ = length of LCS of $X_i$ and $Y_j$.
 
-$$
+```math
 c[i, j] = \begin{cases}
 0 & \text{if } i = 0 \text{ or } j = 0 \\
 c[i-1, j-1] + 1 & \text{if } i,j > 0 \text{ and } x_i = y_j \\
 \max(c[i-1, j],\ c[i, j-1]) & \text{if } i,j > 0 \text{ and } x_i \neq y_j
 \end{cases}
-$$
+```
 
 **Intuition:**
 - If the last characters **match**, extend the LCS of the shorter prefixes by 1.
@@ -377,13 +377,13 @@ X = `ABCBDAB`, Y = `BDCABA`
 
 For each item $i$ and capacity $w$:
 
-$$
+```math
 K[i, w] = \begin{cases}
 0 & \text{if } i = 0 \text{ or } w = 0 \\
 K[i-1, w] & \text{if } w_i > w \text{ (item too heavy)} \\
 \max(K[i-1, w],\ K[i-1, w - w_i] + v_i) & \text{otherwise}
 \end{cases}
-$$
+```
 
 **Two choices for item $i$:**
 - **If it is not taken**, the value is $K[i-1, w]$.
@@ -428,7 +428,9 @@ Items (weight, value): (5kg, 10), (4kg, 40), (6kg, 30), (3kg, 50). Capacity = 10
 
 **DP Recurrence:**
 
-$$C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}$$
+```math
+C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}
+```
 
 Base case: $C[0] = 0$.
 
@@ -459,7 +461,7 @@ DPCoinChange(n, d[1..k]):
 
 **Problem:** Find shortest paths between **all pairs** of vertices in a weighted directed graph (assuming no negative-weight cycles).
 
-**Key idea:** Incrementally allow intermediate vertices $\{1, 2, \ldots, k\}$.
+**Key idea:** Incrementally allow intermediate vertices $`\{1, 2, \ldots, k\}`$.
 
 **Recurrence:**
 
@@ -491,7 +493,7 @@ FloydWarshall(W, n):
 
 > **[Data Structures]** The input $W$ is the adjacency matrix representation of the graph, which stores a graph with $n$ vertices in an $n \times n$ array so that the weight of edge $(i, j)$ is read from $W[i,j]$ in $O(1)$ time. Floyd-Warshall copies this matrix into the distance matrix $D$ and looks up $D[i,k]$ and $D[k,j]$ in constant time at every update, so each step of the three nested loops takes $O(1)$ and the total time is $O(n^3)$.
 
-> **Note:** Each iteration $k$ considers all paths that may pass through vertices $\{1, 2, \ldots, k\}$ as intermediates.
+> **Note:** Each iteration $k$ considers all paths that may pass through vertices $`\{1, 2, \ldots, k\}`$ as intermediates.
 
 ### 2.12 Floyd-Warshall: Example
 
@@ -520,14 +522,14 @@ Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
 
 **DP Recurrence:**
 
-$$
+```math
 E[i,j] = \begin{cases}
 j & \text{if } i = 0 \\
 i & \text{if } j = 0 \\
 E[i-1,j-1] & \text{if } X[i] = Y[j] \\
 1 + \min(E[i-1,j],\ E[i,j-1],\ E[i-1,j-1]) & \text{otherwise}
 \end{cases}
-$$
+```
 
 - $E[i-1,j] + 1$ corresponds to deleting $X[i]$.
 - $E[i,j-1] + 1$ corresponds to inserting $Y[j]$.
@@ -652,7 +654,7 @@ Table 9 summarizes the subproblem, recurrence, and running time of the problems 
    <details>
    <summary>Answer</summary>
 
-   Applying $K[i,w] = \max(K[i-1,w],\ K[i-1, w-w_i]+v_i)$ row by row gives $K[1,5]=12$, $K[2,5]=22$, $K[3,5]=32$, and **$K[4,5] = 37$**. Traceback: $K[4,5] \neq K[3,5]$ → take item 4 (w=2, v=15), capacity drops to 3; $K[3,3] = K[2,3] = 22$ → skip item 3; $K[2,3] \neq K[1,3]$ → take item 2 (w=1, v=10), capacity 2; $K[1,2] \neq K[0,2]$ → take item 1 (w=2, v=12). **Selected items: {1, 2, 4}** with total weight $2+1+2 = 5$ and total value $12+10+15 = $ **37**.
+   Applying $K[i,w] = \max(K[i-1,w],\ K[i-1, w-w_i]+v_i)$ row by row gives $K[1,5]=12$, $K[2,5]=22$, $K[3,5]=32$, and **$K[4,5] = 37$**. Traceback: $K[4,5] \neq K[3,5]$ → take item 4 (w=2, v=15), capacity drops to 3; $K[3,3] = K[2,3] = 22$ → skip item 3; $K[2,3] \neq K[1,3]$ → take item 2 (w=1, v=10), capacity 2; $K[1,2] \neq K[0,2]$ → take item 1 (w=2, v=12). **Selected items: {1, 2, 4}** with total weight $2+1+2 = 5$ and total value $`12+10+15 =`$ **37**.
 
    </details>
 
@@ -661,7 +663,7 @@ Table 9 summarizes the subproblem, recurrence, and running time of the problems 
    <details>
    <summary>Answer</summary>
 
-   **Greedy** picks 25 first, leaving 5 → then 1+1+1+1+1, totaling **6 coins**. **DP** computes $C[j] = \min_{d_i \leq j}(C[j-d_i] + 1)$ and at $j=30$ tries each denomination: $C[30-10]+1 = C[20]+1 = 3$, since $C[20] = 2$ via two 10-coins. So $C[30] = $ **3 coins** (10+10+10). Greedy fails because committing to 25 strands the remainder on a denomination set with no efficient way to make 5; DP considers **all** coin choices at each amount, so it finds the better global combination that avoids 25 entirely.
+   **Greedy** picks 25 first, leaving 5 → then 1+1+1+1+1, totaling **6 coins**. **DP** computes $C[j] = \min_{d_i \leq j}(C[j-d_i] + 1)$ and at $j=30$ tries each denomination: $C[30-10]+1 = C[20]+1 = 3$, since $C[20] = 2$ via two 10-coins. So $`C[30] =`$ **3 coins** (10+10+10). Greedy fails because committing to 25 strands the remainder on a denomination set with no efficient way to make 5; DP considers **all** coin choices at each amount, so it finds the better global combination that avoids 25 entirely.
 
    </details>
 

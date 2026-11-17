@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **최종 수정일:** 2026-11-16
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 11
 
@@ -413,7 +413,7 @@ class ShopUser(HttpUser):
 
 ### 6.1 엔드포인트 동작 확인
 
-FastAPI의 `TestClient`로 `app.py`를 불러와 각 엔드포인트를 호출하고, 서버를 uvicorn으로 띄워 같은 요청을 다시 보내 결과를 확인했다. 시드가 고정되어 있어 다음 값은 실행할 때마다 같다(`elapsed_ms`만 실행마다 달라진다).
+각 엔드포인트를 호출한 결과는 다음과 같다. 시드가 고정되어 있어 다음 값은 실행할 때마다 같다(`elapsed_ms`만 실행마다 달라진다).
 
 ```text
 GET /search/id?id=42
@@ -430,7 +430,7 @@ GET /
   -> 200, text/html
 ```
 
-상품 1,050개, 분류 6개, 중복 이름 64개, 중복 상품 129개, 비교 550,725번이라는 3.2절과 4.3절의 값이 모두 실행 결과와 일치한다.
+상품 1,050개, 분류 6개, 중복 이름 64개, 중복 상품 129개, 비교 550,725번이라는 3.2절과 4.3절의 값은 이 결과와 같다.
 
 ### 6.2 검색 결과 화면
 

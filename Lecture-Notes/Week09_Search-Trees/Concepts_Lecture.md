@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 12, 13, 18
 
@@ -619,7 +619,7 @@ Access times (typical):
   HDD              ~5 ms    (~50,000x slower than memory)
 ```
 
-A Red-Black Tree with $n = 10^9$ nodes has height at least about 30 ($\log_2 10^9 \approx 30$). On HDD that is $30 \times 5\,\text{ms} = 150\,\text{ms}$ per operation, far too slow for a database. The bottleneck is **disk reads**, not comparisons.
+A Red-Black Tree with $n = 10^9$ nodes has height at least about 30 ($`\log_2 10^9 \approx 30`$). On HDD that is $`30 \times 5\,\text{ms} = 150\,\text{ms}`$ per operation, far too slow for a database. The bottleneck is **disk reads**, not comparisons.
 
 > **Note:** **Relative scale.** One second of CPU time corresponds to about 10 days of disk I/O.
 
@@ -822,7 +822,7 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
 | BST | It keeps left $<$ root $<$ right order and gives expected $O(\log n)$, but sorted input degenerates it to a list with $O(n)$ worst-case search, insert, and delete. |
 | Red-Black Tree | One color bit and five properties bound the height by $2\log_2(n+1)$, guaranteeing $O(\log n)$. |
 | Double Red fix | Restructuring ($O(1)$ rotations) applies when the uncle is black, and recoloring (which may propagate) applies when the uncle is red. |
-| B-Tree (order $M$) | It trades in-memory comparisons for fewer disk reads. Each wide node fits one disk block, so operations take $O(\log_M n)$ disk reads and the tree stays at about three levels even for billions of keys. |
+| B-Tree (order $`M`$) | It trades in-memory comparisons for fewer disk reads. Each wide node fits one disk block, so operations take $O(\log_M n)$ disk reads and the tree stays at about three levels even for billions of keys. |
 | Uses of B-Trees | They are standard in databases (MySQL, PostgreSQL) and file systems (NTFS, ext4). |
 | Choosing a structure | The choice depends on the cost model: RBT optimizes RAM accesses, and B-Tree optimizes disk block reads. |
 
@@ -855,7 +855,7 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
    <details>
    <summary>Answer</summary>
 
-   The **in-order predecessor** of 6 is the **largest key in 6's left subtree**, which is 4. Replace 6's key with 4, then delete the original node 4 (a leaf, so just remove it). The result keeps 15 at the root with 18 on the right; on the left, 4 replaces 6, its left child is still 3 (with grandchild 2), and its right child is the unchanged subtree rooted at 7 containing 13 and 9. The BST property holds because every key in 4's left subtree ($2,3$) is less than 4 and every key in its right subtree ($7,9,13$) is greater than 4.
+   The **in-order predecessor** of 6 is the **largest key in 6's left subtree**, which is 4. Replace 6's key with 4, then delete the original node 4 (a leaf, so just remove it). The result keeps 15 at the root with 18 on the right; on the left, 4 replaces 6, its left child is still 3 (with grandchild 2), and its right child is the unchanged subtree rooted at 7 containing 13 and 9. The BST property holds because every key in 4's left subtree ($`2,3`$) is less than 4 and every key in its right subtree ($`7,9,13`$) is greater than 4.
 
    </details>
 
@@ -869,13 +869,13 @@ B-Tree costs are counted in disk reads. With a linear scan of the keys inside ea
    </details>
 
 5. **Restructuring vs Recoloring:** For each of the following Double-Red situations, decide which strategy applies and give the resulting tree.
-   (a) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(B),\ N = 7\,(R)$
-   (b) $G = 10\,(B),\ P = 5\,(R),\ U = 15\,(R),\ N = 3\,(R)$
+   (a) $`G = 10\,(B),\ P = 5\,(R),\ U = 15\,(B),\ N = 7\,(R)`$
+   (b) $`G = 10\,(B),\ P = 5\,(R),\ U = 15\,(R),\ N = 3\,(R)`$
 
    <details>
    <summary>Answer</summary>
 
-   **(a)** Uncle $U = 15$ is **black** → **Restructuring**. Sort $\{N=7, P=5, G=10\}$ → median is **7**, which becomes the new local root (black) with 5 and 10 as red children: `7(B)` → `5(R)` left, `10(R)` right; $U = 15$ reattaches as a child of 10. **(b)** Uncle $U = 15$ is **red** → **Recoloring**. Flip $P = 5$ and $U = 15$ to black, and $G = 10$ to red. If 10 is the root, force it back to black; otherwise the fix may propagate upward to 10's parent.
+   **(a)** Uncle $U = 15$ is **black** → **Restructuring**. Sort $`\{N=7, P=5, G=10\}`$ → median is **7**, which becomes the new local root (black) with 5 and 10 as red children: `7(B)` → `5(R)` left, `10(R)` right; $U = 15$ reattaches as a child of 10. **(b)** Uncle $U = 15$ is **red** → **Recoloring**. Flip $P = 5$ and $U = 15$ to black, and $G = 10$ to red. If 10 is the root, force it back to black; otherwise the fix may propagate upward to 10's parent.
 
    </details>
 

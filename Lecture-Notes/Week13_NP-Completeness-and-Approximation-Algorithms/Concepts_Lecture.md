@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -32,7 +32,7 @@
   - [2.6 NP-Hard and NP-Complete: Definitions](#26-np-hard-and-np-complete-definitions)
   - [2.7 How to Prove NP-Completeness](#27-how-to-prove-np-completeness)
   - [2.8 Proof: LONGEST-PATH is NP-Complete](#28-proof-longest-path-is-np-complete)
-  - [2.9 Sketch: 3-SAT $\leq_P$ CLIQUE](#29-sketch-3-sat-leq_p-clique)
+  - [2.9 Sketch: 3-SAT $`\leq_P`$ CLIQUE](#29-sketch-3-sat-leq_p-clique)
   - [2.10 The Reduction Chain](#210-the-reduction-chain)
   - [2.11 Counterintuitive Boundaries](#211-counterintuitive-boundaries)
   - [2.12 What "NP-Complete" Means in Practice](#212-what-np-complete-means-in-practice)
@@ -111,7 +111,7 @@ Suppose your boss gives you a problem that no efficient algorithm seems to crack
 
 The following problems motivate the rest of this note. Each is NP-Complete; the proofs come later, or follow by reduction from one of these.
 
-**SAT (Boolean Satisfiability).** Given Boolean variables connected by OR ($\lor$) within clauses, the clauses connected by AND ($\land$), find an assignment satisfying every clause.
+**SAT (Boolean Satisfiability).** Given Boolean variables connected by OR ($`\lor`$) within clauses, the clauses connected by AND ($`\land`$), find an assignment satisfying every clause.
 
 $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \lor z)$$
 
@@ -120,10 +120,10 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 - SAT is the **first problem proven NP-Complete** (Cook, 1971; independently Levin, 1973).
 
 **Subset Sum.** Given a set $S$ of integers and target $K$, does a subset of $S$ sum to exactly $K$?
-- For $S = \{20, 30, 40, 80, 90\}$ and $K = 200$, the subset $\{30, 80, 90\}$ works.
+- For $`S = \{20, 30, 40, 80, 90\}`$ and $K = 200$, the subset $`\{30, 80, 90\}`$ works.
 
 **Partition.** Given $S$, can it be split into two subsets with equal sum?
-- $S = \{20, 30, 40, 80, 90\}$ (total 260) splits into $\{20, 30, 80\}$ and $\{40, 90\}$ (each 130).
+- $`S = \{20, 30, 40, 80, 90\}`$ (total 260) splits into $`\{20, 30, 80\}`$ and $`\{40, 90\}`$ (each 130).
 - Subset Sum reduces to Partition in polynomial time.
 
 **0-1 Knapsack (decision version).** We are given a capacity $C$ and items with weights $w_i$ and values $v_i$. Is there a subset with total weight $\leq C$ and total value $\geq K$?
@@ -137,7 +137,7 @@ $$(\overline{w} \lor x) \land (w \lor y) \land (\overline{x} \lor \overline{y} \
 
 *Table 2. Weights and values of the items in the 0-1 Knapsack example*
 
-- For $C = 20$, items $\{2, 3, 4\}$ weigh 19 and have value 50.
+- For $C = 20$, items $`\{2, 3, 4\}`$ weigh 19 and have value 50.
 - **Why is it NP-Complete despite the DP?** The Week 6 DP solution runs in $O(nC)$. But $C$ can be encoded in $\log C$ bits, so the DP is *pseudo-polynomial*: polynomial in the *value* of $C$, but exponential in its *bit-length*.
 
 **Graph problems:**
@@ -253,7 +253,7 @@ Polynomial-time reduction is the single most important construction in this topi
 
 *Figure 3. Polynomial-time reduction diagram*
 
-**Definition.** Problem $A$ **reduces to** problem $B$ (written $A \leq_P B$) if there is a function $f$ such that:
+**Definition.** Problem $A$ **reduces to** problem $B$ (written $`A \leq_P B`$) if there is a function $f$ such that:
 
 1. $f$ transforms every instance $\alpha$ of $A$ into an instance $f(\alpha) = \beta$ of $B$ **in polynomial time**.
 2. $\alpha$ is a Yes-instance of $A$ **if and only if** $f(\alpha)$ is a Yes-instance of $B$.
@@ -302,7 +302,7 @@ graph LR
 
 Each edge of G gets weight 1, each edge not in G gets weight ∞ (or 2|V|), and K = |V|.
 
-- The only edge missing from $G$ in the figure is the one joining $a$ and $d$, so in $G'$ only that edge has weight ∞ (or $2|V|$) and the other five edges have weight 1.
+- The only edge missing from $G$ in the figure is the one joining $a$ and $d$, so in $G'$ only that edge has weight ∞ (or $`2|V|`$) and the other five edges have weight 1.
 - $G$ has a Hamiltonian cycle **iff** $G'$ has a tour of weight $\leq |V|$.
 - The transformation takes $O(V^2)$, which is polynomial.
 
@@ -430,7 +430,7 @@ graph LR
 
 The transformation is $O(|E|)$. Therefore LONGEST-PATH is NP-Hard, and combined with Step 1, **LONGEST-PATH is NP-Complete**. $\blacksquare$
 
-### 2.9 Sketch: 3-SAT $\leq_P$ CLIQUE
+### 2.9 Sketch: 3-SAT $`\leq_P`$ CLIQUE
 
 **3-SAT.** Given a CNF formula where every clause has exactly 3 literals, is there a satisfying assignment?
 
@@ -580,7 +580,7 @@ NP-Complete problems appear everywhere, in routing, scheduling, packing, coverin
    <details>
    <summary>Answer</summary>
 
-   In NP-Completeness theory, polynomial time means polynomial in the **bit-length of the input**, not in its numeric values. Capacity $C$ is encoded in $\log_2 C$ bits, so $O(nC) = O(n \cdot 2^{\log_2 C})$ is exponential in input bit-length. This is called **pseudo-polynomial**. The running time is polynomial in the *value* of $C$ but exponential in its *encoding length*. Small capacities (say $C \leq 10^6$) can make the DP practical, but $C \approx 2^{100}$ does not. The NP-Completeness proof constructs instances whose $C$ has a value exponentially large in the input bit-length, and NP-Completeness concerns the worst case over all input lengths.
+   In NP-Completeness theory, polynomial time means polynomial in the **bit-length of the input**, not in its numeric values. Capacity $C$ is encoded in $\log_2 C$ bits, so $O(nC) = O(n \cdot 2^{\log_2 C})$ is exponential in input bit-length. This is called **pseudo-polynomial**. The running time is polynomial in the *value* of $C$ but exponential in its *encoding length*. Small capacities (say $`C \leq 10^6`$) can make the DP practical, but $C \approx 2^{100}$ does not. The NP-Completeness proof constructs instances whose $C$ has a value exponentially large in the input bit-length, and NP-Completeness concerns the worst case over all input lengths.
 
    </details>
 

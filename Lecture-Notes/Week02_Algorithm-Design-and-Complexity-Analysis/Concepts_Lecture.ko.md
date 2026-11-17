@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-11-04
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
 
@@ -460,7 +460,9 @@ factorial(n)
 
 $O(g(n))$은 $g(n)$보다 **최대 같은 속도로** 증가하는 함수들의 집합이다.
 
-$$O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \leq c \cdot g(n) \}$$
+```math
+O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \leq c \cdot g(n) \}
+```
 
 - $g(n)$은 $f(n)$의 **점근적 상한(asymptotic upper bound)** 이다.
 - 관례: 기술적으로는 $f(n) \in O(g(n))$이지만 $f(n) = O(g(n))$이라고 쓴다.
@@ -514,7 +516,9 @@ $$2n^2 - 8n + 3 \leq 5n^2 \quad \text{(모든 } n \geq 1 \text{에서)}$$
 
 $\Omega(g(n))$은 $g(n)$보다 **최소 같은 속도로** 증가하는 함수들의 집합이다.
 
-$$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \geq c \cdot g(n) \}$$
+```math
+\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \geq c \cdot g(n) \}
+```
 
 - $g(n)$은 $f(n)$의 **점근적 하한(asymptotic lower bound)** 이다.
 - Big-O와 대칭적이다.
@@ -544,9 +548,13 @@ $c = 10$, $n_0 = 1$로 선택한다. 그러면 모든 $n \geq 1$에 대해 $10n^
 
 $\Theta(g(n))$은 $g(n)$과 **같은 속도로** 증가하는 함수들의 집합이다.
 
-$$\Theta(g(n)) = O(g(n)) \;\cap\; \Omega(g(n))$$
+```math
+\Theta(g(n)) = O(g(n)) \;\cap\; \Omega(g(n))
+```
 
-$$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}$$
+```math
+\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}
+```
 
 **직관적 의미:** $f(n) = \Theta(g(n))$은 $f$와 $g$가 (상수 배율 차이를 제외하면) **같은 속도로** 증가한다는 뜻이다.
 
@@ -569,7 +577,7 @@ $$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}
 
 **증명 예시:** $3n + 2 = \Theta(n)$
 
-상한: $3n + 2 \leq 5n$ ($n \geq 1$일 때, $c_2 = 5$). 하한: $3n + 2 \geq 3n$ ($n \geq 0$일 때, $c_1 = 3$). 따라서 $c_1 = 3$, $c_2 = 5$, $n_0 = 1$이다. $\square$
+상한: $3n + 2 \leq 5n$ ($n \geq 1$일 때, $`c_2 = 5`$). 하한: $3n + 2 \geq 3n$ ($n \geq 0$일 때, $`c_1 = 3`$). 따라서 $c_1 = 3$, $c_2 = 5$, $n_0 = 1$이다. $\square$
 
 ### 3.5 일반적인 복잡도 분류
 
@@ -608,7 +616,7 @@ $$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}
 
 다항식과 지수의 격차는 **어마어마**하다.
 
-> **참고:** $2^{100} \approx 10^{30}$이고, $n = 1{,}000$이면 $2^n \approx 10^{301}$로 관측 가능한 우주의 원자 수(대략 $10^{80}$)를 크게 넘는다. $n = 100$이기만 해도 $2^n$은 상상할 수 없는 수준이다. 이것이 지수 시간 알고리즘은 실용적이지 않다는 말의 의미이다.
+> **참고:** $2^{100} \approx 10^{30}$이고, $n = 1{,}000$이면 $2^n \approx 10^{301}$로 관측 가능한 우주의 원자 수(대략 $`10^{80}`$)를 크게 넘는다. $n = 100$이기만 해도 $2^n$은 상상할 수 없는 수준이다. 이것이 지수 시간 알고리즘은 실용적이지 않다는 말의 의미이다.
 
 > **참고:** 위 표에서 $\log n$은 $\log_2 n$이다. CS에서 별도 표기 없이 log라 쓰면 보통 **밑(base)이 2**이다. Big-O에서는 밑이 무엇이든 상관없다. $\log_a n = \frac{\log_b n}{\log_b a}$이므로 밑의 변환은 상수 배율일 뿐이고, Big-O에서 상수는 무시되기 때문이다.
 
@@ -684,7 +692,7 @@ $$T(n) = 2T(n/2) + n$$
 
 **예시:** $T(n) = T(n-1) + c$, $T(1) \leq c$
 
-$$
+```math
 \begin{aligned}
 T(n) &= T(n-1) + c \\
      &= (T(n-2) + c) + c = T(n-2) + 2c \\
@@ -693,7 +701,7 @@ T(n) &= T(n-1) + c \\
      &= T(1) + (n-1)c \\
      &\leq c + (n-1)c = cn = O(n)
 \end{aligned}
-$$
+```
 
 이것은 **팩토리얼**의 점화식이며, 선형 시간이다.
 
@@ -703,7 +711,7 @@ $$
 
 $n = 2^k$라 가정한다.
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
      &= 2(2T(n/4) + n/2) + n = 4T(n/4) + 2n \\
@@ -713,7 +721,7 @@ T(n) &= 2T(n/2) + n \\
      &= n \cdot T(1) + n \log_2 n \\
      &= n + n \log n = O(n \log n)
 \end{aligned}
-$$
+```
 
 > **참고:** 전개 과정의 패턴은 다음과 같다.
 > - 1번 대입: $2T(n/2) + n$ → 계수 2, 문제 크기 n/2
@@ -743,7 +751,7 @@ $$
 
 *귀납 단계:*
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
      &\leq 2 \cdot c(n/2)\log(n/2) + n \\
@@ -751,7 +759,7 @@ T(n) &= 2T(n/2) + n \\
      &= cn\log n + (-c\log 2 + 1)n \\
      &\leq cn\log n \quad \text{(} c \geq 1/\log 2 \text{일 때)}
 \end{aligned}
-$$
+```
 
 따라서 $T(n) = O(n \log n)$이다. $\square$
 
@@ -767,9 +775,11 @@ $$T(n) \leq 2 \cdot c(n/2) + 1 = cn + 1$$
 
 수정: 추측을 $T(n) \leq cn - 2$로 강화한다.
 
-$$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
+```math
+T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark
+```
 
-> **참고:** **흔한 실수.** 귀납법 증명에서 가장 흔한 실수는 cn + (상수)를 얻고서 O(n)이므로 충분하다고 결론 내리는 것이다. 귀납법에서는 **정확히 같은 형태**($\leq cn$)를 보여야 한다. 해결법은 추측을 $cn - d$(적절한 상수 d)로 약간 줄여서 여유를 만드는 것이다.
+> **참고:** **흔한 실수.** 귀납법 증명에서 가장 흔한 실수는 cn + (상수)를 얻고서 O(n)이므로 충분하다고 결론 내리는 것이다. 귀납법에서는 **정확히 같은 형태**($`\leq cn`$)를 보여야 한다. 해결법은 추측을 $cn - d$(적절한 상수 d)로 약간 줄여서 여유를 만드는 것이다.
 
 > **참고:** 상수 $d$를 체계적으로 결정하는 방법은 다음과 같다. 원래 증명에서 $T(n) \leq cn + 1$이 나왔는데 $\leq cn$이 필요하다. 추측을 $cn - d$로 놓고 귀납 단계를 전개하면 $T(n) \leq 2(c(n/2) - d) + 1 = cn - 2d + 1$이다. 이것이 $\leq cn - d$이려면 $-2d + 1 \leq -d$, 즉 $d \geq 1$이면 충분하다. 핵심은 초과분을 흡수할 수 있는 여유(slack)를 만드는 것이다.
 
@@ -777,15 +787,17 @@ $$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
 
 다음 형태의 점화식을 생각한다.
 
-$$T(n) = aT(n/b) + f(n) \quad \text{(단, } a \geq 1, \; b > 1\text{)}$$
+```math
+T(n) = aT(n/b) + f(n) \quad \text{(단, } a \geq 1, \; b > 1\text{)}
+```
 
 $h(n) = n^{\log_b a}$로 놓고, $f(n)$과 $h(n)$을 비교한다.
 
 | 경우 | 조건 | 결과 |
 |:-----|:-----|:-----|
-| **Case 1** | $f(n) = O(n^{\log_b a - \varepsilon})$ (어떤 $\varepsilon > 0$) | $T(n) = \Theta(n^{\log_b a})$ |
+| **Case 1** | $f(n) = O(n^{\log_b a - \varepsilon})$ (어떤 $`\varepsilon > 0`$) | $T(n) = \Theta(n^{\log_b a})$ |
 | **Case 2** | $f(n) = \Theta(n^{\log_b a})$ | $T(n) = \Theta(n^{\log_b a} \log n)$ |
-| **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (어떤 $\varepsilon > 0$), 그리고 $af(n/b) \leq cf(n)$ (어떤 $c < 1$) | $T(n) = \Theta(f(n))$ |
+| **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (어떤 $`\varepsilon > 0`$), 그리고 $af(n/b) \leq cf(n)$ (어떤 $`c < 1`$) | $T(n) = \Theta(f(n))$ |
 
 *표 16. 마스터 정리의 세 가지 경우*
 
@@ -851,7 +863,7 @@ $$T(n) = aT(n/b) + f(n)$$
 
 > **참고:** 정칙 조건(regularity condition)은 $f(n)$이 잘 행동하는(well-behaved) 함수임을 보장한다. 구체적으로, 재귀 트리의 각 레벨에서 수행되는 작업이 기하급수적으로 감소한다는 것이다. Case 3의 첫 조건을 만족하는 흔한 함수(다항식, 지수 함수)는 대부분 이 조건도 자동으로 만족한다.
 
-> **참고:** **Case 3의 검증.** **Case 3은 적용이 가장 까다롭다**. 정칙 조건($af(n/b) \leq cf(n)$)까지 확인해야 하기 때문이다. 흔한 분할 정복 알고리즘의 점화식은 대부분 Case 1 또는 Case 2로 해결되므로, 우선 $n^{\log_b a}$를 계산하고 f(n)과 비교하는 데 집중하는 것이 효과적이다.
+> **참고:** **Case 3의 검증.** **Case 3은 적용이 가장 까다롭다**. 정칙 조건($`af(n/b) \leq cf(n)`$)까지 확인해야 하기 때문이다. 흔한 분할 정복 알고리즘의 점화식은 대부분 Case 1 또는 Case 2로 해결되므로, 우선 $n^{\log_b a}$를 계산하고 f(n)과 비교하는 데 집중하는 것이 효과적이다.
 
 ---
 
@@ -868,9 +880,9 @@ $$T(n) = aT(n/b) + f(n)$$
 | 알고리즘 분류 | 분할 정복, 그리디 알고리즘, DP, 근사, 백트래킹, 분기 한정으로 나누며, 3대 핵심은 **분할 정복, 그리디 알고리즘, DP**이다. |
 | 시간 복잡도 | 입력 크기 $n$에 대한 기본 연산 횟수이며, 실행 시간(초)이 아닌 추상적 연산 횟수로 계산한다. |
 | 복잡도 분석 유형 | **최악**(가장 일반적이며 보장을 제공), 평균, 최선, 분할 상환으로 나눈다. |
-| Big-O ($O$) | 점근적 **상한**이며, 모든 $n \geq n_0$에서 $f(n) \leq c \cdot g(n)$인 상수 $c$, $n_0$가 존재함을 뜻한다. |
-| Big-Omega ($\Omega$) | 점근적 **하한**이며, 모든 $n \geq n_0$에서 $f(n) \geq c \cdot g(n)$인 상수 $c$, $n_0$가 존재함을 뜻한다. |
-| Theta ($\Theta$) | **엄밀한 한계**이며, $O \cap \Omega$로 정확히 그 수준의 증가율을 뜻한다. |
+| Big-O ($`O`$) | 점근적 **상한**이며, 모든 $n \geq n_0$에서 $f(n) \leq c \cdot g(n)$인 상수 $c$, $n_0$가 존재함을 뜻한다. |
+| Big-Omega ($`\Omega`$) | 점근적 **하한**이며, 모든 $n \geq n_0$에서 $f(n) \geq c \cdot g(n)$인 상수 $c$, $n_0$가 존재함을 뜻한다. |
+| Theta ($`\Theta`$) | **엄밀한 한계**이며, $O \cap \Omega$로 정확히 그 수준의 증가율을 뜻한다. |
 | 촘촘하게 쓰기 | $O(n \log n)$이 $O(n^2)$보다 유용한 정보이며, 느슨한 한계는 정보 손실을 뜻한다. |
 | 복잡도 계층 | $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$이다. |
 | 알고리즘 > 하드웨어 | 입력이 충분히 크면 O(n log n)을 PC에서 돌리는 것이 O(n²)를 슈퍼컴퓨터에서 돌리는 것보다 빠르다. |
@@ -935,7 +947,7 @@ $$T(n) = aT(n/b) + f(n)$$
    <details>
    <summary>정답</summary>
 
-   `a = 4`, `b = 2`, `f(n) = n`이므로 $n^{\log_b a} = n^{\log_2 4} = n^2$이다. `f(n) = n`과 `n²`을 비교하면 `n`은 `n²`보다 **다항식적으로 더 작다**($\varepsilon = 1$을 택하면 $n = O(n^{2-1})$). 따라서 **Case 1**에 해당하며, $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$이다. 직관적으로는 재귀 트리의 리프(leaf)가 지배한다. 리프가 `n²`개이고 각각 상수 작업을 수행하기 때문이다.
+   `a = 4`, `b = 2`, `f(n) = n`이므로 $n^{\log_b a} = n^{\log_2 4} = n^2$이다. `f(n) = n`과 `n²`을 비교하면 `n`은 `n²`보다 **다항식적으로 더 작다**($\varepsilon = 1$을 택하면 $`n = O(n^{2-1})`$). 따라서 **Case 1**에 해당하며, $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$이다. 직관적으로는 재귀 트리의 리프(leaf)가 지배한다. 리프가 `n²`개이고 각각 상수 작업을 수행하기 때문이다.
 
    </details>
 

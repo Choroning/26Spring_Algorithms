@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-11-04
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -296,13 +296,13 @@ $X_m = \langle x_1, x_2, \ldots, x_m \rangle$과 $Y_n = \langle y_1, y_2, \ldots
 
 $c[i, j]$ = $X_i$와 $Y_j$의 LCS 길이로 정의한다.
 
-$$
+```math
 c[i, j] = \begin{cases}
 0 & \text{if } i = 0 \text{ or } j = 0 \\
 c[i-1, j-1] + 1 & \text{if } i,j > 0 \text{ and } x_i = y_j \\
 \max(c[i-1, j],\ c[i, j-1]) & \text{if } i,j > 0 \text{ and } x_i \neq y_j
 \end{cases}
-$$
+```
 
 **직관:**
 - 마지막 문자가 **일치**하면 더 짧은 접두사의 LCS를 1 확장한다.
@@ -377,13 +377,13 @@ X = `ABCBDAB`, Y = `BDCABA`
 
 각 물건 $i$와 용량 $w$에 대해:
 
-$$
+```math
 K[i, w] = \begin{cases}
 0 & \text{if } i = 0 \text{ or } w = 0 \\
 K[i-1, w] & \text{if } w_i > w \text{ (물건이 너무 무거움)} \\
 \max(K[i-1, w],\ K[i-1, w - w_i] + v_i) & \text{otherwise}
 \end{cases}
-$$
+```
 
 **물건 $i$에 대한 두 가지 선택:**
 - **가져가지 않으면** 가치는 $K[i-1, w]$이다.
@@ -428,7 +428,9 @@ Knapsack(n, C):
 
 **DP 점화식:**
 
-$$C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}$$
+```math
+C[j] = \min_{d_i \leq j} \{ C[j - d_i] + 1 \}
+```
 
 기저 사례: $C[0] = 0$.
 
@@ -459,7 +461,7 @@ DPCoinChange(n, d[1..k]):
 
 **문제:** 가중치 방향 그래프에서 **모든 정점 쌍** 사이의 최단 경로를 구하라(음수 가중치 사이클은 없다고 가정한다).
 
-**핵심 아이디어:** 중간 정점 $\{1, 2, \ldots, k\}$를 점진적으로 허용한다.
+**핵심 아이디어:** 중간 정점 $`\{1, 2, \ldots, k\}`$를 점진적으로 허용한다.
 
 **점화식:**
 
@@ -467,7 +469,7 @@ $$
 d_{ij}^{(k)} = \min\left(d_{ij}^{(k-1)},\ d_{ik}^{(k-1)} + d_{kj}^{(k-1)}\right)
 $$
 
-- $d_{ij}^{(0)} = w_{ij}$ (직접 간선 가중치, 간선이 없으면 $\infty$)
+- $d_{ij}^{(0)} = w_{ij}$ (직접 간선 가중치, 간선이 없으면 $`\infty`$)
 - $d_{ii}^{(0)} = 0$
 
 **해석:** $i$에서 $j$로 갈 때 **정점 $k$를 경유**하는 것이 더 짧은가, 경유하지 않는 것이 더 짧은가?
@@ -491,7 +493,7 @@ FloydWarshall(W, n):
 
 > **[자료구조]** 입력 $W$는 그래프의 인접 행렬(adjacency matrix) 표현으로, 정점 $n$개인 그래프를 $n \times n$ 배열에 담아 간선 $(i, j)$의 가중치를 $W[i,j]$에서 $O(1)$에 읽게 한다. 플로이드-워셜은 이 행렬을 거리 행렬 $D$로 복사해 매 갱신에서 $D[i,k]$와 $D[k,j]$를 상수 시간에 조회하므로, 세 겹 반복의 각 단계가 $O(1)$이고 전체 시간이 $O(n^3)$이 된다.
 
-> **참고:** 각 반복 $k$는 정점 $\{1, 2, \ldots, k\}$를 중간으로 경유할 수 있는 모든 경로를 고려한다.
+> **참고:** 각 반복 $k$는 정점 $`\{1, 2, \ldots, k\}`$를 중간으로 경유할 수 있는 모든 경로를 고려한다.
 
 ### 2.12 플로이드-워셜: 예시
 
@@ -520,14 +522,14 @@ FloydWarshall(W, n):
 
 **DP 점화식:**
 
-$$
+```math
 E[i,j] = \begin{cases}
 j & \text{if } i = 0 \\
 i & \text{if } j = 0 \\
 E[i-1,j-1] & \text{if } X[i] = Y[j] \\
 1 + \min(E[i-1,j],\ E[i,j-1],\ E[i-1,j-1]) & \text{otherwise}
 \end{cases}
-$$
+```
 
 - $E[i-1,j] + 1$은 $X[i]$를 삭제하는 경우이다.
 - $E[i,j-1] + 1$은 $Y[j]$를 삽입하는 경우이다.

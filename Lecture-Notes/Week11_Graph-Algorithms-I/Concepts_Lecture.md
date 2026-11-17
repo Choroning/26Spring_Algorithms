@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 21, 22, 23
 
@@ -181,7 +181,7 @@ Weighted Graph:          Adjacency Matrix:
 - Wasteful for **sparse** graphs.
 
 **Example:** consider a graph with $10^6$ vertices and $2 \cdot 10^6$ edges.
-- The matrix holds $10^{12}$ entries, but only $2 \cdot 10^6$ are non-zero (for a directed graph; an undirected graph has a symmetric matrix, so $4 \cdot 10^6$).
+- The matrix holds $10^{12}$ entries, but only $2 \cdot 10^6$ are non-zero (for a directed graph; an undirected graph has a symmetric matrix, so $`4 \cdot 10^6`$).
 
 > **Note:** **Best for.** The adjacency matrix suits **dense** graphs where most vertex pairs are connected, because most matrix cells will be filled anyway.
 
@@ -243,7 +243,7 @@ Per-vertex arrays:        Packed array form:
 
 *Figure 9. Adjacency array as per-vertex arrays and as a packed array*
 
-Reading the packed form: the `Index` array is an **offset table**. Referring to vertices by 0-based position $i$ (vertex 1 is $i = 0$), the neighbor block at position $i$ occupies `A[Index[i] .. Index[i+1]-1]`. For example, the 2nd vertex sits at `A[Index[1]..Index[2]-1] = A[2..4] = [1, 3, 4]`. The block length `Count[i] = Index[i+1] - Index[i]` is exactly that vertex's degree, so `Index` and `Count` are two views of the same boundaries. `Index` carries one extra trailing entry so that the last vertex's block has a defined end; its value is $2|E| = 10$, because each undirected edge is stored once in the block of each endpoint.
+Reading the packed form: the `Index` array is an **offset table**. Referring to vertices by 0-based position $i$ (vertex 1 is $`i = 0`$), the neighbor block at position $i$ occupies `A[Index[i] .. Index[i+1]-1]`. For example, the 2nd vertex sits at `A[Index[1]..Index[2]-1] = A[2..4] = [1, 3, 4]`. The block length `Count[i] = Index[i+1] - Index[i]` is exactly that vertex's degree, so `Index` and `Count` are two views of the same boundaries. `Index` carries one extra trailing entry so that the last vertex's block has a defined end; its value is $2|E| = 10$, because each undirected edge is stored once in the block of each endpoint.
 
 **Advantages over linked-list adjacency:**
 - No pointer overhead, which gives better cache behavior.
@@ -643,12 +643,12 @@ Prim(G, r)                            // G = (V, E), r = start vertex
                 tree[v] ← u           // remember parent in MST
 ```
 
-- A **fringe vertex** is one *not yet in the tree* ($v \in V - S$) but adjacent to some vertex already in $S$, that is, a candidate sitting on the boundary of the growing MST, with a finite $d[v]$.
+- A **fringe vertex** is one *not yet in the tree* ($`v \in V - S`$) but adjacent to some vertex already in $S$, that is, a candidate sitting on the boundary of the growing MST, with a finite $d[v]$.
 - **extractMin** uses a heap, so each extraction costs $O(\log V)$, and $V$ extractions total cost $O(V \log V)$.
 - **Relaxation** at step (7) of the pseudocode updates $d[v]$ if a cheaper edge from $S$ to $v$ is found. Each edge contributes at most one **decrease-key**, so across all neighbors over all iterations this costs $O(E \log V)$. A decrease-key is the priority-queue operation that lowers a key already stored in the heap, costing $O(\log V)$.
 - **Total: $O(E \log V)$.**
 
-> **Note:** **Array variant.** If `extractMin` is a plain linear scan of $d[]$ over the unvisited vertices (no heap), each of the $V$ extractions costs $O(V)$, giving **$O(V^2)$** overall. This is *faster* than the heap version on **dense** graphs (where $E$ approaches $V^2$), since $V^2 \leq E \log V$ there. Self-Check Question 10 covers this trade-off.
+> **Note:** **Array variant.** If `extractMin` is a plain linear scan of $d[]$ over the unvisited vertices (no heap), each of the $V$ extractions costs $O(V)$, giving **$O(V^2)$** overall. This is *faster* than the heap version on **dense** graphs (where $E$ approaches $`V^2`$), since $V^2 \leq E \log V$ there. Self-Check Question 10 covers this trade-off.
 
 ### 4.4 Prim's Algorithm: Worked Example
 
@@ -721,7 +721,7 @@ Kruskal(G)
 - **Cycle detection** uses the **Union-Find (Disjoint Set)** data structure.
   - `Find(x)` returns the component that $x$ belongs to. With path compression and union-by-rank together, it takes $O(\alpha(V))$ amortized time.
   - `Union(x, y)` merges two components, also in $O(\alpha(V))$ amortized time under the same conditions.
-- Edge sorting takes $O(E \log E) = O(E \log V)$ (since $E \leq V^2$).
+- Edge sorting takes $O(E \log E) = O(E \log V)$ (since $`E \leq V^2`$).
 
 **Total time: $O(E \log V)$.**
 
@@ -776,7 +776,7 @@ The MST is the **same** as Prim's result. When the MST is unique, both algorithm
 | **Strategy** | Grow MST from one vertex | Pick cheapest edge globally |
 | **Data structure** | Priority queue (heap) | Union-Find + sorted edges |
 | **Time** | $O(E \log V)$ | $O(E \log V)$ |
-| **Better when** | Dense graphs ($E$ close to $V^2$) | Sparse graphs ($E$ close to $V$) |
+| **Better when** | Dense graphs ($E$ close to $`V^2`$) | Sparse graphs ($E$ close to $`V`$) |
 | **Approach** | Vertex-centric (extend the cut) | Edge-centric (scan global edge list) |
 | **Parallelism** | Hard to parallelize | Sorting phase parallelizes easily |
 
@@ -820,7 +820,7 @@ Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall) are covered in
    <details>
    <summary>Answer</summary>
 
-   The graph has about $E \approx V \cdot \bar{d}/2 = 10^7 \cdot 4 / 2 = 2 \cdot 10^7$ edges, so it is **sparse** ($E \ll V^2$). An **adjacency matrix** needs $V^2 = 10^{14}$ entries, about 100 TB at one byte per entry, and is infeasible. An **adjacency list or array** needs $O(V + E)$ entries; even storing each undirected edge once at each endpoint, it needs only $V + 2E = 5 \cdot 10^7$ entries, about 400 MB at 8 bytes per entry, which fits easily in memory. Choose an adjacency list, or a packed adjacency array for better cache locality. Road networks are a typical sparse graph.
+   The graph has about $E \approx V \cdot \bar{d}/2 = 10^7 \cdot 4 / 2 = 2 \cdot 10^7$ edges, so it is **sparse** ($`E \ll V^2`$). An **adjacency matrix** needs $V^2 = 10^{14}$ entries, about 100 TB at one byte per entry, and is infeasible. An **adjacency list or array** needs $O(V + E)$ entries; even storing each undirected edge once at each endpoint, it needs only $V + 2E = 5 \cdot 10^7$ entries, about 400 MB at 8 bytes per entry, which fits easily in memory. Choose an adjacency list, or a packed adjacency array for better cache locality. Road networks are a typical sparse graph.
 
    </details>
 
@@ -842,7 +842,7 @@ Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall) are covered in
 
    </details>
 
-4. **DFS on a directed graph:** Apply DFS to the directed graph with edges $\{(A,B), (B,C), (C,A), (A,D)\}$ starting at $A$. Identify the back edge. What does its presence imply about the graph?
+4. **DFS on a directed graph:** Apply DFS to the directed graph with edges $`\{(A,B), (B,C), (C,A), (A,D)\}`$ starting at $A$. Identify the back edge. What does its presence imply about the graph?
 
    <details>
    <summary>Answer</summary>
@@ -851,7 +851,7 @@ Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall) are covered in
 
    </details>
 
-5. **Topological sort:** Apply both topological-sort algorithms to the DAG with edges $\{(1,2), (1,3), (3,4), (2,4), (4,5)\}$. Show that every valid topological order respects all edge constraints.
+5. **Topological sort:** Apply both topological-sort algorithms to the DAG with edges $`\{(1,2), (1,3), (3,4), (2,4), (4,5)\}`$. Show that every valid topological order respects all edge constraints.
 
    <details>
    <summary>Answer</summary>
@@ -874,7 +874,7 @@ Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall) are covered in
    <details>
    <summary>Answer</summary>
 
-   **Cut property:** let $(S, V \setminus S)$ be any non-trivial cut and let $e = (u, v)$ be a minimum-weight edge with $u \in S$, $v \in V \setminus S$. **Proof (exchange argument):** take any MST $T$. If $e \in T$, the proof is done. Otherwise, adding $e$ to $T$ creates a cycle, and this cycle must contain some other edge $e'$ crossing the same cut. Since $w(e) \leq w(e')$, swapping $e'$ for $e$ produces a new spanning tree $T' = T \cup \{e\} \setminus \{e'\}$ with $w(T') \leq w(T)$, so $T'$ is also an MST, and it contains $e$. The qualifier "**some**" matters when edge weights tie: if multiple edges cross the cut at the same minimum weight, **different MSTs may include different ones**. Prim's and Kruskal's might produce distinct MSTs, both of which are optimal.
+   **Cut property:** let $(S, V \setminus S)$ be any non-trivial cut and let $e = (u, v)$ be a minimum-weight edge with $u \in S$, $v \in V \setminus S$. **Proof (exchange argument):** take any MST $T$. If $e \in T$, the proof is done. Otherwise, adding $e$ to $T$ creates a cycle, and this cycle must contain some other edge $e'$ crossing the same cut. Since $w(e) \leq w(e')$, swapping $e'$ for $e$ produces a new spanning tree $`T' = T \cup \{e\} \setminus \{e'\}`$ with $w(T') \leq w(T)$, so $T'$ is also an MST, and it contains $e$. The qualifier "**some**" matters when edge weights tie: if multiple edges cross the cut at the same minimum weight, **different MSTs may include different ones**. Prim's and Kruskal's might produce distinct MSTs, both of which are optimal.
 
    </details>
 
@@ -901,6 +901,6 @@ Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall) are covered in
     <details>
     <summary>Answer</summary>
 
-    **Sparse case ($E = 999$): Kruskal's.** With $E \approx V$, sorting $E$ edges costs $O(E \log E) \approx 10^4$ comparisons and Union-Find adds a near-constant factor. It is very fast in practice, and its sorting phase parallelizes easily. **Dense case ($E = 400{,}000$, $E \approx V^2/2.5$): Prim's (array implementation).** Prim's $O(V^2)$ array implementation beats Kruskal's $O(E \log V) \approx 4 \cdot 10^5 \cdot 10 = 4 \cdot 10^6$ on dense graphs because Prim's performs only $V = 1000$ extractions. With a Fibonacci heap, Prim's reaches $O(E + V \log V)$, which is asymptotically optimal for dense graphs.
+    **Sparse case ($`E = 999`$): Kruskal's.** With $E \approx V$, sorting $E$ edges costs $O(E \log E) \approx 10^4$ comparisons and Union-Find adds a near-constant factor. It is very fast in practice, and its sorting phase parallelizes easily. **Dense case ($E = 400{,}000$, $`E \approx V^2/2.5`$): Prim's (array implementation).** Prim's $O(V^2)$ array implementation beats Kruskal's $O(E \log V) \approx 4 \cdot 10^5 \cdot 10 = 4 \cdot 10^6$ on dense graphs because Prim's performs only $V = 1000$ extractions. With a Fibonacci heap, Prim's reaches $O(E + V \log V)$, which is asymptotically optimal for dense graphs.
 
     </details>

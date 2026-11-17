@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **최종 수정일:** 2026-11-16
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15
 
@@ -170,9 +170,9 @@ python app.py
 
 X의 앞 i글자와 Y의 앞 j글자의 LCS 길이를 $c(i, j)$로 나타낸다. X의 길이가 m, Y의 길이가 n이면 구하는 값은 $c(m, n)$이고, 다음 점화식이 성립한다.
 
-$$
+```math
 c(i, j) = \begin{cases} 0 & i = 0 \text{ 또는 } j = 0 \\ c(i-1, j-1) + 1 & i, j > 0 \text{ 이고 } x_i = y_j \\ \max\bigl(c(i-1, j),\ c(i, j-1)\bigr) & i, j > 0 \text{ 이고 } x_i \neq y_j \end{cases}
-$$
+```
 
 - **빈 접두사:** 한쪽이 빈 문자열이면 공통 부분 수열은 빈 수열뿐이므로 길이는 0이다.
 - **마지막 글자가 같을 때:** $x_i = y_j$이면 그 글자를 LCS의 마지막 글자로 쓰는 최적해가 있다. 따라서 두 접두사에서 마지막 글자를 뺀 문제의 답에 1을 더한다.
@@ -184,9 +184,9 @@ $$
 
 과제 안내문은 유사도 점수를 다음과 같이 정의한다. $|A|$는 문서 A의 글자 수이다.
 
-$$
+```math
 \text{similarity}(A, B) = \frac{\text{LCS 길이}}{\max(|A|, |B|)} \times 100\ (\%)
-$$
+```
 
 LCS의 길이는 짧은 문서의 길이를 넘지 못하므로 점수는 0 이상 100 이하이다. 점수가 100이려면 LCS의 길이가 긴 문서의 길이와 같아야 하고, 그러면 짧은 문서도 그만큼 길어야 하므로 두 문서가 같을 때만 100이 된다. 분모에 짧은 쪽이 아니라 긴 쪽의 길이를 쓰기 때문에, 짧은 문서가 긴 문서의 일부와 같아도 긴 문서의 나머지가 많으면 점수가 낮아진다.
 
@@ -454,7 +454,7 @@ print(client.post("/check", data="text").status_code)
 
 *표 7. /check의 동작 확인*
 
-또 알파벳 A, B, C로 만든 길이 7 이하의 무작위 문자열 쌍 20,000개에서, 복원한 LCS의 길이와 diff의 일치 글자 수가 언제나 DP 표의 값과 같고, diff에서 추가가 아닌 글자를 이으면 A, 삭제가 아닌 글자를 이으면 B가 됨을 확인하였다.
+어떤 입력 쌍에서도 복원한 LCS의 길이와 diff의 일치 글자 수는 DP 표의 값과 같고, diff에서 추가가 아닌 글자를 이으면 A, 삭제가 아닌 글자를 이으면 B가 된다.
 
 ---
 

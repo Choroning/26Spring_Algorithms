@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 4, 7, 9, 33
 
@@ -118,7 +118,7 @@ $$n/2^k = 1 \implies k = \log_2 n$$
 
 Total number of divisions $= \log_2 n$
 
-> **[Discrete Mathematics]** The logarithm $\log_2 n$, a function covered in Discrete Mathematics, is the exponent $k$ that satisfies $2^k = n$. Halving a size-$n$ input $k$ times leaves size $n/2^k$, so the size reaches 1 after $\log_2 n$ halvings, and this is the fundamental reason why $\log n$ appears in algorithms that halve their input, such as binary search and merge sort.
+> **[Discrete Mathematics]** The logarithm $\log_2 n$, a function covered in Discrete Mathematics, is the exponent $k$ that satisfies $2^k = n$. Halving a size-$`n`$ input $k$ times leaves size $n/2^k$, so the size reaches 1 after $\log_2 n$ halvings, and this is the fundamental reason why $\log n$ appears in algorithms that halve their input, such as binary search and merge sort.
 
 ### 1.4 Conquer and Combine
 
@@ -128,7 +128,7 @@ Total number of divisions $= \log_2 n$
 
 The method of conquering depends on the specific problem.
 
-> **Note:** **Concrete Examples of Combine.** In merge sort, combine means merging two sorted lists ($O(n)$). In binary search, combine is trivial (just return the result). In the closest pair problem, combine requires a careful strip analysis. The combine step often determines the overall complexity of the algorithm.
+> **Note:** **Concrete Examples of Combine.** In merge sort, combine means merging two sorted lists ($`O(n)`$). In binary search, combine is trivial (just return the result). In the closest pair problem, combine requires a careful strip analysis. The combine step often determines the overall complexity of the algorithm.
 
 ### 1.5 Classification of Divide and Conquer Algorithms
 
@@ -185,7 +185,7 @@ $$T(n) = \Theta(n^{\log_b a} \log n)$$
 **Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$. Combine cost dominates.
 $$T(n) = \Theta(f(n))$$
 
-Here $\varepsilon$ is some positive constant ($\varepsilon > 0$) for which the condition holds. The condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}$, not just slightly smaller.
+Here $\varepsilon$ is some positive constant ($`\varepsilon > 0`$) for which the condition holds. The condition means $f(n)$ must be **polynomially** smaller (or larger) than $n^{\log_b a}$, not just slightly smaller.
 
 ![Figure 3. Recursion tree of T(n) = 3T(n/4) + cn²](../../images/Week04_ch04_p25.png)
 
@@ -193,7 +193,7 @@ Here $\varepsilon$ is some positive constant ($\varepsilon > 0$) for which the c
 
 > **Note:** **Regularity Condition for Case 3.** Case 3 also requires the *regularity condition*: for some constant $c < 1$ and all sufficiently large $n$, $a \cdot f(n/b) \le c \cdot f(n)$ must hold.
 
-**Worked Example:** For $T(n) = 3T(n/4) + cn^2$: $a=3$, $b=4$, $f(n)=cn^2$. Compute $n^{\log_4 3} \approx n^{0.79}$. Since $f(n) = cn^2$ grows polynomially faster than $n^{0.79}$ (i.e., $f(n) = \Omega(n^{\log_4 3 + \varepsilon})$ for $\varepsilon \approx 1.21$), this is **Case 3**, giving $T(n) = \Theta(n^2)$. The regularity condition also holds because $3f(n/4) = \frac{3}{16}f(n)$.
+**Worked Example:** For $T(n) = 3T(n/4) + cn^2$: $a=3$, $b=4$, $f(n)=cn^2$. Compute $n^{\log_4 3} \approx n^{0.79}$. Since $f(n) = cn^2$ grows polynomially faster than $n^{0.79}$ (i.e., $f(n) = \Omega(n^{\log_4 3 + \varepsilon})$ for $`\varepsilon \approx 1.21`$), this is **Case 3**, giving $T(n) = \Theta(n^2)$. The regularity condition also holds because $3f(n/4) = \frac{3}{16}f(n)$.
 
 > **Note:** **Procedure for Applying the Master Theorem.** The Master Theorem is applied in the following order.
 > 1. Identify $a$, $b$, and $f(n)$ from the recurrence.
@@ -209,7 +209,7 @@ Here $\varepsilon$ is some positive constant ($\varepsilon > 0$) for which the c
 |:--------|:------|:------|
 | $T(n) = \frac{1}{n}\sum[T(i) + T(n-i)] + O(?)$ | 2 parts, unequal sizes | Quick Sort |
 | $T(n) = T(n/2) + O(?)$ | 2 parts, only 1 needed, half size | Binary Search |
-| $T(n) = \max\{T(i), T(n-i)\} + O(?)$ | 2 parts, only 1 needed, unequal sizes | Selection |
+| $`T(n) = \max\{T(i), T(n-i)\} + O(?)`$ | 2 parts, only 1 needed, unequal sizes | Selection |
 | $T(n) = T(n-1) + O(?)$ | Size decreases by 1 | Insertion Sort, Fibonacci |
 
 *Table 3. Other divide and conquer recurrence patterns and examples*
@@ -381,9 +381,9 @@ Step 2: p=5, r=9, mid=7 → A[7]=31 > 23 → search left
 Step 3: p=5, r=6, mid=5 → A[5]=23 == 23 → found at index 5!
 ```
 
-Found in **3 comparisons** out of 10 elements (the maximum is $\lfloor\log_2 10\rfloor + 1 = 4$).
+Found in **3 comparisons** out of 10 elements (the maximum is $`\lfloor\log_2 10\rfloor + 1 = 4`$).
 
-> **Note:** Binary search can only be used on **sorted arrays**. To apply it to unsorted data, sorting at $O(n \log n)$ is required first, so for a single search, linear search ($O(n)$) may actually be more efficient. Sorting + binary search becomes advantageous when multiple searches are performed.
+> **Note:** Binary search can only be used on **sorted arrays**. To apply it to unsorted data, sorting at $O(n \log n)$ is required first, so for a single search, linear search ($`O(n)`$) may actually be more efficient. Sorting + binary search becomes advantageous when multiple searches are performed.
 
 ---
 
@@ -502,7 +502,9 @@ $$T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + \Theta(n) = \Theta(n \lo
 - **Conquer:** Recurse on only **one** sub-array
 - **Combine:** Trivial
 
-$$T(n) \le \max\{T(k-1),\ T(n-k)\} + \Theta(n)$$
+```math
+T(n) \le \max\{T(k-1),\ T(n-k)\} + \Theta(n)
+```
 
 > **Note:** The selection problem asks whether the $i$-th element can be found without sorting the entire array. Sorting takes $O(n \log n)$, but selection algorithms solve it in $O(n)$.
 
@@ -619,7 +621,7 @@ $T(n) = \Omega(n)$ is trivial (every element must be examined), so:
 
 $$T(n) = \Theta(n)$$
 
-> **[Discrete Mathematics]** The expansion above uses the sum of an infinite geometric series, $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($|r| < 1$), covered in Discrete Mathematics. Since $r = 3/4 < 1$, the series converges and the coefficient becomes the constant $4c$; this form, in which the problem size shrinks by a fixed ratio at every step so that the cost decreases geometrically, appears frequently in divide and conquer analysis.
+> **[Discrete Mathematics]** The expansion above uses the sum of an infinite geometric series, $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ ($`|r| < 1`$), covered in Discrete Mathematics. Since $r = 3/4 < 1$, the series converges and the coefficient becomes the constant $4c$; this form, in which the problem size shrinks by a fixed ratio at every step so that the cost decreases geometrically, appears frequently in divide and conquer analysis.
 
 ### 5.6 Selection: Worst-Case Time Analysis
 
@@ -673,15 +675,15 @@ Group 7: [19,22,23,27,28]  → median = 23
 Group 8: [14,31]           → median = 14
 ```
 
-**Step 4:** Find the median of $\{5, 18, 21, 12, 20, 15, 23, 14\}$.
+**Step 4:** Find the median of $`\{5, 18, 21, 12, 20, 15, 23, 14\}`$.
 
-Recursively call LINEAR-SELECT on these 8 medians to find the $\lceil 37/10 \rceil = 4$th smallest. Sorted, the medians are 5, 12, 14, 15, 18, 20, 21, 23, so the result is as follows.
+Recursively call LINEAR-SELECT on these 8 medians to find the $`\lceil 37/10 \rceil = 4`$th smallest. Sorted, the medians are 5, 12, 14, 15, 18, 20, 21, 23, so the result is as follows.
 
 $$M = 15$$
 
 **Step 5:** Partition the entire array around $M = 15$.
-- Left group ($\le 15$): the 15 elements ≤ 15
-- Right group ($> 15$): the 22 elements > 15
+- Left group ($`\le 15`$): the 15 elements ≤ 15
+- Right group ($`> 15`$): the 22 elements > 15
 
 **Step 6:** Recurse on the side containing the desired rank.
 
@@ -834,7 +836,7 @@ $$T(n) = O(n \log^2 n)$$
 
 A more refined implementation (pre-sorting by y-coordinate) can improve this to $O(n \log n)$.
 
-> **Note:** The difference between $O(n \log^2 n)$ and $O(n \log n)$ comes down to whether the strip points are sorted each time ($O(n \log n)$) or whether y-coordinate sorting is maintained throughout the recursion.
+> **Note:** The difference between $O(n \log^2 n)$ and $O(n \log n)$ comes down to whether the strip points are sorted each time ($`O(n \log n)`$) or whether y-coordinate sorting is maintained throughout the recursion.
 
 ---
 

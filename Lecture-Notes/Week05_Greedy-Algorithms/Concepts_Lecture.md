@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
 
@@ -85,7 +85,9 @@ Greedy(C):                          // C = set of all candidates
 
 > **Key Point:** The essence of a greedy algorithm is that it always picks the option that looks best at the moment, without considering the future consequences. This makes greedy algorithms simple and fast, but they only produce optimal results when the problem has the right structural properties.
 
-> **Definition:** A **feasible solution** satisfies all the problem's constraints (but may not be complete yet). A **complete solution** is one that cannot be extended further and represents a full answer to the problem.
+> **Definition:** A **feasible solution** satisfies all the problem's constraints (but may not be complete yet).
+
+> **Definition:** A **complete solution** is one that cannot be extended further and represents a full answer to the problem.
 
 ### 1.2 Key Properties for Greedy Correctness
 

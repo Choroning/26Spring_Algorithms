@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -414,7 +414,7 @@ O(n²) algorithms shoot up dramatically, while O(n log n) algorithms remain near
 
 Flask is a lightweight Python web framework, installed with `pip install flask`.
 
-After starting the app, open **http://localhost:5000** (the same address as `http://127.0.0.1:5000`) in your browser.
+After starting the app, open `http://localhost:5000` (the same address as `http://127.0.0.1:5000`) in your browser.
 
 ```text
 +---------------------------------------------------+
@@ -547,7 +547,7 @@ The [Week 4 Lab](../Week04_Divide-and-Conquer-Algorithms/Concepts_Lab.md) covers
    <details>
    <summary>Answer</summary>
 
-   Asymptotic $O(n^2)$ is irrelevant for **tiny subarrays** (typically size ≤ 32 or 64). At that scale, insertion sort's tiny **constant factor**, lack of recursion overhead, and excellent **cache behavior** beat merge sort and quick sort handily. Real data also tends to have **locally-sorted runs**, on which insertion sort runs in near-$\Theta(n)$. Timsort exploits both effects. It identifies natural runs, extends short ones using insertion sort, and only invokes merge sort to combine larger runs. So the worst-case $O(n^2)$ never materializes, because insertion sort is only used where $n$ is bounded by a small constant.
+   Asymptotic $O(n^2)$ is irrelevant for **tiny subarrays** (typically size ≤ 32 or 64). At that scale, insertion sort's tiny **constant factor**, lack of recursion overhead, and excellent **cache behavior** beat merge sort and quick sort handily. Real data also tends to have **locally-sorted runs**, on which insertion sort runs in near-$`\Theta(n)`$. Timsort exploits both effects. It identifies natural runs, extends short ones using insertion sort, and only invokes merge sort to combine larger runs. So the worst-case $O(n^2)$ never materializes, because insertion sort is only used where $n$ is bounded by a small constant.
 
    </details>
 

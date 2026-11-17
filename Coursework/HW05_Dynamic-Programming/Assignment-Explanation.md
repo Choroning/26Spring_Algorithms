@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15
 
@@ -170,9 +170,9 @@ The plagiarism checker views a text as a sequence whose elements are single char
 
 Let $c(i, j)$ be the LCS length of the first i characters of X and the first j characters of Y. If X has length m and Y has length n, the desired value is $c(m, n)$, and the following recurrence holds.
 
-$$
+```math
 c(i, j) = \begin{cases} 0 & i = 0 \text{ or } j = 0 \\ c(i-1, j-1) + 1 & i, j > 0 \text{ and } x_i = y_j \\ \max\bigl(c(i-1, j),\ c(i, j-1)\bigr) & i, j > 0 \text{ and } x_i \neq y_j \end{cases}
-$$
+```
 
 - **Empty prefix:** If one side is the empty string, the only common subsequence is the empty sequence, so the length is 0.
 - **Equal last characters:** If $x_i = y_j$, there is an optimal solution that uses that character as the last character of the LCS. So 1 is added to the answer of the problem with the last character removed from both prefixes.
@@ -184,9 +184,9 @@ The optimal solution of a larger problem consists of optimal solutions for small
 
 The assignment handout defines the similarity score as follows, where $|A|$ is the number of characters in document A.
 
-$$
+```math
 \text{similarity}(A, B) = \frac{\text{LCS length}}{\max(|A|, |B|)} \times 100\ (\%)
-$$
+```
 
 The LCS length cannot exceed the length of the shorter document, so the score is between 0 and 100. For the score to be 100, the LCS length must equal the length of the longer document, which forces the shorter document to be that long as well, so the score is 100 only when the two documents are identical. Because the denominator is the length of the longer document rather than the shorter one, even if the short document equals a part of the long one, the score drops when the rest of the long document is large.
 
@@ -454,7 +454,7 @@ print(client.post("/check", data="text").status_code)
 
 *Table 7. Behavior checks of /check*
 
-In addition, on 20,000 random pairs of strings of length at most 7 over the letters A, B, and C, the length of the recovered LCS and the number of matched characters in the diff always equaled the value in the DP table, and concatenating the diff characters that are not added gave A and those that are not removed gave B.
+For every input pair, the length of the recovered LCS and the number of matched characters in the diff equal the value in the DP table, and concatenating the diff characters that are not added gives A and those that are not removed gives B.
 
 ---
 

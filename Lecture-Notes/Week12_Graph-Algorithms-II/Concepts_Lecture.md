@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-10
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 22, 24, 25
 
@@ -10,7 +10,7 @@
 > 1. State the **shortest-path problem** on weighted (di)graphs, explain when it is well-defined (no negative-weight cycle reachable from the source), and prove and apply **optimal substructure** of shortest paths
 > 2. Define **relaxation** of an edge and recognize it as the core operation shared by every shortest-path algorithm, then execute **Dijkstra's algorithm** on a graph with non-negative weights, justify the greedy choice, and analyze the running time with a binary heap as $O(E \log V)$
 > 3. Construct a small example where Dijkstra **fails on negative edges** and explain *why* the greedy invariant breaks; execute **Bellman-Ford**, derive its $|V|-1$ iteration bound from the path-length argument, use Phase 2 to **detect negative-weight cycles**, and re-derive it as a **dynamic program** indexed by at most $k$ edges
-> 4. Execute **Floyd-Warshall** using the node-based recurrence $d_{ij}^{(k)} = \min\{d_{ij}^{(k-1)}, d_{ik}^{(k-1)} + d_{kj}^{(k-1)}\}$, reconstruct paths from the predecessor matrix, and state the alternative **edge-based formulation** and its connection to matrix multiplication
+> 4. Execute **Floyd-Warshall** using the node-based recurrence $`d_{ij}^{(k)} = \min\{d_{ij}^{(k-1)}, d_{ik}^{(k-1)} + d_{kj}^{(k-1)}\}`$, reconstruct paths from the predecessor matrix, and state the alternative **edge-based formulation** and its connection to matrix multiplication
 > 5. Solve shortest paths on a **DAG** in $\Theta(V + E)$ via topological order, and choose the right shortest-path algorithm given graph properties (DAG? negative weights? all pairs?)
 > 6. Define **strongly connected components (SCCs)** and execute **Kosaraju's two-pass DFS algorithm** in $\Theta(V + E)$
 
@@ -143,7 +143,7 @@ graph LR
 - **Greedy** strategy: at each step, pick the unvisited vertex $u$ with the smallest current estimate $d[u]$ and *finalize* it.
 - Maintain a set $S$ of vertices whose shortest distances are already known to be optimal.
 - **Requirement:** all edge weights $w(u, v) \geq 0$.
-  - Reason: extending a path can **never decrease** its total weight, so once we extract the minimum-$d$ vertex from $V \setminus S$, no future relaxation can lower $d[u]$.
+  - Reason: extending a path can **never decrease** its total weight, so once we extract the minimum-$`d`$ vertex from $V \setminus S$, no future relaxation can lower $d[u]$.
 
 > **Key Point:** When Dijkstra extracts $u$ from the priority queue, the invariant that $d[u]$ equals the true shortest distance from $r$ to $u$ is provably true, exactly because every path that has not yet been finalized must leave $S$ through a vertex with $d$-value $\geq d[u]$, and adding non-negative edges can never make the value smaller.
 
@@ -184,7 +184,7 @@ The **graph** has 5 vertices $s, t, x, y, z$, and all weights are non-negative. 
                      y --3--> t        x --4--> z
 ```
 
-i.e. $s \to t\,(10)$, $s \to y\,(5)$, $t \to x\,(1)$, $t \to y\,(2)$, $y \to t\,(3)$, $y \to x\,(9)$, $y \to z\,(2)$, $z \to s\,(7)$, $z \to x\,(6)$, $x \to z\,(4)$ (Fig. 24.6 of the textbook).
+i.e. $`s \to t\,(10)`$, $`s \to y\,(5)`$, $`t \to x\,(1)`$, $`t \to y\,(2)`$, $`y \to t\,(3)`$, $`y \to x\,(9)`$, $`y \to z\,(2)`$, $`z \to s\,(7)`$, $`z \to x\,(6)`$, $`x \to z\,(4)`$ (Fig. 24.6 of the textbook).
 
 Source $s$. In each row, the **bolded** $d$-value identifies the vertex to be extracted from the priority queue in the next iteration, that is, the unvisited vertex with the smallest $d$-value.
 
@@ -216,12 +216,12 @@ graph LR
 
 *Figure 5. Counterexample graph with a negative edge on which Dijkstra's algorithm fails*
 
-The edges are $A \to B$ (weight 1), $A \to C$ (weight 0), and $B \to C$ (weight $-2$), and the source is $A$.
+The edges are $A \to B$ (weight 1), $A \to C$ (weight 0), and $B \to C$ (weight $`-2`$), and the source is $A$.
 
 - Init: $d[A] = 0$, $d[B] = \infty$, $d[C] = \infty$.
-- Extract $A$ ($d = 0$): relax $A \to B$ → $d[B] = 1$; relax $A \to C$ → $d[C] = 0$.
-- Extract $C$ ($d = 0$) and **finalize** it: $C$ has no outgoing edges.
-- Extract $B$ ($d = 1$): relaxing $B \to C$ gives $1 + (-2) = -1 < 0$, but $C$ is already finalized.
+- Extract $A$ ($`d = 0`$): relax $A \to B$ → $d[B] = 1$; relax $A \to C$ → $d[C] = 0$.
+- Extract $C$ ($`d = 0`$) and **finalize** it: $C$ has no outgoing edges.
+- Extract $B$ ($`d = 1`$): relaxing $B \to C$ gives $1 + (-2) = -1 < 0$, but $C$ is already finalized.
 - Dijkstra outputs $d[C] = 0$, whereas the true shortest path is $A \to B \to C$ with cost $1 + (-2) = \mathbf{-1}$.
 
 The greedy invariant that extracting the minimum makes the distance final depends on the assumption that **adding more edges can never decrease cost**. A negative weight violates this: a *longer* path (more edges) can end up *cheaper*. This is exactly why Bellman-Ford is needed when weights may be negative.
@@ -247,7 +247,7 @@ BellmanFord(G, r):
 
 **Key ideas:**
 - **Negative weights are allowed**: edges can decrease distance estimates.
-- If no negative cycle is reachable from the source, every shortest path is found after $|V| - 1$ full passes. *Why $|V| - 1$?* Any simple shortest path uses at most $|V| - 1$ edges; one pass through all edges propagates correctness one edge further along every path, so $|V| - 1$ passes suffice.
+- If no negative cycle is reachable from the source, every shortest path is found after $|V| - 1$ full passes. *Why $`|V| - 1`$?* Any simple shortest path uses at most $|V| - 1$ edges; one pass through all edges propagates correctness one edge further along every path, so $|V| - 1$ passes suffice.
 - **Phase 2** sweeps every edge one more time. If anything is still tightening, some path can keep getting shorter, which can only happen if a **negative-weight cycle is reachable** from the source.
 
 **Running time: $\Theta(|V| \cdot |E|)$**, from $|V| - 1$ outer iterations × $|E|$ edge relaxations.
@@ -262,7 +262,7 @@ The **graph** has 5 vertices $s, t, x, y, z$ and some negative edges, and the so
                     t --(-4)-> z        y -- 9 --> z
 ```
 
-i.e. $s \to t\,(6)$, $s \to y\,(7)$, $t \to x\,(5)$, $t \to y\,(8)$, $t \to z\,(-4)$, $x \to t\,(-2)$, $y \to x\,(-3)$, $y \to z\,(9)$, $z \to x\,(7)$, $z \to s\,(2)$ (Fig. 24.4 of the textbook).
+i.e. $`s \to t\,(6)`$, $`s \to y\,(7)`$, $`t \to x\,(5)`$, $`t \to y\,(8)`$, $`t \to z\,(-4)`$, $`x \to t\,(-2)`$, $`y \to x\,(-3)`$, $`y \to z\,(9)`$, $`z \to x\,(7)`$, $`z \to s\,(2)`$ (Fig. 24.4 of the textbook).
 
 The trace below relaxes the edges in one fixed order reused every pass, $(x,t), (t,x), (t,y), (t,z), (y,x), (y,z), (s,t), (s,y), (z,x), (z,s)$:
 
@@ -285,15 +285,19 @@ After Phase 2 no value tightens further, so there is **no negative cycle**. The 
 ### 2.7 Bellman-Ford as Dynamic Programming
 
 Define
-$$d_t^{\,k} = \text{shortest distance from source } r \text{ to } t \text{ using at most } k \text{ edges}.$$
+```math
+d_t^{\,k} = \text{shortest distance from source } r \text{ to } t \text{ using at most } k \text{ edges}.
+```
 
 **Base case:**
-- $d_r^{\,0} = 0$
-- $d_t^{\,0} = \infty$ for all $t \neq r$
+- $`d_r^{\,0} = 0`$
+- $`d_t^{\,0} = \infty`$ for all $t \neq r$
 
 **Recurrence:** to reach $v$ in at most $k$ edges, either use $\leq k-1$ edges directly, or take a $\leq k-1$-edge path to some predecessor $u$ and then traverse $(u, v)$:
 
-$$d_v^{\,k} = \min\Bigl\{\, d_v^{\,k-1},\; \min_{(u, v) \in E} \bigl\{\, d_u^{\,k-1} + w(u, v) \,\bigr\} \Bigr\}$$
+```math
+d_v^{\,k} = \min\Bigl\{\, d_v^{\,k-1},\; \min_{(u, v) \in E} \bigl\{\, d_u^{\,k-1} + w(u, v) \,\bigr\} \Bigr\}
+```
 
 ```text
        u1 --w1--> v     d_v^k = min { d_v^{k-1},
@@ -305,7 +309,7 @@ $$d_v^{\,k} = \min\Bigl\{\, d_v^{\,k-1},\; \min_{(u, v) \in E} \bigl\{\, d_u^{\,
 
 *Figure 7. Edges entering vertex $`v`$ and the Bellman-Ford recurrence*
 
-**Goal:** $d_t^{\,|V|-1}$ for all vertices $t$ (since a simple shortest path uses at most $|V| - 1$ edges).
+**Goal:** $`d_t^{\,|V|-1}`$ for all vertices $t$ (since a simple shortest path uses at most $|V| - 1$ edges).
 
 Bellman-Ford's outer loop is exactly the iteration over $k$; each inner pass over $E$ is the bulk computation of the recurrence for one value of $k$. The detection of a negative cycle corresponds to the recurrence still decreasing past $k = |V| - 1$, which is impossible without a cycle that contributes negative weight every lap.
 
@@ -367,7 +371,9 @@ Floyd-Warshall takes an **adjacency matrix** $W$ where:
 ### 3.3 Node-Based Recurrence
 
 Define
-$$d_{ij}^{\,(k)} = \text{shortest distance from } i \text{ to } j \text{ using only intermediate vertices in } \{v_1, v_2, \dots, v_k\}.$$
+```math
+d_{ij}^{\,(k)} = \text{shortest distance from } i \text{ to } j \text{ using only intermediate vertices in } \{v_1, v_2, \dots, v_k\}.
+```
 
 ```text
         i ────[intermediates from {1,…,k-1}]────> j        (option A: don't use k)
@@ -380,14 +386,14 @@ $$d_{ij}^{\,(k)} = \text{shortest distance from } i \text{ to } j \text{ using o
 
 **Recurrence:**
 
-$$
+```math
 d_{ij}^{\,(0)} = w_{ij}, \qquad
 d_{ij}^{\,(k)} = \min\bigl\{\, d_{ij}^{\,(k-1)},\; d_{ik}^{\,(k-1)} + d_{kj}^{\,(k-1)} \,\bigr\} \quad (k \geq 1)
-$$
+```
 
 Two choices at each step:
-1. **Do not use vertex $k$** as an intermediate: keep $d_{ij}^{\,(k-1)}$.
-2. **Use vertex $k$** as an intermediate exactly once: $d_{ik}^{\,(k-1)} + d_{kj}^{\,(k-1)}$.
+1. **Do not use vertex $k$** as an intermediate: keep $`d_{ij}^{\,(k-1)}`$.
+2. **Use vertex $k$** as an intermediate exactly once: $`d_{ik}^{\,(k-1)} + d_{kj}^{\,(k-1)}`$.
 
 Take the minimum.
 
@@ -410,7 +416,7 @@ FloydWarshall(G):
 ```
 
 **Time: $\Theta(V^3)$.**
-- Total subproblems: $\Theta(V^3)$ (three nested loops over $n$).
+- Total subproblems: $\Theta(V^3)$ (three nested loops over $`n`$).
 - Each subproblem: $\Theta(1)$ work (one min, one addition).
 
 In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a single *in-place* matrix because the read pattern guarantees correctness (see the note in Section 3.5).
@@ -429,10 +435,10 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 
 *Table 7. Distance matrix $`D^{(0)}`$ with no intermediate vertices*
 
-**$D^{(1)}$: allow vertex 1 as an intermediate.** $d_{ij}^{(1)} = \min\{d_{ij}^{(0)},\, d_{i1}^{(0)} + d_{1j}^{(0)}\}$.
+**$D^{(1)}$: allow vertex 1 as an intermediate.** $`d_{ij}^{(1)} = \min\{d_{ij}^{(0)},\, d_{i1}^{(0)} + d_{1j}^{(0)}\}`$.
 
-- $d_{42}^{(1)} = \min\{d_{42}^{(0)},\, d_{41}^{(0)} + d_{12}^{(0)}\} = \min\{\infty,\, 2 + 3\} = \mathbf{5}$
-- $d_{45}^{(1)} = \min\{d_{45}^{(0)},\, d_{41}^{(0)} + d_{15}^{(0)}\} = \min\{\infty,\, 2 + (-4)\} = \mathbf{-2}$
+- $`d_{42}^{(1)} = \min\{d_{42}^{(0)},\, d_{41}^{(0)} + d_{12}^{(0)}\} = \min\{\infty,\, 2 + 3\} = \mathbf{5}`$
+- $`d_{45}^{(1)} = \min\{d_{45}^{(0)},\, d_{41}^{(0)} + d_{15}^{(0)}\} = \min\{\infty,\, 2 + (-4)\} = \mathbf{-2}`$
 
 |       | 1   | 2     | 3   | 4   | 5      |
 |-------|-----|-------|-----|-----|--------|
@@ -444,10 +450,10 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 
 *Table 8. Distance matrix $`D^{(1)}`$ with vertex 1 allowed as an intermediate*
 
-**$D^{(2)}$: allow {1, 2} as intermediates.** $d_{ij}^{(2)} = \min\{d_{ij}^{(1)},\, d_{i2}^{(1)} + d_{2j}^{(1)}\}$.
+**$D^{(2)}$: allow {1, 2} as intermediates.** $`d_{ij}^{(2)} = \min\{d_{ij}^{(1)},\, d_{i2}^{(1)} + d_{2j}^{(1)}\}`$.
 
-- $d_{14}^{(2)} = \min\{\infty,\, 3 + 1\} = \mathbf{4}$
-- $d_{34}^{(2)} = \min\{\infty,\, 4 + 1\} = \mathbf{5}$
+- $`d_{14}^{(2)} = \min\{\infty,\, 3 + 1\} = \mathbf{4}`$
+- $`d_{34}^{(2)} = \min\{\infty,\, 4 + 1\} = \mathbf{5}`$
 
 |       | 1   | 2   | 3   | 4     | 5      |
 |-------|-----|-----|-----|-------|--------|
@@ -459,9 +465,9 @@ In practice the two matrices $D^{(k-1)}$ and $D^{(k)}$ can be collapsed into a s
 
 *Table 9. Distance matrix $`D^{(2)}`$ with {1, 2} allowed as intermediates*
 
-**$D^{(3)}$: allow {1, 2, 3} as intermediates.** $d_{ij}^{(3)} = \min\{d_{ij}^{(2)},\, d_{i3}^{(2)} + d_{3j}^{(2)}\}$.
+**$D^{(3)}$: allow {1, 2, 3} as intermediates.** $`d_{ij}^{(3)} = \min\{d_{ij}^{(2)},\, d_{i3}^{(2)} + d_{3j}^{(2)}\}`$.
 
-- $d_{42}^{(3)} = \min\{5,\, (-5) + 4\} = \mathbf{-1}$
+- $`d_{42}^{(3)} = \min\{5,\, (-5) + 4\} = \mathbf{-1}`$
 
 |       | 1   | 2      | 3   | 4   | 5   |
 |-------|-----|--------|-----|-----|-----|
@@ -498,16 +504,16 @@ Trace the predecessor matrix backwards:
 
 A **predecessor matrix** $\Pi^{(k)}$ is maintained alongside $D^{(k)}$:
 
-- $\pi_{ij}^{(k)}$ is the predecessor of $j$ on the shortest path from $i$ to $j$ using intermediates from $\{1, \dots, k\}$.
+- $\pi_{ij}^{(k)}$ is the predecessor of $j$ on the shortest path from $i$ to $j$ using intermediates from $`\{1, \dots, k\}`$.
 
-**Base case ($k = 0$):**
+**Base case ($`k = 0`$):**
 
 ```text
 π_{ij}^(0) = i      if i ≠ j and w_{ij} < ∞
 π_{ij}^(0) = NIL    if i = j or w_{ij} = ∞
 ```
 
-**Recurrence ($k \geq 1$):**
+**Recurrence ($`k \geq 1`$):**
 
 ```text
 π_{ij}^(k) = π_{ij}^(k-1)        if d_{ij}^(k-1) ≤ d_{ik}^(k-1) + d_{kj}^(k-1)
@@ -520,25 +526,27 @@ To reconstruct the path from $i$ to $j$, start at $j$, follow predecessors backw
 
 An alternative formulation indexes by **number of edges allowed** instead of vertex set:
 
-Define $\ell_{ij}^{\,(m)}$ as the shortest distance from $i$ to $j$ using **at most $m$ edges**.
+Define $`\ell_{ij}^{\,(m)}`$ as the shortest distance from $i$ to $j$ using **at most $m$ edges**.
 
 **Recurrence:**
 
-$$
+```math
 \ell_{ij}^{\,(m)} = \min_{1 \leq k \leq n} \bigl\{\, \ell_{ik}^{\,(m-1)} + w_{kj} \,\bigr\}
-$$
+```
 
 This is structurally identical to **matrix multiplication**, with the operations changed as follows:
 - addition replaces multiplication: $\ell_{ik} + w_{kj}$
 - minimum replaces addition.
 
 We write this **min-plus (tropical) product** as $\boxtimes$: for matrices $A, B$,
-$$(A \boxtimes B)_{ij} = \min_{1 \leq k \leq n} \bigl\{\, A_{ik} + B_{kj} \,\bigr\}.$$
+```math
+(A \boxtimes B)_{ij} = \min_{1 \leq k \leq n} \bigl\{\, A_{ik} + B_{kj} \,\bigr\}.
+```
 It is exactly ordinary matrix multiplication with $(+, \times)$ replaced by $(\min, +)$. The recurrence above is then simply $L^{(m)} = L^{(m-1)} \boxtimes W$.
 
 **Computation:** $L^{(1)} = W$, $L^{(2)} = L^{(1)} \boxtimes W$, $\dots$, $L^{(n-1)}$ is the final answer (any simple shortest path uses at most $n - 1$ edges).
 
-**Time:** $\Theta(n^4)$ naïvely, or $\Theta(n^3 \log n)$ with **repeated squaring** (since the operation is associative, $L^{(2k)} = L^{(k)} \boxtimes L^{(k)}$).
+**Time:** $\Theta(n^4)$ naïvely, or $\Theta(n^3 \log n)$ with **repeated squaring** (since the operation is associative, $`L^{(2k)} = L^{(k)} \boxtimes L^{(k)}`$).
 
 > **Note:** **Why have two formulations.** The node-based formulation gives the clean $\Theta(V^3)$ bound of Floyd-Warshall directly. The edge-based min-plus matrix multiplication view exposes the structural link to fast matrix multiplication and is the entry point for theoretically faster algorithms. Strassen-like techniques cannot be applied directly on the tropical semiring, which has no subtraction, so they are used by embedding the min-plus product into an ordinary matrix product when the weights are small integers.
 
@@ -573,7 +581,7 @@ DAG-ShortestPath(G, r):
 
 **Why it works:** in a DAG, by the time we process $u$ in topological order, every path ending at $u$ has been fully explored, so $d[u]$ is already correct, and one outgoing relaxation per edge is enough. On general graphs, cycles break this order, which is why the same trick fails there.
 
-This is **much faster than Dijkstra ($O(E \log V)$) and Bellman-Ford ($\Theta(VE)$)** when the graph is a DAG, e.g., for PERT charts, dependency networks, and one-shot decision diagrams.
+This is **much faster than Dijkstra ($`O(E \log V)`$) and Bellman-Ford ($`\Theta(VE)`$)** when the graph is a DAG, e.g., for PERT charts, dependency networks, and one-shot decision diagrams.
 
 ### 4.2 Worked Example
 
@@ -585,7 +593,7 @@ The **DAG** has 6 vertices, and every edge points forward in the topological ord
                          v4 --6--> v2
 ```
 
-i.e. $v_0 \to v_1\,(-5)$, $v_0 \to v_4\,(-4)$, $v_1 \to v_2\,(2)$, $v_1 \to v_3\,(5)$, $v_2 \to v_5\,(4)$, $v_3 \to v_5\,(-1)$, $v_4 \to v_2\,(6)$.
+i.e. $`v_0 \to v_1\,(-5)`$, $`v_0 \to v_4\,(-4)`$, $`v_1 \to v_2\,(2)`$, $`v_1 \to v_3\,(5)`$, $`v_2 \to v_5\,(4)`$, $`v_3 \to v_5\,(-1)`$, $`v_4 \to v_2\,(6)`$.
 
 Source $= v_0$, processed in topological order $v_0, v_1, v_4, v_2, v_3, v_5$:
 
@@ -601,7 +609,7 @@ Source $= v_0$, processed in topological order $v_0, v_1, v_4, v_2, v_3, v_5$:
 
 *Table 12. Distance estimates per step of DAG shortest paths in topological order*
 
-Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded $d$-values mark each relaxation that improved a distance. At step (c), relaxing $v_4 \to v_2$ gives $-4 + 6 = 2 > -3$, so $d[v_2]$ does not change. Note that $d[v_5]$ is first set to $1$ via $v_2 \to v_5$ at step (d), then improved to $-1$ via $v_3 \to v_5$ at step (e); the topological order guarantees both contributors ($v_2, v_3$) are processed before $v_5$.
+Each vertex is processed exactly once; every outgoing edge is relaxed exactly once. The bolded $d$-values mark each relaxation that improved a distance. At step (c), relaxing $v_4 \to v_2$ gives $-4 + 6 = 2 > -3$, so $d[v_2]$ does not change. Note that $d[v_5]$ is first set to $1$ via $v_2 \to v_5$ at step (d), then improved to $-1$ via $v_3 \to v_5$ at step (e); the topological order guarantees both contributors ($`v_2, v_3`$) are processed before $v_5$.
 
 The next figure shows a different graph: the constraint graph the textbook uses to solve a system of difference constraints as a shortest-path problem. It has cycles, so it is not a DAG, and the value inside each vertex is its shortest distance from $v_0$.
 
@@ -681,7 +689,7 @@ StronglyConnectedComponents(G):
 ```
 
 **Time: $\Theta(V + E)$.**
-- Step 1 (DFS on $G$): $\Theta(V + E)$.
+- Step 1 (DFS on $`G`$): $\Theta(V + E)$.
 - Step 2 (build reversed graph): $\Theta(V + E)$.
 - Step 3 (DFS on $G^R$ in finish-time order): $\Theta(V + E)$.
 
@@ -717,19 +725,21 @@ graph LR
 These bridges go *only* A → B → C, so no vertex in B or C can return to A, and none in C can return to B. The condensation is the DAG $A \to B \to C$, giving exactly three SCCs.
 
 DFS starting at vertex 1 (visiting neighbors in ascending order) produces the finish-time order:
-$$f[4]=1,\; f[8]=2,\; f[10]=3,\; f[9]=4,\; f[7]=5,\; f[6]=6,\; f[5]=7,\; f[3]=8,\; f[2]=9,\; f[1]=10.$$
+```math
+f[4]=1,\; f[8]=2,\; f[10]=3,\; f[9]=4,\; f[7]=5,\; f[6]=6,\; f[5]=7,\; f[3]=8,\; f[2]=9,\; f[1]=10.
+```
 
-The DFS path is $1 \to 2 \to 3 \to 4$ ($4 \to 1$ is a back edge, so 4 finishes first), then $3 \to 5 \to 6 \to 7 \to 8$ (back edge $8 \to 5$), then $7 \to 9 \to 10$ (back edge $10 \to 9$). Vertices in component A finish *last* because the bridges keep the recursion descending into B and C before unwinding back up through A.
+The DFS path is $1 \to 2 \to 3 \to 4$ ($4 \to 1$ is a back edge, so 4 finishes first), then $3 \to 5 \to 6 \to 7 \to 8$ (back edge $`8 \to 5`$), then $7 \to 9 \to 10$ (back edge $`10 \to 9`$). Vertices in component A finish *last* because the bridges keep the recursion descending into B and C before unwinding back up through A.
 
-**Step 2:** reverse all edges to obtain $G^R$ (the bridges become $5 \to 3$ and $9 \to 7$).
+**Step 2:** reverse all edges to obtain $G^R$ (the bridges become $5 \to 3$ and $`9 \to 7`$).
 
 **Step 3:** DFS on $G^R$ in **decreasing** finish-time order, i.e., processing roots $1, 2, 3, 5, 6, 7, 9, 10, 8, 4$.
 
-- Start DFS from vertex **1** ($f=10$) in $G^R$: it reaches $\{1, 4, 3, 2\}$, giving **SCC 1**. In $G^R$, $1 \to 4 \to 3 \to 2 \to 1$, and the reversed bridge $5 \to 3$ points *into* this set, not out, so DFS cannot escape.
-- The next unvisited root by decreasing $f$ is **5** ($f=7$): it reaches $\{5, 8, 7, 6\}$, giving **SCC 2**. The reversed bridge $9 \to 7$ points into this set.
-- The next unvisited root is **9** ($f=4$): it reaches $\{9, 10\}$, giving **SCC 3**.
+- Start DFS from vertex **1** ($`f=10`$) in $G^R$: it reaches $`\{1, 4, 3, 2\}`$, giving **SCC 1**. In $G^R$, $1 \to 4 \to 3 \to 2 \to 1$, and the reversed bridge $5 \to 3$ points *into* this set, not out, so DFS cannot escape.
+- The next unvisited root by decreasing $f$ is **5** ($`f=7`$): it reaches $`\{5, 8, 7, 6\}`$, giving **SCC 2**. The reversed bridge $9 \to 7$ points into this set.
+- The next unvisited root is **9** ($`f=4`$): it reaches $`\{9, 10\}`$, giving **SCC 3**.
 
-**Result: 3 SCCs** = $\{1, 2, 3, 4\}$, $\{5, 6, 7, 8\}$, $\{9, 10\}$.
+**Result: 3 SCCs** = $`\{1, 2, 3, 4\}`$, $`\{5, 6, 7, 8\}`$, $`\{9, 10\}`$.
 
 ### 6.4 Why Kosaraju Works
 
@@ -740,7 +750,7 @@ The DFS path is $1 \to 2 \to 3 \to 4$ ($4 \to 1$ is a back edge, so 4 finishes f
 So $u$ and $v$ are in the **same SCC of $G^R$** as well: reversing edges does not break SCCs.
 
 **Why finish-time order is the right schedule:**
-- The vertex with the **largest** finish time in DFS($G$) belongs to a *source SCC* of the SCC-DAG, an SCC with no incoming edges from any other SCC.
+- The vertex with the **largest** finish time in DFS($`G`$) belongs to a *source SCC* of the SCC-DAG, an SCC with no incoming edges from any other SCC.
 - Running DFS from that vertex in $G^R$ reaches *only* the source SCC, because every edge that would leave it in $G$ now points *into* it in $G^R$ (and DFS from this vertex cannot get back out).
 - After peeling off that SCC, the next-largest unprocessed finish time identifies the next source SCC of the *remaining* SCC-DAG, and so on.
 
@@ -760,10 +770,10 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
 | Dijkstra | It is a greedy algorithm for non-negative weights only and runs in $O(E \log V)$ with a binary heap. |
 | Why Dijkstra fails on negative weights | With a negative edge, a longer path can be cheaper, so the greedy rule of finalizing on extraction breaks. |
 | Bellman-Ford | It is a DP that allows negative weights, runs in $\Theta(VE)$, and detects negative cycles in Phase 2. |
-| Bellman-Ford as DP | Its recurrence is $d_v^k = \min\{d_v^{k-1}, \min_{(u,v)\in E} (d_u^{k-1} + w(u,v))\}$, and the outer loop is over $k$. |
-| Floyd-Warshall (node-based) | It computes $d_{ij}^{(k)} = \min\{d_{ij}^{(k-1)},\, d_{ik}^{(k-1)} + d_{kj}^{(k-1)}\}$ in $\Theta(V^3)$. |
+| Bellman-Ford as DP | Its recurrence is $`d_v^k = \min\{d_v^{k-1}, \min_{(u,v)\in E} (d_u^{k-1} + w(u,v))\}`$, and the outer loop is over $k$. |
+| Floyd-Warshall (node-based) | It computes $`d_{ij}^{(k)} = \min\{d_{ij}^{(k-1)},\, d_{ik}^{(k-1)} + d_{kj}^{(k-1)}\}`$ in $\Theta(V^3)$. |
 | Predecessor matrix | It is built alongside $D^{(k)}$ for path reconstruction. |
-| Edge-based formulation | $\ell^{(m)}_{ij} = \min_k (\ell^{(m-1)}_{ik} + w_{kj})$ is min-plus matrix multiplication and takes $\Theta(n^3 \log n)$ with repeated squaring. |
+| Edge-based formulation | $`\ell^{(m)}_{ij} = \min_k (\ell^{(m-1)}_{ik} + w_{kj})`$ is min-plus matrix multiplication and takes $\Theta(n^3 \log n)$ with repeated squaring. |
 | DAG shortest paths | A topological order plus one relaxation pass gives $\Theta(V + E)$. |
 | Strongly connected components | Kosaraju's algorithm runs DFS on $G$, reverses the edges, and runs DFS on $G^R$ in decreasing $f[v]$, all in $\Theta(V + E)$. |
 | Universality of relaxation | Relaxation is the universal basic operation: all four shortest-path algorithms are different schedules of RELAX calls. |
@@ -802,7 +812,7 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
    <details>
    <summary>Answer</summary>
 
-   The edge set is the same as in Section 2.3: $s \to t$ (10), $s \to y$ (5), $t \to x$ (1), $t \to y$ (2), $y \to t$ (3), $y \to x$ (9), $y \to z$ (2), $z \to s$ (7), $z \to x$ (6), $x \to z$ (4). From $t$: init $d[t]=0$, others $\infty$. Extract $t$ → relax $x:1$, $y:2$. Extract $x$ ($d=1$) → relax $z: 1+4=5$. Extract $y$ ($d=2$) → relax $z: \min(5, 2+2)=4$, $x: \min(1, 2+9)=1$. Extract $z$ ($d=4$) → relax $s: 4+7=11$, $x: \min(1, 4+6)=1$. Extract $s$ ($d=11$) → check $y: \min(2, 11+5)=2$. Final: $d[t]=0, d[x]=1, d[y]=2, d[z]=4, d[s]=11$. Order: $t, x, y, z, s$.
+   The edge set is the same as in Section 2.3: $s \to t$ (10), $s \to y$ (5), $t \to x$ (1), $t \to y$ (2), $y \to t$ (3), $y \to x$ (9), $y \to z$ (2), $z \to s$ (7), $z \to x$ (6), $x \to z$ (4). From $t$: init $d[t]=0$, others $\infty$. Extract $t$ → relax $x:1$, $y:2$. Extract $x$ ($`d=1`$) → relax $z: 1+4=5$. Extract $y$ ($`d=2`$) → relax $z: \min(5, 2+2)=4$, $x: \min(1, 2+9)=1$. Extract $z$ ($`d=4`$) → relax $s: 4+7=11$, $x: \min(1, 4+6)=1$. Extract $s$ ($`d=11`$) → check $y: \min(2, 11+5)=2$. Final: $d[t]=0, d[x]=1, d[y]=2, d[z]=4, d[s]=11$. Order: $t, x, y, z, s$.
 
    </details>
 
@@ -811,7 +821,7 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
    <details>
    <summary>Answer</summary>
 
-   Vertices $\{A, B, C, D\}$, edges $A \to B$ (2), $A \to C$ (4), $B \to D$ (1), $C \to D$ ($-2$). Source $A$. Init $d[A]=0$; extract $A$ → $d[B]=2, d[C]=4$. Extract $B$ ($d=2$) → $d[D] = 3$. Extract $D$ ($d=3$, **finalized**) → no outgoing edges. Extract $C$ ($d=4$) → relax $C \to D$: $4 + (-2) = 2 < 3$, but $D$ is already finalized. Dijkstra reports $d[D] = 3$, while the true shortest path is $A \to C \to D$ with cost $2$. **The invariant breaks** at the step that extracts $D$: the greedy claim that no future relaxation can lower $d[D]$ requires that all unexplored paths to $D$ cost at least $d[D]$. With the negative edge $C \to D$, the path $A \to C \to D$ later turns out cheaper.
+   Vertices $`\{A, B, C, D\}`$, edges $A \to B$ (2), $A \to C$ (4), $B \to D$ (1), $C \to D$ ($`-2`$). Source $A$. Init $d[A]=0$; extract $A$ → $d[B]=2, d[C]=4$. Extract $B$ ($`d=2`$) → $d[D] = 3$. Extract $D$ ($d=3$, **finalized**) → no outgoing edges. Extract $C$ ($`d=4`$) → relax $C \to D$: $4 + (-2) = 2 < 3$, but $D$ is already finalized. Dijkstra reports $d[D] = 3$, while the true shortest path is $A \to C \to D$ with cost $2$. **The invariant breaks** at the step that extracts $D$: the greedy claim that no future relaxation can lower $d[D]$ requires that all unexplored paths to $D$ cost at least $d[D]$. With the negative edge $C \to D$, the path $A \to C \to D$ later turns out cheaper.
 
    </details>
 
@@ -820,16 +830,16 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
    <details>
    <summary>Answer</summary>
 
-   Any simple shortest path has at most $|V| - 1$ edges. **Induction claim:** after $i$ iterations, $d[v]$ is at most the cost of any shortest path from $r$ to $v$ that uses **at most $i$ edges**. Base case $i = 0$: $d[r] = 0$ and $d[v] = \infty$ for $v \neq r$, which is correct (no path has 0 edges to anywhere except $r$). Inductive step: in iteration $i$, the relaxation of edge $(u, v)$ for the predecessor $u$ on the $\leq i$-edge shortest path uses $d[u] \leq $ optimal $(\leq i-1)$-edge distance to $u$, and so $d[v]$ updates to a valid $\leq i$-edge bound. After $|V| - 1$ iterations every simple path is fully relaxed. **Not after $|V| - 2$:** consider the linear chain $v_0 \to v_1 \to \dots \to v_{n-1}$ with all weights 1, and an edge ordering that always relaxes the *last* edge first; then exactly $|V| - 1$ iterations are needed.
+   Any simple shortest path has at most $|V| - 1$ edges. **Induction claim:** after $i$ iterations, $d[v]$ is at most the cost of any shortest path from $r$ to $v$ that uses **at most $i$ edges**. Base case $i = 0$: $d[r] = 0$ and $d[v] = \infty$ for $v \neq r$, which is correct (no path has 0 edges to anywhere except $`r`$). Inductive step: in iteration $i$, the relaxation of edge $(u, v)$ for the predecessor $u$ on the $\leq i$-edge shortest path uses $`d[u] \leq`$ optimal $(\leq i-1)$-edge distance to $u$, and so $d[v]$ updates to a valid $\leq i$-edge bound. After $|V| - 1$ iterations every simple path is fully relaxed. **Not after $|V| - 2$:** consider the linear chain $v_0 \to v_1 \to \dots \to v_{n-1}$ with all weights 1, and an edge ordering that always relaxes the *last* edge first; then exactly $|V| - 1$ iterations are needed.
 
    </details>
 
-6. **Bellman-Ford as DP:** Re-derive the algorithm from the recurrence $d_v^k = \min\{d_v^{k-1}, \min_{(u,v) \in E} (d_u^{k-1} + w(u, v))\}$. Show why iterating $k$ from 1 to $|V| - 1$ and relaxing every edge implements this.
+6. **Bellman-Ford as DP:** Re-derive the algorithm from the recurrence $`d_v^k = \min\{d_v^{k-1}, \min_{(u,v) \in E} (d_u^{k-1} + w(u, v))\}`$. Show why iterating $k$ from 1 to $|V| - 1$ and relaxing every edge implements this.
 
    <details>
    <summary>Answer</summary>
 
-   Maintain a single $d[\cdot]$ array (size $|V|$). At iteration $k$, before the inner sweep, $d[u]$ holds the optimal distance using at most $k - 1$ edges. The inner sweep over all edges performs the min update for every potential predecessor $u$ of every $v$, exactly evaluating $d_v^k = \min\{d_v^{k-1}, \min_{(u,v)} (d_u^{k-1} + w(u, v))\}$; leaving $d[v]$ unchanged when no update happens is the $d_v^{k-1}$ term. Within one sweep, $d[u]$ may already have been updated to its $k$-th value, which can only *improve* the bound and never violates correctness, because we are taking a min. So after iteration $k$, $d[\cdot]$ is correct for paths of at most $k$ edges. After $|V| - 1$ iterations it is correct overall.
+   Maintain a single $d[\cdot]$ array (size $`|V|`$). At iteration $k$, before the inner sweep, $d[u]$ holds the optimal distance using at most $k - 1$ edges. The inner sweep over all edges performs the min update for every potential predecessor $u$ of every $v$, exactly evaluating $`d_v^k = \min\{d_v^{k-1}, \min_{(u,v)} (d_u^{k-1} + w(u, v))\}`$; leaving $d[v]$ unchanged when no update happens is the $d_v^{k-1}$ term. Within one sweep, $d[u]$ may already have been updated to its $k$-th value, which can only *improve* the bound and never violates correctness, because we are taking a min. So after iteration $k$, $d[\cdot]$ is correct for paths of at most $k$ edges. After $|V| - 1$ iterations it is correct overall.
 
    </details>
 
@@ -838,7 +848,7 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
    <details>
    <summary>Answer</summary>
 
-   **$D^{(4)}$**: allow $\{1,2,3,4\}$. Use the recurrence with $k = 4$. Notable updates: $d_{13}^{(4)} = \min(8, 4 + (-5)) = -1$. $d_{15}^{(4)} = \min(-4, 4 + (-2)) = -4$ (no change). $d_{25}^{(4)} = \min(7, 1 + (-2)) = -1$. $d_{35}^{(4)} = \min(11, 5 + (-2)) = 3$. $d_{21}^{(4)} = \min(\infty, 1 + 2) = 3$. $d_{23}^{(4)} = \min(\infty, 1 + (-5)) = -4$. $d_{31}^{(4)} = \min(\infty, 5 + 2) = 7$. $d_{33}^{(4)} = \min(0, 5 + (-5)) = 0$ (no change). $d_{51}^{(4)} = \min(\infty, 6 + 2) = 8$. $d_{52}^{(4)} = \min(\infty, 6 + (-1)) = 5$. $d_{53}^{(4)} = \min(\infty, 6 + (-5)) = 1$. **$D^{(5)}$**: allow $\{1,2,3,4,5\}$. Notable updates: $d_{12}^{(5)} = \min(3, -4 + 5) = 1$, $d_{13}^{(5)} = \min(-1, -4 + 1) = -3$, $d_{14}^{(5)} = \min(4, -4 + 6) = 2$. The final matrix matches Section 3.6. ✓
+   **$D^{(4)}$**: allow $`\{1,2,3,4\}`$. Use the recurrence with $k = 4$. Notable updates: $d_{13}^{(4)} = \min(8, 4 + (-5)) = -1$. $d_{15}^{(4)} = \min(-4, 4 + (-2)) = -4$ (no change). $d_{25}^{(4)} = \min(7, 1 + (-2)) = -1$. $d_{35}^{(4)} = \min(11, 5 + (-2)) = 3$. $d_{21}^{(4)} = \min(\infty, 1 + 2) = 3$. $d_{23}^{(4)} = \min(\infty, 1 + (-5)) = -4$. $d_{31}^{(4)} = \min(\infty, 5 + 2) = 7$. $d_{33}^{(4)} = \min(0, 5 + (-5)) = 0$ (no change). $d_{51}^{(4)} = \min(\infty, 6 + 2) = 8$. $d_{52}^{(4)} = \min(\infty, 6 + (-1)) = 5$. $d_{53}^{(4)} = \min(\infty, 6 + (-5)) = 1$. **$D^{(5)}$**: allow $`\{1,2,3,4,5\}`$. Notable updates: $d_{12}^{(5)} = \min(3, -4 + 5) = 1$, $d_{13}^{(5)} = \min(-1, -4 + 1) = -3$, $d_{14}^{(5)} = \min(4, -4 + 6) = 2$. The final matrix matches Section 3.6. ✓
 
    </details>
 
@@ -860,12 +870,12 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
 
    </details>
 
-10. **Kosaraju trace:** Run Kosaraju on the directed graph with edges $\{(1,2), (2,3), (3,1), (3,4), (4,5), (5,4)\}$. Report the SCCs and the finish times that drive the second pass.
+10. **Kosaraju trace:** Run Kosaraju on the directed graph with edges $`\{(1,2), (2,3), (3,1), (3,4), (4,5), (5,4)\}`$. Report the SCCs and the finish times that drive the second pass.
 
     <details>
     <summary>Answer</summary>
 
-    Run DFS on $G$ from vertex 1. The traversal visits 1 → 2 → 3 → 1 (back edge), then 4 → 5 → 4 (back edge). Finish times are $f(5)=1$, $f(4)=2$, $f(3)=3$, $f(2)=4$, and $f(1)=5$. Reverse all edges to form $G^R = \{(2,1), (3,2), (1,3), (4,3), (5,4), (4,5)\}$. Then run DFS on $G^R$ in decreasing finish-time order. Starting from 1 reaches $\{1,2,3\}$, the first SCC. The next unprocessed vertex is 4, and its search reaches $\{4,5\}$, the second SCC.
+    Run DFS on $G$ from vertex 1. The traversal visits 1 → 2 → 3 → 1 (back edge), then 4 → 5 → 4 (back edge). Finish times are $f(5)=1$, $f(4)=2$, $f(3)=3$, $f(2)=4$, and $f(1)=5$. Reverse all edges to form $`G^R = \{(2,1), (3,2), (1,3), (4,3), (5,4), (4,5)\}`$. Then run DFS on $G^R$ in decreasing finish-time order. Starting from 1 reaches $`\{1,2,3\}`$, the first SCC. The next unprocessed vertex is 4, and its search reaches $`\{4,5\}`$, the second SCC.
 
     </details>
 
@@ -874,7 +884,7 @@ NP-completeness is covered in Week 13 and approximation algorithms in Week 14.
     <details>
     <summary>Answer</summary>
 
-    The vertex with the **largest** $f[\cdot]$ in DFS($G$) belongs to a **source SCC** of the SCC-DAG (no incoming SCC edges). In $G^R$, that SCC becomes a *sink*: DFS from this vertex in $G^R$ cannot escape its SCC, so it discovers exactly that SCC. **Arbitrary order:** the first DFS in $G^R$ might start in a non-source SCC and walk into another SCC via a still-present cross-SCC edge in $G^R$, merging them incorrectly. **Increasing order:** nothing guarantees which SCC holds the vertex with the smallest finish time (in the Section 6.3 example, vertex 4 with $f[4]=1$ lies in the source SCC A). If that vertex lies in a sink SCC of $G$, which is a *source* SCC in $G^R$, DFS can walk into other SCCs via $G^R$ edges and again merge them. Only decreasing $f$ guarantees that each DFS starts in a current source SCC of $G$ (a sink SCC of $G^R$) and peels off SCCs one at a time.
+    The vertex with the **largest** $f[\cdot]$ in DFS($`G`$) belongs to a **source SCC** of the SCC-DAG (no incoming SCC edges). In $G^R$, that SCC becomes a *sink*: DFS from this vertex in $G^R$ cannot escape its SCC, so it discovers exactly that SCC. **Arbitrary order:** the first DFS in $G^R$ might start in a non-source SCC and walk into another SCC via a still-present cross-SCC edge in $G^R$, merging them incorrectly. **Increasing order:** nothing guarantees which SCC holds the vertex with the smallest finish time (in the Section 6.3 example, vertex 4 with $f[4]=1$ lies in the source SCC A). If that vertex lies in a sink SCC of $G$, which is a *source* SCC in $G^R$, DFS can walk into other SCCs via $G^R$ edges and again merge them. Only decreasing $f$ guarantees that each DFS starts in a current source SCC of $G$ (a sink SCC of $`G^R`$) and peels off SCCs one at a time.
 
     </details>
 

@@ -63,7 +63,7 @@ This course introduces the design, analysis, and implementation of algorithms. I
 26Spring_Algorithms
 ├── Lecture-Notes               Weekly lecture notes and lab notes
 ├── Coursework                  Assignments, lab code, midterm preparation, team-based term project
-├── images                      Figures for the lecture notes
+├── images                      Figures for all documents
 ├── Course-Information.ko.md    Course operations
 ├── Course-Information.md
 ├── LICENSE                     Documentation license (CC BY-NC-SA 4.0)

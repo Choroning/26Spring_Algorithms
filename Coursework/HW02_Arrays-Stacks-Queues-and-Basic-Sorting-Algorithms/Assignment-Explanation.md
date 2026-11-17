@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 6, 7
 
@@ -68,7 +68,7 @@
 
 ### 1.1 Assignment Overview
 
-This week 3 take-home assignment builds a **music playlist manager** web app that sorts a song list by various criteria. The app sorts the playlist with different sorting algorithms and compares how sorting performance changes as the playlist grows. The backend uses Python (FastAPI or Flask), the frontend uses HTML, CSS, and JavaScript, and the deliverables are the source code and a report of at most two pages. It connects to the sorting algorithms of the [Week 3 Lecture](../../Lecture-Notes/Week03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms/Concepts_Lecture.md). The original problem is in the [assignment handout](Original/Assignment.md).
+This take-home assignment of Week 3 builds a **music playlist manager** web app that sorts a song list by various criteria. The app sorts the playlist with different sorting algorithms and compares how sorting performance changes as the playlist grows. The backend uses Python (FastAPI or Flask), the frontend uses HTML, CSS, and JavaScript, and the deliverables are the source code and a report of at most two pages. It connects to the sorting algorithms of the [Week 3 Lecture](../../Lecture-Notes/Week03_Arrays-Stacks-Queues-and-Basic-Sorting-Algorithms/Concepts_Lecture.md). The original problem is in the [assignment handout](Original/Assignment.md).
 
 ### 1.2 Directory Layout
 
@@ -516,7 +516,7 @@ In an array numbered from 0, the children of node i are 2i+1 and 2i+2 (lines 195
 
 *Table 8. Time complexity, extra space, in-place property, and stability of the six sorts*
 
-The best and average columns assume distinct keys. The stability column agrees with a test that sorted 300 songs, each tagged with its original position, by duration and checked whether songs with the same duration kept their original order. Insertion, merge, and bubble sort kept it, and selection, quick, and heap sort did not. With a stable sort, sorting first by artist and then by title keeps the artist order within each title.
+The best and average columns assume distinct keys. When 300 songs, each tagged with its original position, are sorted by duration, insertion, merge, and bubble sort keep songs with the same duration in their original order, and selection, quick, and heap sort do not, which matches the stability column. With a stable sort, sorting first by artist and then by title keeps the artist order within each title.
 
 ---
 
@@ -727,7 +727,7 @@ Selection sort matches exactly regardless of the input. The moves of insertion s
 
 ### 6.5 Error Handling and Edge Cases
 
-The Flask test client confirmed the following cases.
+For error handling and edge cases, the server behaves as follows.
 
 | Request | Result |
 |:-----|:-----|
@@ -742,7 +742,7 @@ The Flask test client confirmed the following cases.
 | `POST /sort`, 2,000 already sorted songs, quick sort | A 500 error from `RecursionError` |
 | `POST /sort`, 900 already sorted songs, insertion sort and bubble sort | 899 comparisons and 0 moves or swaps, the best case |
 
-*Table 12. Results of the error handling and edge case checks*
+*Table 12. Server behavior in error handling and edge cases*
 
 That an already sorted input is the worst case of quick sort and the best case of insertion and bubble sort matches the analysis of Sections 4.2, 4.4, and 4.5. The page sends only randomly generated orders, so a sorted input arises only when the API is called directly.
 
@@ -771,7 +771,7 @@ The order among the three O(n log n) algorithms is explained by the cost of one 
 
 *Table 13. Comparisons, key function calls, and execution time (N = 5,000)*
 
-The key calls of quick sort are the 71,471 comparisons plus the number of partition calls (fewer than n, and about 3,600 for 5,000 songs when counted in a rerun). In both groups, fewer key calls mean a faster sort. In the O(n²) group, insertion sort saves the key in advance (line 97) and calls the key only about a quarter as often as selection sort, while bubble sort makes as many key calls as selection sort but about 6.3 million more swaps, which makes it the slowest.
+The key calls of quick sort are the 71,471 comparisons plus the number of partition calls (fewer than n, about 3,600 for 5,000 songs). In both groups, fewer key calls mean a faster sort. In the O(n²) group, insertion sort saves the key in advance (line 97) and calls the key only about a quarter as often as selection sort, while bubble sort makes as many key calls as selection sort but about 6.3 million more swaps, which makes it the slowest.
 
 > **Note:** That quick sort scans the array sequentially in place is a cache locality advantage in languages such as C. A CPython list, however, holds only references to the song dicts, and the interpreter handles a function call and a string creation for every comparison, so that effect cannot be separated in this measurement. In this implementation, interpreter-level work such as the key call counts of Table 13 and the slice copies of merge sort explains the time differences more directly.
 

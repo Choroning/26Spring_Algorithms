@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 11
 
@@ -413,7 +413,7 @@ One `ShopUser` is one virtual user. The three methods marked with `@task` have n
 
 ### 6.1 Checking the Endpoints
 
-`app.py` was loaded with FastAPI's `TestClient` to call each endpoint, and the server was also started with uvicorn and sent the same requests to check the results. Because the seed is fixed, the following values are the same on every run (only `elapsed_ms` changes from run to run).
+Calling each endpoint gives the following results. Because the seed is fixed, the following values are the same on every run (only `elapsed_ms` changes from run to run).
 
 ```text
 GET /search/id?id=42
@@ -430,7 +430,7 @@ GET /
   -> 200, text/html
 ```
 
-The values of Sections 3.2 and 4.3, namely 1,050 products, 6 categories, 64 duplicate names, 129 duplicate products, and 550,725 comparisons, all agree with the run.
+The values of Sections 3.2 and 4.3, namely 1,050 products, 6 categories, 64 duplicate names, 129 duplicate products, and 550,725 comparisons, are the same as these results.
 
 ### 6.2 Search Result Screen
 

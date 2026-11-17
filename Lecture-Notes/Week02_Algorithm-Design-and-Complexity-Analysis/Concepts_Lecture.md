@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
 
@@ -87,7 +87,7 @@ It is **one of the oldest known algorithms**, described around 300 BCE.
 
 Given $A > B$ and $A = a \cdot G$, $B = b \cdot G$ ($G$ = GCD):
 
-Here, $a = A/G$ and $b = B/G$ are integers (since $G$ divides both $A$ and $B$). Note that $a$ and $b$ are coprime (their GCD is 1).
+Here, $a = A/G$ and $b = B/G$ are integers (since $G$ divides both $A$ and $`B`$). Note that $a$ and $b$ are coprime (their GCD is 1).
 
 $$A \mod B = (a \mod b) \cdot G$$
 
@@ -460,7 +460,9 @@ Section 2 computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$
 
 $O(g(n))$ is the set of functions that grow **at most as fast as** $g(n)$.
 
-$$O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \leq c \cdot g(n) \}$$
+```math
+O(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \leq c \cdot g(n) \}
+```
 
 - $g(n)$ is the **asymptotic upper bound** of $f(n)$.
 - Convention: Technically $f(n) \in O(g(n))$, but we write $f(n) = O(g(n))$.
@@ -501,10 +503,10 @@ Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 
 | Expression | Big-O | Reason |
 |:-----------|:------|:-------|
-| $3n + 2$ | $O(n)$ | $3n+2 \leq 4n$ (for $n \geq 2$) |
-| $100n + 6$ | $O(n)$ | $100n+6 \leq 101n$ (for $n \geq 10$) |
-| $10n^2 + 4n + 2$ | $O(n^2)$ | $10n^2+4n+2 \leq 11n^2$ (for $n \geq 5$) |
-| $6 \cdot 2^n + n^2$ | $O(2^n)$ | $6 \cdot 2^n + n^2 \leq 7 \cdot 2^n$ (for $n \geq 4$) |
+| $3n + 2$ | $O(n)$ | $3n+2 \leq 4n$ (for $`n \geq 2`$) |
+| $100n + 6$ | $O(n)$ | $100n+6 \leq 101n$ (for $`n \geq 10`$) |
+| $10n^2 + 4n + 2$ | $O(n^2)$ | $10n^2+4n+2 \leq 11n^2$ (for $`n \geq 5`$) |
+| $6 \cdot 2^n + n^2$ | $O(2^n)$ | $6 \cdot 2^n + n^2 \leq 7 \cdot 2^n$ (for $`n \geq 4`$) |
 
 *Table 9. Examples of Big-O bounds and their justification*
 
@@ -514,7 +516,9 @@ Therefore $c = 5$, $n_0 = 1$ gives $f(n) = O(n^2)$. $\square$
 
 $\Omega(g(n))$ is the set of functions that grow **at least as fast as** $g(n)$.
 
-$$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \geq c \cdot g(n) \}$$
+```math
+\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; f(n) \geq c \cdot g(n) \}
+```
 
 - $g(n)$ is the **asymptotic lower bound** of $f(n)$.
 - It is symmetric to Big-O.
@@ -525,10 +529,10 @@ $$\Omega(g(n)) = \{ f(n) \mid \exists\, c > 0,\; n_0 \geq 0 \;\text{s.t.}\; \for
 
 | Expression | Big-Omega | Reason |
 |:-----------|:----------|:-------|
-| $3n + 2$ | $\Omega(n)$ | $3n+2 \geq 3n$ (for $n \geq 1$) |
-| $100n + 6$ | $\Omega(n)$ | $100n+6 \geq 100n$ (for $n \geq 1$) |
-| $10n^2 + 4n + 2$ | $\Omega(n^2)$ | $10n^2+4n+2 \geq n^2$ (for $n \geq 1$) |
-| $6 \cdot 2^n + n^2$ | $\Omega(2^n)$ | $6 \cdot 2^n + n^2 \geq 2^n$ (for $n \geq 1$) |
+| $3n + 2$ | $\Omega(n)$ | $3n+2 \geq 3n$ (for $`n \geq 1`$) |
+| $100n + 6$ | $\Omega(n)$ | $100n+6 \geq 100n$ (for $`n \geq 1`$) |
+| $10n^2 + 4n + 2$ | $\Omega(n^2)$ | $10n^2+4n+2 \geq n^2$ (for $`n \geq 1`$) |
+| $6 \cdot 2^n + n^2$ | $\Omega(2^n)$ | $6 \cdot 2^n + n^2 \geq 2^n$ (for $`n \geq 1`$) |
 
 *Table 10. Examples of Big-Omega bounds and their justification*
 
@@ -544,9 +548,13 @@ Choose $c = 10$, $n_0 = 1$. Then $10n^2 + 4n + 2 \geq 10n^2 \geq c \cdot n^2$ fo
 
 $\Theta(g(n))$ is the set of functions that grow **at the same rate as** $g(n)$.
 
-$$\Theta(g(n)) = O(g(n)) \;\cap\; \Omega(g(n))$$
+```math
+\Theta(g(n)) = O(g(n)) \;\cap\; \Omega(g(n))
+```
 
-$$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}$$
+```math
+\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}\; \forall\, n \geq n_0,\; c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \}
+```
 
 **Intuitive Meaning:** $f(n) = \Theta(g(n))$ means $f$ and $g$ grow **at the same rate** (up to constant factors).
 
@@ -559,7 +567,7 @@ $$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}
 
 | Expression | Theta |
 |:-----------|:------|
-| $3n + 2$ | $\Theta(n)$: $3n \leq 3n+2 \leq 4n$ (for $n \geq 2$) |
+| $3n + 2$ | $\Theta(n)$: $3n \leq 3n+2 \leq 4n$ (for $`n \geq 2`$) |
 | $10n^2 + 4n + 2$ | $\Theta(n^2)$ |
 | $6 \cdot 2^n + n^2$ | $\Theta(2^n)$ |
 
@@ -569,7 +577,7 @@ $$\Theta(g(n)) = \{ f(n) \mid \exists\, c_1, c_2 > 0,\; n_0 \geq 0 \;\text{s.t.}
 
 **Proof Example:** $3n + 2 = \Theta(n)$
 
-Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \geq 3n$ for $n \geq 0$ ($c_1 = 3$). So $c_1 = 3$, $c_2 = 5$, $n_0 = 1$. $\square$
+Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($`c_2 = 5`$). Lower bound: $3n + 2 \geq 3n$ for $n \geq 0$ ($`c_1 = 3`$). So $c_1 = 3$, $c_2 = 5$, $n_0 = 1$. $\square$
 
 ### 3.5 Common Complexity Classes
 
@@ -608,7 +616,7 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($c_2 = 5$). Lower bound: $3n + 2 \
 
 The gap between polynomial and exponential is **enormous**.
 
-> **Note:** $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exceeds the estimated number of atoms in the observable universe (roughly $10^{80}$). Even at just $n = 100$, $2^n$ reaches an unimaginable scale. This is what the claim that exponential-time algorithms are impractical means.
+> **Note:** $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exceeds the estimated number of atoms in the observable universe (roughly $`10^{80}`$). Even at just $n = 100$, $2^n$ reaches an unimaginable scale. This is what the claim that exponential-time algorithms are impractical means.
 
 > **Note:** In the table above, $\log n$ means $\log_2 n$. In CS, log without specifying a base usually means **base 2**. In Big-O, the base does not matter, because $\log_a n = \frac{\log_b n}{\log_b a}$, so changing bases is just a constant factor, and constants are ignored in Big-O.
 
@@ -684,7 +692,7 @@ $$T(n) = 2T(n/2) + n$$
 
 **Example:** $T(n) = T(n-1) + c$, $T(1) \leq c$
 
-$$
+```math
 \begin{aligned}
 T(n) &= T(n-1) + c \\
      &= (T(n-2) + c) + c = T(n-2) + 2c \\
@@ -693,7 +701,7 @@ T(n) &= T(n-1) + c \\
      &= T(1) + (n-1)c \\
      &\leq c + (n-1)c = cn = O(n)
 \end{aligned}
-$$
+```
 
 This is the recurrence for **factorial**, with linear time.
 
@@ -703,7 +711,7 @@ This is the recurrence for **factorial**, with linear time.
 
 Assume $n = 2^k$.
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
      &= 2(2T(n/4) + n/2) + n = 4T(n/4) + 2n \\
@@ -713,7 +721,7 @@ T(n) &= 2T(n/2) + n \\
      &= n \cdot T(1) + n \log_2 n \\
      &= n + n \log n = O(n \log n)
 \end{aligned}
-$$
+```
 
 > **Note:** The expansion pattern is as follows.
 > - 1 substitution: $2T(n/2) + n$ → coefficient 2, problem size n/2
@@ -743,7 +751,7 @@ $$
 
 *Inductive step:*
 
-$$
+```math
 \begin{aligned}
 T(n) &= 2T(n/2) + n \\
      &\leq 2 \cdot c(n/2)\log(n/2) + n \\
@@ -751,7 +759,7 @@ T(n) &= 2T(n/2) + n \\
      &= cn\log n + (-c\log 2 + 1)n \\
      &\leq cn\log n \quad \text{(when } c \geq 1/\log 2 \text{)}
 \end{aligned}
-$$
+```
 
 Therefore $T(n) = O(n \log n)$. $\square$
 
@@ -767,9 +775,11 @@ This is $cn + 1$, which is **not** $\leq cn$. The proof therefore fails.
 
 Fix: strengthen the guess to $T(n) \leq cn - 2$.
 
-$$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
+```math
+T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark
+```
 
-> **Note:** **A common mistake.** The most common mistake in induction proofs is getting cn + (constant) and concluding that it is O(n) and therefore enough. In induction, you must show **exactly the same form** ($\leq cn$). The solution is to slightly reduce the guess to $cn - d$ (for an appropriate constant d) to create slack.
+> **Note:** **A common mistake.** The most common mistake in induction proofs is getting cn + (constant) and concluding that it is O(n) and therefore enough. In induction, you must show **exactly the same form** ($`\leq cn`$). The solution is to slightly reduce the guess to $cn - d$ (for an appropriate constant d) to create slack.
 
 > **Note:** A systematic method for determining the constant $d$ is as follows. The original proof gave $T(n) \leq cn + 1$ but needed $\leq cn$. Set the guess to $cn - d$ and expand the inductive step: $T(n) \leq 2(c(n/2) - d) + 1 = cn - 2d + 1$. For this to be $\leq cn - d$, we need $-2d + 1 \leq -d$, i.e., $d \geq 1$ suffices. The key is creating slack to absorb the excess.
 
@@ -777,15 +787,17 @@ $$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
 
 Consider recurrences of the following form.
 
-$$T(n) = aT(n/b) + f(n) \quad \text{(where } a \geq 1, \; b > 1\text{)}$$
+```math
+T(n) = aT(n/b) + f(n) \quad \text{(where } a \geq 1, \; b > 1\text{)}
+```
 
 Let $h(n) = n^{\log_b a}$, and compare $f(n)$ and $h(n)$.
 
 | Case | Condition | Result |
 |:-----|:---------|:-------|
-| **Case 1** | $f(n) = O(n^{\log_b a - \varepsilon})$ (for some $\varepsilon > 0$) | $T(n) = \Theta(n^{\log_b a})$ |
+| **Case 1** | $f(n) = O(n^{\log_b a - \varepsilon})$ (for some $`\varepsilon > 0`$) | $T(n) = \Theta(n^{\log_b a})$ |
 | **Case 2** | $f(n) = \Theta(n^{\log_b a})$ | $T(n) = \Theta(n^{\log_b a} \log n)$ |
-| **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (for some $\varepsilon > 0$), and $af(n/b) \leq cf(n)$ (for some $c < 1$) | $T(n) = \Theta(f(n))$ |
+| **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (for some $`\varepsilon > 0`$), and $af(n/b) \leq cf(n)$ (for some $`c < 1`$) | $T(n) = \Theta(f(n))$ |
 
 *Table 16. The three cases of the Master Theorem*
 
@@ -851,7 +863,7 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 
 > **Note:** The regularity condition ensures that $f(n)$ is well-behaved; specifically, that the work done at each level of the recursion tree decreases geometrically. Most common functions (polynomials, exponentials) that satisfy the first condition of Case 3 also satisfy this condition automatically.
 
-> **Note:** **Checking Case 3.** **Case 3 is the hardest to apply** because the regularity condition ($af(n/b) \leq cf(n)$) must also be verified. The recurrences of common divide-and-conquer algorithms mostly fall under Case 1 or Case 2, so focusing first on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
+> **Note:** **Checking Case 3.** **Case 3 is the hardest to apply** because the regularity condition ($`af(n/b) \leq cf(n)`$) must also be verified. The recurrences of common divide-and-conquer algorithms mostly fall under Case 1 or Case 2, so focusing first on computing $n^{\log_b a}$ and comparing it with f(n) is the most effective strategy.
 
 ---
 
@@ -868,9 +880,9 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
 | Algorithm Classification | Algorithms divide into divide and conquer, greedy, DP, approximation, backtracking, and branch and bound, and the three core strategies are **divide and conquer, greedy, and DP**. |
 | Time Complexity | It is the number of basic operations as a function of input size $n$, computed as an abstract operation count rather than actual time (seconds). |
 | Complexity Analysis Types | They are **worst-case** (most common, providing a guarantee), average-case, best-case, and amortized. |
-| Big-O ($O$) | It is an asymptotic **upper bound**, meaning constants $c$ and $n_0$ exist with $f(n) \leq c \cdot g(n)$ for all $n \geq n_0$. |
-| Big-Omega ($\Omega$) | It is an asymptotic **lower bound**, meaning constants $c$ and $n_0$ exist with $f(n) \geq c \cdot g(n)$ for all $n \geq n_0$. |
-| Theta ($\Theta$) | It is a **tight bound**, $O \cap \Omega$, meaning exactly that growth rate. |
+| Big-O ($`O`$) | It is an asymptotic **upper bound**, meaning constants $c$ and $n_0$ exist with $f(n) \leq c \cdot g(n)$ for all $n \geq n_0$. |
+| Big-Omega ($`\Omega`$) | It is an asymptotic **lower bound**, meaning constants $c$ and $n_0$ exist with $f(n) \geq c \cdot g(n)$ for all $n \geq n_0$. |
+| Theta ($`\Theta`$) | It is a **tight bound**, $O \cap \Omega$, meaning exactly that growth rate. |
 | Write tightly | $O(n \log n)$ is more useful than $O(n^2)$, and a loose bound means information loss. |
 | Complexity Hierarchy | The hierarchy is $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$. |
 | Algorithm > Hardware | For large enough inputs, running O(n log n) on a PC is faster than running O(n²) on a supercomputer. |
@@ -935,7 +947,7 @@ The tree height is $\log_b n$, and the total cost at each level is summed.
    <details>
    <summary>Answer</summary>
 
-   Here `a = 4`, `b = 2`, `f(n) = n`, so $n^{\log_b a} = n^{\log_2 4} = n^2$. Compare `f(n) = n` with `n²`: `n` is **polynomially smaller** than `n²` (use $\varepsilon = 1$, since $n = O(n^{2-1})$). This is **Case 1**, so $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$. Intuitively, the leaves of the recursion tree dominate, because there are `n²` of them and each does constant work.
+   Here `a = 4`, `b = 2`, `f(n) = n`, so $n^{\log_b a} = n^{\log_2 4} = n^2$. Compare `f(n) = n` with `n²`: `n` is **polynomially smaller** than `n²` (use $\varepsilon = 1$, since $`n = O(n^{2-1})`$). This is **Case 1**, so $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$. Intuitively, the leaves of the recursion tree dominate, because there are `n²` of them and each does constant work.
 
    </details>
 

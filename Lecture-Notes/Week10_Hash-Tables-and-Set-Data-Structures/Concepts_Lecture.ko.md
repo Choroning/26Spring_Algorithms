@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-10-20
+> **최종 수정일:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 11
 
@@ -154,7 +154,7 @@ $$h(k) = \lfloor m \cdot (k \cdot A \bmod 1) \rfloor, \quad 0 < A < 1$$
 
 *그림 5. 키 25와 55가 인덱스 5에서 충돌하는 모습*
 
-**비둘기집 원리:** 키 공간은 일반적으로 인덱스 공간보다 훨씬 크다 ($|U| \gg m$). 따라서 개수만으로도 적어도 두 키는 같은 슬롯을 공유해야 한다.
+**비둘기집 원리:** 키 공간은 일반적으로 인덱스 공간보다 훨씬 크다 ($`|U| \gg m`$). 따라서 개수만으로도 적어도 두 키는 같은 슬롯을 공유해야 한다.
 
 심지어 $n \ll m$일 때조차 **생일 역설(birthday paradox)** 은 충돌이 직관보다 훨씬 빨리 발생함을 말해 준다. 무작위 키가 약 $\sqrt{m}$개(정확히는 약 $1.18\sqrt{m}$개)만 있어도 어떤 충돌이 발생할 확률이 이미 약 $1/2$이다.
 
@@ -258,7 +258,7 @@ $n = O(m)$, 즉 $\alpha = O(1)$을 유지하면 **모든 연산이 평균 $O(1)$
 
 ### 2.4 선형 조사: 예시
 
-$h(k) = k \bmod 10$로 키 $\{25, 37, 42, 55, 73\}$을 크기 $m = 10$ 테이블에 삽입한다.
+$h(k) = k \bmod 10$로 키 $`\{25, 37, 42, 55, 73\}`$을 크기 $m = 10$ 테이블에 삽입한다.
 
 ```text
 Step 1: Insert 25 → h(25)=5              Step 2: Insert 37 → h(37)=7
@@ -463,13 +463,22 @@ $$\alpha = \frac{n}{m}.$$
 - 예: Python `dict`, Java `HashMap`, C++ `unordered_map`.
 
 ```python
-# Python Set 예시                      # Python Dict (Map) 예시
-visited = set()                        phone = {}
-visited.add("A")                       phone["Alice"] = "010-1234"
-visited.add("B")                       phone["Bob"]   = "010-5678"
-visited.add("A")   # 중복!             print(phone["Alice"])  # O(1)
-print(len(visited))    # 2             print("Bob" in phone)  # O(1)
+# Python Set 예시
+visited = set()
+visited.add("A")
+visited.add("B")
+visited.add("A")   # 중복!
+print(len(visited))    # 2
 print("A" in visited)  # True, O(1)
+```
+
+```python
+# Python Dict (Map) 예시
+phone = {}
+phone["Alice"] = "010-1234"
+phone["Bob"]   = "010-5678"
+print(phone["Alice"])  # O(1)
+print("Bob" in phone)  # O(1)
 ```
 
 이들은 코딩 인터뷰와 경시 프로그래밍에서 가장 빈번하게 사용되는 자료구조에 속하며, 많은 알고리즘 문제가 알맞은 Set이나 Map을 고르는 것으로 귀결된다.
@@ -480,7 +489,7 @@ print("A" in visited)  # True, O(1)
 |------|------------|---------------------------|
 | 평균 탐색 | **$O(1)$** | $O(\log n)$ |
 | 최악 탐색 | $O(n)$ | **$O(\log n)$** 보장 |
-| 정렬된 순회 | 미지원(모든 키를 모은 뒤 정렬하면 $O(n \log n)$) | **$O(n)$** 중위 순회(오름차순 키 순서) |
+| 정렬된 순회 | 미지원(모든 키를 모은 뒤 정렬하면 $`O(n \log n)`$) | **$O(n)$** 중위 순회(오름차순 키 순서) |
 | 범위 질의 | 미지원 | **$O(\log n + k)$** ($k$는 범위 안의 키 수) |
 | 메모리 오버헤드 | 배열 + 체인/조사 | 노드당 포인터 |
 | 구현 | 좋은 해시 함수 필요 | 자가 균형 로직 |
@@ -527,7 +536,7 @@ print("A" in visited)  # True, O(1)
    <details>
    <summary>정답</summary>
 
-   $k \bmod 2^p$는 $k$의 **하위 $p$ 비트**에만 의존하므로 상위 비트의 구조를 모두 버린다. 키들이 공통된 하위 비트 패턴을 공유하면 모두 소수의 슬롯에 몰린다. **예시 $m = 8$:** 키 $\{8, 16, 24, 32, 40, 48, \ldots\}$은 모두 $\equiv 0 \pmod 8$이므로 슬롯의 수와 무관하게 전부 슬롯 0에 충돌한다. **2의 거듭제곱과 가깝지 않은 소수 $m$** 은 상위 비트와 하위 비트를 섞어 이런 함정을 피한다 (교재 11.3절).
+   $k \bmod 2^p$는 $k$의 **하위 $p$ 비트**에만 의존하므로 상위 비트의 구조를 모두 버린다. 키들이 공통된 하위 비트 패턴을 공유하면 모두 소수의 슬롯에 몰린다. **예시 $m = 8$:** 키 $`\{8, 16, 24, 32, 40, 48, \ldots\}`$은 모두 $\equiv 0 \pmod 8$이므로 슬롯의 수와 무관하게 전부 슬롯 0에 충돌한다. **2의 거듭제곱과 가깝지 않은 소수 $m$** 은 상위 비트와 하위 비트를 섞어 이런 함정을 피한다 (교재 11.3절).
 
    </details>
 
@@ -549,7 +558,7 @@ print("A" in visited)  # True, O(1)
 
    </details>
 
-4. **선형 조사 추적:** $h(k) = k \bmod 10$, 선형 조사, $m = 10$ 테이블에 $\{4, 14, 24, 25, 35\}$를 삽입하라. 최종 테이블을 그리고 각 삽입에서의 조사 횟수를 보고하라.
+4. **선형 조사 추적:** $h(k) = k \bmod 10$, 선형 조사, $m = 10$ 테이블에 $`\{4, 14, 24, 25, 35\}`$를 삽입하라. 최종 테이블을 그리고 각 삽입에서의 조사 횟수를 보고하라.
 
    <details>
    <summary>정답</summary>

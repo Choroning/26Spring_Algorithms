@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-16
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16
 
@@ -335,9 +335,9 @@ Line 67 reads `n` of the request as an integer and uses 15 when it is missing. L
 
 `refreshTimeline` in the frontend (`app.js` lines 14-54) draws each reservation as a bar on a fixed 16-hour range from 8 to 24. The left position and the width of a bar are set as percentages as follows.
 
-$$
+```math
 \text{left} = \frac{s - 8}{16} \times 100\%, \qquad \text{width} = \max\left(\frac{f - s}{16} \times 100\%,\ 2\%\right)
-$$
+```
 
 The bars on the page are placed from top to bottom in order of start time (then finish time) (line 25). This order differs from the finish-time order in which the algorithm looks at the reservations. A bar gets the `selected` class (blue `#4a90d9`) if its name is in the list of selected reservations, and the `rejected` class (gray `#ccc`) otherwise (lines 34-35, `style.css` lines 137-144). Because this decision uses the reservation name, if two reservations share a name, both are painted blue even when only one is selected.
 

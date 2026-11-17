@@ -63,7 +63,7 @@
 26Spring_Algorithms
 ├── Lecture-Notes               주차별 강의 노트와 실습 노트
 ├── Coursework                  과제, 실습 코드, 중간고사 대비 자료, 팀 단위 텀 프로젝트
-├── images                      강의 노트의 그림
+├── images                      모든 문서의 그림
 ├── Course-Information.ko.md    수업 운영 정보
 ├── Course-Information.md
 ├── LICENSE                     문서 라이선스 (CC BY-NC-SA 4.0)

@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-17
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -113,7 +113,7 @@ The key idea for sidestepping the chicken-and-egg problem is to find an **easily
 - Show the algorithm's output satisfies $\text{APX} \geq U / c$.
 - Then $\text{APX} \geq U / c \geq \text{OPT} / c$.
 
-> **Note:** **Why it works.** The technique never directly *computes* OPT. It merely sandwiches OPT between two quantities we can control, a computable bound $L$ and the algorithm's output APX. Every 2-approximation proof in Sections 2-6 follows exactly this template; the only difference is *which $L$ we plug in* (MST weight, matching size, volume bound, average load, virtual $(k+1)$-th center distance).
+> **Note:** **Why it works.** The technique never directly *computes* OPT. It merely sandwiches OPT between two quantities we can control, a computable bound $L$ and the algorithm's output APX. Every 2-approximation proof in Sections 2-6 follows exactly this template; the only difference is *which $`L`$ we plug in* (MST weight, matching size, volume bound, average load, virtual $(k+1)$-th center distance).
 
 ---
 
@@ -243,11 +243,11 @@ A **vertex cover** of a graph $G = (V, E)$ is a subset $S \subseteq V$ such that
 **Real-world analogy:** the problem is like placing the minimum number of CCTV cameras at intersections (vertices) so that every corridor (edge) is monitored.
 
 **Example (triangle graph {1, 2, 3}):**
-- $\{1, 2, 3\}, \{1, 2\}, \{1, 3\}, \{2, 3\}$ are all vertex covers.
+- $`\{1, 2, 3\}, \{1, 2\}, \{1, 3\}, \{2, 3\}`$ are all vertex covers.
 - In general, if one vertex touches all edges, that single vertex is the minimum cover. A triangle has no such vertex, so its minimum cover has size 2.
-- $\{2\}$ alone is not a vertex cover because edge $(1,3)$ is uncovered.
+- $`\{2\}`$ alone is not a vertex cover because edge $(1,3)$ is uncovered.
 
-In Figure 2, (a) is a graph $G$ with the clique $\{u, v, x, y\}$ and (b) is its complement graph $\overline{G}$. In $\overline{G}$, $\{w, z\}$ is a vertex cover because every edge has at least one endpoint in it.
+In Figure 2, (a) is a graph $G$ with the clique $`\{u, v, x, y\}`$ and (b) is its complement graph $\overline{G}$. In $\overline{G}$, $`\{w, z\}`$ is a vertex cover because every edge has at least one endpoint in it.
 
 ![Figure 2. Vertex cover example](../../images/Week13_ch34_p43.png)
 
@@ -301,7 +301,7 @@ graph TD
 
 *Figure 3. Example graph with 9 vertices and 16 edges*
 
-If the edges are examined in the order $(1,2), (2,3), (4,5), (5,6), (7,8), (8,9), (1,4), (4,7), (2,5), (5,8), (3,6), (6,9), (2,4), (3,5), (5,7), (6,8)$, the greedy maximal matching selects the 4 edges $M = \{(1,2), (4,5), (7,8), (3,6)\}$. The algorithm returns the $2 \times 4 = 8$ endpoints $\{1, 2, 3, 4, 5, 6, 7, 8\}$. Partitioning the vertices into the cliques $\{1, 2, 4\}$, $\{3, 5, 6\}$, $\{7, 8\}$, and $\{9\}$ shows that an independent set contains at most one vertex from each clique, so it has at most 4 vertices, and every vertex cover therefore has at least $9 - 4 = 5$ vertices. Since $\{2, 4, 5, 6, 8\}$ is a vertex cover of size 5, the optimum is 5.
+If the edges are examined in the order $(1,2), (2,3), (4,5), (5,6), (7,8), (8,9), (1,4), (4,7), (2,5), (5,8), (3,6), (6,9), (2,4), (3,5), (5,7), (6,8)$, the greedy maximal matching selects the 4 edges $`M = \{(1,2), (4,5), (7,8), (3,6)\}`$. The algorithm returns the $2 \times 4 = 8$ endpoints $`\{1, 2, 3, 4, 5, 6, 7, 8\}`$. Partitioning the vertices into the cliques $`\{1, 2, 4\}`$, $`\{3, 5, 6\}`$, $`\{7, 8\}`$, and $`\{9\}`$ shows that an independent set contains at most one vertex from each clique, so it has at most 4 vertices, and every vertex cover therefore has at least $9 - 4 = 5$ vertices. Since $`\{2, 4, 5, 6, 8\}`$ is a vertex cover of size 5, the optimum is 5.
 
 $$
 \rho = \frac{8}{5} = 1.6 \quad (\text{well within the guaranteed } 2.0).
@@ -343,7 +343,7 @@ $$
 
 ### 4.1 Problem
 
-**Bin Packing Problem.** Given $n$ items of sizes $s_1, s_2, \dots, s_n$ (each $\leq C$) and bins of capacity $C$, pack all items into the **fewest number of bins**.
+**Bin Packing Problem.** Given $n$ items of sizes $s_1, s_2, \dots, s_n$ (each $`\leq C`$) and bins of capacity $C$, pack all items into the **fewest number of bins**.
 
 Bin Packing is an NP-Hard optimization problem with rich applications. Examples include memory allocation, container loading, disk partitioning, and virtual-machine packing.
 
@@ -432,7 +432,7 @@ $$
 \implies 2 \cdot \text{OPT} > \text{OPT}'. \qquad \blacksquare
 $$
 
-> **Note:** **Improvement in practice.** Sorting items in *decreasing* size first (First Fit Decreasing, Best Fit Decreasing) yields a much better asymptotic result near $\frac{11}{9}\,\text{OPT} + O(1)$, compared with $1.7\,\text{OPT}$ for First Fit. Large items are placed first and small items act as filler for the leftover gaps.
+> **Note:** **Improvement in practice.** Sorting items in *decreasing* size first (First Fit Decreasing, Best Fit Decreasing) yields a much better asymptotic result near $`\frac{11}{9}\,\text{OPT} + O(1)`$, compared with $`1.7\,\text{OPT}`$ for First Fit. Large items are placed first and small items act as filler for the leftover gaps.
 
 ---
 
@@ -513,7 +513,7 @@ $$
 
 ### 5.4 Complexity
 
-For each of $n$ jobs, find the minimum among $m$ machine loads ($O(m)$), and compute one final maximum ($O(m)$).
+For each of $n$ jobs, find the minimum among $m$ machine loads ($`O(m)`$), and compute one final maximum ($`O(m)`$).
 
 $$
 n \cdot O(m) + O(m) = \mathbf{O(nm)}.
@@ -548,7 +548,7 @@ Approx_k_Clusters(points x_0, …, x_{n-1}, k > 1):
 
 **Intuition:** spreading centers far apart guarantees that every cluster covers only a small area.
 
-**Worked example ($k = 4$):**
+**Worked example ($`k = 4`$):**
 
 - **Step 1:** pick an arbitrary point as $C_1$.
 - **Step 2:** compute $D[i]$ for all non-center points, and choose the point farthest from $C_1$ as $C_2$.
@@ -588,9 +588,9 @@ $$
 
 *Table 7. Complexity of each component of Approx_k_Clusters*
 
-$$
+```math
 (k-1)\,(O(kn) + O(n)) + O(kn) = \mathbf{O(k^2 n)}.
-$$
+```
 
 **Practical considerations.**
 - **Random first center:** since $C_1$ is random, results vary between runs. Run several times and take the best result.
@@ -605,9 +605,9 @@ $$
 
 | Problem                    | Indirect-Optimal Bound                                  | Ratio              | Time                        |
 |----------------------------|--------------------------------------------------------|--------------------|-----------------------------|
-| **TSP** (Metric)           | $M$ = MST weight ($\text{OPT} > M$)                    | $< 2.0$            | $O(n^2)$ or $O(m \log m)$   |
-| **Vertex Cover**           | $\vert M \vert$ = maximal-matching size ($\text{OPT} \geq \vert M \vert$)  | $\leq 2.0$ (tight) | $O(nm)$                     |
-| **Bin Packing (FF/BF/WF)** | $\sum s_i / C$ ($\text{OPT} \geq \sum s_i / C$)        | $\leq 2.0$         | $O(n^2)$                    |
+| **TSP** (Metric)           | $M$ = MST weight ($`\text{OPT} > M`$)                    | $< 2.0$            | $O(n^2)$ or $O(m \log m)$   |
+| **Vertex Cover**           | $\vert M \vert$ = maximal-matching size ($`\text{OPT} \geq \vert M \vert`$)  | $\leq 2.0$ (tight) | $O(nm)$                     |
+| **Bin Packing (FF/BF/WF)** | $\sum s_i / C$ ($`\text{OPT} \geq \sum s_i / C`$)        | $\leq 2.0$         | $O(n^2)$                    |
 | **Bin Packing (NF)**       | $\sum s_i / C$                                         | $\leq 2.0$         | $O(n)$                      |
 | **Job Scheduling**         | $\sum t_i / m$ and $\max t_i$                          | $\leq 2.0$         | $O(nm)$                     |
 | **k-Clustering**           | virtual $(k+1)$-th center distance $d$                 | $\leq 2.0$         | $O(k^2 n)$                  |
@@ -663,7 +663,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
    <details>
    <summary>Answer</summary>
 
-   The triangle inequality is used in **algorithm Step 3** (shortcut) and **proof Step 2** ($\text{APX} \leq 2M$). When replacing a sub-path $x \to y \to z$ of the DFS traversal with the direct edge $x \to z$, we need $d(x, z) \leq d(x, y) + d(y, z)$. Otherwise a shortcut could be *longer* than the path it replaces, breaking the $\text{APX} \leq 2M$ bound. **Without the triangle inequality**, general TSP cannot be approximated to any constant factor unless $P = NP$, because for any constant $\rho$, transforming a HAM-CYCLE instance $G$ into a TSP instance that gives weight 1 to the edges of $G$ and weight $\rho|V| + 1$ to all other edges lets a $\rho$-approximation algorithm decide HAM-CYCLE. Metric TSP is the well-behaved case where the triangle inequality makes shortcutting safe.
+   The triangle inequality is used in **algorithm Step 3** (shortcut) and **proof Step 2** ($`\text{APX} \leq 2M`$). When replacing a sub-path $x \to y \to z$ of the DFS traversal with the direct edge $x \to z$, we need $d(x, z) \leq d(x, y) + d(y, z)$. Otherwise a shortcut could be *longer* than the path it replaces, breaking the $\text{APX} \leq 2M$ bound. **Without the triangle inequality**, general TSP cannot be approximated to any constant factor unless $P = NP$, because for any constant $\rho$, transforming a HAM-CYCLE instance $G$ into a TSP instance that gives weight 1 to the edges of $G$ and weight $\rho|V| + 1$ to all other edges lets a $\rho$-approximation algorithm decide HAM-CYCLE. Metric TSP is the well-behaved case where the triangle inequality makes shortcutting safe.
 
    </details>
 
@@ -690,7 +690,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
    <details>
    <summary>Answer</summary>
 
-   Suppose two bins $B_1, B_2$ are both at most half full (at most $C/2$). Then their combined contents are at most $C/2 + C/2 = C$, so they would fit in a single bin. But FF/BF/WF always try to place an item into an existing bin before opening a new one, so the first item of the later-opened bin could not have fit into the earlier bin. This is a contradiction. Hence at most one bin is at most half full. Consequently at least $\text{OPT}'-1$ bins are more than half full, giving $\sum s_i > (\text{OPT}'-1)\cdot C/2$, and combining this with $\text{OPT} \geq \sum s_i/C$ yields $2\,\text{OPT} \geq \text{OPT}'$.
+   Suppose two bins $B_1, B_2$ are both at most half full (at most $`C/2`$). Then their combined contents are at most $C/2 + C/2 = C$, so they would fit in a single bin. But FF/BF/WF always try to place an item into an existing bin before opening a new one, so the first item of the later-opened bin could not have fit into the earlier bin. This is a contradiction. Hence at most one bin is at most half full. Consequently at least $\text{OPT}'-1$ bins are more than half full, giving $\sum s_i > (\text{OPT}'-1)\cdot C/2$, and combining this with $\text{OPT} \geq \sum s_i/C$ yields $`2\,\text{OPT} \geq \text{OPT}'`$.
 
    </details>
 
@@ -708,7 +708,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
    <details>
    <summary>Answer</summary>
 
-   With the last-finishing job $i$ starting at time $T$ and taking $t_i$, $\text{APX} = T + t_i$. (1) The **volume bound** $\text{OPT} \geq \sum t_j/m$ gives $T \leq \text{OPT}$ (the greedy placed job $i$ on the earliest-finishing machine, so $T$ is at most the average). (2) The **per-job bound** $\text{OPT} \geq t_i$ gives $t_i \leq \text{OPT}$. Both are needed for $\text{APX} = T + t_i \leq \text{OPT} + \text{OPT} = 2\,\text{OPT}$. **One alone is insufficient.** The volume bound cannot handle a huge $t_i$ that dominates the average, in which case a single large job can dominate the makespan. The per-job bound cannot handle many small jobs accumulating into a large $T$. Both cases must be blocked for the 2-approximation to hold.
+   With the last-finishing job $i$ starting at time $T$ and taking $t_i$, $\text{APX} = T + t_i$. (1) The **volume bound** $\text{OPT} \geq \sum t_j/m$ gives $T \leq \text{OPT}$ (the greedy placed job $i$ on the earliest-finishing machine, so $T$ is at most the average). (2) The **per-job bound** $\text{OPT} \geq t_i$ gives $t_i \leq \text{OPT}$. Both are needed for $`\text{APX} = T + t_i \leq \text{OPT} + \text{OPT} = 2\,\text{OPT}`$. **One alone is insufficient.** The volume bound cannot handle a huge $t_i$ that dominates the average, in which case a single large job can dominate the makespan. The per-job bound cannot handle many small jobs accumulating into a large $T$. Both cases must be blocked for the 2-approximation to hold.
 
    </details>
 
@@ -717,7 +717,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
    <details>
    <summary>Answer</summary>
 
-   The chosen $k=3$ centers $C_1, C_2, C_3$ plus the virtual $C_4$ make 4 center points. The optimal solution partitions all points into 3 clusters. By the **pigeonhole principle**, distributing 4 items into 3 bins forces at least one bin to hold 2 or more items. That is, some optimal cluster contains at least 2 of $\{C_1, C_2, C_3, C_4\}$. The diameter of that cluster is at least the distance between its two centers, and since the minimum pairwise distance among the four centers is $d$ by the farthest-first construction, that diameter is $\geq d$. Hence the maximum cluster diameter is $\geq d$, that is, $\text{OPT} \geq d$. Combined with Step 2's $\text{APX} \leq 2d$, this gives $\rho \leq 2$.
+   The chosen $k=3$ centers $C_1, C_2, C_3$ plus the virtual $C_4$ make 4 center points. The optimal solution partitions all points into 3 clusters. By the **pigeonhole principle**, distributing 4 items into 3 bins forces at least one bin to hold 2 or more items. That is, some optimal cluster contains at least 2 of $`\{C_1, C_2, C_3, C_4\}`$. The diameter of that cluster is at least the distance between its two centers, and since the minimum pairwise distance among the four centers is $d$ by the farthest-first construction, that diameter is $\geq d$. Hence the maximum cluster diameter is $\geq d$, that is, $\text{OPT} \geq d$. Combined with Step 2's $\text{APX} \leq 2d$, this gives $\rho \leq 2$.
 
    </details>
 
@@ -744,7 +744,7 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
     <details>
     <summary>Answer</summary>
 
-    Both **process the large items or jobs first** and let the small ones act as filler for the leftover gaps at the end. In an arbitrary order, small items occupy resources early, forcing later large items into their own nearly empty bins or machines. Sorting in *decreasing* order places big items first, when there is plenty of room, and then lets small items precisely fill the remaining space. As a result FFD achieves $\frac{11}{9}\,\text{OPT}+O(1)$ and LPT a $\frac{4}{3}$-approximation, beating the 2-approximation of plain FF and the plain greedy. The general lesson is that in many greedy approximations, handling the chunky items first lets small items serve as load fine-tuning, greatly improving packing and scheduling efficiency.
+    Both **process the large items or jobs first** and let the small ones act as filler for the leftover gaps at the end. In an arbitrary order, small items occupy resources early, forcing later large items into their own nearly empty bins or machines. Sorting in *decreasing* order places big items first, when there is plenty of room, and then lets small items precisely fill the remaining space. As a result FFD achieves $`\frac{11}{9}\,\text{OPT}+O(1)`$ and LPT a $\frac{4}{3}$-approximation, beating the 2-approximation of plain FF and the plain greedy. The general lesson is that in many greedy approximations, handling the chunky items first lets small items serve as load fine-tuning, greatly improving packing and scheduling efficiency.
 
     </details>
 
@@ -753,6 +753,6 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
     <details>
     <summary>Answer</summary>
 
-    With LPT, the job $i$ that determines the makespan was assigned *after* all larger jobs, so it is among the smaller jobs. There are two cases. **Case A:** if $t_i \leq \text{OPT}/3$, then reusing the volume bound $T \leq \text{OPT}$ from the 2-approximation proof gives $\text{APX} = T + t_i \leq \text{OPT} + \text{OPT}/3 = (4/3)\,\text{OPT}$. **Case B:** if $t_i > \text{OPT}/3$, then every job processed up to and including job $i$ also has size $> \text{OPT}/3$ (LPT processed them earlier, so they are at least as large). Each optimal machine can hold at most two such jobs (three would exceed $\text{OPT}$), so there are at most $2m$ such jobs. For such instances, with at most $2m$ jobs and at most two jobs per optimal machine, LPT is known to produce an optimal schedule, so $\text{APX} = \text{OPT} \leq (4/3)\,\text{OPT}$. Either way $\text{APX} \leq (4/3)\cdot\text{OPT}$. Conceptually, putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
+    With LPT, the job $i$ that determines the makespan was assigned *after* all larger jobs, so it is among the smaller jobs. There are two cases. **Case A:** if $t_i \leq \text{OPT}/3$, then reusing the volume bound $T \leq \text{OPT}$ from the 2-approximation proof gives $`\text{APX} = T + t_i \leq \text{OPT} + \text{OPT}/3 = (4/3)\,\text{OPT}`$. **Case B:** if $t_i > \text{OPT}/3$, then every job processed up to and including job $i$ also has size $> \text{OPT}/3$ (LPT processed them earlier, so they are at least as large). Each optimal machine can hold at most two such jobs (three would exceed $`\text{OPT}`$), so there are at most $2m$ such jobs. For such instances, with at most $2m$ jobs and at most two jobs per optimal machine, LPT is known to produce an optimal schedule, so $`\text{APX} = \text{OPT} \leq (4/3)\,\text{OPT}`$. Either way $\text{APX} \leq (4/3)\cdot\text{OPT}$. Conceptually, putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
 
     </details>
