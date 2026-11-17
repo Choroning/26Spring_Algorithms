@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Assignment-Explanation.md) | [한국어](Assignment-Explanation.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 11
 
@@ -44,7 +44,7 @@
   - [6.1 Checking the Endpoints](#61-checking-the-endpoints)
   - [6.2 Search Result Screen](#62-search-result-screen)
   - [6.3 Locust Load Test Results](#63-locust-load-test-results)
-  - [6.4 Remeasurement under the Same Conditions](#64-remeasurement-under-the-same-conditions)
+  - [6.4 Response Time and Throughput of a Single-Process Server](#64-response-time-and-throughput-of-a-single-process-server)
 - [7. Analysis of Performance Degradation under Load](#7-analysis-of-performance-degradation-under-load)
   - [7.1 Workload of Each Algorithm](#71-workload-of-each-algorithm)
   - [7.2 When Concurrent Requests Pile Up](#72-when-concurrent-requests-pile-up)
@@ -464,9 +464,9 @@ In Table 8, `/search/duplicates` averages 61-71 ms at every user count, about 5-
 
 > **Caution:** Table 8 and Figure 7 do not come from the same measurement. In the 10-user chart of Figure 7, the 95th percentile is about 200-240 ms, whereas the 10-user maximum in Table 8 is at most 116 ms for all three endpoints. A maximum cannot be smaller than the 95th percentile, so the two were obtained from different runs. Comparisons within each source are meaningful, but the numbers of the table and of the chart must not be compared against each other.
 
-### 6.4 Remeasurement under the Same Conditions
+### 6.4 Response Time and Throughput of a Single-Process Server
 
-The same load test was run again with the submitted `app.py` and `locustfile.py` unchanged. The server ran as a single uvicorn process, and Locust ran in headless mode, spawning all users at once (`-u N -r N`) for 30 seconds each (Apple M2 Pro, macOS, Python 3.13, FastAPI 0.163.1, uvicorn 0.54.0, Locust 2.47.0). Because the computer is different, the numbers are not the same as in Table 8 and Figure 7, but the trends can be compared.
+The following table gives the response times of a load test in which the server runs as a single uvicorn process and Locust runs in headless mode, spawning all users at once (`-u N -r N`) for 30 seconds each (Apple M2 Pro, macOS, Python 3.13, FastAPI 0.163.1, uvicorn 0.54.0, Locust 2.47.0). The execution environment differs from that of Table 8 and Figure 7, so the numbers are not the same, but the trends can be compared.
 
 <table>
 <tr><th rowspan="2">Endpoint</th><th colspan="3">Average</th><th colspan="3">95th percentile</th><th colspan="3">Max</th></tr>
@@ -477,9 +477,9 @@ The same load test was run again with the submitted `app.py` and `locustfile.py`
 <tr><td>All requests</td><td>113.02</td><td>336.30</td><td>566.56</td><td>240</td><td>580</td><td>900</td><td>476</td><td>935</td><td>2,770</td></tr>
 </table>
 
-*Table 9. Response times remeasured with the submitted code (ms)*
+*Table 9. Response times of a single-process server (ms)*
 
-The median of all requests is 100 ms, 330 ms, and 540 ms for 10, 30, and 50 users, and the 95th percentile is 240 ms, 580 ms, and 900 ms, which matches the size and trend of the charts in Figure 7. The charts of Figure 7 agree with the behavior of the submitted code. Two features stand out. First, the total throughput is almost the same regardless of the number of users: 88.3, 88.8, and 87.7 requests per second. Second, even ID lookup, which is O(1), slows down in proportion to the number of users, exceeding an average of 500 ms with 50 users. Measured on its own, the ID lookup algorithm takes about 0.0004 ms (Table 10 in Section 7.1), and the response time is hundreds of thousands of times longer. Section 7 explains this phenomenon.
+The median of all requests is 100 ms, 330 ms, and 540 ms for 10, 30, and 50 users, and the 95th percentile is 240 ms, 580 ms, and 900 ms, which matches the size and trend of the charts in Figure 7. Two features stand out. First, the total throughput is almost the same regardless of the number of users: 88.3, 88.8, and 87.7 requests per second. Second, even ID lookup, which is O(1), slows down in proportion to the number of users, exceeding an average of 500 ms with 50 users. Measured on its own, the ID lookup algorithm takes about 0.0004 ms (Table 10 in Section 7.1), and the response time is hundreds of thousands of times longer. Section 7 explains this phenomenon.
 
 ---
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="160" viewBox="0 0 500 160">
+  <rect x="0" y="0" width="500" height="160" rx="12" fill="#FFFFFF"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="bold" text-anchor="middle" fill="#2B2F36">
+    <circle cx="78" cy="80" r="53" fill="#CDD2D9" stroke="#7E8693" stroke-width="3"/>
+    <circle cx="78" cy="80" r="46" fill="none" stroke="#A3AAB5" stroke-width="2"/>
+    <text x="78" y="89" font-size="26">500</text>
+    <circle cx="209" cy="80" r="48" fill="#CDD2D9" stroke="#7E8693" stroke-width="3"/>
+    <circle cx="209" cy="80" r="41" fill="none" stroke="#A3AAB5" stroke-width="2"/>
+    <text x="209" y="88" font-size="24">100</text>
+    <circle cx="330" cy="80" r="43" fill="#CDD2D9" stroke="#7E8693" stroke-width="3"/>
+    <circle cx="330" cy="80" r="36" fill="none" stroke="#A3AAB5" stroke-width="2"/>
+    <text x="330" y="88" font-size="22">50</text>
+    <circle cx="439" cy="80" r="36" fill="#DDA673" stroke="#9C6A3C" stroke-width="3"/>
+    <circle cx="439" cy="80" r="29" fill="none" stroke="#BE8552" stroke-width="2"/>
+    <text x="439" y="87" font-size="20">10</text>
+  </g>
+</svg>

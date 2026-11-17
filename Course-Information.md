@@ -2,7 +2,7 @@
 
 [Repository Guide](README.md) | [English](Course-Information.md) | [한국어](Course-Information.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 
 ## Table of Contents
 
@@ -79,7 +79,7 @@
 | W07 | 4/14, 4/16 | Review and Problem Solving | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
 | W08 | 4/21, 4/23 | Midterm Exam | - |
 | W09 | 4/28, 4/30 | Search Trees | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
-| W10 | 5/5, 5/7 | Hash Tables and Set Data Structures | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
+| W10 | 5/5 (public holiday), 5/7 | Hash Tables and Set Data Structures | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
 | W11 | 5/12, 5/14 | Graph Algorithms I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
 | W12 | 5/19, 5/21 | Graph Algorithms II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
 | W13 | 5/26, 5/28 | NP-Complete Problems and Approximation Algorithms | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
@@ -88,9 +88,10 @@
 | W16 | 6/16, 6/18 | Study Week | - |
 
 - The planned topics follow the weekly plan in the syllabus.
-- The theory decks (`W##_LEC_`) are covered in the lecture note of the `Week##` unit with the same number, and the lab decks of weeks 1-6 (`W##_LAB_`) in the lab note of the same unit. The units are listed in the [`Lecture-Notes` index](Lecture-Notes/README.md).
+- The theory decks (`W##_LEC_`) are covered in the lecture note of the `Week##` unit with the same number, and the lab decks of weeks 1-6 and 10-12 (`W##_LAB_`) in the lab note of the same unit. The units are listed in the [`Lecture-Notes` index](Lecture-Notes/README.md).
+- In Week 10, 5/5 was Children's Day (a public holiday) and the university's foundation day.
 - The week 7 decks have no unit of their own, and the midterm exam preparation materials are in the [`Coursework` index](Coursework/README.md).
-- The lab decks of weeks 9-13 support the team-based term project carried out in the lab sessions, and the decks of weeks 10-12 also include exercises on that week's lecture topic (hash tables, graph traversal, shortest paths); no lab notes were written for them.
+- The lab decks of weeks 9-13 support the team-based term project carried out in the lab sessions. The exercises of the week 10-12 decks (hash tables, graph traversal, shortest paths) and the algorithms of their reference web applications are covered in the lab note of each unit, and no lab notes were written for the week 9 and 13 decks, which deal only with the progress of the term project (the Claude Code tutorial and team formation, final polishing and presentations).
 - HW1 to HW5 are the homework assignments given once a week in weeks 2-6, and their handouts, explanations, and solution code are in the `Coursework` index.
 
 ---

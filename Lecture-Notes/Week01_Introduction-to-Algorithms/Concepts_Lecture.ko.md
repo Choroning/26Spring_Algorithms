@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-11-04
+> **최종 수정일:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -242,13 +242,13 @@ n = 1,000,000일 때 순차 탐색은 최대 1,000,000번, 이진 탐색은 약 
 
 ### 2.3 동전 거스름돈 문제
 
-**문제:** **730원**(그림 5 [4])을 **최소한의 동전**으로 거슬러 주어라.
+**문제:** **730원**(그림 5)을 **최소한의 동전**으로 거슬러 주어라.
 
-![그림 5. 대한민국의 동전과 지폐](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/500px-Currency_South_Korea.jpg)
+![그림 5. 거스름돈 문제에 쓰는 원화 동전의 네 가지 액면가](../../images/Week01_Korean-Won-Coins.svg)
 
-*그림 5. 대한민국의 동전과 지폐*
+*그림 5. 거스름돈 문제에 쓰는 원화 동전의 네 가지 액면가*
 
-**그리디 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다(그림 6 [5]).
+**그리디 접근:** 남은 금액을 초과하지 않는 **가장 큰** 동전을 항상 선택한다(그림 6 [4]).
 
 ![그림 6. 36센트를 그리디 방식으로 거슬러 주는 동전 선택](../../images/Week01_Greedy-Coin-Selection-36-Cents.svg)
 
@@ -295,7 +295,7 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 *그림 7. Konigsberg의 7개 다리*
 
-> **[이산수학]** **그래프(Graph)** 는 **정점(vertex)** 의 집합과 두 정점을 잇는 **간선(edge)** 의 집합으로 이루어지며, 한 정점에 연결된 간선의 수를 그 정점의 **차수(degree)** 라 한다. 오일러는 Konigsberg 다리 문제(그림 7 [6])를 이 모형으로 옮겨, 연결 그래프에 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면 **홀수 차수 정점이 0개 또는 2개**여야 함을 증명하였고, 이 차수 조건으로 이 절의 순회가 가능한지를 미리 판정할 수 있다.
+> **[이산수학]** **그래프(Graph)** 는 **정점(vertex)** 의 집합과 두 정점을 잇는 **간선(edge)** 의 집합으로 이루어지며, 한 정점에 연결된 간선의 수를 그 정점의 **차수(degree)** 라 한다. 오일러는 Konigsberg 다리 문제(그림 7 [5])를 이 모형으로 옮겨, 연결 그래프에 모든 간선을 한 번씩 지나는 경로(오일러 경로)가 존재하려면 **홀수 차수 정점이 0개 또는 2개**여야 함을 증명하였고, 이 차수 조건으로 이 절의 순회가 가능한지를 미리 판정할 수 있다.
 
 아래 풀이 예시에서 사용하는 그래프(정점 1~10)는 다음과 같다.
 
@@ -344,7 +344,7 @@ graph TD
 
 ### 2.5 미로 찾기
 
-**그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래**를 가져가 돌아오는 길을 찾았다(그림 9 [7], 그림 10 [8]).
+**그리스 신화 속 테세우스:** 미로에 들어갈 때 **실타래**를 가져가 돌아오는 길을 찾았다(그림 9 [6], 그림 10 [7]).
 
 ![그림 9. Longleat 울타리 미로](../../images/Week01_Longleat-Hedge-Maze.jpg)
 
@@ -371,7 +371,7 @@ graph TD
 
 ### 2.6 가짜 동전 문제
 
-**문제:** n개의 동전 중 **하나**가 가짜(약간 가벼움)이다. **양팔 저울**(그림 11 [9])을 사용하여 최소한의 측정 횟수로 가짜 동전을 찾아라.
+**문제:** n개의 동전 중 **하나**가 가짜(약간 가벼움)이다. **양팔 저울**(그림 11 [8])을 사용하여 최소한의 측정 횟수로 가짜 동전을 찾아라.
 
 ![그림 11. 양팔 저울](../../images/Week01_Balance-Scale.jpg)
 
@@ -463,7 +463,7 @@ n = 1,024개 동전일 때:
 
 ### 2.7 독이 든 와인 문제
 
-**이야기:** 왕에게 여러 와인 항아리(그림 12 [10])가 있다. 스파이가 **정확히 하나**의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망하게 한다.
+**이야기:** 왕에게 여러 와인 항아리(그림 12 [9])가 있다. 스파이가 **정확히 하나**의 항아리에 독을 넣었다. 독은 작은 한 모금만 마셔도 정확히 **일주일 후** 사망하게 한다.
 
 ![그림 12. 와인 배럴](../../images/Week01_Wine-Barrels.jpg)
 
@@ -652,10 +652,9 @@ n = 1,000,000     ->  log₂(1,000,000) = ~20명의 하인
 1. Zarateman, "Madrid - Ciudad Universitaria, Monumento a Muhammad al-Juarismi (cropped)," *Wikimedia Commons*, Oct. 2022. License: CC0 1.0. https://commons.wikimedia.org/wiki/File:Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg
 2. R. Maijen, "AcetoFive," *Wikimedia Commons*, May 2011. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:AcetoFive.JPG
 3. AlwaysAngry, "Binary Search Depiction," *Wikimedia Commons*, Nov. 2016. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg
-4. The Bank of Korea, "Currency South Korea," *Wikimedia Commons*. License: South Korean currency (Bank of Korea reproduction guidelines). https://commons.wikimedia.org/wiki/File:Currency_South_Korea.jpg
-5. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
-6. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
-7. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
-8. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
-9. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
-10. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg
+4. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
+5. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
+6. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
+7. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
+8. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
+9. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg

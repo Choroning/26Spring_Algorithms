@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-04
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -242,13 +242,13 @@ For n = 1,000,000, sequential search makes up to 1,000,000 comparisons and binar
 
 ### 2.3 Coin Change Problem
 
-**Problem:** Give change for **730 won** (Figure 5 [4]) using the **minimum number of coins**.
+**Problem:** Give change for **730 won** (Figure 5) using the **minimum number of coins**.
 
-![Figure 5. South Korean coins and banknotes](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/500px-Currency_South_Korea.jpg)
+![Figure 5. The four Korean won coin denominations used in the change problem](../../images/Week01_Korean-Won-Coins.svg)
 
-*Figure 5. South Korean coins and banknotes*
+*Figure 5. The four Korean won coin denominations used in the change problem*
 
-**Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount (Figure 6 [5]).
+**Greedy approach:** Always choose the **largest** coin that does not exceed the remaining amount (Figure 6 [4]).
 
 ![Figure 6. Greedy coin selection for 36 cents](../../images/Week01_Greedy-Coin-Selection-36-Cents.svg)
 
@@ -295,7 +295,7 @@ An Euler *path* traverses every edge exactly once. If it also returns to the sta
 
 *Figure 7. The seven bridges of Konigsberg*
 
-> **[Discrete Mathematics]** A **graph** consists of a set of **vertices** and a set of **edges**, each joining two vertices, and the number of edges incident to a vertex is its **degree**. Euler recast the Konigsberg bridge problem (Figure 7 [6]) in this model and proved that for a path traversing every edge exactly once (an Euler path) to exist in a connected graph, the number of **odd-degree vertices** must be 0 or 2, so this degree condition decides in advance whether the traversal in this section is possible.
+> **[Discrete Mathematics]** A **graph** consists of a set of **vertices** and a set of **edges**, each joining two vertices, and the number of edges incident to a vertex is its **degree**. Euler recast the Konigsberg bridge problem (Figure 7 [5]) in this model and proved that for a path traversing every edge exactly once (an Euler path) to exist in a connected graph, the number of **odd-degree vertices** must be 0 or 2, so this degree condition decides in advance whether the traversal in this section is possible.
 
 The following graph (vertices 1-10) is used in the worked example below.
 
@@ -344,7 +344,7 @@ The key insight is that crossing a bridge prematurely can split the graph into d
 
 ### 2.5 Maze Solving
 
-**Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back (Figure 9 [7], Figure 10 [8]).
+**Greek myth of Theseus:** He took a **ball of thread** into the labyrinth to find his way back (Figure 9 [6], Figure 10 [7]).
 
 ![Figure 9. Longleat hedge maze](../../images/Week01_Longleat-Hedge-Maze.jpg)
 
@@ -371,7 +371,7 @@ It is a simple and elegant algorithm that needs no markings or thread.
 
 ### 2.6 Counterfeit Coin Problem
 
-**Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale** (Figure 11 [9]), find the counterfeit coin with the minimum number of weighings.
+**Problem:** Among n coins, **one** is counterfeit (slightly lighter). Using a **balance scale** (Figure 11 [8]), find the counterfeit coin with the minimum number of weighings.
 
 ![Figure 11. Balance scale](../../images/Week01_Balance-Scale.jpg)
 
@@ -463,7 +463,7 @@ For n = 1,024 coins:
 
 ### 2.7 Poisoned Wine Problem
 
-**Story:** A king has several wine jars (Figure 12 [10]). A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
+**Story:** A king has several wine jars (Figure 12 [9]). A spy has poisoned **exactly one** jar. The poison kills after exactly **one week**, even from a single sip.
 
 ![Figure 12. Wine barrels](../../images/Week01_Wine-Barrels.jpg)
 
@@ -652,10 +652,9 @@ Try answering each question yourself before expanding the folded answer.
 1. Zarateman, "Madrid - Ciudad Universitaria, Monumento a Muhammad al-Juarismi (cropped)," *Wikimedia Commons*, Oct. 2022. License: CC0 1.0. https://commons.wikimedia.org/wiki/File:Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg
 2. R. Maijen, "AcetoFive," *Wikimedia Commons*, May 2011. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:AcetoFive.JPG
 3. AlwaysAngry, "Binary Search Depiction," *Wikimedia Commons*, Nov. 2016. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg
-4. The Bank of Korea, "Currency South Korea," *Wikimedia Commons*. License: South Korean currency (Bank of Korea reproduction guidelines). https://commons.wikimedia.org/wiki/File:Currency_South_Korea.jpg
-5. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
-6. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
-7. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
-8. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
-9. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
-10. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg
+4. Nandhp, "Greedy algorithm 36 cents," *Wikimedia Commons*, May 2010. License: Public domain. https://commons.wikimedia.org/wiki/File:Greedy_algorithm_36_cents.svg
+5. Twotwos, "Bridges of Konigsberg," *Wikimedia Commons*, Sep. 2025. License: CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Bridges_of_Konigsberg.png
+6. N. Odolphie, "Longleat-maze," *Wikimedia Commons*, Sep. 2008. License: CC BY 2.0. https://commons.wikimedia.org/wiki/File:Longleat-maze.jpg
+7. M.-L. Nguyen, "Theseus Minotaur BM Vase E84," *Wikimedia Commons*, 2007. License: CC BY 2.5. https://commons.wikimedia.org/wiki/File:Theseus_Minotaur_BM_Vase_E84.jpg
+8. Poussin jean, "Balance à tabac 1850," *Wikimedia Commons*, Feb. 2007. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG
+9. S. Acharya, "Wine Barrels," *Wikimedia Commons*, Aug. 2008. License: CC BY-SA 3.0. https://commons.wikimedia.org/wiki/File:Wine_Barrels.jpg

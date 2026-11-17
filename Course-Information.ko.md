@@ -2,7 +2,7 @@
 
 [레포지토리 안내](README.ko.md) | [English](Course-Information.md) | [한국어](Course-Information.ko.md)
 
-> **최종 수정일:** 2026-11-17
+> **최종 수정일:** 2026-11-18
 
 ## 목차
 
@@ -79,7 +79,7 @@
 | 7주차 | 4/14, 4/16 | 복습 및 문제 풀이 | W07_LEC_Midterm-Review<br>W07_LAB_Midterm-Exam-Preparation |
 | 8주차 | 4/21, 4/23 | 중간고사 | - |
 | 9주차 | 4/28, 4/30 | 탐색 트리 | W09_LEC_Search-Trees<br>W09_LAB_Claude-Code-Tutorial-and-Project-Kickoff |
-| 10주차 | 5/5, 5/7 | 해시 테이블 및 집합 자료구조 | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
+| 10주차 | 5/5 (공휴일), 5/7 | 해시 테이블 및 집합 자료구조 | W10_LEC_Hash-Tables-and-Set-Data-Structures<br>W10_LAB_Hash-Tables-and-Project |
 | 11주차 | 5/12, 5/14 | 그래프 알고리즘 I | W11_LEC_Graph-Algorithms-I<br>W11_LAB_Graph-Traversal-and-Project |
 | 12주차 | 5/19, 5/21 | 그래프 알고리즘 II | W12_LEC_Graph-Algorithms-II<br>W12_LAB_Shortest-Paths-and-Project |
 | 13주차 | 5/26, 5/28 | NP-완전 문제 및 근사 알고리즘 | W13_LEC_NP-Completeness-and-Approximation-Algorithms<br>W13_LAB_Project-Finalization-and-Presentations |
@@ -88,9 +88,10 @@
 | 16주차 | 6/16, 6/18 | 자율학습 주간 | - |
 
 - 계획된 주제는 강의계획서의 주별 학습 내용을 따른다.
-- 이론 강의자료(`W##_LEC_`)는 같은 번호의 `Week##` 단원의 강의 노트에, 1~6주차의 실습 강의자료(`W##_LAB_`)는 같은 단원의 실습 노트에 정리했으며, 단원 목록은 [`Lecture-Notes` 색인](Lecture-Notes/README.ko.md)에 있다.
+- 이론 강의자료(`W##_LEC_`)는 같은 번호의 `Week##` 단원의 강의 노트에, 1\~6주차와 10\~12주차의 실습 강의자료(`W##_LAB_`)는 같은 단원의 실습 노트에 정리했으며, 단원 목록은 [`Lecture-Notes` 색인](Lecture-Notes/README.ko.md)에 있다.
+- 10주차의 5/5는 어린이날(공휴일)이자 개교기념일이다.
 - 7주차 강의자료는 따로 단원이 없고, 중간고사 대비 자료는 [`Coursework` 색인](Coursework/README.ko.md)에 있다.
-- 9\~13주차의 실습 강의자료는 실습 시간에 진행한 팀 단위 텀 프로젝트의 자료이고, 10\~12주차 자료에는 그 주 이론의 연습 문제(해시 테이블, 그래프 탐색, 최단 경로)도 들어 있으며, 실습 노트는 만들지 않았다.
+- 9\~13주차의 실습 강의자료는 실습 시간에 진행한 팀 단위 텀 프로젝트의 자료이다. 10\~12주차 자료의 연습 문제(해시 테이블, 그래프 순회, 최단 경로)와 참조 웹 애플리케이션의 알고리즘은 각 단원의 실습 노트에 정리했고, 텀 프로젝트의 진행만 다루는 9주차와 13주차 자료(Claude Code 실습과 팀 구성, 최종 정리와 발표)는 실습 노트를 만들지 않았다.
 - HW1부터 HW5까지는 2~6주차에 한 번씩 나온 가정 과제이며, 과제 안내문과 해설, 풀이 코드는 `Coursework` 색인에 있다.
 
 ---
