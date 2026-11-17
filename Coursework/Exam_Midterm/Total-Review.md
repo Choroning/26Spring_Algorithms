@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 
 ---
 
@@ -371,7 +371,7 @@ The exact operation count (e.g., $`T(n) = 3n^2 + 100n + 5000`$) depends on imple
 
 #### 2.2.1 Big-O: Asymptotic Upper Bound
 
-**Definition:**
+Big-O is defined as the following set.
 
 ```math
 O(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \leq c \cdot g(n) \}
@@ -1967,7 +1967,7 @@ count = 16 × 4 = 64
 
 **Answer:** (a) $O(n \log n)$, (b) 64.
 
-**Key point:** The `i *= 2` pattern repeats $\log n$ times and the `i += 1` pattern repeats $n$ times; these patterns appear frequently on exams.
+> **Key Point:** The `i *= 2` pattern repeats $\log n$ times and the `i += 1` pattern repeats $n$ times; these patterns appear frequently on exams.
 
 </details>
 
@@ -2067,7 +2067,7 @@ def activity_selection(lectures):
 
 **Example:** For the lecture list `[(1,3),(2,5),(3,6),(5,7),(6,8),(8,10),(9,11)]`, the selected lectures are (1,3) → (3,6) → (6,8) → (8,10), 4 in total. A lecture that starts exactly when the previous one ends does not overlap it (`start >= last_end`).
 
-**Key point:** It is a greedy algorithm based on EFT (Earliest Finish Time), and its time complexity is $O(n \log n)$, dominated by sorting.
+> **Key Point:** It is a greedy algorithm based on EFT (Earliest Finish Time), and its time complexity is $O(n \log n)$, dominated by sorting.
 
 </details>
 

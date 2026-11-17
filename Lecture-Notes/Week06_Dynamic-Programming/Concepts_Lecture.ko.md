@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **최종 수정일:** 2026-11-17
+> **최종 수정일:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -156,7 +156,7 @@ graph TD
 
 ### 1.5 예제: 피보나치 수
 
-**정의:** $f(n) = f(n-1) + f(n-2)$, $f(1) = f(2) = 1$
+피보나치 수는 $f(1) = f(2) = 1$이고 $n \geq 3$이면 $f(n) = f(n-1) + f(n-2)$인 수열로 정의된다.
 
 **순진한 재귀:**
 

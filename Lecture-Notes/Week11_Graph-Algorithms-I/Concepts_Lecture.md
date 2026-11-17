@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 21, 22, 23
 
@@ -475,7 +475,7 @@ Both have the same asymptotic time, but they explore the graph in fundamentally 
 
 **Precondition:** the graph must be a Directed Acyclic Graph (DAG), that is, it has no directed cycles.
 
-**Definition:** arrange all vertices in a linear order such that for every directed edge $(x, y)$, vertex $x$ appears **before** vertex $y$.
+> **Definition:** A **topological sort** of a DAG is an arrangement of all its vertices in a linear order such that for every directed edge $(x, y)$, vertex $x$ appears before vertex $y$.
 
 - Multiple valid orderings may exist for the same DAG.
 - A graph admits a topological order **if and only if** it is a DAG.

@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Total-Review.md) | [한국어](Total-Review.ko.md)
 
-> **최종 수정일:** 2026-11-17
+> **최종 수정일:** 2026-11-18
 
 ---
 
@@ -371,7 +371,7 @@ def binary_search(arr, target):
 
 #### 2.2.1 Big-O: 점근적 상한
 
-**정의:**
+Big-O는 다음 집합으로 정의된다.
 
 ```math
 O(g(n)) = \{ f(n) \mid \exists c > 0, n_0 \geq 0 \text{ s.t. } \forall n \geq n_0, f(n) \leq c \cdot g(n) \}
@@ -1967,7 +1967,7 @@ count = 16 × 4 = 64
 
 **답:** (a) $O(n \log n)$, (b) 64이다.
 
-**핵심:** `i *= 2` 패턴은 $\log n$번, `i += 1` 패턴은 $n$번 반복되며, 이는 시험에 빈번히 출제되는 패턴이다.
+> **핵심:** `i *= 2` 패턴은 $\log n$번, `i += 1` 패턴은 $n$번 반복되며, 이는 시험에 빈번히 출제되는 패턴이다.
 
 </details>
 
@@ -2067,7 +2067,7 @@ def activity_selection(lectures):
 
 **예시:** 강의 목록이 `[(1,3),(2,5),(3,6),(5,7),(6,8),(8,10),(9,11)]`일 때, 선택되는 강의는 (1,3) → (3,6) → (6,8) → (8,10)으로 총 4개이다. 시작 시간이 직전 종료 시간과 같으면 겹치지 않는 것으로 본다(`start >= last_end`).
 
-**핵심:** EFT(Earliest Finish Time, 가장 빨리 끝나는 시간) 기준의 그리디이며, 정렬에 지배되어 시간 복잡도는 $O(n \log n)$이다.
+> **핵심:** EFT(Earliest Finish Time, 가장 빨리 끝나는 시간) 기준의 그리디이며, 정렬에 지배되어 시간 복잡도는 $O(n \log n)$이다.
 
 </details>
 

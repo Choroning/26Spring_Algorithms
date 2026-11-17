@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-17
+> **Last Updated:** 2026-11-18
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 15, 25
 
@@ -156,7 +156,7 @@ Top-Down (Memoization)          Bottom-Up (Tabulation)
 
 ### 1.5 Example: Fibonacci Numbers
 
-**Definition:** $f(n) = f(n-1) + f(n-2)$, with $f(1) = f(2) = 1$
+The Fibonacci numbers are defined by $f(1) = f(2) = 1$ and $f(n) = f(n-1) + f(n-2)$ for $n \geq 3$.
 
 **Naive recursion:**
 
