@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 6, 7, 8, 10
 
@@ -1019,15 +1019,6 @@ The lower bound for comparison-based sorting is **Ω(n log n)**.
 Linear-time sorts bypass this by exploiting input structure rather than comparisons.
 
 > **Note:** The k in Table 9 means different things for different algorithms. For counting sort, k is the value range, and in the Θ(nk) time of radix sort, k is the number of digits. The O(n + k) space of radix sort refers to the output and count arrays of the counting sort used for each digit, so there k should be read as the number of values one digit can take (the base). Also, the O(k) space of counting sort counts only the count array; including the output array B, it is O(n + k).
-
-**Key points of Table 9:** The properties in Table 9 that guide the choice of a sorting algorithm are as follows.
-- Always O(n²): Selection sort
-- Best-case O(n) among elementary sorts: Bubble (with optimization), Insertion
-- Always O(n log n): Merge, Heap
-- Worst-case O(n²) among advanced sorts: Quick (but average is the fastest)
-- Requires O(n) extra space: Merge
-- In-place: Selection, Bubble, Insertion, Heap
-- Stable: Bubble, Insertion, Merge, Counting, Radix
 
 ---
 

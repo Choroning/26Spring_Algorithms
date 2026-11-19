@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 
 > **Learning Objectives:**
 > 1. Install and run at least one AI coding agent (Gemini CLI, Claude Code, Codex CLI, or GitHub Copilot CLI)
@@ -81,7 +81,7 @@ flowchart LR
 
 > **Key Point:** Coding agents are AI tools that have advanced rapidly in recent times. What distinguishes them from conversational AI like ChatGPT is their ability to **directly access the file system** and **execute commands**. That is, instead of copying and pasting code, the agent reads and modifies files directly.
 
-**A concrete example:** When you ask the agent to "write a bubble_sort function," (1) Read: it examines the project's existing file structure and code, (2) Plan: it decides to add the function to sorting.py, (3) Act: it directly edits the file to write the code, (4) Verify: it runs the written code to check for errors. The key difference from ChatGPT's web interface is that the agent modifies files **directly** without any copy-paste.
+**A concrete example:** When you ask the agent to "write a bubble_sort function," (1) Read: it examines the project's existing file structure and code, (2) Plan: it decides to add the function to sorting.py, (3) Act: it directly edits the file to write the code, (4) Verify: it runs the written code to check for errors.
 
 ### 2.1 Available Agents
 
@@ -103,30 +103,14 @@ If you have no particular preference, **Gemini CLI** is recommended because it i
 
 ## 3. Task 1: Install a Coding Agent
 
-Refer to the official documentation and install at least one coding agent.
-
-**Installation Commands:**
+Refer to the official documentation and install at least one coding agent. Gemini CLI and Claude Code are installed system-wide (`-g`, global) with `npm`, the package manager of Node.js, so the LTS version of Node.js must first be installed from https://nodejs.org.
 
 ```bash
 npm install -g @google/gemini-cli          # Gemini CLI (Free)
 npm install -g @anthropic-ai/claude-code    # Claude Code (Paid)
 ```
 
-**Verify Installation:**
-
-```bash
-gemini --version    # or: claude --version
-```
-
-**Checklist:**
-
-- Check that the CLI runs without errors.
-- Check that you can authenticate (Gemini uses a Google account, Claude uses an Anthropic account).
-- Confirm a response with a simple prompt: `"What is 2 + 2?"`
-
-`npm` is Node.js's package manager. To run the commands above, Node.js must be installed first. The `-g` flag stands for "global," meaning it installs system-wide so the command can be used from anywhere.
-
-Node.js is required for some coding agents. Install the LTS version from https://nodejs.org and verify the installation with `node --version` in your terminal.
+After installation, check with `gemini --version` or `claude --version` that the CLI runs without errors, that the account can be authenticated (Gemini uses a Google account, Claude uses an Anthropic account), and that it responds to a simple prompt such as `"What is 2 + 2?"`.
 
 ---
 
@@ -393,15 +377,6 @@ The **Week 2 Lab** is a complexity analysis lab that compares an O(n²) solution
    <summary>Answer</summary>
 
    For large inputs, **Python's built-in `sorted()`** is fastest. It uses **Timsort**, a hybrid of merge sort and insertion sort with `O(n log n)` complexity. Implemented in optimized C, it also exploits sorted runs in real-world data. **Merge sort** has the same asymptotic complexity but runs in pure Python and allocates extra memory, so it is slower in practice. **Bubble sort** takes `O(n²)` time and becomes impractical at scale; for `n = 100,000`, it is roughly `n / log₂(n) ≈ 6,000×` slower than the `O(n log n)` algorithms.
-
-   </details>
-
-4. What does the `--dangerously-skip-permissions` flag do in Claude Code, and why should you be cautious with it?
-
-   <details>
-   <summary>Answer</summary>
-
-   The flag bypasses Claude Code's **per-action confirmation prompts** for file edits, shell commands, and network calls, allowing the agent to act without asking. This helps in the Ralph loop or sandboxed CI, where prompts would block execution. It also removes the **human checkpoint** that can catch destructive actions such as `rm -rf`, force-pushes, or secret leaks. Use the flag only in an **isolated environment**, such as a container, an ephemeral VM, or a sandbox without production credentials, and never on a system where mistakes cannot be reverted.
 
    </details>
 

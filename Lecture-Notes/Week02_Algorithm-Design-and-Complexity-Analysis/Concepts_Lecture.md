@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 2, 3, 4
 
@@ -92,8 +92,6 @@ Here, $a = A/G$ and $b = B/G$ are integers (since $G$ divides both $A$ and $`B`$
 $$A \mod B = (a \mod b) \cdot G$$
 
 Repeatedly applying this reduces $B$ to $0$, and $A$ at that point is the GCD.
-
-The remainder A mod B is also a multiple of G. That is, the GCD is preserved through the modulo operation. This is why GCD(A, B) = GCD(B, A mod B) holds.
 
 **Proof:** Since $A = B \cdot q + r$ (q is the quotient, r is the remainder), $a \cdot G = b \cdot G \cdot q + r$. Therefore $r = (a - bq) \cdot G = (a \bmod b) \cdot G$. Since G remains a factor in the remainder, the GCD is preserved.
 
@@ -282,15 +280,7 @@ Fibonacci illustrates the difference as follows.
 - **Divide and Conquer**: The calls expand as fib(5) → fib(4) + fib(3), fib(4) → fib(3) + fib(2), and fib(3) is **computed redundantly**. The time complexity is $O(2^n)$.
 - **DP**: Compute sequentially from fib(1), fib(2), storing results in a table for reuse. No redundant computation, yielding O(n).
 
-**Approximation, Backtracking, Branch and Bound:**
-
-| Type | Description |
-|:-----|:------------|
-| **Approximation Algorithms** | For NP-hard problems where exact solutions are too costly. Trade optimality for speed. Examples: TSP approximation, Vertex Cover |
-| **Backtracking** | Explore all possibilities but prune infeasible branches. Examples: N-Queens, Maze Search |
-| **Branch and Bound** | Similar to backtracking, but computes upper or lower bounds for more effective pruning. Examples: TSP, Knapsack (exact solution) |
-
-*Table 5. Comparison of approximation, backtracking, and branch-and-bound algorithms*
+**Approximation, Backtracking, Branch and Bound:** Of the strategies in Table 4, approximation algorithms trade optimality for speed in NP-hard problems where exact solutions are too costly, as in TSP approximation and Vertex Cover. Backtracking is used for N-Queens and maze search, and branch and bound for exact solutions of TSP and the knapsack problem.
 
 > **Note:** An NP-hard problem is one to which every problem in NP reduces in polynomial time, and no polynomial-time algorithm for it is known. For example, for the Traveling Salesman Problem (TSP), checking all cases becomes practically impossible as n grows. This will be covered in detail in Week 13.
 
@@ -400,7 +390,7 @@ The time complexity of a recursive function is determined by how many recursive 
 | **Best-case** | Fastest execution; used to find the optimal algorithm |
 | **Amortized** | Average cost per operation over a sequence of operations |
 
-*Table 6. Four types of complexity analysis*
+*Table 5. Four types of complexity analysis*
 
 Amortized analysis is different from average-case analysis. It considers the worst-case total cost of a *sequence* of operations, then divides by the number of operations. For example, a dynamic array occasionally needs to resize (expensive), but most insertions are cheap, so the amortized cost per insertion is O(1).
 
@@ -422,7 +412,7 @@ Scenario: Home → Station (6 min) → Subway (20 min) → Classroom (10 min)
 | **Worst** | 40 min | The train just left, so a 4 min wait |
 | **Average** | 38 min | Average wait of about 2 min |
 
-*Table 7. Best, worst, and average cases of commute time*
+*Table 6. Best, worst, and average cases of commute time*
 
 Algorithm analysis follows the same way of thinking: the **worst case** provides a guarantee.
 
@@ -450,7 +440,7 @@ Section 2 computed exact operation counts like $T(n) = n-1$ or $T(n) = n(n-1)/2$
 | $\Omega$ (Big-Omega) | Lower bound | Grows at least this fast |
 | $\Theta$ (Theta) | Tight bound | Exact growth rate |
 
-*Table 8. Meaning of the three asymptotic notations*
+*Table 7. Meaning of the three asymptotic notations*
 
 > **Key Point:** **Asymptotic** means behavior as n approaches infinity. For example, in $3n^2 + 100n + 5000$, when n is 1,000,000, $3n^2 = 3 \times 10^{12}$ and $100n = 10^8$, so $100n$ is negligibly small compared to $3n^2$. That is why we **keep only the highest-order term** and ignore the rest.
 
@@ -508,7 +498,7 @@ The statements "this algorithm is O(n²)" and "this algorithm is O(n log n)" can
 | $10n^2 + 4n + 2$ | $O(n^2)$ | $10n^2+4n+2 \leq 11n^2$ (for $`n \geq 5`$) |
 | $6 \cdot 2^n + n^2$ | $O(2^n)$ | $6 \cdot 2^n + n^2 \leq 7 \cdot 2^n$ (for $`n \geq 4`$) |
 
-*Table 9. Examples of Big-O bounds and their justification*
+*Table 8. Examples of Big-O bounds and their justification*
 
 ### 3.3 Big-Omega Notation
 
@@ -534,7 +524,7 @@ $\Omega(g(n))$ is the set of functions that grow **at least as fast as** $g(n)$.
 | $10n^2 + 4n + 2$ | $\Omega(n^2)$ | $10n^2+4n+2 \geq n^2$ (for $`n \geq 1`$) |
 | $6 \cdot 2^n + n^2$ | $\Omega(2^n)$ | $6 \cdot 2^n + n^2 \geq 2^n$ (for $`n \geq 1`$) |
 
-*Table 10. Examples of Big-Omega bounds and their justification*
+*Table 9. Examples of Big-Omega bounds and their justification*
 
 **Best Practice:** Write as tightly as possible. Write $n \log n + 5n = \Omega(n \log n)$, not $\Omega(n)$.
 
@@ -571,7 +561,7 @@ $\Theta(g(n))$ is the set of functions that grow **at the same rate as** $g(n)$.
 | $10n^2 + 4n + 2$ | $\Theta(n^2)$ |
 | $6 \cdot 2^n + n^2$ | $\Theta(2^n)$ |
 
-*Table 11. Examples of Theta bounds*
+*Table 10. Examples of Theta bounds*
 
 **Counterexample:** $2n^2 + 3n + 5 \neq \Theta(n^3)$ and $2n^2 + 3n + 5 \neq \Theta(n)$, because Theta requires **both** the upper and lower bounds to match.
 
@@ -591,7 +581,7 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($`c_2 = 5`$). Lower bound: $3n + 2
 | $O(n^3)$ | Cubic | Matrix multiplication (naive) |
 | $O(2^n)$ | Exponential | Subset exhaustive search |
 
-*Table 12. Common complexity classes and examples*
+*Table 11. Common complexity classes and examples*
 
 **Hierarchy:** $O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n)$
 
@@ -612,7 +602,7 @@ Upper bound: $3n + 2 \leq 5n$ for $n \geq 1$ ($`c_2 = 5`$). Lower bound: $3n + 2
 | 1,000 | 10 | 1,000 | 10,000 | $10^6$ | $10^9$ | $10^{301}$ |
 | $10^6$ | 20 | $10^6$ | $2 \times 10^7$ | $10^{12}$ | $10^{18}$ | - |
 
-*Table 13. Growth of function values by input size*
+*Table 12. Growth of function values by input size*
 
 The gap between polynomial and exponential is **enormous**.
 
@@ -631,7 +621,7 @@ $2^{100} \approx 10^{30}$, and at $n = 1{,}000$, $2^n \approx 10^{301}$ far exce
 | $O(n \log n)$ (PC) | < 1 sec | < 1 sec | **about 5 min** |
 | $O(n \log n)$ (Supercomputer) | < 1 sec | < 1 sec | < 1 sec |
 
-*Table 14. Sorting time by algorithm and hardware*
+*Table 13. Sorting time by algorithm and hardware*
 
 The table assumes a PC performs about $10^8$ operations per second and a supercomputer about $10^{12}$.
 
@@ -686,7 +676,7 @@ The merge process compares elements from the front of both arrays, taking the sm
 | **Guess and Verify** | Guess the form, then prove it by mathematical induction |
 | **Master Theorem** | Apply a formula directly to recurrences of a specific form |
 
-*Table 15. Three methods for solving recurrences*
+*Table 14. Three methods for solving recurrences*
 
 ### 4.2 Method 1: Repeated Substitution
 
@@ -799,7 +789,7 @@ Let $h(n) = n^{\log_b a}$, and compare $f(n)$ and $h(n)$.
 | **Case 2** | $f(n) = \Theta(n^{\log_b a})$ | $T(n) = \Theta(n^{\log_b a} \log n)$ |
 | **Case 3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ (for some $`\varepsilon > 0`$), and $af(n/b) \leq cf(n)$ (for some $`c < 1`$) | $T(n) = \Theta(f(n))$ |
 
-*Table 16. The three cases of the Master Theorem*
+*Table 15. The three cases of the Master Theorem*
 
 **Polynomially smaller** or **larger** means the following. The requirement that $\varepsilon > 0$ exists in $f(n) = O(n^{\log_b a - \varepsilon})$ means f(n) must be smaller than $n^{\log_b a}$ by a factor of **$n^{\varepsilon}$**. For example, if $n^{\log_b a} = n$ and $f(n) = n / \log n$, this is smaller than n but not polynomially smaller. In such cases, the Master Theorem cannot be directly applied.
 
@@ -827,7 +817,7 @@ Each level of the recursion tree does work. **Which part dominates?**
 | Root dominates | Root work wins | $T(n) = \Theta(f(n))$ |
 | Balanced | Equal per level | $T(n) = \Theta(n^{\log_b a} \log n)$ |
 
-*Table 17. Result by the dominating part of the recursion tree*
+*Table 16. Result by the dominating part of the recursion tree*
 
 The tree height is $\log_b n$, and the total cost at each level is summed.
 

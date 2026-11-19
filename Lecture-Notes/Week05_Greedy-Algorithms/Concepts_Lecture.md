@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 16, 21, 23, 24
 
@@ -841,16 +841,7 @@ DP is usually described as bottom-up (tabulation), but it can also be implemente
 
    </details>
 
-6. **Kruskal vs Prim:** For a graph with 6 vertices and 9 edges, trace both algorithms. Do they produce the same MST? Under what condition might they produce different MSTs?
-
-   <details>
-   <summary>Answer</summary>
-
-   Both are correct greedy MST algorithms and produce a tree of **identical total weight**. When **all edge weights are distinct**, the MST is **unique**, so Kruskal and Prim produce the *exact same* edge set even though the construction order differs (Kruskal merges a forest globally; Prim grows one tree from a start vertex). With **tied edge weights**, multiple MSTs may exist; both algorithms still find a minimum-weight one, but tie-breaking (and Prim's start vertex) can select different edges.
-
-   </details>
-
-7. **Dijkstra's:** Given a graph with a negative edge, construct a specific example where Dijkstra produces a wrong answer. Then explain the greedy invariant that is violated.
+6. **Dijkstra's:** Given a graph with a negative edge, construct a specific example where Dijkstra produces a wrong answer. Then explain the greedy invariant that is violated.
 
    <details>
    <summary>Answer</summary>
@@ -859,7 +850,7 @@ DP is usually described as bottom-up (tabulation), but it can also be implemente
 
    </details>
 
-8. **Greedy vs DP Decision:** For each problem, decide greedy or DP and explain: (a) minimum coins for arbitrary denominations, (b) shortest path with non-negative weights, (c) longest common subsequence, (d) fractional knapsack.
+7. **Greedy vs DP Decision:** For each problem, decide greedy or DP and explain: (a) minimum coins for arbitrary denominations, (b) shortest path with non-negative weights, (c) longest common subsequence, (d) fractional knapsack.
 
    <details>
    <summary>Answer</summary>

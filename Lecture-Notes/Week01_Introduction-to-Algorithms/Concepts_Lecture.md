@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 1, 2
 
@@ -502,20 +502,7 @@ Assign a 2-bit binary number to each jar.
 
 > **[Discrete Mathematics]** By the **product rule**, making k choices with two outcomes each gives $2^k$ possible combinations, and the same principle lets k-bit binary numbers, which use only the digits 0 and 1 (decimal 5 = 1×4 + 0×2 + 1×1 is 101 in binary), represent $2^k$ distinct values. Each of the k servants yields one of two outcomes, death or survival, so there are $2^k$ death patterns, and mapping each pattern to the binary jar number lets k servants distinguish among $2^k$ jars.
 
-**Reading the Results:**
-
-After one week, check who died.
-
-| A died | B died | Binary | Poisoned Jar |
-|:--------|:--------|:-------|:-------------|
-| No | No | 00 | Jar 0 |
-| No | Yes | 01 | Jar 1 |
-| Yes | No | 10 | Jar 2 |
-| Yes | Yes | 11 | Jar 3 |
-
-*Table 7. Death patterns of 2 servants and the poisoned jar*
-
-The **death pattern** directly encodes the **binary number** of the poisoned jar.
+**Reading the Results:** After one week, check who died: the **death pattern** directly encodes the **binary number** of the poisoned jar. For example, if only B dies the pattern is 01, so Jar 1 is poisoned, and if both die it is 11, so Jar 3 is poisoned.
 
 **8 jars (3 servants):**
 
@@ -530,7 +517,7 @@ The **death pattern** directly encodes the **binary number** of the poisoned jar
 | 6 | 110 | Yes | Yes | No |
 | 7 | 111 | Yes | Yes | Yes |
 
-*Table 8. Tasting plan for 8 jars and 3 servants*
+*Table 7. Tasting plan for 8 jars and 3 servants*
 
 Each servant tastes **4** jars. If jar 7 is poisoned, **all 3 servants die** (111).
 
@@ -551,7 +538,7 @@ This is the power of **binary encoding**, a fundamentally different way of think
 
 > **Note:** This problem is related to **Information Theory**. Each servant provides 1 bit of information: alive or dead. To distinguish among n jars, log₂(n) bits of information are needed, so at least log₂(n) servants are required. In this way, a logarithm can also be interpreted as the minimum amount of information needed to distinguish the cases.
 
-When n is not exactly a power of 2, **⌈log₂(n)⌉** (ceiling) servants are needed. For example, if n=5, log₂(5) ≈ 2.32, so 3 servants are needed. 3 bits (8 states) can distinguish among 5 jars. The remaining 3 states (binary 101, 110, 111) are simply unused.
+When n is not exactly a power of 2, **⌈log₂(n)⌉** (ceiling) servants are needed. For example, if n=5, log₂(5) ≈ 2.32, so 3 servants are needed. 3 bits (8 states) can distinguish among 5 jars.
 
 For the 5-jar case specifically, assign binary numbers 000-100 to jars 0-4, using 3 servants. Binary numbers 101(5), 110(6), 111(7) are unused. If only Servant A dies (100), jar 4 is poisoned; if nobody dies (000), jar 0 is poisoned. In this way, with k servants, as long as $2^k$ exceeds the number of jars, some codes remain unused but the scheme works without issues.
 

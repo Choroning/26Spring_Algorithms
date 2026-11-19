@@ -2,7 +2,7 @@
 
 [레포지토리 안내](../../README.ko.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **최종 수정일:** 2026-11-18
+> **최종 수정일:** 2026-11-19
 
 > **학습 목표:**
 > 1. AI 코딩 에이전트(Gemini CLI, Claude Code, Codex CLI, GitHub Copilot CLI 중 하나 이상)를 설치하고 실행할 수 있다
@@ -81,7 +81,7 @@ flowchart LR
 
 > **핵심:** 코딩 에이전트는 최근 급격히 발전한 AI 도구이다. ChatGPT 같은 기존의 대화형 AI와 다른 점은 **파일 시스템에 직접 접근**하고 **명령을 실행**할 수 있다는 것이다. 즉, 코드를 복사하여 붙여 넣을 필요 없이 에이전트가 직접 파일을 읽고 수정한다.
 
-**구체적인 동작 예시:** 에이전트에게 "bubble_sort 함수를 작성해줘"라고 요청하면, (1) Read: 프로젝트의 기존 파일 구조와 코드를 확인하고, (2) Plan: sorting.py에 함수를 추가하기로 결정하고, (3) Act: 파일을 직접 편집하여 코드를 작성하고, (4) Verify: 작성한 코드를 실행하여 오류가 없는지 확인한다. ChatGPT 웹과의 핵심 차이는 코드를 복사하여 붙여 넣을 필요 없이 에이전트가 파일을 **직접** 수정한다는 점이다.
+**구체적인 동작 예시:** 에이전트에게 "bubble_sort 함수를 작성해줘"라고 요청하면, (1) Read: 프로젝트의 기존 파일 구조와 코드를 확인하고, (2) Plan: sorting.py에 함수를 추가하기로 결정하고, (3) Act: 파일을 직접 편집하여 코드를 작성하고, (4) Verify: 작성한 코드를 실행하여 오류가 없는지 확인한다.
 
 ### 2.1 사용 가능한 에이전트
 
@@ -103,30 +103,14 @@ flowchart LR
 
 ## 3. Task 1: 코딩 에이전트 설치
 
-공식 문서를 참고하여 최소 하나의 코딩 에이전트를 설치한다.
-
-**설치 명령어:**
+공식 문서를 참고하여 최소 하나의 코딩 에이전트를 설치한다. Gemini CLI와 Claude Code는 Node.js의 패키지 관리자 `npm`으로 시스템 전역(`-g`, global)에 설치하므로, 먼저 https://nodejs.org 에서 Node.js의 LTS 버전을 설치해 두어야 한다.
 
 ```bash
 npm install -g @google/gemini-cli          # Gemini CLI (무료)
 npm install -g @anthropic-ai/claude-code    # Claude Code (유료)
 ```
 
-**설치 확인:**
-
-```bash
-gemini --version    # 또는: claude --version
-```
-
-**확인 사항:**
-
-- CLI가 오류 없이 실행되는지 확인한다.
-- 인증이 가능한지 확인한다(Gemini는 Google 계정, Claude는 Anthropic 계정).
-- 간단한 프롬프트로 응답을 확인한다: `"What is 2 + 2?"`
-
-`npm`은 Node.js의 패키지 관리자이다. 위 명령어를 실행하려면 먼저 Node.js가 설치되어 있어야 한다. `-g` 플래그는 "global"의 약자로, 시스템 전역에 설치하여 어디서든 명령어로 사용할 수 있게 한다.
-
-일부 코딩 에이전트에는 Node.js가 필요하다. https://nodejs.org 에서 LTS 버전을 설치하고, 터미널에서 `node --version`으로 설치를 확인한다.
+설치한 뒤에는 `gemini --version`이나 `claude --version`으로 CLI가 오류 없이 실행되는지, 계정 인증(Gemini는 Google 계정, Claude는 Anthropic 계정)이 되는지, `"What is 2 + 2?"` 같은 간단한 프롬프트에 응답하는지 확인한다.
 
 ---
 
@@ -393,15 +377,6 @@ Ralph 기법을 사용하여 Task 3의 README를 **반복적으로 개선**한�
    <summary>정답</summary>
 
    큰 입력에서는 **Python 내장 `sorted()`** 가 가장 빠르다. 이 함수는 병합 정렬과 삽입 정렬의 하이브리드인 **Timsort**를 사용하며, `O(n log n)` 시간 복잡도를 가지면서 최적화된 C 코드로 구현되어 있고 실제 데이터의 이미 정렬된 부분 수열(run)을 활용한다. **병합 정렬(Merge Sort)** 도 `O(n log n)` 이지만 순수 Python으로 구현되면 추가 메모리 할당 오버헤드 때문에 더 느리다. **버블 정렬(Bubble Sort)** 은 `O(n²)` 이므로 `n = 100,000` 정도만 되어도 `O(n log n)` 알고리즘보다 약 `n / log₂(n) ≈ 6,000배` 느려져 사실상 사용할 수 없다.
-
-   </details>
-
-4. Claude Code에서 `--dangerously-skip-permissions` 플래그는 무엇을 하며, 왜 주의해야 하는가?
-
-   <details>
-   <summary>정답</summary>
-
-   이 플래그는 파일 편집, 셸 명령 실행, 네트워크 호출에 대한 Claude Code의 **모든 동작별 확인 프롬프트**를 우회시켜 에이전트가 사용자에게 묻지 않고 자율적으로 실행하게 만든다. Ralph 루프나 격리된 CI 환경처럼 확인 프롬프트가 루프를 막는 상황에서는 유용하다. 그러나 `rm -rf`, force-push, 비밀 키 유출 같은 파괴적 동작을 막아 줄 **사람의 검증 지점**이 사라진다는 위험이 있다. 따라서 컨테이너, 일회용 VM, 운영 자격 증명이 없는 샌드박스 같은 **격리된 환경에서만** 사용해야 하며, 실수를 되돌릴 수 없는 시스템에서는 사용하지 않아야 한다.
 
    </details>
 

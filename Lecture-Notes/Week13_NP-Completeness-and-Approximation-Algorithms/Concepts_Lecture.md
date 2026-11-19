@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 34, 35
 
@@ -581,14 +581,5 @@ NP-Complete problems appear everywhere, in routing, scheduling, packing, coverin
    <summary>Answer</summary>
 
    In NP-Completeness theory, polynomial time means polynomial in the **bit-length of the input**, not in its numeric values. Capacity $C$ is encoded in $\log_2 C$ bits, so $O(nC) = O(n \cdot 2^{\log_2 C})$ is exponential in input bit-length. This is called **pseudo-polynomial**. The running time is polynomial in the *value* of $C$ but exponential in its *encoding length*. Small capacities (say $`C \leq 10^6`$) can make the DP practical, but $C \approx 2^{100}$ does not. The NP-Completeness proof constructs instances whose $C$ has a value exponentially large in the input bit-length, and NP-Completeness concerns the worst case over all input lengths.
-
-   </details>
-
-6. **2-SAT vs 3-SAT:** Why is 2-SAT in P but 3-SAT NP-Complete? What property changes between the two?
-
-   <details>
-   <summary>Answer</summary>
-
-   **2-SAT** can be expressed as an implication graph: a clause $(a \lor b)$ is equivalent to $\overline{a} \implies b$ and $\overline{b} \implies a$. Building this graph and finding **strongly connected components** (the Kosaraju algorithm of Week 12) gives a polynomial-time algorithm that checks that no variable and its negation lie in the same SCC. The formula is satisfiable iff this condition holds. For **3-SAT** no corresponding technique is known. A 3-clause $(a \lor b \lor c)$ encodes a choice among three options, not a binary implication. That extra freedom is exactly the **nondeterminism** NP captures, and once each clause has $\geq 3$ literals, the problem can encode arbitrary NP computation. The boundary is razor-thin, and understanding *why* this extra freedom makes problems NP-Hard is a deep theme in complexity theory.
 
    </details>

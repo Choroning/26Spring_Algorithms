@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lab.md) | [한국어](Concepts_Lab.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 
 > **Learning Objectives:**
 > 1. Implement elementary sorting algorithms (selection, bubble, insertion) from scratch in Python
@@ -376,8 +376,6 @@ Quick Sort       0.001s    0.003s     0.03s       0.3s
 **Question**: At what N does the difference between O(n²) and O(n log n) become noticeable?
 
 > **Key Point:** At N=100, all algorithms take 0.001s with no difference, but at N=10,000, O(n²) takes several seconds while O(n log n) takes tens of milliseconds, a difference of **over 100x**. At N=100,000, O(n²) takes minutes to tens of minutes while O(n log n) is under 1 second. This gap shows clearly that algorithm choice matters.
-
-At N=100,000, O(n²) algorithms may take several minutes to over 10 minutes. The program has not frozen; it actually takes that long. If time is short, you can test O(n²) algorithms only up to N=10,000 and run only O(n log n) algorithms for N=100,000.
 
 **Visualizing the Gap:**
 

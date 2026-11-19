@@ -2,7 +2,7 @@
 
 [Repository Guide](../../README.md) | [English](Concepts_Lecture.md) | [한국어](Concepts_Lecture.ko.md)
 
-> **Last Updated:** 2026-11-18
+> **Last Updated:** 2026-11-19
 >
 > Introduction to Algorithms, Cormen, Leiserson, Rivest, and Stein, Ch 35
 
@@ -745,14 +745,5 @@ All five problems achieve a **2-approximation**, guaranteeing a solution at most
     <summary>Answer</summary>
 
     Both **process the large items or jobs first** and let the small ones act as filler for the leftover gaps at the end. In an arbitrary order, small items occupy resources early, forcing later large items into their own nearly empty bins or machines. Sorting in *decreasing* order places big items first, when there is plenty of room, and then lets small items precisely fill the remaining space. As a result FFD achieves $`\frac{11}{9}\,\text{OPT}+O(1)`$ and LPT a $\frac{4}{3}$-approximation, beating the 2-approximation of plain FF and the plain greedy. The general lesson is that in many greedy approximations, handling the chunky items first lets small items serve as load fine-tuning, greatly improving packing and scheduling efficiency.
-
-    </details>
-
-13. **LPT improvement for Job Scheduling:** Sketch why scheduling jobs in **Longest Processing Time First** order achieves a $4/3$ approximation instead of $2$.
-
-    <details>
-    <summary>Answer</summary>
-
-    With LPT, the job $i$ that determines the makespan was assigned *after* all larger jobs, so it is among the smaller jobs. There are two cases. **Case A:** if $t_i \leq \text{OPT}/3$, then reusing the volume bound $T \leq \text{OPT}$ from the 2-approximation proof gives $`\text{APX} = T + t_i \leq \text{OPT} + \text{OPT}/3 = (4/3)\,\text{OPT}`$. **Case B:** if $t_i > \text{OPT}/3$, then every job processed up to and including job $i$ also has size $> \text{OPT}/3$ (LPT processed them earlier, so they are at least as large). Each optimal machine can hold at most two such jobs (three would exceed $`\text{OPT}`$), so there are at most $2m$ such jobs. For such instances, with at most $2m$ jobs and at most two jobs per optimal machine, LPT is known to produce an optimal schedule, so $`\text{APX} = \text{OPT} \leq (4/3)\,\text{OPT}`$. Either way $\text{APX} \leq (4/3)\cdot\text{OPT}$. Conceptually, putting large jobs first lets the small jobs serve as load-balancing slack at the end, where mismatches matter less.
 
     </details>
